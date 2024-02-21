@@ -173,5 +173,11 @@ void RG_PollEvents(RG_Timer &timer)
 	glfwGetCursorPos(RG_MainWindow->win(), &MPos.x, &MPos.y);
 	timer.update();
 }
+void RG_PollEvents()
+{
+	StandartCam.update();
+	glfwPollEvents();
+	glfwGetCursorPos(RG_MainWindow->win(), &MPos.x, &MPos.y);
+}
 
 
