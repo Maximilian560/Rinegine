@@ -30,5 +30,5 @@ v0.0.1
 Добавлен файл defined/rinegine.h  
 Добавлена функция void RG_Get_Version(int& major, int& minor,int& patch). Она изменяет передаваемые значения в соответствии с версией движка  
 Добавлена функция int Rinegine_Start(RG_Functions &funcs,void(&prepare)()  = RG_MainPrepare, RG_SettingWindow& set = RG_MainSettingWindow). Она принимает тип данных RG_Functions в которых содержатся функции интерфейсов; принимает функцию, которая исполняется до перехода к исполнению интерфейсов; принимает RG_SettingWindow, которая изменяет настройки окна открываемое по умолчанию.  
-Добавлен новый тип данных: RG_Functions, он эквивалентен типу RG_Array<int(*)()>
+Добавлен новый тип данных: RG_Functions, он эквивалентен типу RG_Array<int(*)()>  
 **Внимание!** В данной версии обнаружена утечка памяти!
