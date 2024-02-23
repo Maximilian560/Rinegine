@@ -30,4 +30,6 @@
 
 #include "player/set.h"
 
+#include "start.h"
+
 //#include "experemental/set.h"
