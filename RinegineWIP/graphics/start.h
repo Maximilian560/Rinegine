@@ -17,7 +17,7 @@ int Rinegine_Start(RG_Functions &funcs,void(&prepare)()  = RG_MainPrepare,RG_Set
   RG_MainWindow = &window;
   RG_MainEngine.init();
 
-  window.init(RG_MainSettingWindow);
+  window.init(set);
 
   RG_SetAllCallback(window);
 
