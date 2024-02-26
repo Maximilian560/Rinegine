@@ -131,7 +131,7 @@ void RG_CreateText(RG_Text& txt, wstring text, POINT3D <double> pos,double sc=0,
 		txt.setScale(sc);
 	}
 	if(center){
-		txt.setPos({pos.x-txt.getSizeWord()/(RG_MainSizeWindow * 2.),pos.y,pos.z});
+		txt.setPos({(pos.x-txt.getSizeWord()*sc)/(RG_MainSizeWindow * 2.),pos.y,pos.z});
 	}
 	else{
 		txt.setPos({pos.x,pos.y,pos.z});
