@@ -23,11 +23,13 @@ int Rinegine_Start(RG_Functions &funcs,void(&prepare)()  = RG_MainPrepare,RG_Set
 
   prepare();
 
+  int NewLoc = 0;
   int NowPlay = 0;
 	int LastLoc = 0;
   while(NowPlay != -1){
+    NewLoc = funcs[NowPlay](LastLoc);
     LastLoc = NowPlay;
-    NowPlay = funcs[NowPlay](LastLoc);
+    NowPlay = NewLoc;
   }
 
   }
