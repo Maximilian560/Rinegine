@@ -1,5 +1,5 @@
 # Rinegine ![Static Badge](https://img.shields.io/badge/Version-v0.0.2-green)  
-Used:  
+Используется:  
 ![Static Badge](https://img.shields.io/badge/v3.3.8-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F)
 ![Static Badge](https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F)
 ![Static Badge](https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=(WIP)MinGW-w64&labelColor=1f222a&color=222222&link=https%3A%2F%2Fgithub.com%2FniXman%2Fmingw-builds-binaries%2Freleases)
