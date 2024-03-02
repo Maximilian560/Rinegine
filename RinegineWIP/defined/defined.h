@@ -302,7 +302,7 @@ const GLFWvidmode* RG_MainVidmode;
 
 
 
-void RG_StringToChar(string s, char*& c){
+void RG_StringToChar(char*& c,string s){
 	c = s_calloc<char>(s.size());
 
 	for(int i = 0; i<s.size()-1;i++){
@@ -314,6 +314,9 @@ void RG_StringToChar(string s, char*& c){
 
 
 
-
-
+int RG_CMD(string command){
+#ifdef _WIN32 || _WIN64
+	return system(command.c_str());
+#endif
+}
 

@@ -43,7 +43,9 @@ class RG_Text
 	RG_Array<RG_Matrix<float>>matrixs;
 public:
 	
-
+	void centering(){
+		setPos({(pos.x-getSizeWord()*scale)/(RG_MainSizeWindow * 2.),pos.y,pos.z});
+	}
 
 	/*int load(wchar_t Char)
 	{

@@ -131,7 +131,7 @@ void RG_CreateText(RG_Text& txt, wstring text, POINT3D <double> pos,double sc=0,
 		txt.setScale(sc);
 	}
 	if(center){
-		txt.setPos({pos.x-txt.getSizeWord()/(RG_MainSizeWindow * 2.),pos.y,pos.z});
+		txt.setPos({(pos.x-txt.getSizeWord()*sc)/(RG_MainSizeWindow * 2.),pos.y,pos.z});
 	}
 	else{
 		txt.setPos({pos.x,pos.y,pos.z});
@@ -161,17 +161,17 @@ void RG_CreateText(wstring text,RG_Text& txt,double sc=0,bool gui = false, LINK_
 }*/
 
 
-void RG_CreateText(RG_Text& txt, wstring text, RG_Object& obj)
+void RG_CreateText(RG_Text& txt, wstring text, RG_Object& obj,double sc = 1)
 {
 	txt.setString(text);
 	//txt.setPos(pos);
 
 	txt.Gui(obj.is_gui,obj.gui_type);
 	
-	txt.setScale(obj.scale);
+	txt.setScale(obj.scale*sc);
 
 	
-	txt.setPos({obj.pos.x-((txt.getSizeWord()* (obj.scale/2.))/(RG_MainSizeWindow )),obj.pos.y,obj.pos.z});
+	txt.setPos({obj.pos.x-((txt.getSizeWord()* ((obj.scale*sc)/2.))/(RG_MainSizeWindow )),obj.pos.y,obj.pos.z});
 	
 	txt.update();
 }

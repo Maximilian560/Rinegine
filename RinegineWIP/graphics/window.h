@@ -19,7 +19,7 @@ struct RG_SettingWindow{
   POINT2D<uint> WindowResolution = {1024,720};
   POINT2D<uint> FullscreanResolution = {1920,1080};
   DifferenceWindow monedit, winedit;
-  uint Vsyn = 0;
+  uint Vsyn = 1;
   RG_WindowType Wtype = RG_Windowed;
   string name = "Powered by Rinegine";
   string PathToIcon = "data/images/other/icon.png";
@@ -48,7 +48,7 @@ struct RG_SettingWindow{
 
 
 
-
+class RG_Timer;
 class RG_Window{
   GLFWwindow* window;
 	RG_SettingWindow settings;
@@ -191,9 +191,12 @@ public:
 
 		string sfrag = FileLoad("data/shaders/Shader.fragrg");
 		string svert = FileLoad("data/shaders/Shader.vertrg");
+		/*if(sfrag == "E6filenofound"||svert=="E6filenofound"){
+
+		}*/
 		char* frag ;//= FileLoadToChar("data/shaders/Shader.fragrg");
 		char* vert ;//= FileLoadToChar("data/shaders/Shader.vertrg");
-	/*	if(sfrag=="ErrorFileOpen"||svert=="ErrorFileOpen"){
+		if(sfrag=="E6filenofound"||svert=="E6filenofound"){
 //////////////////////////////////////////////////////////
 		sfrag = "\
 #version 330 core\n\
@@ -234,9 +237,9 @@ void main()\n\
 
 			
 		}
-*/
-		RG_StringToChar(sfrag,frag);
-		RG_StringToChar(svert,vert);
+
+		RG_StringToChar(frag,sfrag);
+		RG_StringToChar(vert,svert);
     sh.init(frag,vert);
 		sh.used();
 		RG_PREPARE_SHADER();
@@ -365,105 +368,11 @@ void main()\n\
 	}
 
 
+	void RG_StartAnimation();
 
-void RG_StartAnimation(){
-	
-
-
-	
-	POINT2D<int>tempsize = {256,128};
-	int cnt = 4;
-
-	COLOR4D<double>color = {1,1,1,1};
-	uint glTexture;
-	rgBindTexture(GL_TEXTURE0);
-
-	//rgBindTexture(atl.texture);
-
-	glGenTextures(1,&glTexture);
-	glBindTexture(GL_TEXTURE_2D, glTexture);
-
-			/*glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);*/
-
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
-
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-
-			/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tempsize.x, tempsize.y,
-										0,GL_RGBA,GL_UNSIGNED_INT,RG_TempStartLogo);*/
-
-
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tempsize.x, tempsize.y,
-										0,GL_RGBA,GL_UNSIGNED_BYTE,RG_RES_LOGO_TEXTURE);
-										//0, GL_RGBA, GL_UNSIGNED_BYTE, RG_TempStartLogo);
-
-	bool play = true;
-	bool ex = false;
-	float mat2[16] = {1,0,0,0,
-									0,1,0,0,
-									0,0,1,0,
-									0,0,0,1};
-  //rgLoadMatrixf(mat2,rg_viewMat);
-  //rgLoadMatrixf(mat2,rg_projMat);
-
-	int time = 0;
-	glClearColor(.1,.1,.1,1);
-	while (play){	
-		glfwPollEvents();
-		//color.a+=0.0001;
-		time +=1;
-		//if(color.a>=1)play = false;
-		if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){time = 15000;play = false;}
-		if(glfwGetKey(window,GLFW_KEY_ENTER) == GLFW_PRESS){play = false;}
-		if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS){play = false;}
-		if(glfwWindowShouldClose(window)){ex = true;play = false;}
-		if(time>=15000)play = false;
-		//if(RG_KEYS[GLFW_KEY_ESCAPE] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_ESCAPE] = GLFW_RELEASE;}
-		//if(RG_KEYS[GLFW_KEY_ENTER] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_ENTER] = GLFW_RELEASE;}
-		//if(RG_KEYS[GLFW_KEY_SPACE] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_SPACE] = GLFW_RELEASE;}
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if(play == true)
-			rgColor4d(1,1,1,(time*time)/(15000.*15000.));
-		else{
-			rgColor4d(1,1,1,1);
-		}
-		//rgColor4d(1,1,1,1);
-		rgBegin(GL_TRIANGLES);
-			rgTexCoord2f(0,1);
-			rgVertex2f(-1,-1);
-
-			rgTexCoord2f(1,1);
-			rgVertex2f(1,-1);
-
-			rgTexCoord2f(1,0);
-			rgVertex2f(1,1);
-
-			rgTexCoord2f(1,0);
-			rgVertex2f(1,1);
-
-			rgTexCoord2f(0,0);
-			rgVertex2f(-1,1);
-
-			rgTexCoord2f(0,1);
-			rgVertex2f(-1,-1);
-			/*rgColor4d(1,1,1,1);
-			rgVertex2f(-1,-1);
-			rgVertex2f(1,-1);
-			rgVertex2f(1,1);*/
-		rgEnd();
-		glfwSwapBuffers(window);
-
-	}
-
-	//glDeleteTextures(1,&glTexture);
-	if(ex)exit(0);
-	return;
-}
 /////////////////////////
 };
 
+
+
+void RG_ClearContext(){glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);}

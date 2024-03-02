@@ -15,6 +15,9 @@ public:
   void init(uint size, type*arr){
     fill(size,arr);
   }
+  void init(uint size, type arr){
+    fillfull(size,arr);
+  }
  
   RG_Array(){}
   RG_Array(uint size){init(size);}

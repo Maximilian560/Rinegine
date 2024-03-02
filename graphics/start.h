@@ -3,7 +3,7 @@
 Rinegine RG_MainEngine;
 
 RG_SettingWindow RG_MainSettingWindow;
-typedef RG_Array<int(*)()> RG_Functions;
+typedef RG_Array<int(*)(int)> RG_Functions;
 
 void RG_MainPrepare(){
 return;
@@ -23,10 +23,13 @@ int Rinegine_Start(RG_Functions &funcs,void(&prepare)()  = RG_MainPrepare,RG_Set
 
   prepare();
 
+  int NewLoc = 0;
   int NowPlay = 0;
-	
+	int LastLoc = 0;
   while(NowPlay != -1){
-    NowPlay = funcs[NowPlay]();
+    NewLoc = funcs[NowPlay](LastLoc);
+    LastLoc = NowPlay;
+    NowPlay = NewLoc;
   }
 
   }

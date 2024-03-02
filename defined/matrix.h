@@ -838,6 +838,7 @@ type SpecialMatMulti(RG_Matrix<type>&mat1,RG_Matrix<type2>&mat2,int pos1, int po
   return out;
 }
 
+//Удалить
 template<class type,class type2>
 bool CountMatMinus(RG_Matrix<type>&mat1,RG_Matrix<type2>&mat2,int pos1, int pos2){
   bool out = false;

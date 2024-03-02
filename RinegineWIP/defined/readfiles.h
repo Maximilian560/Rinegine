@@ -25,7 +25,7 @@ wstring WFileLoad(string path)
 	file.open(path);
 
 	//if(!file.is_open()) return L"File no found";
-	if(!file.is_open()) throw RG_ERROR_FILE_NOT_FOUND;
+	if(!file.is_open()) return L"E6filenofound";
 
 	while (!file.eof())
 	{
@@ -46,7 +46,7 @@ string FileLoad(string path)
 
 	file.open(path);
 
-	if(!file.is_open()) throw RG_ERROR_FILE_NOT_FOUND;
+	if(!file.is_open()) return "E6filenofound";
 
 	while (!file.eof())
 	{
@@ -67,7 +67,7 @@ char* FileLoadToChar(string path)
 	uint size = 0;
 	
 
-	if(!file.is_open()) throw RG_ERROR_FILE_NOT_FOUND;
+	if(!file.is_open()) return "E6filenofound";
 	while (!file.eof())
 	{
 		size++;

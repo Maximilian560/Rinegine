@@ -181,3 +181,102 @@ void RG_PollEvents()
 }
 
 
+void RG_Window::RG_StartAnimation(){
+	
+
+
+	RG_Timer timerTemp;
+	POINT2D<int>tempsize = {256,128};
+	int cnt = 4;
+
+	COLOR4D<double>color = {1,1,1,1};
+	uint glTexture;
+	rgBindTexture(GL_TEXTURE0);
+
+	//rgBindTexture(atl.texture);
+
+	glGenTextures(1,&glTexture);
+	glBindTexture(GL_TEXTURE_2D, glTexture);
+
+			/*glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);*/
+
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
+
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+
+			/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tempsize.x, tempsize.y,
+										0,GL_RGBA,GL_UNSIGNED_INT,RG_TempStartLogo);*/
+
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tempsize.x, tempsize.y,
+										0,GL_RGBA,GL_UNSIGNED_BYTE,RG_RES_LOGO_TEXTURE);
+										//0, GL_RGBA, GL_UNSIGNED_BYTE, RG_TempStartLogo);
+
+	bool play = true;
+	bool ex = false;
+	float mat2[16] = {1,0,0,0,
+									0,1,0,0,
+									0,0,1,0,
+									0,0,0,1};
+  //rgLoadMatrixf(mat2,rg_viewMat);
+  //rgLoadMatrixf(mat2,rg_projMat);
+
+	double time = 0;
+	glClearColor(.1,.1,.1,1);
+	while (play){	
+		glfwPollEvents();
+		timerTemp.update();
+		//color.a+=0.0001;
+		time +=1*timerTemp.getBias();
+		//if(color.a>=1)play = false;
+		if(glfwGetKey(window,GLFW_KEY_SPACE) == GLFW_PRESS){time = 5;play = false;}
+		if(glfwGetKey(window,GLFW_KEY_ENTER) == GLFW_PRESS){play = false;}
+		if(glfwGetKey(window,GLFW_KEY_ESCAPE) == GLFW_PRESS){play = false;}
+		if(glfwWindowShouldClose(window)){ex = true;play = false;}
+		if(time>=5)play = false;
+		//if(RG_KEYS[GLFW_KEY_ESCAPE] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_ESCAPE] = GLFW_RELEASE;}
+		//if(RG_KEYS[GLFW_KEY_ENTER] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_ENTER] = GLFW_RELEASE;}
+		//if(RG_KEYS[GLFW_KEY_SPACE] == GLFW_PRESS){play = false;RG_KEYS[GLFW_KEY_SPACE] = GLFW_RELEASE;}
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if(play == true)
+			rgColor4d(1,1,1,(time*time)/(5.*5.));
+		else{
+			rgColor4d(1,1,1,1);
+		}
+		//rgColor4d(1,1,1,1);
+		rgBegin(GL_TRIANGLES);
+			rgTexCoord2f(0,1);
+			rgVertex2f(-1,-1);
+
+			rgTexCoord2f(1,1);
+			rgVertex2f(1,-1);
+
+			rgTexCoord2f(1,0);
+			rgVertex2f(1,1);
+
+			rgTexCoord2f(1,0);
+			rgVertex2f(1,1);
+
+			rgTexCoord2f(0,0);
+			rgVertex2f(-1,1);
+
+			rgTexCoord2f(0,1);
+			rgVertex2f(-1,-1);
+			/*rgColor4d(1,1,1,1);
+			rgVertex2f(-1,-1);
+			rgVertex2f(1,-1);
+			rgVertex2f(1,1);*/
+		rgEnd();
+		glfwSwapBuffers(window);
+
+	}
+
+	//glDeleteTextures(1,&glTexture);
+	if(ex)exit(0);
+	return;
+}
