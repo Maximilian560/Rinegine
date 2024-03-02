@@ -1,4 +1,4 @@
-# ![Static Badge](https://img.shields.io/badge/Rinegine-v0.1.0-green)  
+![Static Badge](https://img.shields.io/badge/Rinegine-v0.1.0-green)  
 Используется:  
 ![Static Badge](https://img.shields.io/badge/v3.3.8-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F)
 ![Static Badge](https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F)
