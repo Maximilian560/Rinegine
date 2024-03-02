@@ -6,7 +6,6 @@
 ![Static Badge](https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.1.0-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb)  
-(Я не разрабатывал и не принимал участия в разработке библиотек и ПО которое перечислено в "Используется"!)
 
 
 Rinegine - это мой движок, созданный для упрощения создания игр и программ в 2-3D.
