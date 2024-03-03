@@ -1,15 +1,16 @@
 #pragma once
 
 
-#ifdef RG_ALL_MODULS
-  #define RG_GRAPH
-  #define RG_HTTPS
-  #define RG_SOUND
-  #define RG_EXPEREMENTAL
-#endif
+
 #ifdef RG_WIP_CONTENT
   #include "RinegineWIP/set.h"
 #else
+  #ifdef RG_ALL_MODULS
+    #define RG_GRAPH
+    #define RG_HTTPS
+    #define RG_SOUND
+    #define RG_EXPEREMENTAL
+  #endif
   #include "defined/set.h"
   #ifdef RG_GRAPH
     #include "graphics/set.h"
