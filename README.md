@@ -1,6 +1,6 @@
-# Rinegine ![Static Badge](https://img.shields.io/badge/Rinegine-v0.1.1-green)  
+# Rinegine ![Static Badge](https://img.shields.io/badge/Rinegine-v0.1.2-green)  
 Используется:
-![Static Badge](https://img.shields.io/badge/v3.3.8-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F)
+![Static Badge](https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F)
 ![Static Badge](https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F)
 ![Static Badge](https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=MinGW-w64&labelColor=1f222a&color=222222&link=https%3A%2F%2Fgithub.com%2FniXman%2Fmingw-builds-binaries%2Freleases)
 ![Static Badge](https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
