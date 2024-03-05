@@ -3,6 +3,10 @@
 
 bool RG_WindowWasChange = false;
 bool RG_FileWasDropped = false;
+bool RG_ClipboardUpdate = false;
+
+string RG_Clipboard;
+
 POINT2D<int> RG_ScrollMouse;
 
 POINT2D <double> MPos;
@@ -48,6 +52,7 @@ void RG_UpdateStates()
 		//sizeWindowChange = false;
 		RG_WindowWasChange = false;
 		RG_FileWasDropped = false;
+		RG_ClipboardUpdate = false;
 		RG_ScrollMouse.y = 0;
 		RG_ScrollMouse.x = 0;
 }
@@ -82,6 +87,14 @@ void RG_KeyEvent(GLFWwindow* win, int key, int scancode, int action, int mods)
 		RG_MainWindow->Active_Fullscreen();
 		glfwSetCursorPos(RG_MainWindow->win(),RG_MainWindow->set().resolution.x/2.,RG_MainWindow->set().resolution.y/2.);
 		//if(RG_CursorFix)glfwSetCursorPos(window,WindowSize.x/2.,WindowSize.y/2.);
+	}
+	if(RG_KEYS[GLFW_KEY_LEFT_CONTROL]&&key == GLFW_KEY_V){
+		const char* tempa= glfwGetClipboardString(RG_MainWindow->win());
+		if(tempa!=nullptr){
+			RG_Clipboard = tempa;
+			RG_ClipboardUpdate = true;
+		}
+	
 	}
 	RG_KEYS[key] = action;
 
@@ -136,3 +149,5 @@ void RG_SetAllCallback(RG_Window& win){
 
 	glfwSetDropCallback(win.win(), RG_DragNDropEvent);
 }
+
+
