@@ -6,10 +6,11 @@
 ![Static Badge](https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb)  
-## Предисловие
-Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!
 
 Rinegine - лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ, может только microsoft visual c++ redistributable, но я не уверен) движок для программ и игр с 2-3 мерной графикой!
+
+Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!
+
 ### Важные объявления
 Вероятно всё что связано с планами на движок будет перемещено на доску [Trello](https://trello.com/b/9XNZ4NWX/rinegine) посвещённую движку. Так же есть [доска](https://trello.com/b/SxYgOhaj/rinemest) связанная с общими планами.  
 Разработка движка замедлена, примерно к 20 числу версии снова будут стабильно разрабатываться и выкладываться! Об этом было написано во вкладке ["объявления"](https://github.com/Maximilian560/Rinegine/wiki/%D0%9E%D0%B1%D1%8A%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F) на вики, так же туда будут писаться прочие важные объявления.
