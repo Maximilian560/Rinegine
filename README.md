@@ -6,6 +6,8 @@
 ![Static Badge](https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
 ![Static Badge](https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb)  
+## Предисловие
+Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!
 
 Rinegine - лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ, может только microsoft visual c++ redistributable, но я не уверен) движок для программ и игр с 2-3 мерной графикой!
 ### Важные объявления
