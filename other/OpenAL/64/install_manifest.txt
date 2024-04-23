@@ -1,0 +1,25 @@
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/lib/libOpenAL32.dll.a
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/bin/OpenAL32.dll
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/lib/cmake/OpenAL/OpenALTargets.cmake
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/lib/cmake/OpenAL/OpenALTargets-relwithdebinfo.cmake
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/al.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/alc.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/alext.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/efx-creative.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/efx-presets.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/include/AL/efx.h
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/lib/pkgconfig/openal.pc
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/lib/cmake/OpenAL/OpenALConfig.cmake
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/alsoftrc.sample
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/hrtf/Default HRTF.mhr
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/3D7.1.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/hex-quad.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/hexagon.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/itu5.1-nocenter.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/itu5.1.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/presets.txt
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/rectangle.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/share/openal/presets/square.ambdec
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/bin/openal-info.exe
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/bin/altonegen.exe
+C:/GLOBAL_PROJECT/Rinegine/other/OpenAL/64/bin/alrecord.exe

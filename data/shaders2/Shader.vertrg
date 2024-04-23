@@ -1,0 +1,22 @@
+#version 110 core
+
+//in vec3 RG_VERTEX_ARRAY;
+
+//uniform mat4 projMat = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},viewMat = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+uniform mat4 projMat,viewMat;
+//{1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}
+
+vec3 rg_Vertex;
+vec4 rg_Color;
+vec2 rg_TextureCoord;
+
+varying vec4 color;
+varying vec2 texCoord;
+
+void main()
+{
+	color = rg_Color;
+	texCoord = rg_TextureCoord;
+	//vec4 vert = vec4(RG_VERTEX_ARRAY,1);
+	gl_Position = vec4(rg_Vertex,1) *projMat*viewMat;
+} 

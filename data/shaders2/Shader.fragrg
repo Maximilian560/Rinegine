@@ -1,0 +1,27 @@
+#version 110 core
+
+uniform sampler2D tex_2d;
+varying vec4 color;
+
+varying vec2 texCoord;
+
+vec4 Frag;
+
+uniform int setTexture;
+uniform int ColorSet;
+
+void main()
+{
+    Frag = color;
+
+   	if(setTexture > 0)
+   	{
+   		Frag *= vec4(texture2D(tex_2d, texCoord));
+   	    
+   		if(ColorSet == 1)
+   		{
+            Frag.rgb = color.rgb;
+        }
+   	}
+    gl_FragColor = Frag;
+}

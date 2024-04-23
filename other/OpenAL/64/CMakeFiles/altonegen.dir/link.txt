@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\altonegen.dir/objects.a
+D:\mingw\mingw64\bin\ar.exe qc CMakeFiles\altonegen.dir/objects.a @CMakeFiles\altonegen.dir\objects1.rsp
+D:\mingw\mingw64\bin\gcc.exe -static -m64 -O2 -g -D_DEBUG -Wl,--whole-archive CMakeFiles\altonegen.dir/objects.a -Wl,--no-whole-archive -o altonegen.exe -Wl,--out-implib,libaltonegen.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\altonegen.dir\linkLibs.rsp

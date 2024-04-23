@@ -1,0 +1,30 @@
+{
+  "files.associations": {
+    "string": "cpp",
+    "format": "cpp",
+    "ostream": "cpp",
+    "fstream": "cpp",
+    "rope": "cpp",
+    "*.tcc": "cpp",
+    "deque": "cpp",
+    "list": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+    "forward_list": "cpp",
+    "slist": "cpp",
+    "chrono": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "valarray": "cpp",
+    "array": "cpp",
+    "bitset": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "ranges": "cpp",
+    "span": "cpp",
+    "stacktrace": "cpp",
+    "regex": "cpp"
+  },
+  "C_Cpp.default.compilerPath": "d:\\RinemestCollection\\RinegineNew\\compiler\\mingw64\\bin\\g++.exe"
+}
