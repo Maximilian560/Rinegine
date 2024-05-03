@@ -20,7 +20,7 @@
 #endif
 
 #ifdef RG_HTTPS
-  #include "https/set.h"
+//  #include "https/set.h"
 #endif
 
 #ifdef RG_SOUND
@@ -28,7 +28,7 @@
 #endif
 
 #ifdef RG_NEURAL_NETWORK
-  #include "neural/set.h"
+//  #include "neural/set.h"
 #endif
 
 #ifdef RG_EXPEREMENTAL

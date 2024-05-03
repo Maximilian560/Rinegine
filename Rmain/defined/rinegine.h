@@ -3,7 +3,7 @@
 #define RG_V_MAJOR 0
 #define RG_V_MINOR 2
 #define RG_V_PATCH 0
-#define RG_V_WIP 1
+#define RG_V_WIP 0
 
 void RG_GetVersion(int& major, int& minor,int& patch, int&wip){
   major = RG_V_MAJOR;

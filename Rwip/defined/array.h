@@ -1,6 +1,8 @@
 #pragma once
 
 
+
+
 template<typename type>
 class RG_Array
 {
@@ -45,6 +47,7 @@ public:
       INIT = true;
       SIZE = size;
     }else{
+
       if(!INIT) return;
       clear();
     }
@@ -69,7 +72,7 @@ public:
   //indexs
   type&operator[](uint i){
     if(i>=0){
-      if(i<SIZE){
+      if(i<=SIZE){
         return array[i];
       }
       else {
@@ -149,6 +152,13 @@ public:
     }
     resize(SIZE-1);
   }
+  //std stl style
+  type*begin(){
+    return &array[0];
+  }
+  type*end(){
+    return &array[SIZE];
+  }
 };
 
 template<class C>
@@ -157,7 +167,5 @@ ostream& operator<<(ostream &os, RG_Array<C>& arr) {
     for(int i = 0; i < arr.size();i++){
       temp+=arr[i];
     }
-    /*return os  << '(' << d.getDay() << '.' << d.getMonth()
-        << '.' << d.getYear() << ')' << endl;*/
     return os<<temp;
 }

@@ -8,6 +8,8 @@ enum RG_LANG
 	RG_ENG
 };
 
+
+
 uint languageWindows;
 
 class RG_lang
@@ -36,15 +38,11 @@ public:
 		{
 			return lang;
 		}
-		RG_lang()
-		{
-			//load();			
-		}
+		RG_lang(){}
 
 		RG_lang(string pat)
 		{
-			path = pat;
-			load();
+			init(pat);
 		}
 
 		RG_lang(int a)

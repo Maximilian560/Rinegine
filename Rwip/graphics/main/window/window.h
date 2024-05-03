@@ -91,7 +91,8 @@ public:
 		glDepthFunc(GL_LEQUAL);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		//glEnable(GL_MULTISAMPLE);//Сглаживание
+		if(settings.MSAAon)glEnable(GL_MULTISAMPLE);//Сглаживание
+		else glDisable(GL_MULTISAMPLE);
 
 		settings.winedit.quotx=settings.resolution.x / RG_MainSizeWindow;
 		settings.winedit.quoty=settings.resolution.y / RG_MainSizeWindow;

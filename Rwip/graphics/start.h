@@ -12,7 +12,6 @@ return;
 int Rinegine_Start(RG_Functions &funcs,void(&RG_Prepare)()  = RG_MainPrepare,RG_SettingWindow& set = RG_MainSettingWindow){
 
   RG_CATCH_ERROR{
-    
   //const unsigned char* TEMPCHAR = glGetString(GL_VERSION);
 	//RG_OpenGLVertionStr = reinterpret_cast<char*>(TEMPCHAR);
 

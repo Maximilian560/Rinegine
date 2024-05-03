@@ -31,6 +31,7 @@ struct RG_SettingWindow{
   bool transparent = false;
   bool CenterCursor = false;
   uint MSAA = 4;
+	bool MSAAon = false;
   bool INIT = false;
   void print()
 	{
@@ -42,6 +43,7 @@ struct RG_SettingWindow{
 		cout<<"transparent: "<<transparent<<endl;
 		cout<<"CenterCursor: "<<CenterCursor<<endl;
 		cout<<"MSAA: "<<MSAA<<endl;
+		cout<<"MSAA on: "<<(MSAAon?"true\n":"false\n");
 	}
 };
 
