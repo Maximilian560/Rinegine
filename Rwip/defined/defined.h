@@ -47,16 +47,6 @@ typedef __int16 int16;
 typedef long int lint;
 typedef long unsigned int luint;
 
-ofstream debug; // Поток для записи отладочной информации
-
-string DebugPath = "Logs/log.txt"; // Путь к файлу логирования
-void DebugAdd(string text) // Функция для добавления текста в лог
-{
-	debug.open(DebugPath,ios::app); // Открытие файла в режиме добавления
-	debug<<text; // Запись текста
-	debug.close(); // Закрытие файла
-	return;
-}
 
 // Объявление переменных для работы с шейдерами
 uint prog; // Идентификатор программы шейдера
@@ -67,35 +57,6 @@ int SHDface;
 int SHDcounter = 0; // Счетчик для управления шейдерами
 int SHDlocation = 0; // Позиция в шейдере
 
-// Макросы для обработки и логирования ошибок
-#define RG_CATCH_ERROR 	try
-#define RG_ERROR_LOG 	catch(ErrorRinegine error)\
-						{\
-							DebugAdd("Error: ");\
-							switch(error)\
-							{\
-								case RG_ERROR_WINDOWS_NO_CREATED:		DebugAdd("Error code = 0. Error creating window.\n"); break;\
-								case RG_ERROR_FREETYPE:					DebugAdd("Error code = 1. Font loading error.\n"); break;\
-								case RG_ERROR_FREETYPE_FONTS_NOT_FOUND:	DebugAdd("Error code = 2. Font not found.\n"); break;\
-								case RG_ERROR_OUT_OF_MEMORY:			DebugAdd("Error code = 3. Out of RAM memory.\n"); break;\
-								case RG_ERROR_FREETYPE_CHAR_NOT_LOAD:	DebugAdd("Error code = 4. Symbol not found.\n"); break;\
-								case RG_ERROR_GLFW_INIT_ERR:			DebugAdd("Error code = 5. GLFW initialization error.\n"); break;\
-								case RG_ERROR_FILE_NOT_FOUND:			DebugAdd("Error code = 6. File not found.\n"); break;\
-								case RG_ERROR_RGARRAY_SIZE0:			DebugAdd("Error code = 7. RG_Array access error, RG_Array size = 0.\n"); break;\
-								case RG_ERROR_RGARRAY_SIZE1:			DebugAdd("Error code = 8. RG_Array access error, RG_Array size < [i].\n"); break;\
-								case RG_ERROR_RGARRAY_SIZE2:			DebugAdd("Error code = 9. RG_Array access error, RG_Array size - i > size.\n"); break;\
-								case RG_ERROR_LOAD_NOT4CNT_IMAGE:		DebugAdd("Error code = 10. The loaded texture has fewer color channels supported (less than 4).\n"); break;\
-								case RG_ERROR_MATERIAL_MISUSE:			DebugAdd("Error code = 11. Incorrect use of the material creation function.\n"); break;\
-								case RG_ERROR_RGMATRIX_SIZE0:			DebugAdd("Error code = 12. RG_Matrix access error, RG_Matrix size = 0 or width < getPoint(width).\n"); break;\
-								case RG_ERROR_LOAD_TEXTURE:				DebugAdd("Error code = 13. RG_LoadTexture(string path) - the wrong path was passed to the function.\n"); break;\
-								case RG_ERROR_PLANET_NOT_FOUND:			DebugAdd("Error code = 14. RG_FindPlanet(string) could not find the planet.\n"); break;\
-								case RG_ERROR_BLOCK_TYPE_INCORRECT:		DebugAdd("Error code = 15. RG_GetBlockType could not find the block.\n"); break;\
-								case RG_ERROR_FIND_TEXTURE:				DebugAdd("Error code = 16. RG_GetTexture could not find the texture.\n"); break;\
-								default: DebugAdd("unknown\n");\
-							}\
-							ShellExecuteA(0, "open", "Logs\\log.txt", NULL, NULL, SW_SHOWDEFAULT);\
-							return error;\
-						}
 
 // Макросы для математических операций
 #define rg_min(num1, num2) (num1<num2?num1:num2)
@@ -108,7 +69,9 @@ int SHDlocation = 0; // Позиция в шейдере
 #define RG_FOR_CYCLEx(count) for(int x = 0; x<count; x++)
 #define RG_FOR_CYCLEy(count) for(int y = 0; y<count; y++)
 #define RG_FOR_CYCLEz(count) for(int z = 0; z<count; z++)
-#define RG_FOR_CYCLE(type,name,count) for(type name = 0; name < count; name++)
+#define RG_FOR_CYCLEty(type,name,count) for(type name = 0; name < count; name++)
+#define RG_FOR_CYCLE(name,count) for(int name = 0; name < count; name++)
+#define RG_FOR_CYCLErev(name,count) for(int name = count; name >= 0; name--)
 #define RG_RevFOR_CYCLEi(count) for(int i = count; i>=0; i--)
 #define RG_RevFOR_CYCLEj(count) for(int j = count; j>=0; j--)
 #define RG_RevFOR_CYCLEk(count) for(int k = count; k>=0; k--)
@@ -134,20 +97,57 @@ int SHDlocation = 0; // Позиция в шейдере
 uint rg_count_temp = 0;
 #define rg_count cout<<rg_count_temp<<endl; rg_count_temp++;
 #define rg_count_clear rg_count_temp = 0;
+#define elif else if
 
 // Шаблоны структур для работы с точками и цветом
 template<typename type>
 struct POINT2D
 {
 	type x = 0, y = 0;
+	bool operator==(POINT2D<type> p){
+		if(x == p.x&& y==p.y)return true;
+		return false;
+	}
+	bool operator>=(POINT2D<type> p){
+		if(x >= p.x&& y>=p.y)return true;
+		return false;
+	}
+	bool operator<=(POINT2D<type> p){
+		if(x <= p.x&& y<=p.y)return true;
+		return false;
+	}
+	bool operator>(POINT2D<type> p){
+		if(x > p.x&& y>p.y)return true;
+		return false;
+	}
+	bool operator<(POINT2D<type> p){
+		if(x < p.x&& y<p.y)return true;
+		return false;
+	}
 };
 
 template<typename type>
 struct POINT3D
 {
 	type x = 0, y = 0, z = 0;
-	bool operator==(POINT3D<type>& p){
+	bool operator==(POINT3D<type> p){
 		if(x == p.x&& y==p.y&&z==p.z)return true;
+		return false;
+	}
+	bool operator>=(POINT3D<type> p){
+		if(x >= p.x&& y>=p.y&&z>=p.z)return true;
+		return false;
+	}
+	bool operator<=(POINT3D<type> p){
+		if(x <= p.x&& y<=p.y&&z<=p.z)return true;
+		return false;
+	}
+	bool operator>(POINT3D<type> p){
+		if(x > p.x&& y>p.y&&z>p.z)return true;
+		return false;
+	}
+	bool operator<(POINT3D<type> p){
+		if(x < p.x&& y<p.y&&z<p.z)return true;
 		return false;
 	}
 };
@@ -171,27 +171,6 @@ struct COLOR4D
 	a = 1;
 };
 
-// Перечисления для обработки ошибок и состояний мыши
-enum ErrorRinegine
-{
-	RG_ERROR_WINDOWS_NO_CREATED, 				//0
-	RG_ERROR_FREETYPE,									//1
-	RG_ERROR_FREETYPE_FONTS_NOT_FOUND,	//2 
-	RG_ERROR_OUT_OF_MEMORY,							//3
-	RG_ERROR_FREETYPE_CHAR_NOT_LOAD,		//4
-	RG_ERROR_GLFW_INIT_ERR,							//5
-	RG_ERROR_FILE_NOT_FOUND,						//6
-	RG_ERROR_RGARRAY_SIZE0,							//7
-	RG_ERROR_RGARRAY_SIZE1,							//8
-	RG_ERROR_RGARRAY_SIZE2,							//9
-	RG_ERROR_LOAD_NOT4CNT_IMAGE,				//10
-	RG_ERROR_MATERIAL_MISUSE,						//11
-	RG_ERROR_RGMATRIX_SIZE0,						//12
-	RG_ERROR_LOAD_TEXTURE,							//13
-	RG_ERROR_PLANET_NOT_FOUND,					//14
-	RG_ERROR_BLOCK_TYPE_INCORRECT,			//15
-	RG_ERROR_FIND_TEXTURE,							//16
-};
 
 enum RG_Mouse_State
 {
@@ -238,5 +217,48 @@ int RG_RunProgram(RG_ConfigRunProgram conf){
 	}
 	return 0;
 }
+
+class RG_SysTime{
+	static inline SYSTEMTIME SystemTime;
+	//static inline RG_SYSTEMTIME RG_SistemTime
+public:
+	static void update(){
+    GetLocalTime(&SystemTime);
+	}
+	static string Year(){
+		//string temp = to_string(SystemTime.wYear);
+		//string text;
+		return to_string(SystemTime.wYear);
+	}
+	static string Month(){
+		string temp = to_string(SystemTime.wMonth);
+		return ((temp.size()==1?"0":"")+temp);
+		
+	}
+	static string DayOfWeek(){
+		return to_string(SystemTime.wDayOfWeek);
+	}
+	static string Day(){
+		string temp = to_string(SystemTime.wDay);
+		return ((temp.size()==1?"0":"")+temp);
+	}
+	static string Hour(){
+		string temp = to_string(SystemTime.wHour);
+		return ((temp.size()==1?"0":"")+temp);
+	}
+	static string Minute(){
+		string temp = to_string(SystemTime.wMinute);
+		return ((temp.size()==1?"0":"")+temp);
+	}
+	static string Second(){
+		string temp = to_string(SystemTime.wSecond);
+		return ((temp.size()==1?"0":"")+temp);
+	}
+	static string Milliseconds(){
+		string temp = to_string(SystemTime.wMilliseconds);
+		return ((temp.size()==1?"000":temp.size()==2?"00":temp.size()==3?"0":"")+temp);
+	}
+};
+
 
 // Комментарии сгенерированы GPT-4

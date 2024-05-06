@@ -2,6 +2,10 @@
 
 #include "defined.h" // Включает основные определения, используемые в проекте
 
+#include "folder.h"
+
+#include "debug.h"
+
 #include "allocator.h" // Включает определения для работы с аллокатором памяти
 
 #include "readfiles.h" // Включает функционал для чтения файлов
@@ -15,6 +19,10 @@
 #ifdef RG_GC_ENABLED
     #include "GCallocator.h"
 #endif
+
+#include "pointer.h"
+
+#include "FuncPointer.h"
 
 #include "rinegine.h" // Включает основные определения движка RinEngine
 

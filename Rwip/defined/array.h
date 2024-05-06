@@ -36,12 +36,12 @@ public:
     if(size>0){
      if(SIZE==0){
           array = s_calloc<type>(size);
-          if(array == nullptr)exit(-11);
+          if(array == nullptr)throw RG_ERROR_OUT_OF_MEMORY;
       }
       else{
         if(SIZE!= size){
           s_replace_raw<type>(array,SIZE,size); 
-          if(array == nullptr)exit(-10);
+          if(array == nullptr)throw RG_ERROR_OUT_OF_MEMORY;
         }
       }
       INIT = true;
@@ -53,7 +53,7 @@ public:
     }
   }
   //////
-  //fill
+  //fillа
   void fill(uint size, type*arr){
     //clear();
     resize(size);
@@ -76,18 +76,22 @@ public:
         return array[i];
       }
       else {
-        cout<<"ERROR! Size array loss then 'i' in operator[](uint i)\n"; 
-        cout<<"Size = "<<SIZE<<" | i = "<<i<<endl; 
-        exit(-1);}
+        //cout<<"ERROR! Size array loss then 'i' in operator[](uint i)\n"; 
+        //cout<<"Size = "<<SIZE<<" | i = "<<i<<endl; 
+        //RG_DEBUG_TEXT("ERROR! Size array loss then 'i' in operator[](uint i)");
+        //RG_DEBUG_TEXT("Size = "<<SIZE<<" | i = "<<i);
+        throw RG_ERROR_RGARRAY_SIZE1;}
     }
     else{
       if(SIZE+i<SIZE){
         return array[SIZE+i];
       }
       else{
-        cout<<"ERROR! Size array loss then 'size + i' in operator[](uint i)\n";
-        cout<<"Size = "<<SIZE<<" i = "<<i<<endl;
-        exit(-1);
+        //cout<<"ERROR! Size array loss then 'size + i' in operator[](uint i)\n";
+        //cout<<"Size = "<<SIZE<<" i = "<<i<<endl;
+        //RG_DEBUG_TEXT("ERROR! Size array loss then 'size + i' in operator[](uint i)");
+        //RG_DEBUG_TEXT("Size = "<<SIZE<<" i = "<<i);
+        throw RG_ERROR_RGARRAY_SIZE2;
       }
     }
     //return array[i];
