@@ -7,7 +7,7 @@
 <img alt="OpenAL site" src="https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https://github.com/kcat/openal-soft">
 <img alt="stb site" src="https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb">  
 Контакты: 
-<img alt="Telegram" src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=228822&link=https%3A%2F%2Ft.me%2Frinemest">
+<img alt="Telegram" src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=222222&link=https%3A%2F%2Ft.me%2Frinemest">
 
 Rinegine - лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ, может только microsoft visual c++ redistributable, но я не уверен) движок для программ и игр с 2-3 мерной графикой!
 
