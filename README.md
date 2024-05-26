@@ -1,13 +1,13 @@
-# Rinegine ![Static Badge](https://img.shields.io/badge/Rinegine-v0.2.0-green)  ![Static Badge](https://img.shields.io/badge/Rinegine-v0.2.1WIP-green)  
+# Rinegine <img alt="Rinegine Release" src="https://img.shields.io/badge/Rinegine-v0.2.0-green">  <img alt="Rinegine WIP" src="https://img.shields.io/badge/Rinegine-v0.2.1 WIP-green">
 Используется:
-![JavaScript](https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F)
-![JavaScript](https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F)
-![JavaScript](https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=MinGW-w64&labelColor=1f222a&color=222222&link=https%3A%2F%2Fgithub.com%2FniXman%2Fmingw-builds-binaries%2Freleases)
-![JavaScript](https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F)
-![JavaScript](https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https://github.com/kcat/openal-soft)
-![JavaScript](https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb)  
-
+<img alt="GLFW site" src="https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F">
+<img alt="FreeType site" src="https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F">
+<img alt="MinGW site" src="https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=MinGW-w64&labelColor=1f222a&color=222222&link=https%3A%2F%2Fgithub.com%2FniXman%2Fmingw-builds-binaries%2Freleases">
+<img alt="glad site" src="https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F">
+<img alt="OpenAL site" src="https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https://github.com/kcat/openal-soft">
+<img alt="stb site" src="https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb">  
 Контакты: 
+<img alt="Telegram" src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=228822&link=https%3A%2F%2Ft.me%2Frinemest">
 
 Rinegine - лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ, может только microsoft visual c++ redistributable, но я не уверен) движок для программ и игр с 2-3 мерной графикой!
 
