@@ -1,4 +1,4 @@
-# Rinegine <img alt="Rinegine Release" src="https://img.shields.io/badge/Rinegine-v0.2.0-green">  <img alt="Rinegine WIP" src="https://img.shields.io/badge/Rinegine-v0.2.1 WIP-green">
+# Rinegine [<img alt="Rinegine Release" src="https://img.shields.io/badge/Rinegine-v0.2.0-green">]()  [<img alt="Rinegine WIP" src="https://img.shields.io/badge/Rinegine-v0.2.1 WIP-green">]()
 Используется:  
 [<img alt="GLFW site"       src="https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F">](https%3A%2F%2Fglfw.org%2F)
 [<img alt="FreeType site"   src="https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F">](https%3A%2F%2Ffreetype.org%2F)
