@@ -2,7 +2,7 @@
 Используется:  
 [<img alt="GLFW site"       src="https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F">](https://glfw.org)
 [<img alt="FreeType site"   src="https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F">](https://freetype.org)
-[<img alt="MinGW site"      src="https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=MinGW-w64&labelColor=1f222a&color=222222&link=https://Fgithub.com/FniXman/Fmingw-builds-binaries/Freleases">]([https%3A%2F%2Fgithub.com%2FniXman%2Fmingw-builds-binaries%2Freleases](https://Fgithub.com/FniXman/Fmingw-builds-binaries/Freleases))
+[<img alt="MinGW site"      src="https://img.shields.io/badge/v13.2.0-red?logo=MinGW-w64&logoColor=fc5a20&label=MinGW-w64&labelColor=1f222a&color=222222&link=https://github.com/FniXman/Fmingw-builds-binaries/releases">](https://github.com/niXman/mingw-builds-binaries/releases)
 [<img alt="glad site"       src="https://img.shields.io/badge/v3.3.0-red?logoColor=fc5a20&label=GLAD&labelColor=aaaaaa&color=222222&link=https%3A%2F%2Fglad.dav1d.de%2F">](https://Fglad.dav1d.de)
 [<img alt="OpenAL site"     src="https://img.shields.io/badge/v1.23.1-red?logoColor=fc5a20&label=(WIP)OpenAL&labelColor=30a1d9&color=222222&link=https://github.com/kcat/openal-soft">](https://github.com/kcat/openal-soft)
 [<img alt="stb site"        src="https://img.shields.io/badge/v1.0.0-red?logoColor=fc5a20&label=STB&labelColor=000000&color=222222&link=https%3A%2F%2Fgithub.com%2Fnothings%2Fstb">](https://Fgithub.com/Fnothings/stb)
