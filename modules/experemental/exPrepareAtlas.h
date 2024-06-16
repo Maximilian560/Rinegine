@@ -1,6 +1,6 @@
 #pragma once
 
-void RG_EX_PreparationAtlas(RG_Array<AtlasTexture> &texs = RG_AtlasArrayTextures, Atlas &atl = RG_StandartAtlas)
+void RG_EX_PreparationAtlas(RG_Array<AtlasTexture> &texs = RG_AtlasArrayTextures, Atlas &atl = RG_Atlas_Standart)
 {
 	//calcule size
 	POINT2D<int>max_size;

@@ -27,8 +27,8 @@ bool StageSpeen = 0;
 {
 	if(key == GLFW_KEY_F11&&action==GLFW_PRESS)
 	{
-		RG_MainWindow->Active_Fullscreen();
-		//if(RG_CursorFix)glfwSetCursorPos(RG_MainWindow->mon(),RG_MainWindow->set().resolution.x/2.,RG_MainWindow->set().resolution.y/2.);
+		RG_Window_Standart->Active_Fullscreen();
+		//if(RG_CursorFix)glfwSetCursorPos(RG_Window_Standart->mon(),RG_Window_Standart->set().resolution.x/2.,RG_Window_Standart->set().resolution.y/2.);
 	}
 	if(key == GLFW_KEY_F3&&action==GLFW_PRESS)
 	{
@@ -48,9 +48,9 @@ int RG_EX_Start(RG_Array<int(*)()> &funcs){
 
   RG_CATCH_ERROR{
   RG_Window window;
-  RG_MainWindow = &window;
+  RG_Window_Standart = &window;
   engine.init();
-  RG_SettingWindow set;
+  RG_Window_Settings set;
 	#ifdef _WIN64
 	set.name = "Rinerest InDev.6";
 	#else
@@ -59,7 +59,7 @@ int RG_EX_Start(RG_Array<int(*)()> &funcs){
   window.init(set);
 	translation.init();
   RG_SetAllCallback(window);
- 	glfwSetKeyCallback(RG_MainWindow->win(), RR_KeyEvent);
+ 	glfwSetKeyCallback(RG_Window_Standart->win(), RR_KeyEvent);
 
 
   RG_LoadFont("data/images/other/Font.ttf",46);	

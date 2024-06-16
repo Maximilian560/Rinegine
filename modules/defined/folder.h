@@ -21,3 +21,5 @@ bool RG_CreateFolder(string path){
       if(!CreateDirectory(path.c_str(),NULL))return false;
   return true;
 }
+
+string RG_MainFolder = "C:\\";

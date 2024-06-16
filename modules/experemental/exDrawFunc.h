@@ -10,9 +10,9 @@ int RG_EX_DrawFunc(){
 	int NowPlay;
   while(play){
 		RG_PollEvents(RG_EX_MainTimer);
-		glfwGetCursorPos(RG_MainWindow->win(), &MPos.x, &MPos.y);
+		glfwGetCursorPos(RG_Window_Standart->win(), &MPos.x, &MPos.y);
 
-		if(glfwWindowShouldClose(RG_MainWindow->win())) {play = false;NowPlay = LOC_EXIT;}
+		if(glfwWindowShouldClose(RG_Window_Standart->win())) {play = false;NowPlay = LOC_EXIT;}
 		//if(RG_KEYS[GLFW_KEY_ESCAPE] == GLFW_PRESS) {play = false;NowPlay = LOC_EXIT;RG_KEYS[GLFW_KEY_ESCAPE] = GLFW_RELEASE;}
 
 		//if(DebugSetting)SHOW_FPS_RR.setString(L"FPS:"+to_wstring((int)RG_EX_MainTimer.getFPS()));

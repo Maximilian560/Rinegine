@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rinegine CMD",
+      "type": "rgcmd",
+      "request": "launch",
+      "program": "rgcmd",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "c:/GLOBAL_PROJECT/RinemestCollection/Rinegine/bin",
+      "environment": [],
+      "console": "externalTerminal"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/GLOBAL_PROJECT/RinemestCollection/Rinegine/modules/graphics/objects",
+      "program": "c:/GLOBAL_PROJECT/RinemestCollection/Rinegine/modules/graphics/objects/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

@@ -10,30 +10,9 @@
 #include <filesystem> // Подключение библиотеки для работы с файловой системой
 #include <malloc.h>	// Подключение библиотеки для работы с динамической памятью
 
-// Закомментированные подключения внешних библиотек
-//#include <type_traits>
-//#include "../other/glad/include/glad/glad.h"
-/*#if defined(_WIN64)
-  #include "../other/GLFW/64/include/GLFW/glfw3.h"
-	#include "../other/FreeType/64/include/freetype2/ft2build.h"
-	#include FT_FREETYPE_H
-	#include "../other/FreeType/64/include/freetype2/freetype/ftoutln.h"
-	#include "../other/FreeType/64/include/freetype2/freetype/freetype.h"
-#else
-  #include "../other/GLFW/32/include/GLFW/glfw3.h"
-	#include "../other/FreeType/32/include/freetype2/ft2build.h"
-	#include FT_FREETYPE_H
-	#include "../other/FreeType/32/include/freetype2/freetype/ftoutln.h"
-	#include "../other/FreeType/32/include/freetype2/freetype/freetype.h"
-#endif*/
-
 #include "../other/MyLibs/Noise.h"// Подключение пользовательской библиотеки, не используется
 
 #include <windows.h> // Подключение библиотеки Windows API
-
-// Закомментированные подключения внешних библиотек
-//#include "../other/FreeType/64/include/freetype2/freetype/ftoutln.h"
-//#include "../other/FreeType/64/include/freetype2/freetype/freetype.h"
 
 // ОБЪЯВЛЕНИЕ ВАЖНЫХ ТИПОВ ДАННЫХ
 using namespace std; // Использование стандартного пространства имен
@@ -47,7 +26,9 @@ typedef __int16 int16;
 typedef long int lint;
 typedef long unsigned int luint;
 
-
+#ifndef UNIT_MAX
+#define UINT_MAX 4294967295
+#endif
 // Объявление переменных для работы с шейдерами
 uint prog; // Идентификатор программы шейдера
 // Переменные для хранения позиций в шейдере
@@ -81,8 +62,6 @@ int SHDlocation = 0; // Позиция в шейдере
 #define RG_RevFOR_CYCLE(type,name,count) for(type name = count; name >=0; name--)
 
 // Макросы для работы с памятью
-//#define rg_calloc(type, size) (type*)calloc(size,sizeof(type))
-//#define rg_malloc(type, size) (type*)malloc(size*sizeof(type))
 #define rg_free(fr) free(fr); // Освобождение памяти
 #define rg_realloc(resizable, type,oldsize, size)	{type* NONUSEDRGRGCALLOCNONUSEDNOTUSED = rg_calloc(type,size);						\
 													RG_FOR_CYCLEi(rg_min(oldsize,size)) NONUSEDRGRGCALLOCNONUSEDNOTUSED[i]=resizable[i];\
@@ -183,51 +162,14 @@ enum RG_Mouse_State
 int RG_KEYS[350];
 int RG_MOUSE[10] = {0,0,0,0,0,0,0,0,0,0};
 
-// Функция для выполнения команды в командной строке
-int RG_CMD(string command){
-#ifdef _WIN32 || _WIN64
-	return system(command.c_str());
-#endif
-}
-struct RG_ConfigRunProgram{
-	string path = "err";
-	bool assinhrone = true;
-	bool InItFol = false;
-};
-int RG_RunProgram(RG_ConfigRunProgram conf){
-	if(conf.path=="err")return 0;
-	if(conf.assinhrone){
-		char* tempChar = (char*)calloc(conf.path.size(),sizeof(char));
-		for(int i = 0; i<conf.path.size();i++){
-			tempChar[i] = conf.path[i];
-		}
-		STARTUPINFO sti = {0};
-		PROCESS_INFORMATION pi = {0};
-		//CreateProcess(NULL,tempChar,NULL,NULL,false,NULL/**/,NULL,NULL/**/,NULL/**/,NULL/**/);
-		if(conf.InItFol){
-			return CreateProcess(NULL,tempChar,NULL,NULL,false,NULL,NULL,NULL,&sti,&pi);
-		}else{
-			return CreateProcess(tempChar,NULL,NULL,NULL,false,NULL,NULL,NULL,&sti,&pi);//TODO
-		}
-
-		return 0;
-	}else
-	{
-		return RG_CMD(conf.path);
-	}
-	return 0;
-}
 
 class RG_SysTime{
 	static inline SYSTEMTIME SystemTime;
-	//static inline RG_SYSTEMTIME RG_SistemTime
 public:
 	static void update(){
     GetLocalTime(&SystemTime);
 	}
 	static string Year(){
-		//string temp = to_string(SystemTime.wYear);
-		//string text;
 		return to_string(SystemTime.wYear);
 	}
 	static string Month(){
@@ -260,5 +202,8 @@ public:
 	}
 };
 
+HANDLE RG_MainConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-// Комментарии сгенерированы GPT-4
+void RG_SetColorTCMD(WORD col){
+	SetConsoleTextAttribute(RG_MainConsole, col);
+}

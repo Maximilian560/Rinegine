@@ -1,4 +1,10 @@
 #pragma once
+#ifdef RG_NO_USELESS_WARNING
+bool RG_EXCEED_LIMIN_MATRIX = 1;
+#else
+bool RG_EXCEED_LIMIN_MATRIX = 0;
+#endif
+
 
 template<typename type>
 class RG_Matrix{
@@ -6,50 +12,61 @@ class RG_Matrix{
   uint width = 0,height = 0;
 public:
   //init
+  void init(initializer_list<initializer_list<type>> arr){
+    fill(arr);
+  }
   void init(uint x,uint y){
     resize(x,y);
   }
   void init(uint x,uint y, type*arr){
     fill(x,y,arr);
   }
+  void init(uint x,uint y, type arr){
+    fill(x,y,arr);
+  }
   void reInit(uint x, uint y,type*mat){
 		fill(x,y,mat);
   }
- 
+  void init(RG_Matrix<type>&ar){fill(ar);}
+
   RG_Matrix(){}
+  RG_Matrix(RG_Matrix<type> &ar){init(ar);}
+  RG_Matrix(initializer_list<initializer_list<type>> arr){init(arr);}
   RG_Matrix(uint x,uint y){init(x,y);}
   RG_Matrix(uint x,uint y,type*arr){init(x,y,arr);}
-  ////////
-  //resize
-  /*void resize(uint x, uint y){
-    if(x*y!=0){
-      type* arr = s_calloc<type>(x*y);
-      
-      for(int Y = 0; Y<height;Y++){
-        for(int X = 0; X<width;X++){
-          arr[Y*x+X] = get(X,Y);
-        }
-      }
-      matrix.clear();
-      matrix.fill(x*y,arr);
-      //matrix.resize(x*y);
-      width = x;
+  RG_Matrix(uint x,uint y,type arr){init(x,y,arr);}
+
+  void resize(uint x, uint y){
+    if(y*x>0){
+      matrix.resize(y*x);
       height = y;
+      width = x;
     }else{
-      if(!matrix.empty()) clear();
+      clear();
     }
-  }*/
-   void resize(uint x, uint y){
-    if(x*y!=0){
-      matrix.resize(x*y);
-      width = x;
-      height = y;
+  }
+  void resize(POINT2D<uint>ns){
+    if(ns.y*ns.x>0){
+      matrix.resize(ns.y*ns.x);
+      height = ns.y;
+      width = ns.x;
     }else{
       clear();
     }
   }
   //////
   //fill
+  void fill(RG_Matrix<type>&ar){
+    clear();
+    //cout<<ar.size(0)<<" "<<ar.size(1)<<" "<<ar.size(2)<<endl;
+    //matrix.resize(ar.size(2));
+    resize(ar.size());
+    for(int y = 0; y<ar.size(1);y++){
+      for(int x = 0;x<ar.size(0);x++){
+        get(x,y)=ar[y][x];
+      }
+    }
+  }
   void fill(uint x,uint y, type*mat){
     clear();
     resize(x,y);
@@ -58,6 +75,30 @@ public:
         matrix[yy*x+xx] = mat[yy*x+xx];
       }
     }
+  }
+  void fill(initializer_list<initializer_list<type>> arr){
+    resize(arr.begin()->size(),arr.size());
+    //cout<<width<<"||"<<height<<endl;
+    for(int y = 0; y<height;y++){
+      for(int x = 0; x<width;x++){
+        getyx(y,x) = arr.begin()[y].begin()[x];
+      }
+    }
+  }
+  void movefill(uint x, uint y, type*mat){
+    clear();
+    width = x;
+    height = y;
+    matrix.movefill(x*y,mat);
+  }
+  
+
+  void fill(type mat){
+    matrix.fill(mat);
+  }
+  void fill(uint y,uint x, type mat){
+    clear();
+    matrix.fillfull(x*y,mat);
   }
 
   void randomBoolFill(double porog,double max = 1){
@@ -141,7 +182,7 @@ public:
   }
   ////////
   //indexs
-  type&operator[](uint i){
+  /*type&operator[](uint i){
     if(i>=0){
       if(i<matrix.size()){
         return matrix[i];
@@ -162,30 +203,45 @@ public:
       }
     }
       
+  }*/
+  type*operator[](uint i){
+    if(i>=height)RG_Debug::addl(RG_LOG_CRITICAL,"matrix height is less than "+to_string(i+1)+"(you set "+to_string(i)+") and equal to "+to_string(height));
+    if(!RG_EXCEED_LIMIN_MATRIX){RG_Debug::addl(RG_LOG_WARNING, "When using [y][x] it is possible to exceed the limit, check that x is not larger than the width of the matrix. This warning will no longer appear");RG_EXCEED_LIMIN_MATRIX = 1;}
+    return &matrix[i*width];
   }
+
+  
   type&get(uint x,uint y){
-    if(x>=width){
-      cout<<"ERROR! Width matrix loss then 'x' in get(x,y)\n";
-      cout<<"Width = "<<width<<" x = "<<x<<endl;
-      exit(-1);
-    }
     if(y>=height){
-      cout<<"ERROR! Height matrix loss then 'y' in get(x,y)\n";
-      cout<<"Height = "<<height<<" y = "<<y<<endl;
-      exit(-1);
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix height less than or equal to 'y' in 'get(x,y)'\n\
+      'Height' = '"+to_string(height)+"', 'y' = '"+to_string(y)+"'");
+    }
+    if(x>=width){
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix width less than or equal to 'x' in 'get(x,y)'\n\
+      'Width' = '"+to_string(width)+"', 'x' = '"+to_string(x)+"'");
+    }
+    return matrix[y*width+x];
+  }
+
+  type&getyx(uint y, uint x){
+    if(y>=height){
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix height less than or equal to 'y' in 'getyx(y,x)'\n\
+      'Height' = '"+to_string(height)+"', 'y' = '"+to_string(y)+"'");
+    }
+    if(x>=width){
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix width less than or equal to 'x' in 'getyx(y,x)'\n\
+      'Width' = '"+to_string(width)+"', 'x' = '"+to_string(x)+"'");
     }
     return matrix[y*width+x];
   }
   type&get(POINT2D<uint> pos){
     if(pos.x>=width){
-      cout<<"ERROR! Width matrix loss then 'pos.x' in get(POINT2D<uint>pos)\n";
-      cout<<"Width = "<<width<<" pos.x = "<<pos.x<<endl;
-      exit(-1);
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix width less than or equal to 'pos.x' in 'get(POINT2D<uint>pos)'\n\
+      'Width' = '"+to_string(width)+"', 'pos.x' = '"+to_string(pos.x)+"'");
     }
     if(pos.y>=height){
-      cout<<"ERROR! Height matrix loss then 'pos.y' in get(POINT2D<uint>pos)\n";
-      cout<<"Height = "<<height<<" pos.y = "<<pos.y<<endl;
-      exit(-1);
+      RG_Debug::addl(RG_LOG_CRITICAL,"Matrix height less than or equal to 'pos.y' in 'get(POINT2D<uint>pos)'\n\
+      'Height' = '"+to_string(height)+"', 'pos.y' = '"+to_string(pos.y)+"'");
     }
 
     return matrix[pos.y*width+pos.x];
@@ -193,11 +249,16 @@ public:
   void print(){
     for(int i = 0; i<height;i++){
       for(int j = 0; j<width;j++){
-        cout<<get(j,i)<<" ";
+        cout<<getyx(i,j)<<" ";
       }
       cout<<endl;
     }
     //matrix.print();
+  }
+  
+
+  operator type*(){
+    return matrix.get_arr();
   }
   type*get(){
     return matrix.get_arr();
@@ -210,6 +271,9 @@ public:
   bool empty(){
     return matrix.empty();
   }
+  operator bool(){
+    return !matrix.empty();
+  }
   //////
   //size
   uint size(uint i){
@@ -220,10 +284,13 @@ public:
     }
     
   }
+  operator uint(){
+    return matrix.size();
+  }
   /*POINT2D<uint> size(){
     return {uint(width),uint(height)};    
   }*/
-  POINT2D<int> size(){
+  POINT2D<uint> size(){
     return {width,height};    
   }
   ///////
@@ -248,20 +315,39 @@ public:
 
 		//type* mt = (type*)calloc(nsizex*nsizey,sizeof(type));
 		type* mt = s_calloc<type>(nsizex*nsizey);
-    	for(uint y = 0; y<nsizey;y++)
+    
+    for(uint y = 0; y<nsizey;y++)
+    {
+    	for(uint x = 0; x<nsizex ;x++)
     	{
-    		for(uint x = 0; x<nsizex ;x++)
+    		for(uint k = 0; k<nsizex;k++)
     		{
-    			for(uint k = 0; k<nsizex;k++)
-    			{
-    				mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat.get_mat()[x+k*nsizex];
-    			}
+    			mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat.get_mat()[x+k*nsizex];
     		}
-
     	}
-    	clear();
-    	init(nsizex,nsizey,mt);
-    	free(mt);
+
+    }
+    clear();
+    //init(nsizex,nsizey,mt);
+    movefill(nsizex,nsizey,mt);
+    //free(mt);
+  }
+  void operator*=(initializer_list<initializer_list<type>> mat){
+    uint nsizex = width;
+		uint nsizey = mat.size();
+		type* mt = s_calloc<type>(nsizex*nsizey);
+    for(uint y = 0; y<nsizey;y++){
+    	for(uint x = 0; x<nsizex ;x++){
+    		for(uint k = 0; k<nsizex;k++){
+    			mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat.begin()[k].begin()[x];//[x+k*nsizex];
+    		}
+    	}
+
+    }
+    clear();
+    //init(nsizex,nsizey,mt);
+    movefill(nsizex,nsizey,mt);
+    //free(mt);
   }
   void operator*=(type* mat){
 
@@ -279,7 +365,7 @@ public:
     		{
     			for(uint k = 0; k<nsizex;k++)
     			{
-    				mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat[x+k*nsizex];
+    				mt[x+y*nsizex]+=matrix[y*nsizex+k] * mat[x+k*nsizex];
     			}
     		}
 
@@ -287,9 +373,10 @@ public:
     //cout<<"end cycle\n";
     	clear();
     //cout<<"clear\n";
-    	init(nsizex,nsizey,mt);
+    	//init(nsizex,nsizey,mt);
+      movefill(nsizex,nsizey,mt);
     //cout<<"init\n";
-    	free(mt);
+    	//free(mt);
     //cout<<"free\n";
   }
 
@@ -316,229 +403,29 @@ public:
   }
 
   template<class tttt>
-  void place(POINT2D<int> pl,RG_Matrix<tttt>matr){
+  void place(POINT2D<int> pl,RG_Matrix<tttt>&matr){
+    cout<<matr.size(0)<<endl;
+    cout<<matr.size(1)<<endl;
+    //exit(-2);
+    for(int y = pl.y; y<matr.size(1)+pl.y&&y+pl.y<height;y++){
+      for(int x = pl.x; x<matr.size(0)+pl.x&&x+pl.x<width;x++){
 
-    
-    for(int y = pl.y; y<matr.size(1)+pl.y;y++){
-      for(int x = pl.x; x<matr.size(0)+pl.x;x++){
+        //type asd = get(x,y);
 
-        type asd = get(x,y);
+        //asd = matr.get(x-pl.x,y-pl.y);
 
-        asd = matr.get(x-pl.x,y-pl.y);
-
-        get(x,y) = matr.get(x-pl.x,y-pl.y);
+        //get(x,y) = matr.get(x-pl.x,y-pl.y);
+        //cout<<y<<" "<<x<<endl;
+        get(x,y) = matr[y][x];//.get(x-pl.x,y-pl.y);
       }
 
     }
+  }
+
+  void set_stbi(){
+    matrix.set_stbi();
   }
 };
-
-/*
-template<typename type>
-class RG_BetaMatrix{
-  RG_Array<type> matrix;
-  RG_Array<uint> sides;//0 = x, 1 = y, 2 = z...
-  uint size;
-  //uint width = 0,height = 0;
-public:
-  //init
-  void init(uint countSides){
-    sides.resize(countSides);
-  }
-  void init(uint countSides, type*arr){
-    sides.init(countSides,arr);
-  }
-   void init(uint countSides, type*arr, type*mat){
-    sides.init(countSides,arr);
-    size = 1;
-    RG_FOR_CYCLEi(countSides){
-      size*=sides[i];
-    }
-    matrix.fill(size,mat);
-
-  }
-  void reInit(uint countSides, type*arr, type*mat){
-    sides.clear();
-    matrix.clear();
-		init(uint countSides, type*arr, type*mat);
-  }
- 
-  RG_Matrix(){}
-  RG_Matrix(uint countSides, type*arr){init(countSides,arr);}
-  RG_Matrix(uint countSides, type*arr, type*mat){init(countSides,arr,mat);}
-  ////////
-  //resize
-  void resize(uint countSides, type*arr){
-    if(countSides>0){
-      if(countSides!=sides.size()){
-        /*countSides.clear();
-        countSides.resize(countSides);/*
-        sides.fill(countSides,arr);
-      }else{
-        for(int i = 0; i<countSides;i++){
-          sides[i]=arr[i];
-        }
-      }
-      size = 1;
-      RG_FOR_CYCLEi(countSides){
-      size*=sides[i];
-      }
-      matrix.resize(size);
-    }
-    else
-    { 
-      if(!sides.empty)sides.clear();
-      if(!matrix.empty())clear();
-    }
-  }
-  //////
-  //fill
-  void fill(uint countSides, type*arr, type*mat){
-    clear();
-    sides.fill(countSides,arr);
-    size = 1;
-    RG_FOR_CYCLEi(countSides){
-      size*=sides[i];
-    }
-    matrix.resize(size);
-    matrix.fill(size,mat);
-  }
-  ////////
-  //indexs
-  type&operator[](uint i){
-    if(i>0){
-      if(i<matrix.size()){
-        return matrix[i];
-      }
-      else {
-        cout<<"ERROR! Size matrix loss then 'i' in operator[](uint i)\n"; 
-        cout<<"Size = "<<matrix.size()<<" | i = "<<i<<endl; 
-        exit(-1);}
-    }
-    else{
-      if(matrix.size()+i<matrix.size()){
-        return matrix[matrix.size()+i];
-      }
-      else{
-        cout<<"ERROR! Size matrix loss then 'size + i' in operator[](uint i)\n";
-        cout<<"Size = "<<matrix.size()<<" i = "<<i<<endl;
-        exit(-1);
-      }
-    }
-      
-  }
-  type&get(uint x,uint y){
-    return matrix[y*width+x];
-  }
-  type*get(){
-    return matrix.get_arr();
-  }
-  ///////
-  //empty
-  bool empty(){
-    return matrix.empty();
-  }
-  //////
-  //size
-  uint size(uint i){
-    switch(i){
-      case 0: return width;
-      case 1: return height;
-      default: return matrix.size();
-    }
-    
-  }
-  ///////
-  //clear
-  void clear(){
-    if(!sides.empty()){
-      sides.clear();
-    }
-    if(!matrix.empty()){
-      matrix.clear();
-    }
-  }
-  ~RG_Matrix(){
-    clear();
-  }
-  ////////////////////////////////////
-  //operators
-  void operator*=(RG_Matrix<type>& mat){
-
-    uint nsizex = width;
-		uint nsizey = mat.getSize(1);
-
-		//type* mt = (type*)calloc(nsizex*nsizey,sizeof(type));
-		type* mt = s_calloc<type>(nsizex*nsizey);
-    	for(uint y = 0; y<nsizey;y++)
-    	{
-    		for(uint x = 0; x<nsizex ;x++)
-    		{
-    			for(uint k = 0; k<nsizex;k++)
-    			{
-    				mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat.get_mat()[x+k*nsizex];
-    			}
-    		}
-
-    	}
-    	clear();
-    	init(nsizex,nsizey,mt);
-    	free(mt);
-  }
-  void operator*=(type* mat){
-
-    //cout<<"div\n";
-    uint nsizex = width;
-		uint nsizey = height;
-
-		//type* mt = (type*)calloc(nsizex*nsizey,sizeof(type));
-    //cout<<"mem\n";
-		type* mt = s_calloc<type>(nsizex*nsizey);
-    //cout<<"cycle\n";
-    	for(uint y = 0; y<nsizey;y++)
-    	{
-    		for(uint x = 0; x<nsizex ;x++)
-    		{
-    			for(uint k = 0; k<nsizex;k++)
-    			{
-    				mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat[x+k*nsizex];
-    			}
-    		}
-
-    	}
-    //cout<<"end cycle\n";
-    	clear();
-    //cout<<"clear\n";
-    	init(nsizex,nsizey,mt);
-    //cout<<"init\n";
-    	free(mt);
-    //cout<<"free\n";
-  }
-
-  RG_Matrix<type>operator*(RG_Matrix<type> mat){
-
-    uint nsizex = width;
-		uint nsizey = mat.getSize(1);
-
-		//type* mt = (type*)calloc(nsizex*nsizey,sizeof(type));
-		type* mt = s_calloc<type>(nsizex*nsizey);
-    	for(uint y = 0; y<nsizey;y++)
-    	{
-    		for(uint x = 0; x<nsizex ;x++)
-    		{
-    			for(uint k = 0; k<nsizex;k++)
-    			{
-    				mt[x+y*nsizey]+=matrix[y*nsizey+k] * mat.get_mat()[x+k*nsizex];
-    			}
-    		}
-
-    	}
-    
-    return RG_Matrix(nsizex,nsizey,mt);
-  }
-};*/
-
-
 
 
 template<typename type>

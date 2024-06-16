@@ -3,7 +3,7 @@
 class RG_Player{
   friend class RG_World;
   RG_Entity* body;
-  RG_Camera &PlayerCam = StandartCam;
+  RG_Camera &PlayerCam = RG_Camera_Standart;
 
   RG_World* connectWorld;
   //RG_Array<...>inventar
@@ -49,7 +49,7 @@ public:
     //cout<<connectWorld->Entitys.size()<<endl;
     //cout<<world.Entitys.size()<<endl;
 
-    world.Entitys.append();
+    world.Entitys.push_back();
 
     //cout<<connectWorld->Entitys.size()<<endl;
     //cout<<world.Entitys.size()<<endl;
@@ -76,9 +76,9 @@ public:
 
   bool on_ground(){
     POINT3D<int>posInBlock = {
-    floor(-StandartCam.getPos().x/50.),
-    floor(-(StandartCam.getPos().y+body->size.y)/50.),
-    floor(-StandartCam.getPos().z/50.)};
+    floor(-RG_Camera_Standart.getPos().x/50.),
+    floor(-(RG_Camera_Standart.getPos().y+body->size.y)/50.),
+    floor(-RG_Camera_Standart.getPos().z/50.)};
     //cout<<posInBlock.x<<" "<<posInBlock.y<<" "<<posInBlock.z<<endl;
     switch(isConnectToWorld){
       case false: return false;

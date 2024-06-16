@@ -1,14 +1,15 @@
 #pragma once
 
 class Rinegine{
-  bool INIT = false;
+  static inline bool INIT = false;
 public:
-  void init(){
-    INIT = true;
+  static void init(){if(INIT)return;
+  	RG_DefInit();
 		if(!glfwInit()){throw(RG_ERROR_GLFW_INIT_ERR);}
 
     RG_MainMonitor = glfwGetPrimaryMonitor();
     RG_MainVidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    INIT = true;
    
     //sh.init("data/shaders/Shader.fragrg","data/shaders/Shader.vertrg");
 

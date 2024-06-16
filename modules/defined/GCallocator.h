@@ -10,8 +10,8 @@ struct RG_Garbage_Collector{
 
     // Добавление нового указателя и его размера в массивы
     void add(void* p,int size){
-        GC_pointer.append(p); // Добавление указателя
-        GC_size.append(size); // Добавление размера
+        GC_pointer.push_back(p); // Добавление указателя
+        GC_size.push_back(size); // Добавление размера
     }
 
     // Удаление указателя и его размера из массивов

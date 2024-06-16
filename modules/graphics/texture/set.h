@@ -4,6 +4,8 @@
 
 #include "atlas.h"
 
-#include "images.h"
+//#include "images.h"
 
-#include "font/set.h"
+//#include "font/set.h"
+
+#include "other.h"

@@ -2,8 +2,8 @@
 
 class RG_Window{
   GLFWwindow* window;
-	RG_SettingWindow settings;
-  RG_Shader sh;
+	RG_Window_Settings settings;
+  //RG_Shader sh;
   bool INIT = false;
 public:
   //init
@@ -11,7 +11,13 @@ public:
 	GLFWwindow*&win(){
 		return window;
 	}
-  void init(RG_SettingWindow& set){
+
+	RG_Window(){}
+	RG_Window(RG_Window_Settings& set){
+		init(set);
+	}
+
+  void init(RG_Window_Settings& set){
 
 
   	settings = set;
@@ -85,27 +91,27 @@ public:
 		glEnable(GL_DEPTH_TEST);  	//Проверка глубины
 		glEnable(GL_ALPHA_TEST); 	//Разрешить прозрачность 
 		glEnable(GL_BLEND); 		//Разрешить смешивание
-		glEnable(GL_CULL_FACE); 	//Разрешить обрезание нивидимых обьектов(треугольников)
-		glCullFace(GL_BACK);		//Отрезание задних треугольнико
-		glFrontFace(GL_CCW);		//Указание на лицевую сторону (против/по часовой стрелки (CW/CCW))
+		//glEnable(GL_CULL_FACE); 	//Разрешить обрезание нивидимых обьектов(треугольников)
+		//glCullFace(GL_BACK);		//Отрезание задних треугольнико
+		//glFrontFace(GL_CCW);		//Указание на лицевую сторону (против/по часовой стрелки (CW/CCW))
 		glDepthFunc(GL_LEQUAL);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		if(settings.MSAAon)glEnable(GL_MULTISAMPLE);//Сглаживание
 		else glDisable(GL_MULTISAMPLE);
 
-		settings.winedit.quotx=settings.resolution.x / RG_MainSizeWindow;
-		settings.winedit.quoty=settings.resolution.y / RG_MainSizeWindow;
+		settings.winedit.quotx=settings.resolution.x / RG_Window_Size_Standart;
+		settings.winedit.quoty=settings.resolution.y / RG_Window_Size_Standart;
 		
-		settings.winedit.difx=settings.resolution.x - RG_MainSizeWindow;
-		settings.winedit.dify=settings.resolution.y - RG_MainSizeWindow;
+		settings.winedit.difx=settings.resolution.x - RG_Window_Size_Standart;
+		settings.winedit.dify=settings.resolution.y - RG_Window_Size_Standart;
 	
 
-		settings.monedit.quotx=RG_MainVidmode->width / RG_MainSizeWindow;
-		settings.monedit.quoty=RG_MainVidmode->height / RG_MainSizeWindow;
+		settings.monedit.quotx=RG_MainVidmode->width / RG_Window_Size_Standart;
+		settings.monedit.quoty=RG_MainVidmode->height / RG_Window_Size_Standart;
 		
-		settings.monedit.difx=RG_MainVidmode->width - RG_MainSizeWindow;
-		settings.monedit.dify=RG_MainVidmode->height - RG_MainSizeWindow;
+		settings.monedit.difx=RG_MainVidmode->width - RG_Window_Size_Standart;
+		settings.monedit.dify=RG_MainVidmode->height - RG_Window_Size_Standart;
 		
 
 
@@ -118,96 +124,19 @@ public:
 	//#endif
 		
     GLFWimage icon;
-		if(settings.PathToIcon.size()>=1)
-    	{
-    		icon.pixels = stbi_load(settings.PathToIcon.c_str(), &icon.width, &icon.height, 0, 4);
-    	  	glfwSetWindowIcon(window, 1, &icon);
-    	  	stbi_image_free(icon.pixels);
-    	}
+		if(settings.picon.width!=0&&settings.picon.height!=0){
+      glfwSetWindowIcon(window, 1, &settings.picon);
+		}elif(settings.PathToIcon.size()>=1){
+    	icon.pixels = stbi_load(settings.PathToIcon.c_str(), &icon.width, &icon.height, 0, 4);
+      glfwSetWindowIcon(window, 1, &icon);
+      stbi_image_free(icon.pixels);
+    }
 
     	glfwSwapInterval(settings.Vsyn); 
     	glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE);
 
 
     //sh.init("data/shaders/Shader.fragrg","data/shaders/Shader.vertrg");
-
-		string sfrag = FileLoad("data/shaders/Shader.fragrg");
-		string svert = FileLoad("data/shaders/Shader.vertrg");
-		/*if(sfrag == "E6filenofound"||svert=="E6filenofound"){
-
-		}*/
-		char* frag ;//= FileLoadToChar("data/shaders/Shader.fragrg");
-		char* vert ;//= FileLoadToChar("data/shaders/Shader.vertrg");
-
-		if(sfrag=="E6filenofound"||svert=="E6filenofound"){
-//////////////////////////////////////////////////////////
-		sfrag.clear();
-		svert.clear();
-			if(RG_OpenGLVersion>=330){
-		sfrag = "\
-#version 330 core\n\
-\n\
-uniform sampler2D tex_2d;\n\
-in vec4 color;\n\
-\n\
-in vec2 texCoord;\n\
-\n\
-out vec4 Frag;\n\
-\n\
-uniform int setTexture;\n\
-uniform int ColorSet;\n\
-\n\
-void main()\n\
-{\n\
-    Frag = color;\n\
-\n\
-   	if(setTexture > 0)\n\
-   	{\n\
-   		Frag *= vec4(texture(tex_2d, texCoord));\n\
-   	    \n\
-   		if(ColorSet == 1)\n\
-   		{\n\
-            Frag.rgb = color.rgb;\n\
-        }\n\
-   	}\n\
-}\n\
-";
-//////////////////////////////////////////////////////////////
-		svert = "\
-#version 330 core\n\
-\n\
-//in vec3 RG_VERTEX_ARRAY;\n\
-\n\
-uniform mat4 projMat = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},viewMat = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};\n\
-//{1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}\n\
-\n\
-layout (location = 0) in vec3 rg_Vertex;\n\
-layout (location = 1) in vec4 rg_Color;\n\
-layout (location = 2) in vec2 rg_TextureCoord;\n\
-\n\
-out vec4 color;\n\
-out vec2 texCoord;\n\
-\n\
-void main()\n\
-{\n\
-	color = rg_Color;\n\
-	texCoord = rg_TextureCoord;\n\
-	//vec4 vert = vec4(RG_VERTEX_ARRAY,1);\n\
-	gl_Position = vec4(rg_Vertex,1) *projMat*viewMat;\n\
-}\n\
-";
-			}else{
-				cout<<"Error, opengl 3.3.0 not support";
-			}
-			
-		}
-
-		RG_StringToChar(frag,sfrag);
-		RG_StringToChar(vert,svert);
-
-    sh.init(frag,vert);
-		sh.used();
-		RG_PREPARE_SHADER();
 
 		/*if(fixPosObj) 
     {
@@ -218,7 +147,6 @@ void main()\n\
 		//if(settings.resolution.x>settings.resolution.y)rgOrtho(-((double)settings.resolution.x/settings.resolution.y),((double)settings.resolution.x/settings.resolution.y),-1,1, -2,2);
 		//else if(settings.resolution.x<settings.resolution.y)rgOrtho(-((double)settings.resolution.y/settings.resolution.x),((double)settings.resolution.y/settings.resolution.x),-1,1, -2,2);
 		//else
-		rgOrtho(-1,1,-1,1, -2,2);
 		
 		//////////////////////////////////
 
@@ -276,8 +204,7 @@ void main()\n\
 		rgEnableClientState(RG_VERTEX_ARRAY);
 		rgEnableClientState(RG_COLOR_ARRAY);*/
 
-
-		RG_StartAnimation();
+		
 
 	}
 
@@ -311,17 +238,24 @@ void main()\n\
 
 		}
 	}
-	RG_SettingWindow& set(){
+	RG_Window_Settings& set(){
 		return settings;
 	}
 
-	void Using()
+	/*void Using()
 	{
 		//RG_MainWindowResolution = settings.resolution;
-		RG_MainWindow = this;
+		RG_Window_Standart = this;
+	}*/
+	void use(){
+		//RG_MainWindowResolution = settings.resolution;
+		RG_Window_Standart = this;
+	}
+	void close(){
+    glfwDestroyWindow(window);
 	}
   ~RG_Window(){
-    glfwDestroyWindow(window);
+		close();
   }
 	/*~RG_Window()
 	{
@@ -337,7 +271,7 @@ void main()\n\
 	}
 
 
-	void RG_StartAnimation();
+	//bool RG_StartAnimation();
 
 /////////////////////////
 };

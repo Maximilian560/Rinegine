@@ -165,9 +165,9 @@ enum RG_XYZ_Type{
 
 double CalculeBlockPos(POINT3D<uint>pos,uint xyz){
       return(
-        StandartCam.getMat().get(0,xyz)*pos.x*50+
-        StandartCam.getMat().get(1,xyz)*pos.y*50+
-        StandartCam.getMat().get(2,xyz)*pos.z*50+
-        StandartCam.getMat().get(3,xyz)
+        RG_Camera_Standart.getMat().get(0,xyz)*pos.x*50+
+        RG_Camera_Standart.getMat().get(1,xyz)*pos.y*50+
+        RG_Camera_Standart.getMat().get(2,xyz)*pos.z*50+
+        RG_Camera_Standart.getMat().get(3,xyz)
         );
   }

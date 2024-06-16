@@ -24,6 +24,11 @@
 
 #include "FuncPointer.h"
 
+#include "rg_main.h"
+
+#include "otherDefine.h"
+
 #include "rinegine.h" // Включает основные определения движка RinEngine
 
+#include "init.h"
 // Комментарии сгенерированы с помощью GPT-4

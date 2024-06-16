@@ -199,9 +199,9 @@ public:
 
     for(int y = 0; y<Chunks.size(1);y++){
       for(int x = 0; x<Chunks.size(0);x++){
-        Chunks.get(x,y).init({x,y});
+        Chunks.get(y,x).init({x,y});
         //cout<<x<<" "<<y<<endl;
-        Chunks.get(x,y).generate();
+        Chunks.get(y,x).generate();
       }
     }
 
@@ -265,7 +265,7 @@ public:
     glBindBuffer(GL_ARRAY_BUFFER,Chunks.get({0,0}).buf.vbo());
 	  rgVertexPointer(3,GL_DOUBLE,0,nullptr);
     bool boolExit = false;
-    StandartCam.loadMatrix();
+    RG_Camera_Standart.loadMatrix();
     glBindBuffer(GL_ARRAY_BUFFER,Chunks.get({0,0}).buf.tbo()[0]);
     RG_FOR_CYCLEz(RG_SIZE_CHUNK.z*Chunks.size(1)){
       RG_FOR_CYCLEx(RG_SIZE_CHUNK.x*Chunks.size(0)){

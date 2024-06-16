@@ -18,7 +18,7 @@ uint BufferLoad(uint size,Point *buf,int type)
 	uint edit = Buffers.size() ;
 
 	//Buffers = (RG_BO*)realloc(Buffers,CountBuffers * sizeof(RG_BO));
-	Buffers.append();
+	Buffers.push_back();
 	glGenBuffers(1,&BO);
 	glBindBuffer(GL_ARRAY_BUFFER,BO);
 		glBufferData(GL_ARRAY_BUFFER, size, buf, GL_STATIC_DRAW);

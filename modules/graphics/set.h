@@ -41,11 +41,15 @@
 
 #include "events/set.h"
 
-#include "context/set.h"
-
 #include "texture/set.h"
 
-#include "otherFeatures.h"
+#include "context/set.h"
+
+#include "material/set.h"
+
+#include "objects/set.h"
+
+//#include "otherFeatures.h"
 
 #include "draw/set.h"
 

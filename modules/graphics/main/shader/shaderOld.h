@@ -404,7 +404,7 @@ void ShaderCompiller(char* frag, char* vert,uint prog)
 	
 	char temp[2048];
 	string log;
-	ofstream shaderlog("Logs/Shaders.log");
+	//ofstream shaderlog("Logs/Shaders.log");OLD TEST DEBUG
 
 	/*int status;
 	glGetShaderiv(fshader,GL_COMPILE_STATUS,&status);

@@ -44,7 +44,7 @@ class RG_Text
 public:
 	
 	void centering(){
-		setPos({(pos.x-getSizeWord()*scale)/(RG_MainSizeWindow * 2.),pos.y,pos.z});
+		setPos({(pos.x-getSizeWord()*scale)/(RG_Window_Size_Standart * 2.),pos.y,pos.z});
 	}
 
 	/*int load(wchar_t Char)
@@ -147,7 +147,7 @@ public:
 		POINT3D<double>posTemp={0,0,0};
 		uint symbol = 0;
 		rgTextureOn();
-		//rgBindTexture(RG_StandartAtlas.texture);
+		//rgBindTexture(RG_Atlas_Standart.texture);
 		COLOR4D<double> tempColor = {color.r,color.g,color.b,color.a};
 		for(uint i = 0; i<word.size();i++)
 		{
@@ -234,21 +234,21 @@ public:
 
 
 				//rgScalef(scale,scale,scale);
-				//rgTranslatef(((pos.x*guiSize  + posTemp.x*scale/2.))/RG_MainSizeWindow, (((posTemp.y)+pos.y*guiSize+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT*scale+13))/RG_MainSizeWindow, (pos.z)*guiSize,temp);
+				//rgTranslatef(((pos.x*guiSize  + posTemp.x*scale/2.))/RG_Window_Size_Standart, (((posTemp.y)+pos.y*guiSize+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT*scale+13))/RG_Window_Size_Standart, (pos.z)*guiSize,temp);
 				
-				rgTranslatef(pos.x*scale+((posTemp.x*scale))/RG_MainSizeWindow, pos.y*scale+(((-posTemp.y*scale*2)+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT*scale))/RG_MainSizeWindow, (pos.z)*guiSize,temp);
+				rgTranslatef(pos.x*scale+((posTemp.x*scale))/RG_Window_Size_Standart, pos.y*scale+(((-posTemp.y*scale*2)+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT*scale))/RG_Window_Size_Standart, (pos.z)*guiSize,temp);
 
 
 				//rgLoadMatrixf(IdentityMat,rg_viewMat);
-				rgScalef(scale/(RG_MainSizeWindow/2.),scale/(RG_MainSizeWindow/2.),1,temp);
-				//rgTranslatef(pos.x+(posTemp.x)/RG_MainSizeWindow, pos.y+(((posTemp.y)+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT))/RG_MainSizeWindow, (pos.z),temp);
+				rgScalef(scale/(RG_Window_Size_Standart/2.),scale/(RG_Window_Size_Standart/2.),1,temp);
+				//rgTranslatef(pos.x+(posTemp.x)/RG_Window_Size_Standart, pos.y+(((posTemp.y)+(-characters[symbol].size.y +characters[symbol].bias.y)) - (RG_SIZEFONT))/RG_Window_Size_Standart, (pos.z),temp);
 
 			}
 			else
 			{
-				rgTranslatef((pos.x + posTemp.x)/RG_MainSizeWindow, (pos.y+posTemp.y)/RG_MainSizeWindow, pos.z,temp);
-				rgScalef(scale/RG_MainSizeWindow,scale/RG_MainSizeWindow,1,temp);
-				StandartCam.loadMatrix();			
+				rgTranslatef((pos.x + posTemp.x)/RG_Window_Size_Standart, (pos.y+posTemp.y)/RG_Window_Size_Standart, pos.z,temp);
+				rgScalef(scale/RG_Window_Size_Standart,scale/RG_Window_Size_Standart,1,temp);
+				RG_Camera_Standart.loadMatrix();			
 			}*/
 
 			if(gui)
@@ -257,7 +257,7 @@ public:
 			}
 			else
 			{
-				StandartCam.loadMatrix();				
+				RG_Camera_Standart.loadMatrix();				
 			}
 			rgLoadMatrixf(matrixs[i]);
 			//rgColorSet(true);
@@ -266,38 +266,38 @@ public:
 			rgBegin(GL_TRIANGLES);
 				
 					rgTexCoord2f(
-						(characters[symbol].posTex.x)/							(double)(RG_StandartAtlas.size.x),
-						(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_StandartAtlas.size.y)
+						(characters[symbol].posTex.x)/							(double)(RG_Atlas_Standart.size.x),
+						(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_Atlas_Standart.size.y)
 								); 
 				rgVertex2f(0,characters[symbol].bias.y-characters[symbol].size.y);
 				
         			rgTexCoord2f(
-        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_StandartAtlas.size.x),
-        				(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_StandartAtlas.size.y)
+        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_Atlas_Standart.size.x),
+        				(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_Atlas_Standart.size.y)
         						);             
 				rgVertex2f(characters[symbol].size.x*1,characters[symbol].bias.y-characters[symbol].size.y);
 				
         			rgTexCoord2f(
-        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_StandartAtlas.size.x),
-						(characters[symbol].posTex.y)/							(double)(RG_StandartAtlas.size.y)
+        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_Atlas_Standart.size.x),
+						(characters[symbol].posTex.y)/							(double)(RG_Atlas_Standart.size.y)
         						);
         		rgVertex2f(characters[symbol].size.x*1,	characters[symbol].bias.y);
 				
         			rgTexCoord2f(
-        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_StandartAtlas.size.x),
-						(characters[symbol].posTex.y)/							(double)(RG_StandartAtlas.size.y)
+        				(characters[symbol].posTex.x+characters[symbol].size.x)/(double)(RG_Atlas_Standart.size.x),
+						(characters[symbol].posTex.y)/							(double)(RG_Atlas_Standart.size.y)
         						);
         		rgVertex2f(characters[symbol].size.x*1,	characters[symbol].bias.y);
 				
         			rgTexCoord2f(
-        				(characters[symbol].posTex.x)/							(double)(RG_StandartAtlas.size.x),
-        				(characters[symbol].posTex.y)/							(double)(RG_StandartAtlas.size.y)
+        				(characters[symbol].posTex.x)/							(double)(RG_Atlas_Standart.size.x),
+        				(characters[symbol].posTex.y)/							(double)(RG_Atlas_Standart.size.y)
         						);
         		rgVertex2f(0,							characters[symbol].bias.y);
 				
         			rgTexCoord2f(
-        				(characters[symbol].posTex.x)/							(double)(RG_StandartAtlas.size.x),
-        				(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_StandartAtlas.size.y)
+        				(characters[symbol].posTex.x)/							(double)(RG_Atlas_Standart.size.x),
+        				(characters[symbol].posTex.y+characters[symbol].size.y)/(double)(RG_Atlas_Standart.size.y)
         						);
 				rgVertex2f(0,characters[symbol].bias.y-characters[symbol].size.y);
 			
@@ -405,17 +405,17 @@ public:
 			rgLoadIdentity(matrixs[i]);
 			if(gui)
 			{
-				rgTranslatef(pos.x+((posTemp.x*scale))/RG_MainSizeWindow, pos.y+(((-posTemp.y*scale*2)+(-characters[temp].bias.y +characters[temp].bias.y)) - (RG_SIZEFONT*scale))/RG_MainSizeWindow, (pos.z)*guiSize,matrixs[i]);
+				rgTranslatef(pos.x+((posTemp.x*scale))/RG_Window_Size_Standart, pos.y+(((-posTemp.y*scale*2)+(-characters[temp].bias.y +characters[temp].bias.y)) - (RG_SIZEFONT*scale))/RG_Window_Size_Standart, (pos.z)*guiSize,matrixs[i]);
 
-				rgScalef(scale/(RG_MainSizeWindow/2.),scale/(RG_MainSizeWindow/2.),1,matrixs[i]);
+				rgScalef(scale/(RG_Window_Size_Standart/2.),scale/(RG_Window_Size_Standart/2.),1,matrixs[i]);
 				
 
 			}
 			else
 			{
-				rgTranslatef((pos.x + posTemp.x)/RG_MainSizeWindow, (pos.y+posTemp.y)/RG_MainSizeWindow, pos.z,matrixs[i]);
-				rgScalef(scale/RG_MainSizeWindow,scale/RG_MainSizeWindow,1,matrixs[i]);
-				//StandartCam.loadMatrix();			
+				rgTranslatef((pos.x + posTemp.x)/RG_Window_Size_Standart, (pos.y+posTemp.y)/RG_Window_Size_Standart, pos.z,matrixs[i]);
+				rgScalef(scale/RG_Window_Size_Standart,scale/RG_Window_Size_Standart,1,matrixs[i]);
+				//RG_Camera_Standart.loadMatrix();			
 			}
 			
 			//sizeWord.x+=characters[temp].advance/64.-characters[temp].bias.x+characters[temp].size.x+characters[temp].bias.x;
@@ -466,17 +466,17 @@ public:
 			rgLoadIdentity(matrixs[i]);
 			if(gui)
 			{
-				rgTranslatef(pos.x+((posTemp.x*scale))/RG_MainSizeWindow, pos.y+(((-posTemp.y*scale*2)+(-characters[temp].bias.y +characters[temp].bias.y)) - (RG_SIZEFONT*scale))/RG_MainSizeWindow, (pos.z)*guiSize,matrixs[i]);
+				rgTranslatef(pos.x+((posTemp.x*scale))/RG_Window_Size_Standart, pos.y+(((-posTemp.y*scale*2)+(-characters[temp].bias.y +characters[temp].bias.y)) - (RG_SIZEFONT*scale))/RG_Window_Size_Standart, (pos.z)*guiSize,matrixs[i]);
 
-				rgScalef(scale/(RG_MainSizeWindow/2.),scale/(RG_MainSizeWindow/2.),1,matrixs[i]);
+				rgScalef(scale/(RG_Window_Size_Standart/2.),scale/(RG_Window_Size_Standart/2.),1,matrixs[i]);
 				
 
 			}
 			else
 			{
-				rgTranslatef((pos.x + posTemp.x)/RG_MainSizeWindow, (pos.y+posTemp.y)/RG_MainSizeWindow, pos.z,matrixs[i]);
-				rgScalef(scale/RG_MainSizeWindow,scale/RG_MainSizeWindow,1,matrixs[i]);
-				//StandartCam.loadMatrix();			
+				rgTranslatef((pos.x + posTemp.x)/RG_Window_Size_Standart, (pos.y+posTemp.y)/RG_Window_Size_Standart, pos.z,matrixs[i]);
+				rgScalef(scale/RG_Window_Size_Standart,scale/RG_Window_Size_Standart,1,matrixs[i]);
+				//RG_Camera_Standart.loadMatrix();			
 			}
 			if(sizeWord.y==0)
 				sizeWord.x+=characters[temp].advance/64.-characters[temp].bias.x+characters[temp].size.x+characters[temp].bias.x;
@@ -605,7 +605,7 @@ void RG_PrepareFont()
 {	
 
 	//rg_cout("RG_AtlasArrayTextures size == "<<RG_AtlasArrayTextures.getSize());
-	RG_AtlasArrayTextures.append();
+	RG_AtlasArrayTextures.push_back();
 	//rg_cout("RG_AtlasArrayTextures size == "<<RG_AtlasArrayTextures.getSize());
 	//AtlasTexture *fon = rg_calloc(AtlasTexture,1);
 	//AtlasTexture &TextureAtlasFont = *fon;

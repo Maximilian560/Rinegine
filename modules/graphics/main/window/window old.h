@@ -14,7 +14,7 @@ enum RG_WindowType
 	RG_Windowed
 };
 
-struct RG_SettingWindow{
+struct RG_Window_Settings{
   POINT2D<uint> resolution = {1024,720};
   POINT2D<uint> WindowResolution = {1024,720};
   POINT2D<uint> FullscreanResolution = {1920,1080};
@@ -43,7 +43,7 @@ struct RG_SettingWindow{
 
 class RG_Window{
   GLFWwindow* window;
-	RG_SettingWindow settings;
+	RG_Window_Settings settings;
   RG_Shader sh;
   bool INIT = false;
 public:
@@ -52,7 +52,7 @@ public:
 	GLFWwindow*&win(){
 		return window;
 	}
-  void init(RG_SettingWindow& set){
+  void init(RG_Window_Settings& set){
 
   
   //if(!glfwInit()){throw(RG_ERROR_GLFW_INIT_ERR);}
@@ -339,14 +339,14 @@ void main()\n\
 
 		}
 	}
-	RG_SettingWindow& set(){
+	RG_Window_Settings& set(){
 		return settings;
 	}
 
 	void Using()
 	{
 		//RG_MainWindowResolution = settings.resolution;
-		RG_MainWindow = this;
+		RG_Window_Standart = this;
 	}
   ~RG_Window(){
     glfwDestroyWindow(window);

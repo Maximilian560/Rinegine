@@ -13,7 +13,7 @@
 
 #ifdef RG_GRAPH
   #include "graphics/set.h"
-#endif.
+#endif
 
 #ifdef RG_ADDONS
   #include "addons/set.h"

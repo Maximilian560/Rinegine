@@ -25,33 +25,33 @@ void RG_SL_OnGrid(RG_Object &obj, RG_Matrix<RG_Object>&grid){
       rgTranslatef(gr.pos.x,gr.pos.y,gr.pos.z);
       rgScalef
 	      (
-	      ((double)TextureSize.x/RG_MainSizeWindow * gr.scale)/((double)grid.size(0)/2.) , 
-	      ((double)TextureSize.y/RG_MainSizeWindow * gr.scale)/((double)grid.size(1)/2.) , 
+	      ((double)TextureSize.x/RG_Window_Size_Standart * gr.scale)/((double)grid.size(0)/2.) , 
+	      ((double)TextureSize.y/RG_Window_Size_Standart * gr.scale)/((double)grid.size(1)/2.) , 
 	      1, gr.mat); 
 
-	    //rgTranslatef( gr.pos.x+((((double)TextureSize.x/(double)grid.size(0)/RG_MainSizeWindow * gr.scale)*x)-0.5), gr.pos.y+((((double)TextureSize.y/(double)grid.size(1)/RG_MainSizeWindow * gr.scale)*y)-0.5), gr.pos.z,gr.mat);
+	    //rgTranslatef( gr.pos.x+((((double)TextureSize.x/(double)grid.size(0)/RG_Window_Size_Standart * gr.scale)*x)-0.5), gr.pos.y+((((double)TextureSize.y/(double)grid.size(1)/RG_Window_Size_Standart * gr.scale)*y)-0.5), gr.pos.z,gr.mat);
 
       rgTranslatef(x-floor(grid.size(0)/2.),y-floor(grid.size(1)/2.),0,gr.mat);
 
       rgScalef
 	      (
-	      ((double)TextureSize.x/RG_MainSizeWindow * gr.scale)/(double)grid.size(0) , 
-	      ((double)TextureSize.y/RG_MainSizeWindow * gr.scale)/(double)grid.size(1) , 
+	      ((double)TextureSize.x/RG_Window_Size_Standart * gr.scale)/(double)grid.size(0) , 
+	      ((double)TextureSize.y/RG_Window_Size_Standart * gr.scale)/(double)grid.size(1) , 
 	      1, gr.mat); 
       rgScalef(1.5,1.5,1,gr.mat);
 
-      gr.size.x = ((((double)TextureSize.x/RG_MainSizeWindow)/(double)grid.size(0)));
-      gr.size.y = ((((double)TextureSize.y/RG_MainSizeWindow)/(double)grid.size(1)));
+      gr.size.x = ((((double)TextureSize.x/RG_Window_Size_Standart)/(double)grid.size(0)));
+      gr.size.y = ((((double)TextureSize.y/RG_Window_Size_Standart)/(double)grid.size(1)));
     
       gr.pos.x = obj.pos.x+((gr.size.x*2)*(x-floor(grid.size(0)/2.)));
       gr.pos.y = obj.pos.y+((gr.size.y*2)*(y-floor(grid.size(1)/2.)));
       gr.pos.z = obj.pos.z;
       POINT2D<double> TexCoordArr[6] = 
 	    {
-	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*x))		  /(double)RG_StandartAtlas.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(( grid.size(1)-y-1))))						/(double)RG_StandartAtlas.size.y},
-	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*x))		  /(double)RG_StandartAtlas.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(((  grid.size(1)-y)))))	/(double)RG_StandartAtlas.size.y},
-	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*(x+1)))	/(double)RG_StandartAtlas.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(((  grid.size(1)-y)))))	/(double)RG_StandartAtlas.size.y},
-	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*(x+1)))	/(double)RG_StandartAtlas.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(( grid.size(1)-y-1))))  /(double)RG_StandartAtlas.size.y},
+	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*x))		  /(double)RG_Atlas_Standart.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(( grid.size(1)-y-1))))						/(double)RG_Atlas_Standart.size.y},
+	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*x))		  /(double)RG_Atlas_Standart.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(((  grid.size(1)-y)))))	/(double)RG_Atlas_Standart.size.y},
+	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*(x+1)))	/(double)RG_Atlas_Standart.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(((  grid.size(1)-y)))))	/(double)RG_Atlas_Standart.size.y},
+	    	{(TexturePos.x+(TextureSize.x*1./grid.size(0)*(x+1)))	/(double)RG_Atlas_Standart.size.x,	(TexturePos.y+(TextureSize.y*1./grid.size(1)*(( grid.size(1)-y-1))))  /(double)RG_Atlas_Standart.size.y},
 	    };
       gr.BOs.tbo().resize(1);
 	    gr.BOs.tbo()[0] = BufferLoad<POINT2D<double>>(sizeof(TexCoordArr),TexCoordArr,GL_STATIC_DRAW);

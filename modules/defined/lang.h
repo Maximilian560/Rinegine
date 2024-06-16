@@ -12,7 +12,7 @@ enum RG_LANG
 
 uint languageWindows;
 
-class RG_lang
+class RG_Lang
 {
 	string path = "data/lang";
 	string type = ".rg";
@@ -38,14 +38,14 @@ public:
 		{
 			return lang;
 		}
-		RG_lang(){}
+		RG_Lang(){}
 
-		RG_lang(string pat)
+		RG_Lang(string pat)
 		{
 			init(pat);
 		}
 
-		RG_lang(int a)
+		RG_Lang(int a)
 		{
 			if(a==0)return;
 			load();

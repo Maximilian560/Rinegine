@@ -53,4 +53,13 @@ void RG_StringToChar(char*& c,string s){
 	}
 }
 
+char* RG_StringToChar(string s){
+	char* c = s_calloc<char>(s.size());
+
+	for(int i = 0; i<s.size()-1;i++){
+		c[i] = s[i];
+	}
+    return c;
+}
+
 // Коментарии сгенерированы GPT-4

@@ -202,44 +202,43 @@ void rgTranslatef(float x, float y, float z,RG_Matrix <float>&mat = (*projMat),b
 }
 
 //DRAW ARRAY,ELEMENTS
-void rgDrawElements(GLenum mode, GLsizei count, GLenum type, const void * indices)
-{
+inline void rgDrawElements(GLenum mode, GLsizei count, GLenum type, const void * indices){
 	//glUniformMatrix4fv(rg_projMat,1,0,projMat->mat());   
 
 	glDrawElements(mode,count,type,indices);
 }
 
-void rgDrawArrays(	GLenum mode,GLint first,GLsizei count)
+inline void rgDrawArrays(	GLenum mode,GLint first,GLsizei count)
 {
 	//glUniformMatrix4fv(rg_projMat,1,0,projMat->mat());   
 
 	glDrawArrays(mode,first,count);
 }
 //BEGIN END
-void rgBegin(GLenum mode)
+inline void rgBegin(GLenum mode)
 {
 	//glUniformMatrix4fv(rg_projMat,1,0,projMat->mat());   
 	glBegin(mode);
 }
 
-void rgEnd()
+inline void rgEnd()
 {
 	glEnd();
 }
 
 
 //CLIENT STATE
-void rgEnableClientState(RG_ATTRIB_CONST type)
+inline void rgEnableClientState(RG_ATTRIB_CONST type)
 {
 	glEnableVertexAttribArray(type);
 
 }
-void rgDisableClientState(RG_ATTRIB_CONST type)
+inline void rgDisableClientState(RG_ATTRIB_CONST type)
 {
 	glDisableVertexAttribArray(type);
 }
 //TEXTURE
-void rgBindTexture(int id,int type = GL_TEXTURE_2D)
+inline void rgBindTexture(int id,int type = GL_TEXTURE_2D)
 {
 	glUniform1i(rg_setTexture,id);	
 }

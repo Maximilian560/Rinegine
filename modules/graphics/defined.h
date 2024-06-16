@@ -57,10 +57,10 @@ GLFWmonitor* RG_MainMonitor;// = glfwGetPrimaryMonitor();
 const GLFWvidmode* RG_MainVidmode;
 
 
-double RG_MainSizeWindow = 2000;
+double RG_Window_Size_Standart = 2000;
 
 class RG_Window;
-RG_Window *RG_MainWindow;
+RG_Window *RG_Window_Standart;
 
 
 FT_Face DefFace;
@@ -69,3 +69,4 @@ FT_Library library;
 uint RG_SIZEFONT = 38;
 
 
+double RG_Render_Distance[2] = {10,10};

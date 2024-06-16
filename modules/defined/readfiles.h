@@ -77,7 +77,7 @@ string FileLoad(string path)
 	return text;
 }
 //из файла в массив символов 
-char* FileLoadToChar(string path)
+const char* FileLoadToChar(string path)
 {
 
 	ifstream file;
@@ -109,8 +109,8 @@ char* FileLoadToChar(string path)
 
 char todopath[300];
 string RG_GetFilePath(HWND& test){
-	#ifdef RG_DEF_WINOS
-  //HWND test = glfwGetWin32Window (RG_MainWindow->win());
+	//#ifdef RG_DEF_WINOS
+	#ifdef WIN_32
 	OPENFILENAME ofn;
 	ZeroMemory(&ofn,sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn); //размер структуры
@@ -126,7 +126,8 @@ string RG_GetFilePath(HWND& test){
 	return todopath;
 
 	#endif
-
+	RG_Debug::addl(RG_LOG_ERROR,"RG_GetFilePath cant work outside Windows");
+	return "";
 }
 
 

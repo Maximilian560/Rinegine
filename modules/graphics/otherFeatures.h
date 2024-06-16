@@ -1,41 +1,41 @@
 #pragma once
 
 
-int RG_Action(RG_Object& obj,bool sticky = false){
+/*int RG_Action(RG_Object& obj,bool sticky = false){
 	
 	POINT2D<double>HPos;
 
 	if(obj.gui_type == RG_GUI_LINK_LEFT_TOP) {HPos.x = 0; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_LEFT_CENTER) {HPos.x = 0; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_LEFT_BOTTOM) {HPos.x = 0; HPos.y = RG_MainWindow->set().resolution.y;}	
+	if(obj.gui_type == RG_GUI_LINK_LEFT_CENTER) {HPos.x = 0; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_LEFT_BOTTOM) {HPos.x = 0; HPos.y = RG_Window_Standart->set().resolution.y;}	
 
-	if(obj.gui_type == RG_GUI_LINK_CENTER_TOP) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_CENTER_CENTER) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_CENTER_BOTTOM) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = RG_MainWindow->set().resolution.y;}	
+	if(obj.gui_type == RG_GUI_LINK_CENTER_TOP) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = 0;}
+	if(obj.gui_type == RG_GUI_LINK_CENTER_CENTER) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_CENTER_BOTTOM) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = RG_Window_Standart->set().resolution.y;}	
 
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_TOP) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_CENTER) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_BOTTOM) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = RG_MainWindow->set().resolution.y;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_TOP) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = 0;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_CENTER) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_BOTTOM) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = RG_Window_Standart->set().resolution.y;}
 
 
 	POINT3D <double>size;
 
-	size.x=obj.size.x * RG_MainWindow->set().resolution.x* obj.scale *((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x); 
-	size.y=obj.size.y * RG_MainWindow->set().resolution.y* obj.scale ; 
+	size.x=obj.size.x * RG_Window_Standart->set().resolution.x* obj.scale *((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x); 
+	size.y=obj.size.y * RG_Window_Standart->set().resolution.y* obj.scale ; 
 	size.z=obj.size.z * obj.scale;
 
 
 
 	POINT2D<double> LeftTop = 
 	{
-		(HPos.x+(obj.pos.x/2.*RG_MainWindow->set().resolution.x)*((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x)-(size.x/2)),
-		(HPos.y+(-obj.pos.y/2. * RG_MainWindow->set().resolution.y)) - (size.y/2.)
+		(HPos.x+(obj.pos.x/2.*RG_Window_Standart->set().resolution.x)*((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x)-(size.x/2)),
+		(HPos.y+(-obj.pos.y/2. * RG_Window_Standart->set().resolution.y)) - (size.y/2.)
 	};
 
 	POINT2D<double> RightBottom 
 	{
-		(HPos.x+(( obj.pos.x/2. * RG_MainWindow->set().resolution.x))*((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x)) + (size.x/2.),
-		(HPos.y+(-obj.pos.y/2. * RG_MainWindow->set().resolution.y)) + (size.y/2.)
+		(HPos.x+(( obj.pos.x/2. * RG_Window_Standart->set().resolution.x))*((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x)) + (size.x/2.),
+		(HPos.y+(-obj.pos.y/2. * RG_Window_Standart->set().resolution.y)) + (size.y/2.)
 	};
 
 	if(	MPos.x > LeftTop.x && MPos.x < RightBottom.x)
@@ -49,42 +49,43 @@ int RG_Action(RG_Object& obj,bool sticky = false){
 
 	return 0;
 }	
-void RG_ActionSwitch(RG_Object& obj,bool &Switch){
+*/
+/*void RG_ActionSwitch(RG_Object& obj,bool &Switch){
   
 
 	POINT2D<double>HPos;
 
 	if(obj.gui_type == RG_GUI_LINK_LEFT_TOP) {HPos.x = 0; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_LEFT_CENTER) {HPos.x = 0; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_LEFT_BOTTOM) {HPos.x = 0; HPos.y = RG_MainWindow->set().resolution.y;}	
+	if(obj.gui_type == RG_GUI_LINK_LEFT_CENTER) {HPos.x = 0; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_LEFT_BOTTOM) {HPos.x = 0; HPos.y = RG_Window_Standart->set().resolution.y;}	
 
-	if(obj.gui_type == RG_GUI_LINK_CENTER_TOP) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_CENTER_CENTER) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_CENTER_BOTTOM) {HPos.x = RG_MainWindow->set().resolution.x/2.; HPos.y = RG_MainWindow->set().resolution.y;}	
+	if(obj.gui_type == RG_GUI_LINK_CENTER_TOP) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = 0;}
+	if(obj.gui_type == RG_GUI_LINK_CENTER_CENTER) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_CENTER_BOTTOM) {HPos.x = RG_Window_Standart->set().resolution.x/2.; HPos.y = RG_Window_Standart->set().resolution.y;}	
 
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_TOP) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = 0;}
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_CENTER) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = RG_MainWindow->set().resolution.y/2.;}
-	if(obj.gui_type == RG_GUI_LINK_RIGHT_BOTTOM) {HPos.x = RG_MainWindow->set().resolution.x; HPos.y = RG_MainWindow->set().resolution.y;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_TOP) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = 0;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_CENTER) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = RG_Window_Standart->set().resolution.y/2.;}
+	if(obj.gui_type == RG_GUI_LINK_RIGHT_BOTTOM) {HPos.x = RG_Window_Standart->set().resolution.x; HPos.y = RG_Window_Standart->set().resolution.y;}
 
 
 	POINT3D <double>size;
 
-	size.x=obj.size.x * RG_MainWindow->set().resolution.x* obj.scale *((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x); 
-	size.y=obj.size.y * RG_MainWindow->set().resolution.y* obj.scale ; 
+	size.x=obj.size.x * RG_Window_Standart->set().resolution.x* obj.scale *((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x); 
+	size.y=obj.size.y * RG_Window_Standart->set().resolution.y* obj.scale ; 
 	size.z=obj.size.z * obj.scale;
 
 
 
 	POINT2D<double> LeftTop = 
 	{
-		(HPos.x+(obj.pos.x/2.*RG_MainWindow->set().resolution.x)*((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x)-(size.x/2)),
-		(HPos.y+(-obj.pos.y/2. * RG_MainWindow->set().resolution.y)) - (size.y/2.)
+		(HPos.x+(obj.pos.x/2.*RG_Window_Standart->set().resolution.x)*((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x)-(size.x/2)),
+		(HPos.y+(-obj.pos.y/2. * RG_Window_Standart->set().resolution.y)) - (size.y/2.)
 	};
 
 	POINT2D<double> RightBottom 
 	{
-		(HPos.x+(( obj.pos.x/2. * RG_MainWindow->set().resolution.x))*((float)RG_MainWindow->set().resolution.y / RG_MainWindow->set().resolution.x)) + (size.x/2.),
-		(HPos.y+(-obj.pos.y/2. * RG_MainWindow->set().resolution.y)) + (size.y/2.)
+		(HPos.x+(( obj.pos.x/2. * RG_Window_Standart->set().resolution.x))*((float)RG_Window_Standart->set().resolution.y / RG_Window_Standart->set().resolution.x)) + (size.x/2.),
+		(HPos.y+(-obj.pos.y/2. * RG_Window_Standart->set().resolution.y)) + (size.y/2.)
 	};
 
 
@@ -113,10 +114,10 @@ void RG_ActionSwitch(RG_Object& obj,bool &Switch){
 				};
 			}
 			
-		}
-	*/
+		}//*
+	
 
-}
+}*/
 
 
 
@@ -131,7 +132,7 @@ void RG_CreateText(RG_Text& txt, wstring text, POINT3D <double> pos,double sc=0,
 		txt.setScale(sc);
 	}
 	if(center){
-		txt.setPos({(pos.x-txt.getSizeWord()*sc)/(RG_MainSizeWindow * 2.),pos.y,pos.z});
+		txt.setPos({(pos.x-txt.getSizeWord()*sc)/(RG_Window_Size_Standart * 2.),pos.y,pos.z});
 	}
 	else{
 		txt.setPos({pos.x,pos.y,pos.z});
@@ -161,7 +162,7 @@ void RG_CreateText(wstring text,RG_Text& txt,double sc=0,bool gui = false, LINK_
 }*/
 
 
-void RG_CreateText(RG_Text& txt, wstring text, RG_Object& obj,double sc = 1)
+/*void RG_CreateText(RG_Text& txt, wstring text, RG_Object& obj,double sc = 1)
 {
 	txt.setString(text);
 	//txt.setPos(pos);
@@ -171,15 +172,14 @@ void RG_CreateText(RG_Text& txt, wstring text, RG_Object& obj,double sc = 1)
 	txt.setScale(obj.scale*sc);
 
 	
-	txt.setPos({obj.pos.x-((txt.getSizeWord()* ((obj.scale*sc)/2.))/(RG_MainSizeWindow )),obj.pos.y,obj.pos.z});
+	txt.setPos({obj.pos.x-((txt.getSizeWord()* ((obj.scale*sc)/2.))/(RG_Window_Size_Standart )),obj.pos.y,obj.pos.z});
 	
 	txt.update();
-}
+}*/
 
 
 ////LOAD OBJ FILES
-void RG_rgobjFileLoad(RG_ObjFile&obj,string path)
-{
+/*void RG_rgobjFileLoad(RG_ObjFile&obj,string path){
 	ifstream file(path);
 
 	string text;
@@ -313,25 +313,4 @@ void RG_rgobjFileLoad(RG_ObjFile&obj,string path)
 	file.close();
 }
 
-string RG_GetFilePath(){
-	#ifdef RG_DEF_WINOS
-  HWND test = glfwGetWin32Window (RG_MainWindow->win());
-	OPENFILENAME ofn;
-	ZeroMemory(&ofn,sizeof(ofn));
-	ofn.lStructSize = sizeof(ofn); //размер структуры
-	ofn.hwndOwner = test; //окно
-	ofn.lpstrFile = todopath; //путь
-	ofn.nMaxFile = sizeof(todopath); //maxsize
-	//ofn.lpstrFilter = "*.RGSET";
-	ofn.lpstrFilter = NULL;
-	//ofn.lpstrCustomFilter = "*.RGSET";
-	//ofn.nMaxCustFilter = 20;
-	ofn.lpstrFileTitle = NULL;
-	ofn.nMaxFileTitle = 123;
-	ofn.lpstrInitialDir = NULL; //start dir
-	ofn.Flags = OFN_PATHMUSTEXIST|OFN_FILEMUSTEXIST;
-	if(!GetOpenFileNameA(&ofn))return "error";
-	return todopath;
-	#endif
-
-}
+*/

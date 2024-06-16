@@ -13,15 +13,15 @@ POINT2D <double> MPos;
 
 void RG_Event_Change_ViewPort(GLFWwindow* window, int x, int y)
 {
-	RG_MainWindow->set().resolution.x = x;
-	RG_MainWindow->set().resolution.y = y;
+	RG_Window_Standart->set().resolution.x = x;
+	RG_Window_Standart->set().resolution.y = y;
 
 
-	RG_MainWindow->set().winedit.quotx=RG_MainWindow->set().resolution.x / RG_MainSizeWindow;
-	RG_MainWindow->set().winedit.quoty=RG_MainWindow->set().resolution.y / RG_MainSizeWindow;
+	RG_Window_Standart->set().winedit.quotx=RG_Window_Standart->set().resolution.x / RG_Window_Size_Standart;
+	RG_Window_Standart->set().winedit.quoty=RG_Window_Standart->set().resolution.y / RG_Window_Size_Standart;
 	
-	RG_MainWindow->set().winedit.difx=RG_MainWindow->set().resolution.x - RG_MainSizeWindow;
-	RG_MainWindow->set().winedit.dify=RG_MainWindow->set().resolution.y - RG_MainSizeWindow;
+	RG_Window_Standart->set().winedit.difx=RG_Window_Standart->set().resolution.x - RG_Window_Size_Standart;
+	RG_Window_Standart->set().winedit.dify=RG_Window_Standart->set().resolution.y - RG_Window_Size_Standart;
 
 	glViewport(0, 0, x, y);
 
@@ -34,7 +34,7 @@ void RG_Event_Change_ViewPort(GLFWwindow* window, int x, int y)
 
 void RG_SetKeyCallback(void(&KeyEvent)(GLFWwindow* , int , int , int , int))
 {
-	glfwSetKeyCallback(RG_MainWindow->win(), KeyEvent);
+	glfwSetKeyCallback(RG_Window_Standart->win(), KeyEvent);
 }
 
 void RG_MouseEvent(GLFWwindow* window, int button, int action, int mods)
@@ -52,7 +52,7 @@ void RG_ScrollEvent(GLFWwindow* window, double x, double y)
 
 void RG_UpdateStates()
 {
-		glfwSwapBuffers(RG_MainWindow->win());
+		glfwSwapBuffers(RG_Window_Standart->win());
 		//sizeWindowChange = false;
 		RG_WindowWasChange = false;
 		RG_FileWasDropped = false;
@@ -61,39 +61,35 @@ void RG_UpdateStates()
 		RG_ScrollMouse.x = 0;
 }
 
-
-
-
-void RG_TestGLError()
-{
+void RG_TestGLError(){
 	int glError = 0;
-	cout<<endl<<"!GL ERROR:"<<endl;
-	while((glError = glGetError()) != GL_NO_ERROR)
-	{
+	RG_Debug::addl(RG_LOG_INFO,"Start test GL error");
+	while((glError = glGetError()) != GL_NO_ERROR){
 		switch(glError)
 		{
-		case GL_NO_ERROR:			cout<<"GL_NO_ERROR"<<endl;break;
-		case GL_INVALID_ENUM:		cout<<"GL_INVALID_ENUM"<<endl;break;
-		case GL_INVALID_VALUE:		cout<<"GL_INVALID_VALUE"<<endl;break;
-		case GL_INVALID_OPERATION:	cout<<"GL_INVALID_OPERATION"<<endl;break;
-		case GL_STACK_OVERFLOW:		cout<<"GL_STACK_OVERFLOW"<<endl;break;
-		case GL_STACK_UNDERFLOW:	cout<<"GL_STACK_UNDERFLOW"<<endl;break;
-		case GL_OUT_OF_MEMORY:		cout<<"GL_OUT_OF_MEMORY"<<endl;break;
+			case GL_NO_ERROR:						RG_Debug::addl(RG_LOG_ERROR,"GL_NO_ERROR");break;
+			case GL_INVALID_ENUM:				RG_Debug::addl(RG_LOG_ERROR,"GL_INVALID_ENUM");break;
+			case GL_INVALID_VALUE:			RG_Debug::addl(RG_LOG_ERROR,"GL_INVALID_VALUE");break;
+			case GL_INVALID_OPERATION:	RG_Debug::addl(RG_LOG_ERROR,"GL_INVALID_OPERATION");break;
+			case GL_STACK_OVERFLOW:			RG_Debug::addl(RG_LOG_ERROR,"GL_STACK_OVERFLOW");break;
+			case GL_STACK_UNDERFLOW:		RG_Debug::addl(RG_LOG_ERROR,"GL_STACK_UNDERFLOW");break;
+			case GL_OUT_OF_MEMORY:			RG_Debug::addl(RG_LOG_ERROR,"GL_OUT_OF_MEMORY");break;
+			default:										RG_Debug::addl(RG_LOG_ERROR,"Unknown error");break;
 		};
 	}
-	cout<<"THIS ALL!"<<endl<<endl;
+	RG_Debug::addl(RG_LOG_INFO,"Stop test GL error");
 }
 
 void RG_KeyEvent(GLFWwindow* win, int key, int scancode, int action, int mods)
 {
 	if(key == GLFW_KEY_F11&&action==GLFW_PRESS)
 	{
-		RG_MainWindow->Active_Fullscreen();
-		glfwSetCursorPos(RG_MainWindow->win(),RG_MainWindow->set().resolution.x/2.,RG_MainWindow->set().resolution.y/2.);
+		RG_Window_Standart->Active_Fullscreen();
+		glfwSetCursorPos(RG_Window_Standart->win(),RG_Window_Standart->set().resolution.x/2.,RG_Window_Standart->set().resolution.y/2.);
 		//if(RG_CursorFix)glfwSetCursorPos(window,WindowSize.x/2.,WindowSize.y/2.);
 	}
 	if(RG_KEYS[GLFW_KEY_LEFT_CONTROL]&&key == GLFW_KEY_V){
-		const char* tempa= glfwGetClipboardString(RG_MainWindow->win());
+		const char* tempa= glfwGetClipboardString(RG_Window_Standart->win());
 		if(tempa!=nullptr){
 			RG_Clipboard = tempa;
 			RG_ClipboardUpdate = true;

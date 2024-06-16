@@ -49,16 +49,16 @@ struct RG_EX_Mesh{
   RG_Array<uint> LoadBuffs;
   RG_Array<bool> TypeLoadBuffs;
 
-  void append(RG_Array<double> buf,RG_EX_TypeBuf t, bool load = true){
-    RawBuffs.append(buf);
-    //LoadBuffs.append(-1);.
-    TypeRawBuffs.append(t);
+  void push_back(RG_Array<double> buf,RG_EX_TypeBuf t, bool load = true){
+    RawBuffs.push_back(buf);
+    //LoadBuffs.push_back(-1);.
+    TypeRawBuffs.push_back(t);
     if(load){
-      LoadBuffs.append(BufferLoad<double>(buf.size()*sizeof(double),buf.get_arr(),GL_STATIC_DRAW));
-      TypeLoadBuffs.append(1);
+      LoadBuffs.push_back(BufferLoad<double>(buf.size()*sizeof(double),buf.get_arr(),GL_STATIC_DRAW));
+      TypeLoadBuffs.push_back(1);
     }else{
-      LoadBuffs.append();
-      TypeLoadBuffs.append(0);
+      LoadBuffs.push_back();
+      TypeLoadBuffs.push_back(0);
     }
   }
   void LoadBuf(uint i){

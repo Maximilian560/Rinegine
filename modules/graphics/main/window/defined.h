@@ -19,7 +19,7 @@ enum RG_WindowType
 
 
 ////////////////////////////////////////////
-struct RG_SettingWindow{
+struct RG_Window_Settings{
   POINT2D<uint> resolution = {1024,720};
   POINT2D<uint> WindowResolution = {1024,720};
   POINT2D<uint> FullscreanResolution = {1920,1080};
@@ -28,13 +28,13 @@ struct RG_SettingWindow{
   RG_WindowType Wtype = RG_Windowed;
   string name = "Powered by Rinegine";
   string PathToIcon;
+	GLFWimage picon;
   bool transparent = false;
   bool CenterCursor = false;
   uint MSAA = 4;
 	bool MSAAon = false;
   bool INIT = false;
-  void print()
-	{
+  void print(){
 		cout<<"Resolution: "<<resolution.x<<"/"<<resolution.y<<endl;
 		cout<<"Name: "<<name<<endl;
 		cout<<"Vsyn: "<<Vsyn<<endl;

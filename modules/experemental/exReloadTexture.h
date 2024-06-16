@@ -3,7 +3,7 @@
 
 
 
-void RG_EX_ReplaceTexture(Atlas &atl = RG_StandartAtlas){
+void RG_EX_ReplaceTexture(Atlas &atl = RG_Atlas_Standart){
   uint tempTexture;
   uint oldTexture;
 	glGenTextures(1,&tempTexture);
@@ -27,7 +27,7 @@ void RG_EX_ReplaceTexture(Atlas &atl = RG_StandartAtlas){
 }
 
 
-void RG_EX_ReloadAtlas(Atlas &atl = RG_StandartAtlas, RG_Array<AtlasTexture> &texs = RG_AtlasArrayTextures){
+void RG_EX_ReloadAtlas(Atlas &atl = RG_Atlas_Standart, RG_Array<AtlasTexture> &texs = RG_AtlasArrayTextures){
   //calcule size
 	POINT2D<int>max_size;
 	POINT2D<int>max_one_size;
