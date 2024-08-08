@@ -1,4 +1,4 @@
-# Rinegine [<img alt="Rinegine Release" src="https://img.shields.io/badge/Rinegine-v0.2.0-green">](../../releases)  [<img alt="Rinegine WIP" src="https://img.shields.io/badge/Rinegine-v0.2.1 WIP-green">]()
+# Rinegine [<img alt="Rinegine Release" src="https://img.shields.io/badge/Rinegine-v0.2.1-green">](../../releases)  <!-- [<img alt="Rinegine WIP" src="https://img.shields.io/badge/Rinegine-v0.2.1 WIP-green">]() -->
 Используется:  
 [<img alt="GLFW site"       src="https://img.shields.io/badge/v3.4.0-red?logo=GLFW&logoColor=fc5a20&label=GLFW&labelColor=fc5a20&color=222222&link=https%3A%2F%2Fglfw.org%2F">](https://glfw.org)
 [<img alt="FreeType site"   src="https://img.shields.io/badge/v2.13.2-red?logo=FreeType&logoColor=fc5a20&label=FreeType&labelColor=0c465d&color=222222&link=https%3A%2F%2Ffreetype.org%2F">](https://freetype.org)
@@ -15,6 +15,7 @@
 Rinegine - лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ) движок для программ и игр с 2-3 мерной графикой!
 
 Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!
+Новости по движку и прочим проектам в моём [X(Twiter)](https://x.com/Rinemest)!
 
 ### Возможности (Информация устарела)
 За этот долгий период движок оброс различными функциями и возможностями. Самое главное для меня это то, что сам движок не собран, его легко подключить к своему проекту и легко менять и добавлять то, что нужно. Возможно я потом всё-таки пересмотрю структуру движка и соберу его как библиотеку, но пока что меня всё устраивает.
