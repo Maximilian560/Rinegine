@@ -12,8 +12,8 @@
 [<img alt="Telegram"        src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=222222&link=https%3A%2F%2Ft.me%2Frinemest">](https://t.me/Rinemest)
 [<img alt="Telegram"        src="https://img.shields.io/badge/Rinegine-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=444444&link=https://t.me/Rinegine">](https://t.me/Rinegine)
 
-# Rinegine
-Лёгкий и простой в освоении и полностью автономный (не требуется скачивать дополнительный софт для сборки программ) движок для программ и игр с 2-3 мерной графикой!
+## Rinegine это
+Лёгкий, простой и полностью автономный (не требуется скачивать дополнительный софт для сборки программ) движок для программ и игр с 2-3 мерной графикой!
 
 Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!  
 Новости по движку и прочим проектам в моём [X (Twitter)](https://x.com/Rinemest)!
