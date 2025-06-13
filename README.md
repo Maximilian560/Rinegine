@@ -19,7 +19,7 @@
 Лёгкий, простой и полностью самодостаточный движок для программ и игр с 2-х/3-х мерной графикой!
 
 Всё самое интересное во вкладке [Wiki](https://github.com/Maximilian560/Rinegine/wiki)!  
-Новости по движку и прочим проектам в моём [X (Twitter)](https://x.com/Rinemest) и на официальном сайте [rinemest.com](https://rinemest.com/ru/news)!
+Новости по движку и прочим проектам в моём [X (Twitter)](https://x.com/Rinemest) и на официальном сайте [rinemest.com](https://rinemest.com/news)!
 
 ### Почему Вам стоит использовать Rinegine вместо других движков?  
 ### Вот несколько причин:  
