@@ -13,7 +13,9 @@
 [<img alt="Telegram"        src="https://img.shields.io/badge/Rinemest-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=333333&link=https%3A%2F%2Ft.me%2Frinemest">](https://t.me/T_Rinemest)
 [<img alt="Telegram"        src="https://img.shields.io/badge/Rinegine-green?logo=Telegram&logoColor=ffffff&label=Telegram&labelColor=24A1DE&color=444444&link=https://t.me/Rinegine">](https://t.me/Rinegine)  
 Официальный сайт: [rinemest.com](https://rinemest.com)
-### Прежде чем начать работу с движком советую установить [расширение](https://marketplace.visualstudio.com/items?itemName=maxsimilian560.rg-extens) для VS code которое упрощает работу с движком! Инструкция на странице расширения.
+### Прежде чем начать работу с движком советую установить [расширение](https://marketplace.visualstudio.com/items?itemName=maxsimilian560.rg-extens) для VS Code которое упрощает работу с движком! Инструкция на странице расширения.
+
+### *Теперь можно следить за самой последней версией движка в ветке WIP. Там будут хранится самые новые но не готовые версии движка!*
 
 ## Rinegine это
 Лёгкий, простой и полностью самодостаточный движок для программ и игр с 2-х/3-х мерной графикой!
