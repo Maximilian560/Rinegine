@@ -1,0 +1,30 @@
+
+[ 02:38:11.0471 ] Info:  	Logs before init (time doesn't match):
+
+[ 02:38:11.0471 ] Info:  	Continue
+
+
+[ 02:38:11.0471 ] Debug:  	main
+
+
+[ 02:38:11.0471 ] Info:  	Program start
+
+[ 02:38:11.0471 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 02:38:11.0471 ] Info:  	rgset is get, checking for suitable
+
+[ 02:38:11.0472 ] Info:  	It is suitable, compile...
+
+[ 02:38:11.0472 ] Info:  	Compile start
+
+[ 02:38:11.0472 ] Info:  	Path to project: ''
+
+
+[ 02:38:11.0480 ] Warning:  	The links were not cleared by the 'clear;' function which can lead to the library not being built correctly! If you cleaned manually or you know what you're doing, you can ignore this warning.
+
+
+[ 02:38:11.0480 ] Info:  	Compile 32bit lib
+
+
+[ 02:38:14.0935 ] Critical Error:  	Error: 1
+

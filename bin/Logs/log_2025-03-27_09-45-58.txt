@@ -1,0 +1,36 @@
+[ 09:45:56.0790 ] Info:  	Rinegine program start
+
+
+[ 09:45:56.0790 ] Info:  	Rinegine init
+
+[ 09:45:56.0790 ] Info:  	Program start
+
+[ 09:45:56.0790 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 09:45:56.0796 ] Info:  	rgset is get, checking for suitable
+
+[ 09:45:56.0798 ] Info:  	It is suitable, compile...
+
+[ 09:45:56.0801 ] Info:  	Compile start
+
+[ 09:45:56.0802 ] Info:  	Path to project: ''
+
+
+[ 09:45:56.0804 ] Debug:  	File config:
+clear
+source = main.cpp
+name = test
+bit = 64
+run = 64
+consol
+includes = "-Iinclude" 
+libs = " -L. -lglfw3 -lOpenGL32 -lgdi32 "
+flags = "-m64 "
+
+
+
+[ 09:45:56.0814 ] Info:  	Compile 64bit
+
+
+[ 09:45:58.0757 ] Critical Error:  	Error: 1
+

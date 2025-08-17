@@ -1,0 +1,21 @@
+[ 12:11:17.0533 ] Info:  	Rinegine program start
+[ 12:11:17.0534 ] Info:  	Rinegine init
+[ 12:11:17.0535 ] Info:  	Rinegine initialized
+[ 12:11:17.0535 ] Info:  	Program start
+[ 12:11:17.0536 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 12:11:17.0538 ] Info:  	rgset is get, checking for suitable
+[ 12:11:17.0538 ] Info:  	It is suitable, compile...
+[ 12:11:17.0541 ] Info:  	Compile start
+[ 12:11:17.0541 ] Info:  	Path to project: ''
+[ 12:11:17.0542 ] Debug:  	File config:
+debug
+consol
+source = source.cpp
+name = rgcmd
+bit = 64
+resource = false
+run = true
+ÿ
+[ 12:11:17.0544 ] Info:  	Compile 64bit
+[ 12:11:17.0544 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\compiler\mingw64\bin\g++ source.cpp  -m64 -static -g  -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\64\lib-mingw-w64 	-LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\64\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\64\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\experimental\GLAD\64\33\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\64\lib -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\64\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\64\include\freetype2	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLAD\33\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\stb_master -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\ -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\64\include -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\64\include -lglfw3 -lgdi32 -lglu32 -lopengl32 -lkernel32 -luser32 -lws2_32 -lfreetype -lwinmm -lcomdlg32 -lglad -lcurl -o rgcmd.exe
+[ 12:11:25.0058 ] Critical Error:  	Error: 1

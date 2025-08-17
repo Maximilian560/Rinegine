@@ -1,0 +1,38 @@
+[ 12:20:58.0041 ] Info:  	Rinegine program start
+
+
+[ 12:20:58.0041 ] Info:  	Rinegine init
+
+[ 12:20:58.0041 ] Info:  	Program start
+
+[ 12:20:58.0041 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\new\rgcmd.exe
+
+[ 12:20:58.0046 ] Info:  	rgset is get, checking for suitable
+
+[ 12:20:58.0049 ] Info:  	It is suitable, compile...
+
+
+[ 12:20:58.0051 ] Info:  	Compile start
+
+[ 12:20:58.0053 ] Info:  	Path to project: ''
+
+
+[ 12:20:58.0055 ] Debug:  	File config:
+consol
+otherCMD
+source = main.cpp
+name = {RINEGINE_FOL}/bin/new/rgcmd
+bit = 64
+// Починить сборку 32 бита
+run = false
+utf
+// flags32 = " -O0 -g -ggdb -Wall -Wextra -Wpedantic -Wshadow -Wformat=2 -Wcast-align -Wconversion -Wsign-conversion -Wnull-dereference -Wfloat-equal -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wredundant-decls -Wundef -Wwrite-strings -Wno-unused-parameter -Wno-sign-compare -Wno-implicit-fallthrough -Wno-error=deprecated-declarations -m32 -static "
+// flags32 = flags
+
+
+
+[ 12:20:58.0076 ] Info:  	Compile 64bit
+
+
+[ 12:21:00.0760 ] Critical Error:  	Error: 1
+

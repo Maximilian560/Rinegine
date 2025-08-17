@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+lib/win/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/win/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/win/llvm/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/win/llvm/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text

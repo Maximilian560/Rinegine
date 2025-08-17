@@ -1,0 +1,10 @@
+[ 14:01:18.0471 ] Info:  	Rinegine program start
+[ 14:01:18.0471 ] Info:  	Rinegine init
+[ 14:01:18.0471 ] Info:  	Rinegine initialized
+[ 14:01:18.0471 ] Info:  	Program start
+[ 14:01:18.0471 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 14:01:18.0493 ] Info:  	a test.rgset is get, checking for suitable
+[ 14:01:18.0504 ] Info:  	It is suitable, compile...
+[ 14:01:18.0513 ] Info:  	Compile start
+[ 14:01:18.0520 ] Info:  	Path to project: ''
+[ 14:01:18.0527 ] Critical Error:  	Error read config file, file a test.rgset not found

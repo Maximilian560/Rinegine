@@ -1,0 +1,12 @@
+prefix=C:/GLOBAL_PROJECT/CreationLib/OpenAL/OpenALS_build
+exec_prefix=${prefix}
+libdir=C:/GLOBAL_PROJECT/CreationLib/OpenAL/OpenALS_build/lib
+includedir=C:/GLOBAL_PROJECT/CreationLib/OpenAL/OpenALS_build/include
+
+Name: OpenAL
+Description: OpenAL is a cross-platform 3D audio API
+Requires: 
+Version: 1.24.2
+Libs: -L${libdir} -lOpenAL32 
+Libs.private: -static-libgcc -static-libstdc++ -Wl,--push-state,-Bstatic,-lstdc++,-lwinpthread,--pop-state -lavrt -lwinmm -latomic -lm
+Cflags: -I${includedir} -I${includedir}/AL -DAL_LIBTYPE_STATIC

@@ -1,0 +1,28 @@
+[ 00:25:19.0225 ] Info:  	Rinegine program start
+
+
+[ 00:25:19.0225 ] Info:  	Rinegine init
+
+[ 00:25:19.0225 ] Info:  	Rinegine initialized
+
+[ 00:25:19.0225 ] Info:  	Program start
+
+[ 00:25:19.0225 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 00:25:19.0230 ] Info:  	rgset is get, checking for suitable
+
+[ 00:25:19.0231 ] Info:  	It is suitable, compile...
+
+[ 00:25:19.0235 ] Info:  	Compile start
+
+[ 00:25:19.0237 ] Info:  	Path to project: ''
+
+
+[ 00:25:19.0240 ] Debug:  	File config:
+clear
+name = test
+source = main.cpp
+
+
+[ 00:25:19.0243 ] Critical Error:  	The 'bit' element cannot be equal to 
+

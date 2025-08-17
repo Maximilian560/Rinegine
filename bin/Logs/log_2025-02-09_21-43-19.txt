@@ -1,0 +1,42 @@
+[ 21:43:16.0729 ] Info:  	Rinegine program start
+
+
+[ 21:43:16.0729 ] Info:  	Rinegine init
+
+[ 21:43:16.0729 ] Info:  	Rinegine initialized
+
+[ 21:43:16.0729 ] Info:  	Program start
+
+[ 21:43:16.0729 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 21:43:16.0734 ] Info:  	rgset is get, checking for suitable
+
+[ 21:43:16.0737 ] Info:  	It is suitable, compile...
+
+[ 21:43:16.0739 ] Info:  	Compile start
+
+[ 21:43:16.0741 ] Info:  	Path to project: ''
+
+
+[ 21:43:16.0742 ] Debug:  	File config:
+name = "C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinerest\\mods\\Rinerest\\Rinerest"
+bit = 64
+resource = resource.rc
+source = source.cpp
+link = "{RINEGINE_FOL}\\other\\GLFW\\64\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\64\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\64\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\64\\lib\\libcurl.a"
+createlib
+shared
+consol
+debug
+utf
+// compilator += " -Ofast -funroll-loops -floop-interchange -floop-strip-mine -ftree-vectorize -finline-functions -finline-small-functions -findirect-inlining -ffunction-sections -fdata-sections -Wl,--gc-sections -fipa-cp-clone -flto -ffast-math -funsafe-math-optimizations -fno-signed-zeros -fmerge-all-constants -fomit-frame-pointer "
+
+
+[ 21:43:16.0778 ] Warning:  	The links were not cleared by the 'clear;' function which can lead to the library not being built correctly! If you cleaned manually or you know what you're doing, you can ignore this warning.
+
+
+[ 21:43:16.0787 ] Info:  	Compile 64bit lib
+
+
+[ 21:43:19.0751 ] Critical Error:  	Error: 1
+

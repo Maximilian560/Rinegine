@@ -1,0 +1,21 @@
+[ 22:09:43.0129 ] Info:  	Rinegine program start
+
+
+[ 22:09:43.0129 ] Info:  	Rinegine init
+
+[ 22:09:43.0129 ] Info:  	Program start
+
+
+[ 22:09:43.0129 ] Debug:  	2 arg: test.cpp
+
+[ 22:09:43.0135 ] Debug:  	2 warg: test.cpp
+
+[ 22:09:43.0137 ] Error:  	Write -h for help
+
+
+[ 22:09:43.0141 ] Debug:  	3 arg: -m32
+
+[ 22:09:43.0144 ] Debug:  	3 warg: -m32
+
+[ 22:09:43.0147 ] Critical Error:  	Incorect '-m32' argument
+

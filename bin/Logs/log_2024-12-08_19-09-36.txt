@@ -1,0 +1,40 @@
+[ 19:09:29.0936 ] Info:  	Rinegine program start
+
+
+[ 19:09:29.0936 ] Info:  	Rinegine init
+
+[ 19:09:29.0936 ] Info:  	Rinegine initialized
+
+[ 19:09:29.0936 ] Info:  	Program start
+
+[ 19:09:29.0936 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 19:09:29.0942 ] Info:  	rgset is get, checking for suitable
+
+[ 19:09:29.0944 ] Info:  	It is suitable, compile...
+
+[ 19:09:29.0947 ] Info:  	Compile start
+
+[ 19:09:29.0949 ] Info:  	Path to project: ''
+
+
+[ 19:09:29.0951 ] Debug:  	File config:
+name = Rinerest
+bit = 64
+resource = resource.rc
+source = source.cpp
+createlib
+shared
+utf
+debug
+consolÿ
+
+
+[ 19:09:29.0959 ] Warning:  	The links were not cleared by the 'clear;' function which can lead to the library not being built correctly! If you cleaned manually or you know what you're doing, you can ignore this warning.
+
+
+[ 19:09:29.0968 ] Info:  	Compile 64bit lib
+
+
+[ 19:09:36.0709 ] Critical Error:  	Error: 1
+

@@ -1,0 +1,39 @@
+[ 22:16:41.0943 ] Info:  	Rinegine program start
+
+
+[ 22:16:41.0943 ] Info:  	Rinegine init
+
+[ 22:16:41.0943 ] Info:  	Rinegine initialized
+
+[ 22:16:41.0943 ] Info:  	Program start
+
+[ 22:16:41.0943 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 22:16:41.0952 ] Info:  	rgset is get, checking for suitable
+
+[ 22:16:41.0957 ] Info:  	It is suitable, compile...
+
+[ 22:16:41.0961 ] Info:  	Compile start
+
+[ 22:16:41.0966 ] Info:  	Path to project: ''
+
+
+[ 22:16:41.0980 ] Debug:  	File config:
+name = Rinerest
+resource = resource.rc
+source = main.cpp
+link = "{RINEGINE_FOL}\\other\\GLFW\\64\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\64\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\64\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\64\\lib\\libcurl.a"
+utf
+//bit = all
+bit = 64
+run = 64
+// compilator += " -Ofast -funroll-loops -floop-interchange -floop-strip-mine -ftree-vectorize -finline-functions -finline-small-functions -findirect-inlining -ffunction-sections -fdata-sections -Wl,--gc-sections -fipa-cp-clone -flto -ffast-math -funsafe-math-optimizations -fno-signed-zeros -fmerge-all-constants -fomit-frame-pointer "
+// debug
+// consol
+
+
+[ 22:16:42.0074 ] Info:  	Compile 64bit
+
+
+[ 22:16:47.0279 ] Critical Error:  	Error: 1
+

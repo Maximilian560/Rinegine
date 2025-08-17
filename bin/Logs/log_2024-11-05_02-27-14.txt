@@ -1,0 +1,42 @@
+[ 02:27:14.0432 ] Info:  	Rinegine program start
+
+
+[ 02:27:14.0432 ] Info:  	Rinegine init
+
+[ 02:27:14.0432 ] Info:  	Rinegine initialized
+
+[ 02:27:14.0432 ] Info:  	Program start
+
+[ 02:27:14.0432 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 02:27:14.0443 ] Info:  	rgset is get, checking for suitable
+
+[ 02:27:14.0448 ] Info:  	It is suitable, compile...
+
+[ 02:27:14.0451 ] Info:  	Compile start
+
+[ 02:27:14.0457 ] Info:  	Path to project: ''
+
+
+[ 02:27:14.0457 ] Debug:  	File config:
+consol
+otherCMD
+source = source.cpp
+name = rgcmd
+name32 = {NAME}32
+bit = all
+link += " -W -Wall -w"
+resource = false
+run = false
+utf
+ÿ
+
+
+[ 02:27:14.0479 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 02:27:14.0491 ] Info:  	Compile 32bit
+
+
+[ 02:27:14.0689 ] Critical Error:  	Error: 1
+

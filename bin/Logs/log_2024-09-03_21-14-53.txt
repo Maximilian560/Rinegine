@@ -1,0 +1,496 @@
+[ 21:14:44.0680 ] Info:  	Rinegine program start
+
+
+[ 21:14:44.0680 ] Debug:  	Memory allocate: '38' bytes or '0.000036 MB'
+
+
+[ 21:14:44.0680 ] Info:  	Rinegine init
+
+
+[ 21:14:44.0680 ] Debug:  	Memory allocate: '38' bytes or '0.000036 MB'
+
+
+[ 21:14:44.0680 ] Info:  	Rinegine initialized
+
+[ 21:14:44.0680 ] Info:  	Program start
+
+[ 21:14:44.0680 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 21:14:44.0703 ] Info:  	rgset is get, checking for suitable
+
+[ 21:14:44.0714 ] Info:  	It is suitable, compile...
+
+[ 21:14:44.0725 ] Info:  	Compile start
+
+[ 21:14:44.0732 ] Info:  	Path to project: ''
+
+
+[ 21:14:44.0740 ] Debug:  	File config:
+source = source.cpp
+bit = 64
+name = test
+run = 64
+consolÿ
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0758 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory allocate: '286' bytes or '0.000273 MB'
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '286' bytes
+
+[ 21:14:44.0759 ] Debug:  	Memory has been cleared: '686' bytes
+
+
+[ 21:14:44.0759 ] Info:  	Compile 64bit
+
+
+[ 21:14:53.0766 ] Critical Error:  	Error: 1
+

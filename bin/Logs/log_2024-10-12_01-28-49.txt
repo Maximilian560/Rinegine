@@ -1,0 +1,83 @@
+[ 01:28:49.0146 ] Info:  	Rinegine program start
+
+
+[ 01:28:49.0146 ] Info:  	Rinegine init
+
+[ 01:28:49.0146 ] Info:  	Rinegine initialized
+
+[ 01:28:49.0146 ] Info:  	Program start
+
+[ 01:28:49.0146 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 01:28:49.0155 ] Info:  	rgset is get, checking for suitable
+
+[ 01:28:49.0158 ] Info:  	It is suitable, compile...
+
+[ 01:28:49.0161 ] Info:  	Compile start
+
+[ 01:28:49.0162 ] Info:  	Path to project: ''
+
+
+[ 01:28:49.0164 ] Debug:  	File config:
+debug
+consol
+otherCMD
+source = source.cpp
+name = rgcmd
+name32 = {NAME}32
+bit = all
+link +=" -w3"
+resource = false
+run = false
+utf
+ÿ
+
+
+[ 01:28:49.0173 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 01:28:49.0176 ] Info:  	Log:
+
+name = rgcmd
+
+name32 = rgcmd32
+
+source = source.cpp
+
+compilatorFo = C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\compiler\mingw64\bin\
+
+compilator = C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\compiler\mingw64\bin\g++
+
+libs = -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\64\lib-mingw-w64 	-LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\64\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\64\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\experimental\GLAD\64\33\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\64\lib
+
+includes = -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\64\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\64\include\freetype2	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLAD\33\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\stb_master -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\ -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\64\include -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\64\include
+
+flags = -m64 -static -g 
+
+compilator32 = C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\compiler\mingw32\bin\g++
+
+libs32 = -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\32\lib-mingw-w64 	-LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\32\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\32\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\experimental\GLAD\32\33\lib -LC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\32\lib
+
+includes32 = -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\32\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\32\include\freetype2	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLAD\33\include	-IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\stb_master -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\ -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\OpenAL\32\include -IC:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\32\include
+
+flags32 = -m32 -static -g 
+
+extension = 
+
+link = -lglfw3 -lgdi32 -lglu32 -lopengl32 -lkernel32 -luser32 -lws2_32 -lfreetype -lwinmm -lcomdlg32 -lglad -lcurl -w3
+
+bit = all
+
+resource = false
+
+run = false
+
+link32 = {LINK}
+
+
+
+[ 01:28:49.0265 ] Info:  	Compile 32bit
+
+
+[ 01:28:49.0352 ] Critical Error:  	Error: 1
+

@@ -1,0 +1,14 @@
+[ 22:09:51.0329 ] Info:  	Rinegine program start
+
+
+[ 22:09:51.0329 ] Info:  	Rinegine init
+
+[ 22:09:51.0329 ] Info:  	Program start
+
+
+[ 22:09:51.0329 ] Debug:  	2 arg: -m32
+
+[ 22:09:51.0332 ] Debug:  	2 warg: -m32
+
+[ 22:09:51.0334 ] Critical Error:  	Incorect '-m32' argument
+

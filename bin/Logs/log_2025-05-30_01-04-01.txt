@@ -1,0 +1,26 @@
+
+[ 01:04:01.0378 ] Info:  	Logs before init (time doesn't match):
+
+[ 01:04:01.0382 ] Info:  	Continue
+
+
+[ 01:04:01.0384 ] Debug:  	wmain
+
+
+[ 01:04:01.0384 ] Info:  	Program start
+
+[ 01:04:01.0384 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 01:04:01.0391 ] Info:  	rgset is get, checking for suitable
+
+[ 01:04:01.0394 ] Info:  	It is suitable, compile...
+
+[ 01:04:01.0397 ] Info:  	Compile start
+
+[ 01:04:01.0398 ] Info:  	Path to project: ''
+
+[ 01:04:01.0431 ] Info:  	Compile 32bit
+
+
+[ 01:04:03.0265 ] Critical Error:  	Error: 1
+

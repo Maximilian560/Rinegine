@@ -1,0 +1,21 @@
+[ 22:09:33.0167 ] Info:  	Rinegine program start
+
+
+[ 22:09:33.0167 ] Info:  	Rinegine init
+
+[ 22:09:33.0167 ] Info:  	Program start
+
+
+[ 22:09:33.0167 ] Debug:  	2 arg: test.cpp
+
+[ 22:09:33.0169 ] Debug:  	2 warg: test.cpp
+
+[ 22:09:33.0171 ] Error:  	Write -h for help
+
+
+[ 22:09:33.0176 ] Debug:  	3 arg: -o
+
+[ 22:09:33.0178 ] Debug:  	3 warg: -o
+
+[ 22:09:33.0182 ] Critical Error:  	Incorect '-o' argument
+

@@ -1,0 +1,17 @@
+[ 16:48:10.0317 ] Info:  	Rinegine program start
+
+
+[ 16:48:10.0318 ] Debug:  	Memory allocate: '102' bytes or '0.000097 MB'
+
+[ 16:48:10.0318 ] Debug:  	Memory allocate: '102' bytes or '0.000097 MB'
+
+
+[ 16:48:10.0318 ] Info:  	Rinegine init
+
+[ 16:48:10.0318 ] Info:  	Rinegine initialized
+
+[ 16:48:10.0318 ] Info:  	Program start
+
+
+[ 16:48:10.0320 ] Critical Error:  	Array index out of range, index '3', array size '3'
+

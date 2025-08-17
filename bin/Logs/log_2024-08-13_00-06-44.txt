@@ -1,0 +1,18 @@
+[ 00:06:37.0258 ] Info:  	Rinegine program start
+[ 00:06:37.0258 ] Info:  	Rinegine init
+[ 00:06:37.0258 ] Info:  	Rinegine initialized
+[ 00:06:37.0258 ] Info:  	Program start
+[ 00:06:37.0258 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 00:06:37.0280 ] Info:  	rgset is get, checking for suitable
+[ 00:06:37.0291 ] Info:  	It is suitable, compile...
+[ 00:06:37.0305 ] Info:  	Compile start
+[ 00:06:37.0313 ] Info:  	Path to project: ''
+[ 00:06:37.0321 ] Debug:  	File config:
+name=Neural
+debug
+consol
+source = main_MLP.cpp
+bit=64
+run = 64ÿ
+[ 00:06:37.0339 ] Info:  	Compile 64bit
+[ 00:06:44.0111 ] Critical Error:  	Error: 1

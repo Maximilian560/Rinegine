@@ -1,0 +1,39 @@
+[ 12:27:11.0358 ] Info:  	Rinegine program start
+
+
+[ 12:27:11.0358 ] Info:  	Rinegine init
+
+[ 12:27:11.0358 ] Info:  	Program start
+
+[ 12:27:11.0358 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 12:27:11.0363 ] Info:  	rgset is get, checking for suitable
+
+[ 12:27:11.0366 ] Info:  	It is suitable, compile...
+
+[ 12:27:11.0368 ] Info:  	Compile start
+
+[ 12:27:11.0369 ] Info:  	Path to project: ''
+
+
+[ 12:27:11.0372 ] Debug:  	File config:
+clear
+name=test
+bit=64
+run=64
+source=main.cpp
+debug
+includes = "-IC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/ffmpeg/64/include -IC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/openal/64/include"
+libs = "-LC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/ffmpeg/64/lib -LC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/openal/64/lib -LC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/compiler/mingw64/lib "
+//link = "-lavdevice -lavfilter -lavformat -lavcodec -lswresample -lswscale -lpostproc -lavutil -lz -liconv -lws2_32 -lbcrypt -lole32 -lwinmm -lgdi32 -lkernel32 -luser32 -lcomdlg32 -ladvapi32 -lcrypt32 "
+consol
+link = " -lavdevice -lavfilter -lswscale -lavformat -lavcodec -lswresample -lavutil " 
+flags = "-D__STDC_CONSTANT_MACROS -std=c++11" 
+
+
+
+[ 12:27:11.0403 ] Info:  	Compile 64bit
+
+
+[ 12:27:11.0850 ] Critical Error:  	Error: 1
+

@@ -1,0 +1,276 @@
+[ 09:31:31.0730 ] Info:  	Rinegine program start
+
+
+[ 09:31:31.0730 ] Debug:  	Memory allocate: '70' bytes or '0.000067 MB'
+
+[ 09:31:31.0730 ] Debug:  	Memory allocate: '70' bytes or '0.000067 MB'
+
+
+[ 09:31:31.0730 ] Info:  	Rinegine init
+
+[ 09:31:31.0730 ] Info:  	Rinegine initialized
+
+[ 09:31:31.0730 ] Info:  	Program start
+
+[ 09:31:31.0730 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 09:31:31.0735 ] Info:  	rgset is get, checking for suitable
+
+[ 09:31:31.0736 ] Info:  	It is suitable, compile...
+
+[ 09:31:31.0738 ] Info:  	Compile start
+
+[ 09:31:31.0740 ] Info:  	Path to project: ''
+
+
+[ 09:31:31.0741 ] Debug:  	File config:
+source=test.cpp
+consol
+debug
+bit=64
+run = 64
+name=test
+utfÿ
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0744 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '686' bytes or '0.000654 MB'
+
+[ 09:31:31.0745 ] Debug:  	Memory allocate: '366' bytes or '0.000349 MB'
+
+
+[ 09:31:31.0745 ] Info:  	Compile 64bit
+
+
+[ 09:31:34.0025 ] Critical Error:  	Error: 1
+

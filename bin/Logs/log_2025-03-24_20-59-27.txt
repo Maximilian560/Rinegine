@@ -1,0 +1,37 @@
+[ 20:59:23.0628 ] Info:  	Rinegine program start
+
+
+[ 20:59:23.0628 ] Info:  	Rinegine init
+
+[ 20:59:23.0628 ] Info:  	Program start
+
+[ 20:59:23.0628 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 20:59:23.0633 ] Info:  	rgset is get, checking for suitable
+
+[ 20:59:23.0635 ] Info:  	It is suitable, compile...
+
+[ 20:59:23.0638 ] Info:  	Compile start
+
+[ 20:59:23.0640 ] Info:  	Path to project: ''
+
+
+[ 20:59:23.0643 ] Debug:  	File config:
+clear
+name=test
+bit=64
+run=64
+source=main.cpp
+debug
+includes = " -IC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/ffmpeg/64/include -IC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/openal/64/include"
+libs = " -LC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/ffmpeg/64/lib -LC:/GLOBAL_PROJECT/RinemestCollection/Rinegine/other/openal/64/lib "
+link = " -Wl,--start-group C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libavdevice.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libavfilter.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libavformat.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libavcodec.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libswresample.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libswscale.a C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinegine\\other\\ffmpeg\\64\\lib\\libavutil.a -Wl,--end-group -lz -liconv -lws2_32 -lbcrypt -lole32 -lwinmm -lgdi32 -lkernel32 -luser32 -lcomdlg32 -ladvapi32 -lcrypt32 -lpthread -lm "
+consol
+flags = " -D__STDC_CONSTANT_MACROS -std=c++11 "
+
+
+[ 20:59:23.0701 ] Info:  	Compile 64bit
+
+
+[ 20:59:27.0050 ] Critical Error:  	Error: 1
+

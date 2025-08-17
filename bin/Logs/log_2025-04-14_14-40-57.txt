@@ -1,0 +1,36 @@
+[ 14:40:43.0944 ] Info:  	Rinegine program start
+
+
+[ 14:40:43.0944 ] Info:  	Rinegine init
+
+[ 14:40:43.0944 ] Info:  	Program start
+
+[ 14:40:43.0944 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 14:40:43.0955 ] Info:  	rgset is get, checking for suitable
+
+[ 14:40:43.0960 ] Info:  	It is suitable, compile...
+
+[ 14:40:43.0965 ] Info:  	Compile start
+
+[ 14:40:43.0968 ] Info:  	Path to project: ''
+
+
+[ 14:40:43.0971 ] Debug:  	File config:
+name = Neural
+utf
+debug
+consol
+source = "src\\main.cpp src\\neural.cpp"
+bit = 64
+run = 64
+includes += " -Iinclude\\ "
+flags+="-static"
+
+
+
+[ 14:40:44.0023 ] Info:  	Compile 64bit
+
+
+[ 14:40:57.0339 ] Critical Error:  	Error: 1
+

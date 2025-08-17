@@ -1,0 +1,40 @@
+[ 22:00:02.0731 ] Info:  	Rinegine program start
+
+
+[ 22:00:02.0731 ] Info:  	Rinegine init
+
+[ 22:00:02.0731 ] Info:  	Program start
+
+[ 22:00:02.0731 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 22:00:02.0738 ] Info:  	rgset is get, checking for suitable
+
+[ 22:00:02.0740 ] Info:  	It is suitable, compile...
+
+[ 22:00:02.0743 ] Info:  	Compile start
+
+[ 22:00:02.0745 ] Info:  	Path to project: ''
+
+
+[ 22:00:02.0747 ] Debug:  	File config:
+name = Rinerest
+resource = resource.rc
+source = main.cpp
+utf
+bit = 32
+run = 32
+flags += " -static "
+flags32 += " -static "
+consol
+debug
+// link = "{RINEGINE_FOL}\\other\\GLFW\\64\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\64\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\64\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\64\\lib\\libcurl.a"
+// link32 = "{RINEGINE_FOL}\\other\\GLFW\\32\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\32\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\32\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\32\\lib\\libcurl.a"
+//bit = all
+// compilator += " -Ofast -funroll-loops -floop-interchange -floop-strip-mine -ftree-vectorize -finline-functions -finline-small-functions -findirect-inlining -ffunction-sections -fdata-sections -Wl,--gc-sections -fipa-cp-clone -flto -ffast-math -funsafe-math-optimizations -fno-signed-zeros -fmerge-all-constants -fomit-frame-pointer "
+
+
+[ 22:00:02.0801 ] Info:  	Compile 32bit
+
+
+[ 22:00:07.0531 ] Critical Error:  	Error: 1
+

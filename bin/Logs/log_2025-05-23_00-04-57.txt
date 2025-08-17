@@ -1,0 +1,23 @@
+[ 00:04:53.0134 ] Info:  	Rinegine program start
+
+
+[ 00:04:53.0134 ] Info:  	Rinegine init
+
+[ 00:04:53.0134 ] Info:  	Program start
+
+[ 00:04:53.0134 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 00:04:53.0139 ] Info:  	rgset is get, checking for suitable
+
+[ 00:04:53.0141 ] Info:  	It is suitable, compile...
+
+[ 00:04:53.0144 ] Info:  	Compile start
+
+[ 00:04:53.0146 ] Info:  	Path to project: ''
+
+
+[ 00:04:53.0162 ] Info:  	Compile 64bit
+
+
+[ 00:04:57.0056 ] Critical Error:  	Error: 1
+

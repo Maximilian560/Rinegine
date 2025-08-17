@@ -1,0 +1,33 @@
+[ 21:40:12.0147 ] Info:  	Rinegine program start
+
+
+[ 21:40:12.0147 ] Info:  	Rinegine init
+
+[ 21:40:12.0147 ] Info:  	Program start
+
+[ 21:40:12.0147 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 21:40:12.0151 ] Info:  	rgset is get, checking for suitable
+
+[ 21:40:12.0154 ] Info:  	It is suitable, compile...
+
+[ 21:40:12.0156 ] Info:  	Compile start
+
+[ 21:40:12.0158 ] Info:  	Path to project: ''
+
+
+[ 21:40:12.0160 ] Debug:  	File config:
+consol
+otherCMD
+source = source.cpp
+name = {RINEGINE_FOL}/bin/new/rgcmd
+name32 = {NAME}32
+bit = all
+link = "C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\GLFW\32\lib-mingw-w64\libglfw3.a C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\experimental\GLAD\32\33\lib\libglad.a -lopengl32 -lglu32  C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\FreeType\32\lib\libfreetype.a C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\other\CURL\32\lib\libcurl.a -lz -liconv -lws2_32 -lbcrypt -lole32 -lwinmm -lgdi32 -lkernel32 -luser32 -lcomdlg32 -ladvapi32 -lcrypt32 -lssh2"
+run = false
+utf
+
+
+
+[ 21:40:12.0184 ] Critical Error:  	Syntax error: '/71', line: 7
+

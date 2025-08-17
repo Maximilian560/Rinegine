@@ -1,0 +1,36 @@
+[ 23:52:21.0878 ] Info:  	Rinegine program start
+
+
+[ 23:52:21.0879 ] Info:  	Rinegine init
+
+[ 23:52:21.0879 ] Info:  	Rinegine initialized
+
+[ 23:52:21.0879 ] Info:  	Program start
+
+[ 23:52:21.0879 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 23:52:21.0887 ] Info:  	rgset is get, checking for suitable
+
+[ 23:52:21.0891 ] Info:  	It is suitable, compile...
+
+[ 23:52:21.0896 ] Info:  	Compile start
+
+[ 23:52:21.0898 ] Info:  	Path to project: ''
+
+
+[ 23:52:21.0901 ] Debug:  	File config:
+name = Rinerest
+source = main.cpp
+link = "{RINEGINE_FOL}\\other\\GLFW\\64\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\64\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\64\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\64\\lib\\libcurl.a"
+utf
+debug
+consol
+bit = 64
+run = 64ÿ
+
+
+[ 23:52:21.0927 ] Info:  	Compile 64bit
+
+
+[ 23:52:26.0936 ] Critical Error:  	Error: 1
+

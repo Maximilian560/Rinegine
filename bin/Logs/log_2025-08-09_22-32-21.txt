@@ -1,0 +1,26 @@
+
+[ 22:32:21.0790 ] Info:  	Logs before init (time doesn't match):
+
+[ 22:32:21.0801 ] Info:  	Continue
+
+
+[ 22:32:21.0806 ] Debug:  	main
+
+
+[ 22:32:21.0806 ] Info:  	Program start
+
+[ 22:32:21.0806 ] Info:  	Z:\home\maxsimilian560\Rinemest\Rinegine\bin\rgcmd.exe
+
+[ 22:32:21.0826 ] Info:  	rgset is get, checking for suitable
+
+[ 22:32:21.0836 ] Info:  	It is suitable, compile...
+
+[ 22:32:21.0878 ] Info:  	Compile start
+
+[ 22:32:21.0885 ] Info:  	Path to project: ''
+
+[ 22:32:21.0969 ] Info:  	Compile 64bit lib
+
+
+[ 22:32:26.0435 ] Critical Error:  	Error: 9009
+

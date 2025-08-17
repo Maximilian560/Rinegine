@@ -1,0 +1,17 @@
+[ 15:10:28.0489 ] Info:  	Rinegine program start
+[ 15:10:28.0489 ] Info:  	Rinegine init
+[ 15:10:28.0489 ] Info:  	Rinegine initialized
+[ 15:10:28.0489 ] Info:  	Program start
+[ 15:10:28.0489 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 15:10:28.0510 ] Info:  	lib.rgset is get, checking for suitable
+[ 15:10:28.0521 ] Info:  	It is suitable, compile...
+[ 15:10:28.0530 ] Info:  	Compile start
+[ 15:10:28.0537 ] Info:  	Path to project: ''
+[ 15:10:28.0553 ] Debug:  	File config:
+clear
+createlib
+shared
+name=test
+source=dllmain.cpp
+bin=64ÿ
+[ 15:10:28.0570 ] Critical Error:  	The 'bit' element cannot be equal to 

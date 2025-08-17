@@ -1,0 +1,39 @@
+[ 09:01:38.0814 ] Info:  	Rinegine program start
+
+
+[ 09:01:38.0814 ] Info:  	Rinegine init
+
+[ 09:01:38.0814 ] Info:  	Rinegine initialized
+
+[ 09:01:38.0814 ] Info:  	Program start
+
+[ 09:01:38.0814 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 09:01:38.0818 ] Info:  	rgset is get, checking for suitable
+
+[ 09:01:38.0818 ] Info:  	It is suitable, compile...
+
+[ 09:01:38.0822 ] Info:  	Compile start
+
+[ 09:01:38.0823 ] Info:  	Path to project: ''
+
+
+[ 09:01:38.0825 ] Debug:  	File config:
+name = control
+run = 64
+source = main.cpp
+cunsol
+utf
+debug
+clear
+bit = 64ÿ
+
+
+[ 09:01:38.0831 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 09:01:38.0832 ] Info:  	Compile 64bit
+
+
+[ 09:01:38.0961 ] Critical Error:  	Error: 1
+

@@ -1,0 +1,18 @@
+[ 15:10:38.0730 ] Info:  	Rinegine program start
+[ 15:10:38.0730 ] Info:  	Rinegine init
+[ 15:10:38.0730 ] Info:  	Rinegine initialized
+[ 15:10:38.0730 ] Info:  	Program start
+[ 15:10:38.0730 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 15:10:38.0750 ] Info:  	lib.rgset is get, checking for suitable
+[ 15:10:38.0762 ] Info:  	It is suitable, compile...
+[ 15:10:38.0770 ] Info:  	Compile start
+[ 15:10:38.0777 ] Info:  	Path to project: ''
+[ 15:10:38.0794 ] Debug:  	File config:
+clear
+createlib
+shared
+name=test
+source=dllmain.cpp
+bit=64ÿ
+[ 15:10:38.0812 ] Info:  	Compile 64bit lib
+[ 15:10:39.0906 ] Critical Error:  	Error: 1

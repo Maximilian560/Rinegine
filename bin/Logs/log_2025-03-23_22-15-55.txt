@@ -1,0 +1,33 @@
+[ 22:15:49.0781 ] Info:  	Rinegine program start
+
+
+[ 22:15:49.0781 ] Info:  	Rinegine init
+
+[ 22:15:49.0781 ] Info:  	Program start
+
+[ 22:15:49.0781 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 22:15:49.0787 ] Info:  	rgset is get, checking for suitable
+
+[ 22:15:49.0790 ] Info:  	It is suitable, compile...
+
+[ 22:15:49.0793 ] Info:  	Compile start
+
+[ 22:15:49.0794 ] Info:  	Path to project: ''
+
+
+[ 22:15:49.0797 ] Debug:  	File config:
+name=Rinetone
+bit=64
+run=64
+consol
+debug
+utf
+source = main.cpp
+
+
+[ 22:15:49.0803 ] Info:  	Compile 64bit
+
+
+[ 22:15:55.0308 ] Critical Error:  	Error: 1
+

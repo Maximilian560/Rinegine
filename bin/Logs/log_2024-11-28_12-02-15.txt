@@ -1,0 +1,33 @@
+[ 12:02:11.0111 ] Info:  	Rinegine program start
+
+
+[ 12:02:11.0111 ] Info:  	Rinegine init
+
+[ 12:02:11.0111 ] Info:  	Rinegine initialized
+
+[ 12:02:11.0111 ] Info:  	Program start
+
+[ 12:02:11.0111 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 12:02:11.0119 ] Info:  	rgset is get, checking for suitable
+
+[ 12:02:11.0122 ] Info:  	It is suitable, compile...
+
+[ 12:02:11.0123 ] Info:  	Compile start
+
+[ 12:02:11.0129 ] Info:  	Path to project: ''
+
+
+[ 12:02:11.0131 ] Debug:  	File config:
+source=main.cpp
+name="DoodleJump"
+bit=64
+run=64
+flags+=" -Os"ÿ
+
+
+[ 12:02:11.0137 ] Info:  	Compile 64bit
+
+
+[ 12:02:15.0566 ] Critical Error:  	Error: 1
+

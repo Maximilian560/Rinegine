@@ -1,0 +1,18 @@
+[ 14:01:32.0335 ] Info:  	Rinegine program start
+[ 14:01:32.0335 ] Info:  	Rinegine init
+[ 14:01:32.0335 ] Info:  	Rinegine initialized
+[ 14:01:32.0335 ] Info:  	Program start
+[ 14:01:32.0335 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+[ 14:01:32.0356 ] Info:  	rgset is get, checking for suitable
+[ 14:01:32.0366 ] Info:  	It is suitable, compile...
+[ 14:01:32.0378 ] Info:  	Compile start
+[ 14:01:32.0384 ] Info:  	Path to project: ''
+[ 14:01:32.0393 ] Debug:  	File config:
+name = "Ping_pong"
+bit = 64
+source = main.cpp
+run = 64
+debug
+consolÿ
+[ 14:01:32.0411 ] Info:  	Compile 64bit
+[ 14:01:40.0268 ] Critical Error:  	Error: 1

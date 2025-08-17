@@ -1,0 +1,44 @@
+[ 20:10:54.0023 ] Info:  	Rinegine program start
+
+
+[ 20:10:54.0023 ] Info:  	Rinegine init
+
+[ 20:10:54.0023 ] Info:  	Rinegine initialized
+
+[ 20:10:54.0023 ] Info:  	Program start
+
+[ 20:10:54.0023 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 20:10:54.0028 ] Info:  	rgset is get, checking for suitable
+
+[ 20:10:54.0032 ] Info:  	It is suitable, compile...
+
+[ 20:10:54.0033 ] Info:  	Compile start
+
+[ 20:10:54.0035 ] Info:  	Path to project: ''
+
+
+[ 20:10:54.0037 ] Debug:  	File config:
+name = "C:\\GLOBAL_PROJECT\\RinemestCollection\\Rinerest\\mods\\Rinerest\\Rinerest"
+bit = 64
+resource = resource.rc
+source = source.cpp
+link = "{RINEGINE_FOL}\\other\\GLFW\\64\\lib-mingw-w64\\libglfw3.a {RINEGINE_FOL}\\other\\experimental\\GLAD\\64\\33\\lib\\libglad.a -lopengl32 -lglu32 -lgdi32 -lkernel32 -luser32 -lws2_32 {RINEGINE_FOL}\\other\\FreeType\\64\\lib\\libfreetype.a -lwinmm -lcomdlg32 {RINEGINE_FOL}\\other\\CURL\\64\\lib\\libcurl.a"
+createlib
+shared
+utf
+debug
+consol
+
+
+[ 20:10:54.0057 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 20:10:54.0059 ] Warning:  	The links were not cleared by the 'clear;' function which can lead to the library not being built correctly! If you cleaned manually or you know what you're doing, you can ignore this warning.
+
+
+[ 20:10:54.0067 ] Info:  	Compile 64bit lib
+
+
+[ 20:10:57.0090 ] Critical Error:  	Error: 1
+

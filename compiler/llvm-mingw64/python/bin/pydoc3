@@ -1,0 +1,5 @@
+#!/home/runner/work/llvm-mingw/llvm-mingw/install/llvm-mingw/python/bin/python3.12.exe
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()

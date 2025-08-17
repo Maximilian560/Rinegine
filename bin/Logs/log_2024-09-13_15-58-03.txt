@@ -1,0 +1,36 @@
+[ 15:58:02.0962 ] Info:  	Rinegine program start
+
+
+[ 15:58:02.0962 ] Debug:  	Memory allocate: '102' bytes or '0.000097 MB'
+
+[ 15:58:02.0962 ] Debug:  	Memory allocate: '102' bytes or '0.000097 MB'
+
+
+[ 15:58:02.0962 ] Info:  	Rinegine init
+
+[ 15:58:02.0962 ] Info:  	Rinegine initialized
+
+[ 15:58:02.0962 ] Info:  	Program start
+
+
+[ 15:58:02.0962 ] Debug:  	2 arg: -fм
+
+[ 15:58:02.0970 ] Debug:  	2 warg: -fм
+
+[ 15:58:02.0977 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+
+[ 15:58:02.0998 ] Debug:  	Path to config: мand size: 2
+
+
+[ 15:58:03.0009 ] Info:  	м.rgset is get, checking for suitable
+
+[ 15:58:03.0019 ] Info:  	It is suitable, compile...
+
+[ 15:58:03.0030 ] Info:  	Compile start
+
+[ 15:58:03.0038 ] Info:  	Path to project: ''
+
+
+[ 15:58:03.0046 ] Critical Error:  	Error read config file, file м.rgset not found
+

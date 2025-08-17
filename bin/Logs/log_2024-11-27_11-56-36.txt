@@ -1,0 +1,36 @@
+[ 11:56:32.0075 ] Info:  	Rinegine program start
+
+
+[ 11:56:32.0075 ] Info:  	Rinegine init
+
+[ 11:56:32.0075 ] Info:  	Rinegine initialized
+
+[ 11:56:32.0075 ] Info:  	Program start
+
+[ 11:56:32.0075 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 11:56:32.0085 ] Info:  	rgset is get, checking for suitable
+
+[ 11:56:32.0088 ] Info:  	It is suitable, compile...
+
+[ 11:56:32.0094 ] Info:  	Compile start
+
+[ 11:56:32.0097 ] Info:  	Path to project: ''
+
+
+[ 11:56:32.0099 ] Debug:  	File config:
+source=main.cpp
+name="DoodleJump"
+bit=64
+run=64
+ÿ
+
+
+[ 11:56:32.0105 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 11:56:32.0112 ] Info:  	Compile 64bit
+
+
+[ 11:56:36.0910 ] Critical Error:  	Error: 1
+

@@ -1,0 +1,37 @@
+[ 19:00:57.0771 ] Info:  	Rinegine program start
+
+
+[ 19:00:57.0771 ] Info:  	Rinegine init
+
+[ 19:00:57.0771 ] Info:  	Rinegine initialized
+
+[ 19:00:57.0771 ] Info:  	Program start
+
+[ 19:00:57.0771 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 19:00:57.0776 ] Info:  	rgset is get, checking for suitable
+
+[ 19:00:57.0778 ] Info:  	It is suitable, compile...
+
+[ 19:00:57.0780 ] Info:  	Compile start
+
+[ 19:00:57.0782 ] Info:  	Path to project: ''
+
+
+[ 19:00:57.0783 ] Debug:  	File config:
+name = rasm
+source = main.cpp
+bit = 64
+consol
+debug
+utf
+
+
+[ 19:00:57.0788 ] Warning:  	nowWrite = 0 and this flag is Wnone
+
+
+[ 19:00:57.0790 ] Info:  	Compile 64bit
+
+
+[ 19:01:01.0176 ] Critical Error:  	Error: 1
+

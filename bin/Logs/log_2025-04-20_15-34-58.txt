@@ -1,0 +1,26 @@
+[ 15:34:53.0107 ] Info:  	Rinegine program start
+
+
+[ 15:34:53.0107 ] Info:  	Rinegine init
+
+[ 15:34:53.0107 ] Info:  	Program start
+
+[ 15:34:53.0107 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 15:34:53.0114 ] Info:  	rgset is get, checking for suitable
+
+[ 15:34:53.0116 ] Info:  	It is suitable, compile...
+
+[ 15:34:53.0120 ] Info:  	Compile start
+
+[ 15:34:53.0122 ] Info:  	Path to project: ''
+
+
+[ 15:34:53.0191 ] Warning:  	The links were not cleared by the 'clear;' function which can lead to the library not being built correctly! If you cleaned manually or you know what you're doing, you can ignore this warning.
+
+
+[ 15:34:53.0210 ] Info:  	Compile 64bit lib
+
+
+[ 15:34:58.0233 ] Critical Error:  	Error: 1
+

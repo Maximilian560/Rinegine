@@ -1,0 +1,276 @@
+[ 20:23:18.0500 ] Info:  	Rinegine program start
+
+
+[ 20:23:18.0500 ] Debug:  	Memory allocate: '54' bytes or '0.000051 MB'
+
+[ 20:23:18.0500 ] Debug:  	Memory allocate: '54' bytes or '0.000051 MB'
+
+
+[ 20:23:18.0500 ] Info:  	Rinegine init
+
+[ 20:23:18.0500 ] Info:  	Rinegine initialized
+
+[ 20:23:18.0500 ] Info:  	Program start
+
+[ 20:23:18.0500 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd32.exe
+
+[ 20:23:18.0506 ] Info:  	rgset is get, checking for suitable
+
+[ 20:23:18.0509 ] Info:  	It is suitable, compile...
+
+[ 20:23:18.0512 ] Info:  	Compile start
+
+[ 20:23:18.0513 ] Info:  	Path to project: ''
+
+
+[ 20:23:18.0514 ] Debug:  	File config:
+source=test.cpp
+consol
+debug
+bit=64
+run = 64
+name=test
+utfÿ
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0519 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '482' bytes or '0.000460 MB'
+
+[ 20:23:18.0520 ] Debug:  	Memory allocate: '258' bytes or '0.000246 MB'
+
+
+[ 20:23:18.0520 ] Info:  	Compile 64bit
+
+
+[ 20:23:20.0933 ] Critical Error:  	Error: 1
+

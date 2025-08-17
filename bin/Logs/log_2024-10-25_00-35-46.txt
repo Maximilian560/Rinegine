@@ -1,0 +1,35 @@
+[ 00:35:43.0581 ] Info:  	Rinegine program start
+
+
+[ 00:35:43.0581 ] Info:  	Rinegine init
+
+[ 00:35:43.0581 ] Info:  	Rinegine initialized
+
+[ 00:35:43.0581 ] Info:  	Program start
+
+[ 00:35:43.0581 ] Info:  	C:\GLOBAL_PROJECT\RinemestCollection\Rinegine\bin\rgcmd.exe
+
+[ 00:35:43.0587 ] Info:  	rgset is get, checking for suitable
+
+[ 00:35:43.0591 ] Info:  	It is suitable, compile...
+
+[ 00:35:43.0594 ] Info:  	Compile start
+
+[ 00:35:43.0596 ] Info:  	Path to project: ''
+
+
+[ 00:35:43.0597 ] Debug:  	File config:
+name=hacktools
+source=main.cpp
+bit=64
+run=64
+consol
+debug
+utfÿ
+
+
+[ 00:35:43.0601 ] Info:  	Compile 64bit
+
+
+[ 00:35:46.0468 ] Critical Error:  	Error: 1
+
