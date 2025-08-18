@@ -1,0 +1,30 @@
+set {
+  mode {
+    clear,
+    static,
+    createlib,
+    llvm,
+    console,
+    debug
+  },
+  var {
+    source = "modules/src/Kernel.cpp",
+    bit = "64",
+    run = false,
+    name = "rg-kernel"
+  }
+},
+// module{
+//   utf
+// }
+// add{
+//   mode{
+
+//   },
+//   var{
+
+//   }
+// },
+// module{
+
+// }
