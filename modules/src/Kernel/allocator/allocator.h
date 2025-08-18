@@ -70,118 +70,13 @@ void *Kernel::Lock::s_new(int size, unsigned int typesize) {
 
   return out;
 }
-/*
-template <class type> type *Kernel::s_new(int size, type &&in) {
-  if (size == 0)
-    return nullptr;
-  static_assert(std::is_constructible<type, type &&>::value,
-                "Type must be constructible with the given argument");
 
-  char *newmem =
-      (char *)malloc(size * sizeof(type) + sizeof(uint) + sizeof(char) * 2);
-  if (newmem == nullptr)
-    RG_LOG_LOCK_CRITICAL("MEMORY ALLOCATE ERROR");
-
-  newmem[0] = 'R';
-  newmem[1] = 'G';
-  uint *ssize = (uint *)(newmem + 2);
-  ssize[0] = size;
-
-  type *out = (type *)(ssize + 1);
-  for (int i = 0; i < size; i++) {
-    new (out + i)
-        type(std::forward<type>(in)); // Placement new с учётом перемещений
-  }
-
-  Lock::CountPointers<type>::count++;
-  Lock::CountPointers<type>::size += size;
-  if (Lock::CountPointers<type>::max_pointer == nullptr)
-    Lock::CountPointers<type>::max_pointer = out;
-  else
-    Lock::CountPointers<type>::max_pointer =
-        rg_max(Lock::CountPointers<type>::max_pointer, out);
-
-  if (Lock::CountPointers<type>::min_pointer == nullptr)
-    Lock::CountPointers<type>::min_pointer = out;
-  else
-    Lock::CountPointers<type>::min_pointer =
-        rg_min(Lock::CountPointers<type>::min_pointer, out);
-
-  Rinegine::Lock::MemUsed +=
-      size * sizeof(type) + sizeof(uint) + sizeof(char) * 2;
-
-  RG_LOG_LOCK_MEM(
-      "Mem aloc: " +
-      std::to_string(size * sizeof(type) + sizeof(uint) + sizeof(char) * 2) +
-      "b, type: " + std::to_string(sizeof(type)));
-
-#ifdef RG_MEM_LIMIT
-  if (Lock:: >= RG_MEM_LIMIT)
-    RG_LOG_LOCK_CRITICAL("Memory limit exceeded");
-#endif
-
-  return out;
-}
-
-template <class type> type *Kernel::s_new(int size, const type &in) {
-  if (size == 0)
-    return nullptr;
-  static_assert(std::is_constructible<type, type &&>::value,
-                "Type must be constructible with the given argument");
-
-  char *newmem =
-      (char *)malloc(size * sizeof(type) + sizeof(uint) + sizeof(char) * 2);
-  if (newmem == nullptr)
-    RG_LOG_LOCK_CRITICAL("MEMORY ALLOCATE ERROR");
-
-  newmem[0] = 'R';
-  newmem[1] = 'G';
-  uint *ssize = (uint *)(newmem + 2);
-  ssize[0] = size;
-
-  type *out = (type *)(ssize + 1);
-  for (int i = 0; i < size; i++) {
-    // new (out + i) type(std::move<type>(in)); // Placement new с учётом
-    // перемещений
-    out[i] = in;
-  }
-
-  Lock::CountPointers<type>::count++;
-  Lock::CountPointers<type>::size += size;
-  if (Lock::CountPointers<type>::max_pointer == nullptr)
-    Lock::CountPointers<type>::max_pointer = out;
-  else
-    Lock::CountPointers<type>::max_pointer =
-        rg_max(Lock::CountPointers<type>::max_pointer, out);
-
-  if (Lock::CountPointers<type>::min_pointer == nullptr)
-    Lock::CountPointers<type>::min_pointer = out;
-  else
-    Lock::CountPointers<type>::min_pointer =
-        rg_min(Lock::CountPointers<type>::min_pointer, out);
-
-  Rinegine::Lock::MemUsed +=
-      size * sizeof(type) + sizeof(uint) + sizeof(char) * 2;
-
-  RG_LOG_LOCK_MEM(
-      "Mem aloc: " +
-      std::to_string(size * sizeof(type) + sizeof(uint) + sizeof(char) * 2) +
-      "b, type: " + std::to_string(sizeof(type)));
-
-#ifdef RG_MEM_LIMIT
-  if (Rinegine::Lock::MemUsed >= RG_MEM_LIMIT)
-    RG_LOG_LOCK_CRITICAL("Memory limit exceeded");
-#endif
-
-  return out;
-}
-  */
 bool Kernel::s_rawmemtest(char *in) {
   if (in[0] == 'R' && in[1] == 'G')
     return true;
   return false;
 }
-// template <class type> bool Kernel::s_memtest(type *in) {
+
 bool Kernel::s_memtest(const void *in) {
   if (in == nullptr)
     return false;
@@ -197,18 +92,6 @@ const uint &Kernel::s_get_size(const void *in) {
     return (((uint *)(in)) - 1)[0];
   return RG_NULL_SIZE;
 }
-
-// template <class type> char Kernel::s_print(type *in) {
-//   int temp_size = s_get_size(in);
-//   for (int i = 0; i < temp_size; i++) {
-//     rg_cout << in[i];
-//     if (i == temp_size - 1)
-//       rg_cout << std::endl;
-//     else
-//       rg_cout << ',' << ' ';
-//   }
-//   return '\0';
-// }
 
 char Kernel::s_print(to_rrvalue(char *) in) {
   int temp_size = s_get_size(in);
@@ -263,96 +146,12 @@ char Kernel::s_print(std::wstring *in) {
   }
   return '\0';
 }
-/*
-template <class ForwardIt, class Generator>
-constexpr void Kernel::s_fill_func(ForwardIt first, ForwardIt last,
-                                   Generator g) {
-  for (; first != last; ++first)
-    *first = g();
-}
 
-template <class ForwardIt, class Generator>
-constexpr void Kernel::s_fill(ForwardIt first, ForwardIt last, Generator g) {
-  for (; first != last; ++first)
-    *first = g;
-}
-template <class type, class gen>
-constexpr void Kernel::s_fill_func(type arr, int size, gen g) {
-  for (int i = 0; i < size; i++) {
-    arr[i] = g();
-  }
-}
-template <class type, class gen>
-constexpr void Kernel::s_fill(type arr, int size, gen g) {
-  for (int i = 0; i < size; i++) {
-    arr[i] = g;
-  }
-}
-*/
 char *Kernel::s_getraw(void *in) { return ((char *)((uint *)(in)-1) - 2); }
-/*
-template <typename type>
-typename std::enable_if<std::is_class<type>::value, void>::type
-Kernel::s_delete(type *&in) {
-  if (in == nullptr)
-    return;
-  if (s_memtest(in)) {
-    const uint &size = s_get_size(in);
 
-    RG_LOG_LOCK_MEM("Mem clean: " +
-                    std::to_string(s_get_size(in) * sizeof(type) +
-                                   sizeof(uint) + sizeof(char) * 2) +
-                    "b, type: " + std::to_string(sizeof(type)));
-
-    Lock::CountPointers<type>::size -= size;
-    Lock::CountPointers<type>::count--;
-    Rinegine::Lock::MemUsed -=
-        size * sizeof(type) + sizeof(uint) + sizeof(char) * 2;
-
-    for (int i = 0; i < size; i++) {
-      // rg_cout << "in[" << i << "] is cleared\n";
-      in[i].~type();
-    }
-    uint *clearsize = ((uint *)(in)) - 1;
-    *clearsize = 0;
-    free(s_getraw(in));
-    in = nullptr;
-  } else {
-    RG_LOG_LOCK_WARNING("Memory Deallocation is failed, array is not RG type");
-    free(in);
-    in = nullptr;
-  }
-}
-
-template <typename type>
-typename std::enable_if<!std::is_class<type>::value, void>::type
-Kernel::s_delete(type *&in) {
-  if (in == nullptr)
-    return;
-  if (s_memtest(in)) {
-    const uint &size = s_get_size(in);
-
-    Lock::CountPointers<type>::size -= size;
-    Lock::CountPointers<type>::count--;
-    Rinegine::Lock::MemUsed -=
-        size * sizeof(type) + sizeof(uint) + sizeof(char) * 2;
-    RG_LOG_LOCK_MEM("Mem clean: " +
-                    std::to_string(s_get_size(in) * sizeof(type) +
-                                   sizeof(uint) + sizeof(char) * 2) +
-                    "b, type: " + std::to_string(sizeof(type)));
-
-    uint *clearsize = ((uint *)(in)) - 1;
-    *clearsize = 0;
-    free(s_getraw(in));
-    in = nullptr;
-  } else {
-    RG_LOG_LOCK_CRITICAL("Memory Deallocation is failed, array is not RG type");
-  }
-}
-  */
 
 template <typename T> decltype(auto) s_move(T &obj) { return (T &&)obj; }
-//
+
 void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
   if (in == nullptr)
     return;
@@ -403,7 +202,7 @@ template <class type> void Kernel::s_resize(type *&p, to_rvalue(int) newsize) {
   } else {
     s_delete(p);
     return;
-  } // delete[] p;p = nullptr;size = 0;return;};
+  }
 }
 template <class type> void Kernel::s_renew(type *&p, to_rvalue(int) newsize) {
   if (newsize > 0) {
