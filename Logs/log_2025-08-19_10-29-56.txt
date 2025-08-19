@@ -1,0 +1,69 @@
+
+[ 10:29:55.209 | ../Rinegine/modules/defined/init/init.h:20 ] Info:  	Logs before init (time doesn't match):
+
+[ 10:29:55.210 | ../Rinegine/modules/defined/init/init.h:91 ] Info:  	Continue
+
+
+[ 10:29:55.210 | ../Rinegine/modules/defined/main/rg_main.h:189 ] Debug:  	main
+
+
+[ 10:29:55.210 | ../Rinegine/modules/defined/main/rg_main.h:192 ] Info:  	Program start
+
+[ 10:29:55.210 | main.cpp:258 ] Info:  	/home/maxsimilian560/Rinemest/Rinegine/bin/rgcmd
+
+[ 10:29:55.210 | main.cpp:334 ] Info:  	rgset is get, checking for suitable
+
+[ 10:29:55.210 | main.cpp:344 ] Info:  	It is suitable, compile...
+
+[ 10:29:55.210 | ./src/compile.cpp:200 ] Info:  	Compile start
+
+[ 10:29:55.210 | ./src/compile.cpp:210 ] Info:  	Path to project: ''
+
+[ 10:29:55.210 | ./src/compile.cpp:214 ] Info:  	Config:
+set {
+  mode {
+    clear,
+    static,
+    createlib,
+    llvm,
+    console,
+    debug
+  },
+  var {
+    source = "modules/src/Kernel.cpp",
+    bit = "64",
+    run = false,
+    name = "rg-kernel"
+  }
+},
+// module{
+//   utf
+// }
+// add{
+//   mode{
+
+//   },
+//   var{
+
+//   }
+// },
+// module{
+
+// }
+_____
+
+[ 10:29:55.210 | ./src/compile.cpp:216 ] Info:  	Config after parse:
+
+[ 10:29:55.211 | ./src/compile.cpp:632 ] Info:  	Compile 64bit lib
+
+[ 10:29:55.211 | ../Rinegine/modules/defined/init/otherDefine.h:31 ] Info:  	Command run: "g++ -fPIC   -c modules/src/Kernel.cpp"
+
+
+
+
+
+[ 10:29:56.822 | ./src/compile.cpp:647 ] Critical Error:  	Error: 256
+
+
+[ 10:29:56.822 | ../Rinegine/modules/defined/debug/debug.h:135 ] Info:  	Log path: /home/maxsimilian560/Rinemest/Rinegine/Logs/log_2025-08-19_10-29-56.txt
+

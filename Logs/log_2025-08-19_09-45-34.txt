@@ -1,0 +1,19 @@
+
+[ 09:45:34.166 | ../Rinegine/modules/defined/init/init.h:20 ] Info:  	Logs before init (time doesn't match):
+
+[ 09:45:34.166 | ../Rinegine/modules/defined/init/init.h:91 ] Info:  	Continue
+
+
+[ 09:45:34.166 | ../Rinegine/modules/defined/main/rg_main.h:189 ] Debug:  	main
+
+
+[ 09:45:34.166 | ../Rinegine/modules/defined/main/rg_main.h:192 ] Info:  	Program start
+
+[ 09:45:34.166 | main.cpp:258 ] Info:  	bin/rgcmd
+
+
+[ 09:45:34.167 | ../Rinegine/modules/defined/main/rg_main.h:222 ] Critical Error:  	Standart error: basic_string::erase: __pos (which is 18446744073709551615) > this->size() (which is 9)
+
+
+[ 09:45:34.167 | ../Rinegine/modules/defined/debug/debug.h:135 ] Info:  	Log path: /home/maxsimilian560/Rinemest/Rinegine/Logs/log_2025-08-19_09-45-34.txt
+
