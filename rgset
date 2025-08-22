@@ -1,12 +1,12 @@
 //Use [path_to_Rinegine]/Rinegine/bin/rgcmd to compile the library. Rinegine must be on the path.
 //Compilation must take place in the project directory. Example: ~/Rinegine to compile Rinegine library(ies)
-//lib-kernel.a is a Linux library. Compilation hasn't been tested on Windows
+//librg-kernel.a is a Linux library. Compilation hasn't been tested on Windows
 set {
   mode {
     clear,
     static,
     createlib,
-    llvm,//for Windows.
+    llvm,
     console,
     debug
   },
