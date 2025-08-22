@@ -326,8 +326,8 @@ public:
   }
 
   template <typename type>
-  typename std::enable_if<!std::is_class<type>::value, void>::type
-  static s_delete(type *&in) { // todo
+  typename std::enable_if<!std::is_class<type>::value,
+                          void>::type static s_delete(type *&in) { // todo
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
