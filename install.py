@@ -30,7 +30,7 @@ RESET = "\033[0m"
 
 SHELL_CONFIGS = {
     "bash": [Path.home() / ".bashrc", Path.home() / ".profile"],
-    "zsh": [Path.home() / ".zshenv"],
+    "zsh": [Path.home() / ".zshenv", Path.home() / ".zshrc"],
     "fish": [Path.home() / ".config/fish/config.fish"],  # special syntax
     "dash": [Path.home() / ".profile"],
     "tcsh": [Path.home() / ".cshrc"],

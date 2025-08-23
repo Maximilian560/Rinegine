@@ -282,33 +282,6 @@ public:
 
   static char *s_getraw(void *in); // done
 
-  /*template <typename type>
-  typename std::enable_if<!std::is_class<type>::value, void>::type
-  s_delete(type *&in) { // todo
-    if (in == nullptr)
-      return;
-    if (s_memtest(in)) {
-      const uint &size = s_get_size(in);
-
-      Lock::CountPointers<type>::size -= size;
-      Lock::CountPointers<type>::count--;
-      Rinegine::Lock::MemUsed -=
-          size * sizeof(type) + sizeof(uint) + sizeof(char) * 2;
-      RG_LOG_LOCK_MEM("Mem clean: " +
-                      std::to_string(s_get_size(in) * sizeof(type) +
-                                     sizeof(uint) + sizeof(char) * 2) +
-                      "b, type: " + std::to_string(sizeof(type)));
-
-      uint *clearsize = ((uint *)(in)) - 1;
-      *clearsize = 0;
-      free(s_getraw(in));
-      in = nullptr;
-    } else {
-      RG_LOG_LOCK_CRITICAL(
-          "Memory Deallocation is failed, array is not RG type");
-    }
-  }*/
-
   template <typename type>
   typename std::enable_if<std::is_class<type>::value,
                           void>::type static s_delete(type *&in) { // todo
