@@ -33,11 +33,14 @@ public:
 
     struct LogVars;
     static LogVars _vars;
-    static void *s_new(int, unsigned int = 1);
-    static void s_delete(void *, unsigned int);
-    // static char s_print(void *, unsigned int = 1);
 
   public:
+    static void *s_new(int, unsigned int = 1);
+    static void *s_fast_new(unsigned int, unsigned int = 1);
+    static void s_delete(void *, unsigned int);
+    static void s_fast_delete(void *, unsigned int);
+    // static char s_print(void *, unsigned int = 1);
+
     static void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
                      std::string = "NULL", int = -1); // done
     static void addl(Log::Types = Log::DEBUG, std::wstring = L"NULL", bool = 1,
@@ -209,8 +212,6 @@ public:
       return nullptr;
     }
     type *t = (type *)Lock::s_new(s, sizeof(type));
-    for (int i = 0; i < s; i++)
-      new (&t[i]) type();
     return t;
   }
 
@@ -234,6 +235,66 @@ public:
       t[i] = in;
     return t;
   }
+  // static void *s_new(int s, int typesize) { return Lock::s_new(s, typesize);
+  // }
+
+  // new fast
+  template <class type> static type *s_fast_new(unsigned int s) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    return t;
+  }
+
+  template <class type> static type *s_fast_new(unsigned int s, type &&in) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      new (t + i) type(std::forward<type>(in));
+    return t;
+  }
+  template <class type>
+  static type *s_fast_new(unsigned int s, const type &in) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      new (t + i) type(in);
+    return t;
+  }
+
+  template <class type, class gen>
+  static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*> s_fast_new(unsigned int s, gen&&in) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      // t[i] = in();
+      new (t + i) type(in());
+    return t;
+  }
+  // static void *s_fast_new(unsigned int s, int typesize) { return
+  // Lock::s_fast_new(s, typesize); }
+
+  //! ALLOCATOR EXPERIMENTAL
+
+  template <typename T> struct Allocator {
+    using value_type = T;
+
+    Allocator() = default;
+    template <class U> constexpr Allocator(const Allocator<U> &) noexcept {}
+
+    T *allocate(std::size_t n) {
+      if (n == 0)
+        return nullptr;
+      void *ptr = Kernel::s_fast_new<T>(static_cast<unsigned int>(n));
+      if (!ptr)
+        throw std::bad_alloc{};
+      return static_cast<T *>(ptr);
+    }
+
+    void deallocate(T *ptr, std::size_t n) noexcept {
+      if (ptr) {
+        Kernel::Lock::s_fast_delete(ptr, sizeof(T));
+      }
+    }
+
+    bool operator==(const Allocator &) const { return true; }
+    bool operator!=(const Allocator &) const { return false; }
+  }; //! EXPERIMENTAL
   static bool s_rawmemtest(char *); // done
 
   // template <class type> static bool s_memtest(type *);
@@ -255,26 +316,37 @@ public:
 
   static char s_print(std::wstring *); // done
 
+  template <class type> static char s_print(type *in) { // done
+    int temp_size = Kernel::s_get_size(in);
+    for (int i = 0; i < temp_size; i++) {
+      if (i != temp_size - 1)
+        rg_cout << in[i] << ", ";
+      else
+        rg_cout << in[i];
+    }
+    return '\0';
+  }
+
   template <class ForwardIt, class Generator>
-  void s_fill_func(ForwardIt first, ForwardIt last,
-                   Generator g) { // done
+  static void s_fill_func(ForwardIt first, ForwardIt last,
+                          Generator g) { // done
     for (; first != last; ++first)
       *first = g();
   }
 
   template <class ForwardIt, class Generator>
-  void s_fill(ForwardIt first, ForwardIt last, Generator g) { // done
+  static void s_fill(ForwardIt first, ForwardIt last, Generator g) { // done
     for (; first != last; ++first)
       *first = g;
   }
   template <class type, class gen>
-  void s_fill_func(type arr, int size, gen g) { // done
+  static void s_fill_func(type arr, int size, gen g) { // done
     for (int i = 0; i < size; i++) {
       arr[i] = g();
     }
   }
   template <class type, class gen>
-  void s_fill(type arr, int size, gen g) { // done
+  static void s_fill(type arr, int size, gen g) { // done
     for (int i = 0; i < size; i++) {
       arr[i] = g;
     }
@@ -284,7 +356,7 @@ public:
 
   template <typename type>
   typename std::enable_if<std::is_class<type>::value,
-                          void>::type static s_delete(type *&in) { // todo
+                          void>::type static s_delete(type *&in) { // done
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -300,7 +372,7 @@ public:
 
   template <typename type>
   typename std::enable_if<!std::is_class<type>::value,
-                          void>::type static s_delete(type *&in) { // todo
+                          void>::type static s_delete(type *&in) { // done
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -310,20 +382,104 @@ public:
     Lock::s_delete(in, sizeof(type));
   }
 
-  template <typename T> decltype(auto) s_move(T &obj) { return (T &&)obj; }
+  template <typename type>
+  typename std::enable_if<std::is_class<type>::value,
+                          void>::type static s_fast_delete(type *&in) { // done
+    if (in == nullptr)
+      return;
+    if (!s_memtest(in)) {
+      RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
+      return;
+    }
+    const uint &size = Rinegine::Kernel::s_get_size(in);
+    for (int i = 0; i < size; i++) {
+      in[i].~type();
+    }
+    Lock::s_fast_delete(in, sizeof(type));
+  }
 
-  template <class type> static void s_resize(type *&, to_rvalue(int));
+  template <typename type>
+  typename std::enable_if<!std::is_class<type>::value,
+                          void>::type static s_fast_delete(type *&in) { // done
+    if (in == nullptr)
+      return;
+    if (!s_memtest(in)) {
+      RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
+      return;
+    }
+    Lock::s_fast_delete(in, sizeof(type));
+  }
 
-  template <class type> static void s_renew(type *&, to_rvalue(int));
+  template <typename T> static decltype(auto) s_move(T &obj) { // done
+    return (T &&)obj;
+  }
 
-  template <class type> static int s_erase(type *&, int, int, int);
+  // template <class type> static void s_resize(type *&, to_rvalue(int));
+  template <class type>
+  static void s_resize(type *&in, to_rvalue(int) n_size) { // done
+    if (n_size <= 0) {                                     // loss then zero
+      s_delete(in);
+      return;
+    }
+    if (in == nullptr) { // uninitialize
+      in = s_new<type>(n_size);
+      return;
+    }
+    if (!s_memtest(in)) { // is not the RG type
+      RG_LOG_LOCK_ERROR("Memory Resize is failed, array is not RG type");
+      return;
+    }
+    int size = s_get_size(in);
+    if (size == n_size)
+      return;
+    type *temp = s_new<type>(n_size);
+    for (int i = 0; i < rg_min(size, n_size); i++) {
+      temp[i] = std::move(in[i]);
+    }
+    s_delete<type>(in);
+    in = temp;
+  }
 
-  template <class type> static int s_erase_new(type *&, int, int);
+  // template <class type> static void s_renew(type *&, to_rvalue(int));
+  // //!outdate
 
-  template <class type> static int Get_Count_Pointers();
+  // template <class type> static int s_erase(type *&, int, int, int);
+  // //!outdate
 
-  template <class type> static Array<type *> Get_All_Pointers();
+  // template <class type> static int s_erase_new(type *&, int, int); //!outdate
 
+  // template <class type> static int Get_Count_Pointers(); //!outdate/useless
+  // in new style
+
+  // template <class type> static Array<type *> Get_All_Pointers();
+  // //!outdate/useless in new style
+
+  //* raw pointer
+  //* raw pointer
+  struct Raw_Pointer {
+    void *ptr = nullptr;
+    unsigned int typesize = 0;
+    unsigned int arrsize = 0;
+    // init test
+    bool is_init() const;
+
+    // POINTER GET
+    const void *get() const;
+
+    // CONSTRUCTORs
+    Raw_Pointer();
+    Raw_Pointer(void *in);
+
+    // INITs
+    void init();
+    void init(void *in);
+    // OPERATORs
+    Raw_Pointer &operator=(void *in);
+    void *operator->();
+    void clear();
+    operator void *() const;
+    ~Raw_Pointer();
+  };
   //* pointer
   template <typename type> class Pointer {
     struct PointerVars;

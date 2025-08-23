@@ -95,7 +95,10 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "*.rh": "cpp",
-    "atlas,h": "c"
+    "atlas,h": "c",
+    "__hash_table": "cpp",
+    "__tree": "cpp",
+    "ios": "cpp"
   },
   "C_Cpp.default.compilerPath": "d:\\RinemestCollection\\RinegineNew\\compiler\\mingw64\\bin\\g++.exe",
   "C_Cpp_Runner.cCompilerPath": "gcc",

@@ -7,3 +7,4 @@
 #include "convert/set.h"
 #include "debug/set.h"
 #include "allocator/set.h"
+#include "pointer/set.h"

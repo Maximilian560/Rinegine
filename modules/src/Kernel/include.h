@@ -46,5 +46,6 @@
 #include <functional>
 #include <filesystem>
 
+#include <atomic>
 //i thing this is useless, but will see 
 #include <type_traits>
