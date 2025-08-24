@@ -13,15 +13,15 @@ namespace Lock {
 // inline static unsigned long long int MemUsed = 0;
 inline static std::atomic_ullong MemUsed = 0;
 }
-void *Kernel::Lock::s_new(int size, unsigned int typesize) {
+void *Kernel::Lock::s_new(const unsigned long long& size, const unsigned long long& typesize) {
   if (size == 0)
     return nullptr;
   char *newmem =
-      (char *)malloc(size * typesize + sizeof(uint) + sizeof(char) * 2);
+      (char *)malloc(size * typesize + sizeof(unsigned long long) + sizeof(char) * 2);
   if (!newmem) {
     for (int i = 1; i <= 30 && !newmem; i++) {
       newmem =
-          (char *)malloc(size * typesize + sizeof(uint) + sizeof(char) * 2);
+          (char *)malloc(size * typesize + sizeof(unsigned long long) + sizeof(char) * 2);
       if (newmem == nullptr)
         RG_LOG_LOCK_ERROR("Memory allocate error, retry: " + std::to_string(i) +
                           "/" + std::to_string(30));
@@ -31,13 +31,13 @@ void *Kernel::Lock::s_new(int size, unsigned int typesize) {
   }
   newmem[0] = 'R';
   newmem[1] = 'G';
-  uint *ssize = (uint *)(newmem + 2);
+  unsigned long long *ssize = (unsigned long long *)(newmem + 2);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);
-  Rinegine::Lock::MemUsed += size * typesize + sizeof(uint) + sizeof(char) * 2;
+  Rinegine::Lock::MemUsed += size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
   RG_LOG_LOCK_MEM(
       "Mem aloc: " +
-      std::to_string(size * typesize + sizeof(uint) + sizeof(char) * 2) +
+      std::to_string(size * typesize + sizeof(unsigned long long) + sizeof(char) * 2) +
       "b, type: " + std::to_string(typesize));
 #ifdef RG_MEM_LIMIT
   if (Rinegine::Lock::MemUsed >= RG_MEM_LIMIT)
@@ -55,16 +55,16 @@ bool Kernel::s_rawmemtest(char *in) {
 bool Kernel::s_memtest(const void *in) {
   if (in == nullptr)
     return false;
-  char *rawmem = (char *)((uint *)(in)-1) - 2;
+  char *rawmem = (char *)((unsigned long long *)(in)-1) - 2;
   if (rawmem[1] == 'G' && rawmem[0] == 'R')
     return true;
   return false;
 }
 
-const uint RG_NULL_SIZE = 0;
-const uint &Kernel::s_get_size(const void *in) {
+const unsigned long long RG_NULL_SIZE = 0;
+const unsigned long long &Kernel::s_get_size(const void *in) {
   if (s_memtest(in))
-    return (((uint *)(in)) - 1)[0];
+    return (((unsigned long long *)(in)) - 1)[0];
   return RG_NULL_SIZE;
 }
 
@@ -122,7 +122,7 @@ char Kernel::s_print(std::wstring *in) {
   return '\0';
 }
 
-char *Kernel::s_getraw(void *in) { return ((char *)((uint *)(in)-1) - 2); }
+char *Kernel::s_getraw(void *in) { return ((char *)((unsigned long long *)(in)-1) - 2); }
 
 template <typename T> decltype(auto) s_move(T &obj) { return (T &&)obj; }
 
@@ -130,18 +130,18 @@ void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
   if (in == nullptr)
     return;
   if (Rinegine::Kernel::s_memtest(in)) {
-    const uint &size = Rinegine::Kernel::s_get_size(in);
+    const unsigned long long &size = Rinegine::Kernel::s_get_size(in);
 
     RG_LOG_LOCK_MEM("Mem clean: " +
                     std::to_string(Rinegine::Kernel::s_get_size(in) * typesize +
-                                   sizeof(uint) + sizeof(char) * 2) +
+                                   sizeof(unsigned long long) + sizeof(char) * 2) +
                     "b, type: " + std::to_string(typesize));
 
     Rinegine::Lock::MemUsed -=
-        size * typesize + sizeof(uint) + sizeof(char) * 2;
+        size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
 
-    uint *clearsize = ((uint *)(in)) - 1;
-    *clearsize = 0;
+    // unsigned long long *clearsize = ((unsigned long long *)(in)) - 1;
+    // *clearsize = 0;
     free(Rinegine::Kernel::s_getraw(in));
     in = nullptr;
   } else {
@@ -150,23 +150,30 @@ void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
     in = nullptr;
   }
 }
-void *Kernel::Lock::s_fast_new(unsigned int size, unsigned int typesize) {
+void *Kernel::Lock::s_fast_new(const unsigned long long &size,
+                               const unsigned long long &typesize) {
   char *newmem =
-      (char *)malloc(size * typesize + sizeof(uint) + sizeof(char) * 2);
+      (char *)malloc(size * typesize + sizeof(unsigned long long) + sizeof(char) * 2);
+  if (!newmem) {
+    RG_LOG_LOCK_ERROR("Fast alloc failed, try standard alloc");
+    void *out = Kernel::Lock::s_new(size, typesize);
+    return out;
+  }
+
   newmem[0] = 'R';
   newmem[1] = 'G';
-  uint *ssize = (uint *)(newmem + 2);
+  unsigned long long *ssize = (unsigned long long *)(newmem + 2);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);
-  Rinegine::Lock::MemUsed += size * typesize + sizeof(uint) + sizeof(char) * 2;
+  Rinegine::Lock::MemUsed += size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
   return out;
 }
 
 void Kernel::Lock::s_fast_delete(void *in, unsigned int typesize) {
   if (!Rinegine::Kernel::s_memtest(in))
     return;
-  const uint &size = Rinegine::Kernel::s_get_size(in);
-  Rinegine::Lock::MemUsed -= size * typesize + sizeof(uint) + sizeof(char) * 2;
+  const unsigned long long &size = Rinegine::Kernel::s_get_size(in);
+  Rinegine::Lock::MemUsed -= size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
   free(Rinegine::Kernel::s_getraw(in));
   in = nullptr;
 }

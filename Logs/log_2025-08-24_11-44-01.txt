@@ -1,0 +1,59 @@
+
+[ 11:44:00.137 | ../Rinegine/modules/defined/init/init.h:20 ] Info:  	Logs before init (time doesn't match):
+
+[ 11:44:00.137 | ../Rinegine/modules/defined/init/init.h:91 ] Info:  	Continue
+
+
+[ 11:44:00.137 | ../Rinegine/modules/defined/main/rg_main.h:189 ] Debug:  	main
+
+
+[ 11:44:00.137 | ../Rinegine/modules/defined/main/rg_main.h:192 ] Info:  	Program start
+
+[ 11:44:00.137 | main.cpp:258 ] Info:  	/home/maxsimilian560/Rinemest/Rinegine/bin/rgcmd
+
+[ 11:44:00.137 | main.cpp:334 ] Info:  	rgset is get, checking for suitable
+
+[ 11:44:00.137 | main.cpp:344 ] Info:  	It is suitable, compile...
+
+[ 11:44:00.137 | ./src/compile.cpp:200 ] Info:  	Compile start
+
+[ 11:44:00.137 | ./src/compile.cpp:210 ] Info:  	Path to project: ''
+
+[ 11:44:00.137 | ./src/compile.cpp:214 ] Info:  	Config:
+//Use [path_to_Rinegine]/Rinegine/bin/rgcmd to compile the library. Rinegine must be on the path.
+//Compilation must take place in the project directory. Example: ~/Rinegine to compile Rinegine library(ies)
+//librg-kernel.a is a Linux library. Compilation hasn't been tested on Windows
+set {
+  mode {
+    clear,
+    static,
+    createlib,
+    llvm,
+    console,
+    debug
+  },
+  var {
+    source = "modules/src/Kernel.cpp",
+    bit = "64",
+    run = false,
+    name = "rg-kernel"
+  }
+},
+
+_____
+
+[ 11:44:00.137 | ./src/compile.cpp:216 ] Info:  	Config after parse:
+
+[ 11:44:00.138 | ./src/compile.cpp:632 ] Info:  	Compile 64bit lib
+
+[ 11:44:00.138 | ../Rinegine/modules/defined/init/otherDefine.h:31 ] Info:  	Command run: "g++ -fPIC   -c modules/src/Kernel.cpp"
+
+
+
+
+
+[ 11:44:01.281 | ./src/compile.cpp:647 ] Critical Error:  	Error: 256
+
+
+[ 11:44:01.281 | ../Rinegine/modules/defined/debug/debug.h:135 ] Info:  	Log path: /home/maxsimilian560/Rinemest/Rinegine/Logs/log_2025-08-24_11-44-01.txt
+

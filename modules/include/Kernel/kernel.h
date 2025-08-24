@@ -35,8 +35,8 @@ public:
     static LogVars _vars;
 
   public:
-    static void *s_new(int, unsigned int = 1);
-    static void *s_fast_new(unsigned int, unsigned int = 1);
+    static void *s_new(const unsigned long long&, const unsigned long long& = 1);
+    static void *s_fast_new(const unsigned long long& size, const unsigned long long& typesize = 1);
     static void s_delete(void *, unsigned int);
     static void s_fast_delete(void *, unsigned int);
     // static char s_print(void *, unsigned int = 1);
@@ -244,12 +244,12 @@ public:
     return t;
   }
 
-  template <class type> static type *s_fast_new(unsigned int s, type &&in) {
-    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
-    for (unsigned int i = 0; i < s; i++)
-      new (t + i) type(std::forward<type>(in));
-    return t;
-  }
+  // template <class type> static type *s_fast_new(unsigned int s, type &&in) {
+  //   type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+  //   for (unsigned int i = 0; i < s; i++)
+  //     new (t + i) type(std::forward<type>(in));
+  //   return t;
+  // }
   template <class type>
   static type *s_fast_new(unsigned int s, const type &in) {
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
@@ -258,14 +258,14 @@ public:
     return t;
   }
 
-  template <class type, class gen>
-  static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*> s_fast_new(unsigned int s, gen&&in) {
-    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
-    for (unsigned int i = 0; i < s; i++)
-      // t[i] = in();
-      new (t + i) type(in());
-    return t;
-  }
+  // template <class type, class gen>
+  // static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*> s_fast_new(unsigned int s, gen&&in) {
+  //   type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+  //   for (unsigned int i = 0; i < s; i++)
+  //     // t[i] = in();
+  //     new (t + i) type(in());
+  //   return t;
+  // }
   // static void *s_fast_new(unsigned int s, int typesize) { return
   // Lock::s_fast_new(s, typesize); }
 
@@ -300,7 +300,7 @@ public:
   // template <class type> static bool s_memtest(type *);
   static bool s_memtest(const void *); // done
 
-  static const uint &s_get_size(const void *); // done
+  static const unsigned long long &s_get_size(const void *); // done
 
   // template <class type> static char s_print(type *);
 
@@ -363,7 +363,7 @@ public:
       RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
       return;
     }
-    const uint &size = Rinegine::Kernel::s_get_size(in);
+    const unsigned long long &size = Rinegine::Kernel::s_get_size(in);
     for (int i = 0; i < size; i++) {
       in[i].~type();
     }
@@ -391,7 +391,7 @@ public:
       RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
       return;
     }
-    const uint &size = Rinegine::Kernel::s_get_size(in);
+    const unsigned long long &size = Rinegine::Kernel::s_get_size(in);
     for (int i = 0; i < size; i++) {
       in[i].~type();
     }
