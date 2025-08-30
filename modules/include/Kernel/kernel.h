@@ -1,20 +1,10 @@
 #pragma once
 #undef RG_HERE_FILE_NAME
 #define RG_HERE_FILE_NAME "kernel/kernel"
-//
-// #ifdef RG_UTF
-// inlinestd::wostream &operator<<(std::wostream &out, const std::wstring &text)
-// {
-//   return out.write(text.data(), text.size());
-// }
-// std::wostream &operator<<(std::wostream &out, const std::string &text);
-// #else
-// std::ostream &operator<<(std::ostream &out, const std::string &text);
-// #endif
-
 namespace Rinegine {
 class Kernel {
 public:
+  template <class type1, class type2> struct MapData;
   //* types
   template <class type> class Matrix;
   template <class type> class Array;
@@ -764,29 +754,29 @@ public:
     RG_Map();
     RG_Map(uint size);
     RG_Map(std::string key, type val);
-    RG_Map(RG_MapData<std::string, type>);
-    RG_Map(Array<RG_MapData<std::string, type>>);
-    RG_Map(std::initializer_list<RG_MapData<std::string, type>>);
+    RG_Map(MapData<std::string, type>);
+    RG_Map(Array<MapData<std::string, type>>);
+    RG_Map(std::initializer_list<MapData<std::string, type>>);
     void init(uint size);
     void init(std::string key, type val);
-    void init(RG_MapData<std::string, type>);
-    void init(Array<RG_MapData<std::string, type>>);
-    void init(std::initializer_list<RG_MapData<std::string, type>>);
+    void init(MapData<std::string, type>);
+    void init(Array<MapData<std::string, type>>);
+    void init(std::initializer_list<MapData<std::string, type>>);
     void fill(std::string key, type val);
-    void fill(RG_MapData<std::string, type>);
+    void fill(MapData<std::string, type>);
     void fill(uint size);
-    void fill(Array<RG_MapData<std::string, type>>);
-    void fill(std::initializer_list<RG_MapData<std::string, type>>);
+    void fill(Array<MapData<std::string, type>>);
+    void fill(std::initializer_list<MapData<std::string, type>>);
     int findpos(std::string ii);
     type find(std::string ii);
     type find(int ii);
     type operator[](std::string i);
     void sort();
-    RG_MapData<std::string, type> &operator[](uint i);
-    void push_back(RG_MapData<std::string, type>);
+    MapData<std::string, type> &operator[](uint i);
+    void push_back(MapData<std::string, type>);
     void resize(uint size);
     int size();
-    RG_MapData<std::string, type> *get_arr();
+    MapData<std::string, type> *get_arr();
     Array<type> &get_rgarr();
     void clear();
     ~RG_Map();
@@ -797,32 +787,32 @@ public:
     RG_WMap();
     RG_WMap(uint size);
     RG_WMap(std::wstring key, type val);
-    RG_WMap(RG_MapData<std::wstring, type>);
-    RG_WMap(Array<RG_MapData<std::wstring, type>>);
-    RG_WMap(std::initializer_list<RG_MapData<std::wstring, type>>);
+    RG_WMap(MapData<std::wstring, type>);
+    RG_WMap(Array<MapData<std::wstring, type>>);
+    RG_WMap(std::initializer_list<MapData<std::wstring, type>>);
     void init(uint size);
     void init(std::wstring key, type val);
-    void init(RG_MapData<std::wstring, type>);
-    void init(Array<RG_MapData<std::wstring, type>>);
-    void init(std::initializer_list<RG_MapData<std::wstring, type>>);
+    void init(MapData<std::wstring, type>);
+    void init(Array<MapData<std::wstring, type>>);
+    void init(std::initializer_list<MapData<std::wstring, type>>);
     void fill(std::wstring key, type val);
-    void fill(RG_MapData<std::wstring, type>);
+    void fill(MapData<std::wstring, type>);
     void fill(uint size);
-    void fill(Array<RG_MapData<std::wstring, type>>);
-    void fill(std::initializer_list<RG_MapData<std::wstring, type>>);
+    void fill(Array<MapData<std::wstring, type>>);
+    void fill(std::initializer_list<MapData<std::wstring, type>>);
     int findpos(std::wstring ii);
     type &find(std::wstring ii);
     type &find(int ii);
-    RG_MapData<std::wstring, type> &findstring(std::wstring ii);
+    MapData<std::wstring, type> &findstring(std::wstring ii);
     type &operator[](std::wstring i);
-    RG_MapData<std::wstring, type> &findchar(wchar_t in);
+    MapData<std::wstring, type> &findchar(wchar_t in);
     void revsort();
     void sort();
-    RG_MapData<std::wstring, type> &operator[](uint i);
-    void push_back(RG_MapData<std::wstring, type>);
+    MapData<std::wstring, type> &operator[](uint i);
+    void push_back(MapData<std::wstring, type>);
     void resize(uint size);
     int size();
-    RG_MapData<std::wstring, type> *get_arr();
+    MapData<std::wstring, type> *get_arr();
     Array<type> &get_rgarr();
     void clear();
     ~RG_WMap();
@@ -944,8 +934,7 @@ public:
   // Version
   static void RG_GetVersion(int &major, int &minor, int &patch, int &wip);
   static void RG_GetVersion(int &major, int &minor, int &patch);
-};
-class File {
+  class File {
 public:
   template <typename lambda> static void Read(std::string path, lambda func);
   void Write(std::string path, const std::string &in);
@@ -953,17 +942,7 @@ public:
   static void ReadW(const wchar_t *path, lambdaw func);
   void WriteW(const char *path, const std::wstring &in);
 };
+};
+
 
 } // namespace Rinegine
-
-// template <class type>
-// std::ostream &operator<<(std::ostream &st, Rinegine::Kernel::vec2<type> &in);
-// template <class type>
-// std::ostream &operator<<(std::ostream &st, Rinegine::Kernel::vec3<type> &in);
-// template <class type>
-// std::ostream &operator<<(std::ostream &st, Rinegine::Kernel::vec4<type> &in);
-// template <class type>
-// std::wostream &operator<<(std::wostream &st, Rinegine::Kernel::vec2<type>
-// &in); template <class type> std::wostream &operator<<(std::wostream &st,
-// Rinegine::Kernel::vec3<type> &in); template <class type> std::wostream
-// &operator<<(std::wostream &st, Rinegine::Kernel::vec4<type> &in);

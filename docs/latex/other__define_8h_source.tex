@@ -1,0 +1,22 @@
+\doxysection{other\+\_\+define.\+h}
+\hypertarget{other__define_8h_source}{}\label{other__define_8h_source}\index{modules/include/Kernel/other\_define.h@{modules/include/Kernel/other\_define.h}}
+\mbox{\hyperlink{other__define_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ debug}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine}{Rinegine}}\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Чистый\ интерфейс\ —\ пользователь\ видит\ ТОЛЬКО\ это}}
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_abb9b1e1736c305dafacde051dddfc610}{TryCatch}}(std::function<\textcolor{keywordtype}{void}()>\ func);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \}\ \textcolor{comment}{//\ namespace\ Rinegine}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Макросы\ остаются,\ но\ ТОЛЬКО\ как\ обёртка}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ RG\_CATCH\_ERROR\ return\ Rinegine::TryCatch([\&]()\ \{}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ RG\_ERROR\_LOG\ \ \});}}
+
+\end{DoxyCode}

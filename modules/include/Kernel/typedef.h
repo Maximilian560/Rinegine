@@ -67,6 +67,6 @@ enum ErrorRinegine {
   RG_ERROR_BLOCK_TYPE_INCORRECT,     // 15
   RG_ERROR_FIND_TEXTURE,             // 16
 };
-template <class type1, class type2> struct RG_MapData;
+
 
 } // namespace Rinegine
