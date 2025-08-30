@@ -237,9 +237,6 @@ public:
       t[i] = in;
     return t;
   }
-  // static void *s_new(int s, int typesize) { return Lock::s_new(s, typesize);
-  // }
-
   // new fast
   template <class type> static type *s_fast_new(unsigned int s) {
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
