@@ -452,20 +452,6 @@ public:
     in = temp;
   }
 
-  // template <class type> static void s_renew(type *&, to_rvalue(int));
-  // //!outdate
-
-  // template <class type> static int s_erase(type *&, int, int, int);
-  // //!outdate
-
-  // template <class type> static int s_erase_new(type *&, int, int); //!outdate
-
-  // template <class type> static int Get_Count_Pointers(); //!outdate/useless
-  // in new style
-
-  // template <class type> static Array<type *> Get_All_Pointers();
-  // //!outdate/useless in new style
-
   //* raw pointer
   //* raw pointer
   struct Raw_Pointer {
