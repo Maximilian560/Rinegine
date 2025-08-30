@@ -33,7 +33,7 @@ void *Kernel::Lock::s_new(const unsigned long long &size,
   newmem[0] = 'R';
   newmem[1] = 'G';
   unsigned int *stypesize = (unsigned int *)(newmem + 2);
-  stypesize = typesize;
+  stypesize[0] = typesize;
   unsigned long long *ssize = (unsigned long long *)(stypesize + 1);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);
@@ -64,14 +64,14 @@ bool Kernel::s_memtest(const void *in) {
       (char *)((unsigned long long *)(in)-1) - (2 + sizeof(unsigned int));
   if (rawmem[1] == 'G' && rawmem[0] == 'R')
     return true;
+
   return false;
 }
 
-const unsigned long long RG_NULL_SIZE = 0;
 const unsigned long long &Kernel::s_get_size(const void *in) {
-  if (s_memtest(in))
-    return (((unsigned long long *)(in)) - 1)[0];
-  return RG_NULL_SIZE;
+  if (!s_memtest(in))
+    RG_LOG_LOCK_CRITICAL("s_get_size: array is not rg type");
+  return (((unsigned long long *)(in)) - 1)[0];
 }
 
 char Kernel::s_print(to_rrvalue(char *) in) {
@@ -172,7 +172,7 @@ void *Kernel::Lock::s_fast_new(const unsigned long long &size,
   newmem[0] = 'R';
   newmem[1] = 'G';
   unsigned int *stypesize = (unsigned int *)(newmem + 2);
-  stypesize = typesize;
+  stypesize[0] = typesize;
   unsigned long long *ssize = (unsigned long long *)(stypesize + 1);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);
@@ -189,5 +189,12 @@ void Kernel::Lock::s_fast_delete(void *in, unsigned int typesize) {
       size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
   free(Rinegine::Kernel::s_getraw(in));
   in = nullptr;
+}
+
+unsigned int Kernel::s_get_typesize(void *in) {
+  if (!s_memtest(in)) {
+    RG_LOG_LOCK_CRITICAL("s_get_typesize: array is not RG type");
+  }
+  return *((unsigned int *)((unsigned long long *)(in)-1) - 1);
 }
 }

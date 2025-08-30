@@ -208,7 +208,7 @@ public:
   // template <class type> static type *s_new(int, type &&);
 
   // template <class type> static type *s_new(int, const type &);
-  template <class type> static type *s_new(int s) {
+  template <class type> static type *s_new(int s) { // done
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -217,7 +217,7 @@ public:
     return t;
   }
 
-  template <class type> static type *s_new(int s, type &&in) {
+  template <class type> static type *s_new(int s, type &&in) { // done
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -227,7 +227,8 @@ public:
       new (t + i) type(std::forward<type>(in));
     return t;
   }
-  template <class type> static type *s_new(int s, const type &in) {
+
+  template <class type> static type *s_new(int s, const type &in) { // done
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -240,27 +241,27 @@ public:
 
   template <class type, class gen>
   static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
-  s_new(unsigned int s, gen &&in) {
+  s_new(unsigned int s, gen &&in) { // done
     type *t = (type *)Lock::s_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
-      // t[i] = in();
       new (t + i) type(in());
     return t;
   }
   // new fast
-  template <class type> static type *s_fast_new(unsigned int s) {
+  template <class type> static type *s_fast_new(unsigned int s) { // done
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     return t;
   }
 
-  template <class type> static type *s_fast_new(unsigned int s, type &&in) {
+  template <class type>
+  static type *s_fast_new(unsigned int s, type &&in) { // done
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(std::forward<type>(in));
     return t;
   }
   template <class type>
-  static type *s_fast_new(unsigned int s, const type &in) {
+  static type *s_fast_new(unsigned int s, const type &in) { // done
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(in);
@@ -269,17 +270,18 @@ public:
 
   template <class type, class gen>
   static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
-  s_fast_new(unsigned int s, gen &&in) {
+  s_fast_new(unsigned int s, gen &&in) { // done
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
-      // t[i] = in();
       new (t + i) type(in());
     return t;
   }
   // static void *s_fast_new(unsigned int s, int typesize) { return
   // Lock::s_fast_new(s, typesize); }
 
-  //! ALLOCATOR EXPERIMENTAL
+  static unsigned int s_get_typesize(void *);
+
+  //! ALLOCATOR EXPERIMENTAL/WIP
 
   template <typename T> struct Allocator {
     using value_type = T;
