@@ -35,8 +35,10 @@ public:
     static LogVars _vars;
 
   public:
-    static void *s_new(const unsigned long long&, const unsigned long long& = 1);
-    static void *s_fast_new(const unsigned long long& size, const unsigned long long& typesize = 1);
+    static void *s_new(const unsigned long long &,
+                       const unsigned long long & = 1);
+    static void *s_fast_new(const unsigned long long &size,
+                            const unsigned long long &typesize = 1);
     static void s_delete(void *, unsigned int);
     static void s_fast_delete(void *, unsigned int);
     // static char s_print(void *, unsigned int = 1);
@@ -222,7 +224,7 @@ public:
     }
     type *t = (type *)Lock::s_new(s, sizeof(type));
     for (int i = 0; i < s; i++)
-      new (t[i]) type(std::forward<type>(in));
+      new (t + i) type(std::forward<type>(in));
     return t;
   }
   template <class type> static type *s_new(int s, const type &in) {
@@ -259,7 +261,8 @@ public:
   }
 
   // template <class type, class gen>
-  // static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*> s_fast_new(unsigned int s, gen&&in) {
+  // static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
+  // s_fast_new(unsigned int s, gen&&in) {
   //   type *t = (type *)Lock::s_fast_new(s, sizeof(type));
   //   for (unsigned int i = 0; i < s; i++)
   //     // t[i] = in();
