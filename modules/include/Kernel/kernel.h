@@ -237,18 +237,28 @@ public:
       t[i] = in;
     return t;
   }
+
+  template <class type, class gen>
+  static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
+  s_new(unsigned int s, gen &&in) {
+    type *t = (type *)Lock::s_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      // t[i] = in();
+      new (t + i) type(in());
+    return t;
+  }
   // new fast
   template <class type> static type *s_fast_new(unsigned int s) {
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     return t;
   }
 
-  // template <class type> static type *s_fast_new(unsigned int s, type &&in) {
-  //   type *t = (type *)Lock::s_fast_new(s, sizeof(type));
-  //   for (unsigned int i = 0; i < s; i++)
-  //     new (t + i) type(std::forward<type>(in));
-  //   return t;
-  // }
+  template <class type> static type *s_fast_new(unsigned int s, type &&in) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      new (t + i) type(std::forward<type>(in));
+    return t;
+  }
   template <class type>
   static type *s_fast_new(unsigned int s, const type &in) {
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
@@ -257,15 +267,15 @@ public:
     return t;
   }
 
-  // template <class type, class gen>
-  // static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
-  // s_fast_new(unsigned int s, gen&&in) {
-  //   type *t = (type *)Lock::s_fast_new(s, sizeof(type));
-  //   for (unsigned int i = 0; i < s; i++)
-  //     // t[i] = in();
-  //     new (t + i) type(in());
-  //   return t;
-  // }
+  template <class type, class gen>
+  static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
+  s_fast_new(unsigned int s, gen &&in) {
+    type *t = (type *)Lock::s_fast_new(s, sizeof(type));
+    for (unsigned int i = 0; i < s; i++)
+      // t[i] = in();
+      new (t + i) type(in());
+    return t;
+  }
   // static void *s_fast_new(unsigned int s, int typesize) { return
   // Lock::s_fast_new(s, typesize); }
 
