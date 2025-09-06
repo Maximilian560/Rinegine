@@ -92,7 +92,6 @@ typedef unsigned int uint;
  */
 #if defined(UNICODE) && !defined(RG_UTF)
 #define RG_UTF
-#endif
 
 #ifdef RG_LINUX
 #warning "RG_UTF is not supported on linux"
@@ -105,6 +104,8 @@ typedef unsigned int uint;
 #if defined(RG_UTF)
 #warning "RG_UTF is may work incorrectly on this OS"
 #endif
+#endif
+
 #endif
 
 /**
@@ -389,20 +390,6 @@ typedef unsigned int uint;
 #define RG_L
 #endif
 
-// static uint rg_count_temp = 0; // todo
-
-// #define rg_count                                                               \
-//   rg_cout << (rg_count_temp++) << ", " << __FILE__ << ":" << __LINE__ << endl
-
-// #define rg_count_clear rg_count_temp = 0
-
-// static int rg_count_temp_deb = 0; // todo
-// #define rg_count_deb \
-//   RG_LOG_LOCK_DEBUG(to_string(rg_count_temp_deb++) + \
-//                     ", line: " + to_string(__LINE__))
-
-// #define rg_count_deb_clear rg_count_temp_deb = 0
-
 // ==================== DEBUG & TRACE MACROS ====================
 
 /**
@@ -415,8 +402,6 @@ typedef unsigned int uint;
 #define to_rvalue(type) const type & // todo
 
 #define to_rrvalue(type) const type  // todo
-
-#define to_rvalue(type) const type &
 
 
 /**
@@ -454,7 +439,7 @@ typedef unsigned int uint;
  * @note Intended for temporary debugging only.
  * @ingroup debug
  */
-static uint rg_count_temp = 0;
+[[maybe_unused]] static uint rg_count_temp = 0;
 
 
 /**
@@ -482,7 +467,7 @@ static uint rg_count_temp = 0;
  * @brief Secondary counter for debug logging.
  * @ingroup debug
  */
-static int rg_count_temp_deb = 0;
+[[maybe_unused]] static int rg_count_temp_deb = 0;
 
 /**
  * @def rg_count_deb

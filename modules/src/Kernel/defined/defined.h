@@ -10,30 +10,29 @@ int Kernel::RG_CMD(std::string command, bool print) {
 // TRY CATCH ERRORS
 bool RINEGINE_IS_INIT = true;
 int RG_ERROR_PROGRAM = 0;
-const rg_string
-    ErrorCode[]{
-        RG_L "NULL",                                             //-1
-        RG_L "Error creating window.",                           // 0
-        RG_L "Font loading error.",                              // 1
-        RG_L "Font not found.",                                  // 2
-        RG_L "Out of RAM memory.",                               // 3
-        RG_L "Symbol not found.",                                // 4
-        RG_L "GLFW initialization error.",                       // 5
-        RG_L "File not found.",                                  // 6
-        RG_L "RG_Array access error, RG_Array size = 0.",        // 7
-        RG_L "RG_Array access error, RG_Array size < [i].",      // 8
-        RG_L "RG_Array access error, RG_Array size - i > size.", // 9
-        RG_L "The loaded texture has fewer color channels supported (less than "
-             "4).",                                              // 10
-        RG_L "Incorrect use of the material creation function.", // 11
-        RG_L "RG_Matrix access error, RG_Matrix size = 0 or width < "
-             "getPoint(width).", // 12
-        RG_L "RG_LoadTexture(string path) - the wrong path was passed to the "
-             "function.",                                        // 13
-        RG_L "RG_FindPlanet(string) could not find the planet.", // 14
-        RG_L "RG_GetBlockType could not find the block.",        // 15
-        RG_L "RG_GetTexture could not find the texture.",        // 16
-    };
+const rg_string ErrorCode[]{
+    RG_L "NULL",                                             //-1
+    RG_L "Error creating window.",                           // 0
+    RG_L "Font loading error.",                              // 1
+    RG_L "Font not found.",                                  // 2
+    RG_L "Out of RAM memory.",                               // 3
+    RG_L "Symbol not found.",                                // 4
+    RG_L "GLFW initialization error.",                       // 5
+    RG_L "File not found.",                                  // 6
+    RG_L "RG_Array access error, RG_Array size = 0.",        // 7
+    RG_L "RG_Array access error, RG_Array size < [i].",      // 8
+    RG_L "RG_Array access error, RG_Array size - i > size.", // 9
+    RG_L "The loaded texture has fewer color channels supported (less than "
+         "4).",                                              // 10
+    RG_L "Incorrect use of the material creation function.", // 11
+    RG_L "RG_Matrix access error, RG_Matrix size = 0 or width < "
+         "getPoint(width).", // 12
+    RG_L "RG_LoadTexture(string path) - the wrong path was passed to the "
+         "function.",                                        // 13
+    RG_L "RG_FindPlanet(string) could not find the planet.", // 14
+    RG_L "RG_GetBlockType could not find the block.",        // 15
+    RG_L "RG_GetTexture could not find the texture.",        // 16
+};
 int TryCatch(std::function<void()> func) {
   try {
     func();
@@ -94,8 +93,11 @@ int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
   RG_CATCH_ERROR
+  
+  (void) argc;
+  (void)argv;
   int exit_code = own_main();
-  return 0;
+  return exit_code;
   RG_ERROR_LOG;
 };
 
@@ -105,8 +107,13 @@ int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
   _setmode(_fileno(stdin), _O_U16TEXT);
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
+  RG_CATCH_ERROR
+  
+  (void) argc;
+  (void)argv;
   int exit_code = own_main();
-  return 0;
+  return exit_code;
+  RG_ERROR_LOG;
 };
 // DECODE ENCODE UNICODE
 #ifdef RG_WIN
@@ -772,32 +779,17 @@ void Kernel::Open(std::wstring path) {
 }
 #endif
 //! Open
-
-// tolowstr
-std::string Kernel::tolowstr(std::string str) { // TODO replace!
-  std::string str2;
-  for (int i = 0; i < str.size(); i++) {
-    if (str[i] >= 192 && str[i] <= 223) {
-      str2 += char(str[i] + 32);
-    } else if (str[i] >= 65 && str[i] <= 90) {
-      str2 += char(str[i] + 32);
-    } else
-      str2 += str[i];
-  }
-  return str2;
+std::string Kernel::tolowstr(std::string str) {
+  std::transform(str.begin(), str.end(), str.begin(),
+                 [](unsigned char c) { return std::tolower(c); });
+  return str;
 }
 
-std::wstring Kernel::tolowwstr(std::wstring str) { // TODO replace!
-  std::wstring str2;
-  for (int i = 0; i < str.size(); i++) {
-    if (str[i] >= 192 && str[i] <= 223) {
-      str2 += char(str[i] + 32);
-    } else if (str[i] >= 65 && str[i] <= 90) {
-      str2 += char(str[i] + 32);
-    } else
-      str2 += str[i];
-  }
-  return str2;
+std::wstring Kernel::tolowwstr(std::wstring str) {
+  std::transform(str.begin(), str.end(), str.begin(), [](wchar_t c) {
+    return std::towlower(static_cast<wint_t>(c));
+  });
+  return str;
 }
 //! tolowstr
 ///

@@ -33,7 +33,7 @@ void *Kernel::Lock::s_new(const unsigned long long &size,
   newmem[0] = 'R';
   newmem[1] = 'G';
   unsigned int *stypesize = (unsigned int *)(newmem + 2);
-  stypesize[0] = typesize;
+  stypesize[0] = (unsigned int)typesize;
   unsigned long long *ssize = (unsigned long long *)(stypesize + 1);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);
@@ -75,7 +75,7 @@ const unsigned long long &Kernel::s_get_size(const void *in) {
 }
 
 char Kernel::s_print(to_rrvalue(char *) in) {
-  int temp_size = s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     rg_cout << in[i];
     if (i == temp_size - 1)
@@ -85,7 +85,7 @@ char Kernel::s_print(to_rrvalue(char *) in) {
 }
 
 char Kernel::s_print(to_rrvalue(wchar_t *) in) {
-  int temp_size = s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     std::wcout << in[i]; // TODO
     if (i == temp_size - 1)
@@ -95,7 +95,7 @@ char Kernel::s_print(to_rrvalue(wchar_t *) in) {
 }
 
 char Kernel::s_print(to_rrvalue(std::string *) in) {
-  int temp_size = s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     rg_cout << "\"";
     rg_cout << rg_to_string(in[i]);
@@ -104,7 +104,7 @@ char Kernel::s_print(to_rrvalue(std::string *) in) {
   return '\0';
 }
 char Kernel::s_print(to_rrvalue(std::wstring *) in) {
-  int temp_size = s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     rg_cout << rg_to_string(in[i]) << ", ";
   }
@@ -112,7 +112,7 @@ char Kernel::s_print(to_rrvalue(std::wstring *) in) {
 }
 
 char Kernel::s_print(std::string *in) {
-  int temp_size = s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     rg_cout << "\"";
     rg_cout << rg_to_string(in[i]);
@@ -121,7 +121,7 @@ char Kernel::s_print(std::string *in) {
   return '\0';
 }
 char Kernel::s_print(std::wstring *in) {
-  int temp_size = Kernel::s_get_size(in);
+  int temp_size = (int)s_get_size(in);
   for (int i = 0; i < temp_size; i++) {
     rg_cout << rg_to_string(in[i]) << ", ";
   }
@@ -152,11 +152,11 @@ void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
     // unsigned long long *clearsize = ((unsigned long long *)(in)) - 1;
     // *clearsize = 0;
     free(Rinegine::Kernel::s_getraw(in));
-    in = nullptr;
+    // in = nullptr;
   } else {
     RG_LOG_LOCK_WARNING("Memory Deallocation is failed, array is not RG type");
     free(in);
-    in = nullptr;
+    // in = nullptr;
   }
 }
 void *Kernel::Lock::s_fast_new(const unsigned long long &size,
@@ -172,7 +172,7 @@ void *Kernel::Lock::s_fast_new(const unsigned long long &size,
   newmem[0] = 'R';
   newmem[1] = 'G';
   unsigned int *stypesize = (unsigned int *)(newmem + 2);
-  stypesize[0] = typesize;
+  stypesize[0] = (unsigned int)typesize;
   unsigned long long *ssize = (unsigned long long *)(stypesize + 1);
   ssize[0] = size;
   void *out = (void *)(ssize + 1);

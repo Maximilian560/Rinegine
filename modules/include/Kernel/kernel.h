@@ -319,8 +319,8 @@ public:
   static char s_print(std::wstring *); // done
 
   template <class type> static char s_print(type *in) { // done
-    int temp_size = Kernel::s_get_size(in);
-    for (int i = 0; i < temp_size; i++) {
+    size_t temp_size = (size_t)Kernel::s_get_size(in);
+    for (size_t i = 0; i < temp_size; i++) {
       if (i != temp_size - 1)
         rg_cout << in[i] << ", ";
       else
@@ -452,7 +452,7 @@ public:
     bool is_init() const;
 
     // POINTER GET
-    const void *get() const;
+    void *get() const;
 
     // CONSTRUCTORs
     Raw_Pointer();
@@ -464,6 +464,7 @@ public:
     // OPERATORs
     Raw_Pointer &operator=(void *in);
     void *operator->();
+
     void clear();
     operator void *() const;
     ~Raw_Pointer();
@@ -935,14 +936,13 @@ public:
   static void RG_GetVersion(int &major, int &minor, int &patch, int &wip);
   static void RG_GetVersion(int &major, int &minor, int &patch);
   class File {
-public:
-  template <typename lambda> static void Read(std::string path, lambda func);
-  void Write(std::string path, const std::string &in);
-  template <typename lambdaw>
-  static void ReadW(const wchar_t *path, lambdaw func);
-  void WriteW(const char *path, const std::wstring &in);
+  public:
+    template <typename lambda> static void Read(std::string path, lambda func);
+    void Write(std::string path, const std::string &in);
+    template <typename lambdaw>
+    static void ReadW(const wchar_t *path, lambdaw func);
+    void WriteW(const char *path, const std::wstring &in);
+  };
 };
-};
-
 
 } // namespace Rinegine

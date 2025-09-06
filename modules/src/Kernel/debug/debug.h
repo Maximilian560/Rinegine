@@ -200,9 +200,10 @@ void Kernel::Debug::addl(Log::Types type, string1 text, bool print,
                          string2 file, int line) {
   addl(type, rg_to_string(text), print, rg_to_string(file), line);
 }
-
-//------------------------------------------------\\
-|GetLastErrorString|
+/*
+  //------------------------------------------------\\
+                |GetLastErrorString|
+*/
 
 #ifdef RG_WIN
 rg_string Kernel::GetLastErrorString(DWORD errorCode) {

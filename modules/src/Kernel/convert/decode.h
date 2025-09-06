@@ -1,11 +1,11 @@
 #pragma once
 
 namespace Rinegine {
-char *Kernel::itoa(int value, int base,char *result ) {
+char *Kernel::itoa(int value, int base, char *result) {
   // check that the base if valid
-  if(result==nullptr){
-    if(value>base){
-      //TODO ERROR HERE!!!
+  if (result == nullptr) {
+    if (value > base) {
+      // TODO ERROR HERE!!!
       return nullptr;
     }
   }
@@ -58,10 +58,13 @@ std::string Kernel::itos(int value, int base) {
   if (value < 0)
     buf += '-';
 
-  for (int i = 0; i < buf.size() / 2; i++) {
-    char temp = buf[i];
-    buf[i] = buf[buf.size() - 1 - i];
-    buf[buf.size() - 1] = temp;
+  // for (size_t i = 0; i < buf.size() / 2; i++) {
+  //   char temp = buf[i];
+  //   buf[i] = buf[buf.size() - 1 - i];
+  //   buf[buf.size() - i] = temp;
+  // }
+  for (size_t i = 0; i < buf.size() / 2; i++) {
+    std::swap(buf[i], buf[buf.size() - 1 - i]);
   }
   return buf;
 }
@@ -88,8 +91,8 @@ std::wstring Kernel::itows(int value, int base) {
   if (value < 0)
     buf += '-';
 
-  for (int i = 0; i < buf.size() / 2; i++) {
-    char temp = buf[i];
+  for (size_t i = 0; i < buf.size() / 2; i++) {
+    wchar_t temp = buf[i];
     buf[i] = buf[buf.size() - 1 - i];
     buf[buf.size() - 1] = temp;
   }
