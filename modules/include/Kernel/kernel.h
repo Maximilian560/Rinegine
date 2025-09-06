@@ -14,8 +14,8 @@ public:
   static rg_string MainFolder;
   static __uint8_t RG_D_W_L;
 
-  static int InterPoint(int, char **, int (*)());    // done
-  static int InterPoint(int, wchar_t **, int (*)()); // done
+  static int InterPoint(int, char **, int (*)());    // [done]
+  static int InterPoint(int, wchar_t **, int (*)()); // [done]
   static void init();                                // todo
 
   class Lock {
@@ -34,55 +34,57 @@ public:
     // static char s_print(void *, unsigned int = 1);
 
     static void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
-                     std::string = "NULL", int = -1); // done
+                     std::string = "NULL", int = -1); // [done]
     static void addl(Log::Types = Log::DEBUG, std::wstring = L"NULL", bool = 1,
-                     std::wstring = L"NULL", int = -1); // done
+                     std::wstring = L"NULL", int = -1); // [done]
 
     template <class type> struct CountPointers;
   };
 
-  static std::wstring utf8_decode(const std::string &); // done
-  static std::string utf8_encode(const std::wstring &); // done
+  static std::wstring utf8_decode(const std::string &); // [done]
+  static std::string utf8_encode(const std::wstring &); // [done]
 
-  static std::wstring to_stringw(const std::string &);  // done
-  static std::wstring to_stringw(const std::wstring &); // done
-  static std::string to_stringa(const std::string &);   // done
-  static std::string to_stringa(const std::wstring &);  // done
+  static std::wstring to_stringw(const std::string &);  // [done]
+  static std::wstring to_stringw(const std::wstring &); // [done]
+  static std::string to_stringa(const std::string &);   // [done]
+  static std::string to_stringa(const std::wstring &);  // [done]
   static rg_string
-  to_string(const std::string &); // done, may do some bug. In fact - outdate
+  to_string(const std::string
+                &); // [done,outdate], may do some bug. In fact - outdate
   static rg_string
-  to_string(const std::wstring &); // done, may do some bug. In fact - outdate
+  to_string(const std::wstring
+                &); // [done,outdate], may do some bug. In fact - outdate
   //!!! ↓outdate soon↓ !!!
   template <class type> struct POINT2D {
     type x = type(), y = type();
 
-    bool operator==(POINT2D<type>); // done
-    bool operator>=(POINT2D<type>); // done
-    bool operator<=(POINT2D<type>); // done
-    bool operator>(POINT2D<type>);  // done
-    bool operator<(POINT2D<type>);  // done
-    type &operator[](uint);         // done
+    bool operator==(POINT2D<type>); // [done]
+    bool operator>=(POINT2D<type>); // [done]
+    bool operator<=(POINT2D<type>); // [done]
+    bool operator>(POINT2D<type>);  // [done]
+    bool operator<(POINT2D<type>);  // [done]
+    type &operator[](uint);         // [done]
   };
 
   template <class type> struct POINT3D {
     type x = type(), y = type(), z = type();
-    bool operator==(POINT3D<type>); // done
-    bool operator>=(POINT3D<type>); // done
-    bool operator<=(POINT3D<type>); // done
-    bool operator>(POINT3D<type>);  // done
-    bool operator<(POINT3D<type>);  // done
-    type &operator=(POINT2D<type>); // done
-    type &operator[](uint);         // done
+    bool operator==(POINT3D<type>); // [done]
+    bool operator>=(POINT3D<type>); // [done]
+    bool operator<=(POINT3D<type>); // [done]
+    bool operator>(POINT3D<type>);  // [done]
+    bool operator<(POINT3D<type>);  // [done]
+    type &operator=(POINT2D<type>); // [done]
+    type &operator[](uint);         // [done]
   };
   template <class type> struct COLOR3D {
     type r = type(), g = type(), b = type();
-    bool operator==(COLOR3D<type>); // done
-    bool operator>=(COLOR3D<type>); // done
-    bool operator<=(COLOR3D<type>); // done
-    bool operator>(COLOR3D<type>);  // done
-    bool operator<(COLOR3D<type>);  // done
-    type &operator=(POINT2D<type>); // done
-    type &operator[](uint);         // done
+    bool operator==(COLOR3D<type>); // [done]
+    bool operator>=(COLOR3D<type>); // [done]
+    bool operator<=(COLOR3D<type>); // [done]
+    bool operator>(COLOR3D<type>);  // [done]
+    bool operator<(COLOR3D<type>);  // [done]
+    type &operator=(POINT2D<type>); // [done]
+    type &operator[](uint);         // [done]
   };
   template <typename type> struct COLOR4D {
     type r = type(), g = type(), b = type(), a = type();
@@ -93,9 +95,9 @@ public:
   //!!! use vec types instead!!!
   //!!! as example vec3<int> instead POINT3<int> and COLOR3<int>!!!
 
-  static int KeyIs(int, bool);      // done
-  static int KeyIsPress(int, bool); // done
-  static int TestKeyIs(int, bool);  // done
+  static int KeyIs(int, bool);      // [done]
+  static int KeyIsPress(int, bool); // [done]
+  static int TestKeyIs(int, bool);  // [done]
 
   class SysTime {
     struct SysTimeVar;
@@ -104,101 +106,110 @@ public:
   public:
     static void update();
     // W
-    static std::wstring YearW();         // done
-    static std::wstring MonthW();        // done
-    static std::wstring DayOfWeekW();    // done
-    static std::wstring DayW();          // done
-    static std::wstring HourW();         // done
-    static std::wstring MinuteW();       // done
-    static std::wstring SecondW();       // done
-    static std::wstring MillisecondsW(); // done
+    static std::wstring YearW();         // [done]
+    static std::wstring MonthW();        // [done]
+    static std::wstring DayOfWeekW();    // [done]
+    static std::wstring DayW();          // [done]
+    static std::wstring HourW();         // [done]
+    static std::wstring MinuteW();       // [done]
+    static std::wstring SecondW();       // [done]
+    static std::wstring MillisecondsW(); // [done]
     // A
-    static std::string YearA();         // done
-    static std::string MonthA();        // done
-    static std::string DayOfWeekA();    // done
-    static std::string DayA();          // done
-    static std::string HourA();         // done
-    static std::string MinuteA();       // done
-    static std::string SecondA();       // done
-    static std::string MillisecondsA(); // done
+    static std::string YearA();         // [done]
+    static std::string MonthA();        // [done]
+    static std::string DayOfWeekA();    // [done]
+    static std::string DayA();          // [done]
+    static std::string HourA();         // [done]
+    static std::string MinuteA();       // [done]
+    static std::string SecondA();       // [done]
+    static std::string MillisecondsA(); // [done]
     //
-    static rg_string Year();         // done, may do some bug. In fact - outdate
-    static rg_string Month();        // done, may do some bug. In fact - outdate
-    static rg_string DayOfWeek();    // done, may do some bug. In fact - outdate
-    static rg_string Day();          // done, may do some bug. In fact - outdate
-    static rg_string Hour();         // done, may do some bug. In fact - outdate
-    static rg_string Minute();       // done, may do some bug. In fact - outdate
-    static rg_string Second();       // done, may do some bug. In fact - outdate
-    static rg_string Milliseconds(); // done, may do some bug. In fact - outdate
+    static rg_string
+    Year(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Month(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    DayOfWeek(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Day(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Hour(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Minute(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Second(); // [done,outdate], may do some bug. In fact - outdate
+    static rg_string
+    Milliseconds(); // [done,outdate], may do some bug. In fact - outdate
   };
-  static void SetColorConsole(WORD);                                    // done
-  static bool isSubstringAt(const char &, const std::string &);         // done
-  static bool isSubstringAt(const wchar_t &, const std::wstring &);     // done
-  static bool isSubstringAt(const std::string &, const std::string &);  // done
-  static bool isSubstringAt(const std::string &, const std::wstring &); // done
-  static void Open(std::string);                                        // done
-  static void Open(std::wstring);                                       // done
+  static void SetColorConsole(WORD);                                   // [done]
+  static bool isSubstringAt(const char &, const std::string &);        // [done]
+  static bool isSubstringAt(const wchar_t &, const std::wstring &);    // [done]
+  static bool isSubstringAt(const std::string &, const std::string &); // [done]
+  static bool isSubstringAt(const std::string &,
+                            const std::wstring &); // [done]
+  static void Open(std::string);                   // [done]
+  static void Open(std::wstring);                  // [done]
 
-  static std::string tolowstr(std::string); // done
+  static std::string tolowstr(std::string); // [done]
   /// @brief Converts the string to lowercase. Does not work with unicode!!!
   /// Only Latin
   /// @param wstring any case
   /// @return `wstring`  lowercase
-  static std::wstring tolowwstr(std::wstring); // done // todo
+  static std::wstring tolowwstr(std::wstring); // [done,exp] // todo
 
   //* decode
-  static char *itoa(int, int = 10, char * = nullptr); // done
-  static std::string itos(int, int = 10);             // done
-  static std::wstring itows(int, int = 10);           // done
+  static char *itoa(int, int = 10, char * = nullptr); // [done]
+  static std::string itos(int, int = 10);             // [done]
+  static std::wstring itows(int, int = 10);           // [done]
   //*folder
-  static bool isDirectory(std::string);        // done
-  static bool isDirectory(std::wstring);       // done
-  static bool CreateFolder(std::string path);  // done
-  static bool CreateFolder(std::wstring path); // done
+  static bool isDirectory(std::string);        // [done]
+  static bool isDirectory(std::wstring);       // [done]
+  static bool CreateFolder(std::string path);  // [done]
+  static bool CreateFolder(std::wstring path); // [done]
 
   //*debug
-  class Debug {             // done
-    struct DebugVars;       // done
-    static DebugVars _vars; // done
+  class Debug {             // [done]
+    struct DebugVars;       // [done]
+    static DebugVars _vars; // [done]
 
   public:
-    Debug();                                // done
-    Debug(rg_string);                       // done
-    static void init();                     // done
-    static void init(rg_string);            // done
-    static void open_log_after_error(bool); // done
-    static void open_shell(bool); // done (same as open_log_after_error)
-    static rg_string log_path();  // done
-    static void update();         // done
-    static void stop() __attribute__((noreturn)); // done
-    static void no_close();                       // done
-    ~Debug();                                     // done
+    Debug();                                // [done]
+    Debug(rg_string);                       // [done]
+    static void init();                     // [done]
+    static void init(rg_string);            // [done]
+    static void open_log_after_error(bool); // [done]
+    static void open_shell(bool); // [done] (same as open_log_after_error)
+    static rg_string log_path();  // [done]
+    static void update();         // [done]
+    static void stop() __attribute__((noreturn)); // [done]
+    static void no_close();                       // [done]
+    ~Debug();                                     // [done]
 
     //*special add/addl for dif os
     static void add(rg_string = "NULL", Log::Types = Log::DEBUG, bool = true,
-                    rg_string = "NULL", int = -1); // done
+                    rg_string = "NULL", int = -1); // [done]
     template <class string1, class string2>
     static void add(string1, Log::Types = Log::DEBUG, bool = true,
-                    string2 = string2(), int = 0); // done
+                    string2 = string2(), int = 0); // [done]
     static void addl(Log::Types = Log::DEBUG, rg_string = RG_L "empty",
                      bool = true, rg_string = rg_to_string(RG_HERE_FILE_NAME),
-                     int = -1); // done
+                     int = -1); // [done]
     //*other add/addl
     template <class string1, class string2>
     static void addl(Log::Types = Log::DEBUG, string1 = string1(), bool = true,
-                     string2 = string2(), int = -1); // done
+                     string2 = string2(), int = -1); // [done]
 
-  }; // done
+  }; // [done]
   // std::wstring GetLastErrorStringW(DWORD);//todo... i guess
   // std::string GetLastErrorStringA(DWORD);//todo... i guess
-  rg_string GetLastErrorString(DWORD); // done
+  rg_string GetLastErrorString(DWORD); // [done]
 
   // ALLOC
 
   // template <class type> static type *s_new(int, type &&);
 
   // template <class type> static type *s_new(int, const type &);
-  template <class type> static type *s_new(int s) { // done
+  template <class type> static type *s_new(int s) { // [done]
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -207,7 +218,7 @@ public:
     return t;
   }
 
-  template <class type> static type *s_new(int s, type &&in) { // done
+  template <class type> static type *s_new(int s, type &&in) { // [done]
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -218,7 +229,7 @@ public:
     return t;
   }
 
-  template <class type> static type *s_new(int s, const type &in) { // done
+  template <class type> static type *s_new(int s, const type &in) { // [done]
     if (!std::is_default_constructible<type>::value) {
       RG_LOG_LOCK_ERROR("Type must be default constructible");
       return nullptr;
@@ -231,27 +242,27 @@ public:
 
   template <class type, class gen>
   static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
-  s_new(unsigned int s, gen &&in) { // done
+  s_new(unsigned int s, gen &&in) { // [done]
     type *t = (type *)Lock::s_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(in());
     return t;
   }
   // new fast
-  template <class type> static type *s_fast_new(unsigned int s) { // done
+  template <class type> static type *s_fast_new(unsigned int s) { // [done]
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     return t;
   }
 
   template <class type>
-  static type *s_fast_new(unsigned int s, type &&in) { // done
+  static type *s_fast_new(unsigned int s, type &&in) { // [done]
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(std::forward<type>(in));
     return t;
   }
   template <class type>
-  static type *s_fast_new(unsigned int s, const type &in) { // done
+  static type *s_fast_new(unsigned int s, const type &in) { // [done]
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(in);
@@ -260,7 +271,7 @@ public:
 
   template <class type, class gen>
   static std::enable_if_t<std::is_invocable_r_v<type, gen>, type *>
-  s_fast_new(unsigned int s, gen &&in) { // done
+  s_fast_new(unsigned int s, gen &&in) { // [done]
     type *t = (type *)Lock::s_fast_new(s, sizeof(type));
     for (unsigned int i = 0; i < s; i++)
       new (t + i) type(in());
@@ -297,28 +308,28 @@ public:
     bool operator==(const Allocator &) const { return true; }
     bool operator!=(const Allocator &) const { return false; }
   }; //! EXPERIMENTAL
-  static bool s_rawmemtest(char *); // done
+  static bool s_rawmemtest(char *); // [done]
 
   // template <class type> static bool s_memtest(type *);
-  static bool s_memtest(const void *); // done
+  static bool s_memtest(const void *); // [done]
 
-  static const unsigned long long &s_get_size(const void *); // done
+  static const unsigned long long &s_get_size(const void *); // [done]
 
   // template <class type> static char s_print(type *);
 
-  static char s_print(to_rrvalue(char *)); // done
+  static char s_print(to_rrvalue(char *)); // [done]
 
-  static char s_print(to_rrvalue(wchar_t *)); // done
+  static char s_print(to_rrvalue(wchar_t *)); // [done]
 
-  static char s_print(to_rrvalue(std::string *)); // done
+  static char s_print(to_rrvalue(std::string *)); // [done]
 
-  static char s_print(to_rrvalue(std::wstring *)); // done
+  static char s_print(to_rrvalue(std::wstring *)); // [done]
 
-  static char s_print(std::string *); // done
+  static char s_print(std::string *); // [done]
 
-  static char s_print(std::wstring *); // done
+  static char s_print(std::wstring *); // [done]
 
-  template <class type> static char s_print(type *in) { // done
+  template <class type> static char s_print(type *in) { // [done]
     size_t temp_size = (size_t)Kernel::s_get_size(in);
     for (size_t i = 0; i < temp_size; i++) {
       if (i != temp_size - 1)
@@ -331,34 +342,34 @@ public:
 
   template <class ForwardIt, class Generator>
   static void s_fill_func(ForwardIt first, ForwardIt last,
-                          Generator g) { // done
+                          Generator g) { // [done]
     for (; first != last; ++first)
       *first = g();
   }
 
   template <class ForwardIt, class Generator>
-  static void s_fill(ForwardIt first, ForwardIt last, Generator g) { // done
+  static void s_fill(ForwardIt first, ForwardIt last, Generator g) { // [done]
     for (; first != last; ++first)
       *first = g;
   }
   template <class type, class gen>
-  static void s_fill_func(type arr, int size, gen g) { // done
+  static void s_fill_func(type arr, int size, gen g) { // [done]
     for (int i = 0; i < size; i++) {
       arr[i] = g();
     }
   }
   template <class type, class gen>
-  static void s_fill(type arr, int size, gen g) { // done
+  static void s_fill(type arr, int size, gen g) { // [done]
     for (int i = 0; i < size; i++) {
       arr[i] = g;
     }
   }
 
-  static char *s_getraw(void *in); // done
+  static char *s_getraw(void *in); // [done]
 
   template <typename type>
   typename std::enable_if<std::is_class<type>::value,
-                          void>::type static s_delete(type *&in) { // done
+                          void>::type static s_delete(type *&in) { // [done]
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -374,7 +385,7 @@ public:
 
   template <typename type>
   typename std::enable_if<!std::is_class<type>::value,
-                          void>::type static s_delete(type *&in) { // done
+                          void>::type static s_delete(type *&in) { // [done]
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -386,7 +397,8 @@ public:
 
   template <typename type>
   typename std::enable_if<std::is_class<type>::value,
-                          void>::type static s_fast_delete(type *&in) { // done
+                          void>::type static s_fast_delete(type *
+                                                               &in) { // [done]
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -402,7 +414,8 @@ public:
 
   template <typename type>
   typename std::enable_if<!std::is_class<type>::value,
-                          void>::type static s_fast_delete(type *&in) { // done
+                          void>::type static s_fast_delete(type *
+                                                               &in) { // [done]
     if (in == nullptr)
       return;
     if (!s_memtest(in)) {
@@ -412,13 +425,13 @@ public:
     Lock::s_fast_delete(in, sizeof(type));
   }
 
-  template <typename T> static decltype(auto) s_move(T &obj) { // done
+  template <typename T> static decltype(auto) s_move(T &obj) { // [done]
     return (T &&)obj;
   }
 
   // template <class type> static void s_resize(type *&, to_rvalue(int));
   template <class type>
-  static void s_resize(type *&in, to_rvalue(int) n_size) { // done
+  static void s_resize(type *&in, to_rvalue(int) n_size) { // [done]
     if (n_size <= 0) {                                     // loss then zero
       s_delete(in);
       return;
@@ -444,7 +457,7 @@ public:
 
   //* raw pointer
   //* raw pointer
-  struct Raw_Pointer {
+  struct Raw_Pointer { // [done,exp]
     void *ptr = nullptr;
     unsigned int typesize = 0;
     unsigned int arrsize = 0;
@@ -470,32 +483,48 @@ public:
     ~Raw_Pointer();
   };
   //* pointer
-  template <typename type> class Pointer {
-    struct PointerVars;
-    PointerVars _vars;
+  template <typename type> class Pointer { // [done,exp]
+    Raw_Pointer _ptr;
 
   public:
-    bool is_init() const;
-    const type *get() const;
-    Pointer();
-
-    Pointer(const type &);
-    Pointer(Pointer &&) noexcept;
-    Pointer(const Pointer &);
-    Pointer(type *);
-    void init();
-    void init(type &);
-    void init(const type &);
-    void init(type);
-    void init(type *);
-    Pointer &operator=(const type &);
-    Pointer &operator=(Pointer &&) noexcept;
-    Pointer &operator=(const Pointer &);
-    Pointer &operator=(type *);
-    type *operator->();
-    void clear() const;
-    operator type *() const;
-    ~Pointer();
+    bool is_init() const { return _ptr.is_init(); }
+    const type *get() const { return (type)_ptr.get(); }
+    Pointer() : _ptr() {}
+    Pointer(const type &in)
+        : _ptr(s_new(1, in)) { /*type *temp = s_new(1,in);*/ // [exp]
+      //  _ptr.init(s_new(1, in));
+    }
+    Pointer(Pointer &&in) noexcept : _ptr(s_new(1, in)) {
+    } //{_ptr.init(s_new(1,in));}
+    Pointer(const Pointer &in) : _ptr(in.get) {}
+    Pointer(type *in) : _ptr(in) {}
+    void init() {
+      if (is_init())
+        clear();
+    }
+    void init(type &in) { _ptr.init(s_new(1, in)); }
+    void init(const type &in) { _ptr.init(s_new(1, in)); }
+    void init(type in) { _ptr.init(s_new(1, in)); }
+    void init(type *in) { _ptr.init(in); }
+    Pointer &operator=(const type &in) {
+      _ptr.init(s_new(1, in));
+      return *this;
+    }
+    Pointer &operator=(Pointer &&in) noexcept {
+      _ptr.init(s_new(1, in));
+      return *this;
+    }
+    Pointer &operator=(const Pointer &in) {
+      _ptr.init(s_new(1, in));
+      return *this;
+    }
+    Pointer &operator=(type *in) {
+      _ptr.init(in);
+      return *this;
+    }
+    type *operator->() { return (type *)_ptr.get(); }
+    void clear() { _ptr.clear(); }
+    operator type *() const { return (type *)_ptr.get(); }
   };
   //*array
   template <class type> class Array {
@@ -944,5 +973,4 @@ public:
     void WriteW(const char *path, const std::wstring &in);
   };
 };
-
 } // namespace Rinegine

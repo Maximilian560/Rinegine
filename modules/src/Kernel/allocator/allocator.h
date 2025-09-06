@@ -154,8 +154,7 @@ void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
     free(Rinegine::Kernel::s_getraw(in));
     // in = nullptr;
   } else {
-    RG_LOG_LOCK_WARNING("Memory Deallocation is failed, array is not RG type");
-    free(in);
+    RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
     // in = nullptr;
   }
 }
