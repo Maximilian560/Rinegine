@@ -9,7 +9,13 @@ void *Kernel::Raw_Pointer::get() const { return ptr; }
 
 // CONSTRUCTORs
 Kernel::Raw_Pointer::Raw_Pointer() : ptr(nullptr) {}
-Kernel::Raw_Pointer::Raw_Pointer(void *in) : ptr(in) {}
+Kernel::Raw_Pointer::Raw_Pointer(void *in) : ptr(in) {if(s_memtest(in)){
+  typesize = s_get_typesize(in);
+  arrsize = s_get_size(in);
+  }else{
+    RG_LOG_INFO("Raw Pointer received a pointer that is not of type rg, array size and type not received");
+  }
+}
 
 // INITs
 void Kernel::Raw_Pointer::init() {

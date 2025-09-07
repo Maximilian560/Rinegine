@@ -22,7 +22,6 @@ typedef uint32_t DWORD;
 typedef long int lint;
 typedef long unsigned int luint;
 
-
 namespace Rinegine {
 enum CONSOLE_COLOR {
   C_BLACK = 0,
@@ -68,5 +67,11 @@ enum ErrorRinegine {
   RG_ERROR_FIND_TEXTURE,             // 16
 };
 
+enum s_delete_errors {
+  SD_NO_ERR = 0,
+  SD_NO_RG_TYPE,
+  SD_PTR_IS_NULLPTR,
+  SD_DEALOC_ERROR
+};
 
 } // namespace Rinegine

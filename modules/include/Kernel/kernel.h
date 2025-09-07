@@ -25,12 +25,12 @@ public:
     static LogVars _vars;
 
   public:
-    static void *s_new(const unsigned long long &,
-                       const unsigned long long & = 1);
+    static void *s_new(const size_t &,
+                       const size_t & = 1); // todo
     static void *s_fast_new(const unsigned long long &size,
-                            const unsigned long long &typesize = 1);
-    static void s_delete(void *, unsigned int);
-    static void s_fast_delete(void *, unsigned int);
+                            const unsigned long long &typesize = 1); // todo
+    static uint s_delete(void *, unsigned int);                      // todo
+    static void s_fast_delete(void *, unsigned int);                 // todo
     // static char s_print(void *, unsigned int = 1);
 
     static void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
@@ -490,12 +490,8 @@ public:
     bool is_init() const { return _ptr.is_init(); }
     const type *get() const { return (type)_ptr.get(); }
     Pointer() : _ptr() {}
-    Pointer(const type &in)
-        : _ptr(s_new(1, in)) { /*type *temp = s_new(1,in);*/ // [exp]
-      //  _ptr.init(s_new(1, in));
-    }
-    Pointer(Pointer &&in) noexcept : _ptr(s_new(1, in)) {
-    } //{_ptr.init(s_new(1,in));}
+    Pointer(const type &in) : _ptr(s_new(1, in)) {}
+    Pointer(Pointer &&in) noexcept : _ptr(s_new(1, in)) {}
     Pointer(const Pointer &in) : _ptr(in.get) {}
     Pointer(type *in) : _ptr(in) {}
     void init() {

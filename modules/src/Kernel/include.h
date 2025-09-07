@@ -30,6 +30,7 @@
 #include <linux/limits.h>
 #include <stdexcept>
 #include <sys/stat.h>
+#include <sys/mman.h>
 #include <unistd.h>
 #endif
 

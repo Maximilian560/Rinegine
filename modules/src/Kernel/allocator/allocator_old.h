@@ -1,63 +1,48 @@
 #pragma once
 
 namespace Rinegine {
-static bool notseeitmsgmore = 0;
 
 namespace Lock {
 
+// template <class type> struct CountPointers {
+//   inline static int count = 0;
+//   inline static int size = 0;
+//   inline static type *max_pointer = nullptr;
+//   inline static type *min_pointer = nullptr;
+// };
+// inline static unsigned long long int MemUsed = 0;
 inline static std::atomic_ullong MemUsed = 0;
-// magic nums
-static int Magic_Num = 8 + (sizeof(size_t));
 }
-void *
-Kernel::Lock::s_new(const size_t &size,
-                    const size_t &typesize) { // todo                     ||
-                                              // only for linux yet, sorry||
-                                              // unoptimazed yet
-  if (!notseeitmsgmore) {
-    RG_LOG_INFO("At the moment s_new is not ready and it is better to use "
-                "standard alternatives");
-    notseeitmsgmore = 1;
-  }
+void *Kernel::Lock::s_new(const unsigned long long &size,
+                          const unsigned long long &typesize) {
   if (size == 0)
     return nullptr;
-
-  int page_size = getpagesize();
-
-  size_t rsize =
-      ((size * typesize + Rinegine::Lock::Magic_Num) + page_size - 1) /
-      page_size * page_size;
-
-  void *raw_newmem = mmap(nullptr, rsize, PROT_READ | PROT_WRITE,
-                          MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-
-  if (raw_newmem == MAP_FAILED) {
-    for (int i = 1; i <= 30 && !raw_newmem; i++) {
-      raw_newmem = mmap(nullptr, rsize, PROT_READ | PROT_WRITE,
-                        MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-      if (raw_newmem == MAP_FAILED)
+  char *newmem = (char *)malloc(size * typesize + sizeof(unsigned long long) +
+                                sizeof(unsigned int) + sizeof(char) * 2);
+  if (!newmem) {
+    for (int i = 1; i <= 30 && !newmem; i++) {
+      newmem = (char *)malloc(size * typesize + sizeof(unsigned long long) +
+                              sizeof(unsigned int) + sizeof(char) * 2);
+      if (newmem == nullptr)
         RG_LOG_LOCK_ERROR("Memory allocate error, retry: " + std::to_string(i) +
                           "/" + std::to_string(30));
     }
-    if (raw_newmem == MAP_FAILED)
+    if (newmem == nullptr)
       RG_LOG_LOCK_CRITICAL("MEMORY ALLOCATE ERROR");
   }
-  if (sizeof(unsigned long long) != 8) { // todo replace to engine init
-    RG_LOG_CRITICAL("Your architecture unsupported yet");
-  }
+  newmem[0] = 'R';
+  newmem[1] = 'G';
+  unsigned int *stypesize = (unsigned int *)(newmem + 2);
+  stypesize[0] = (unsigned int)typesize;
+  unsigned long long *ssize = (unsigned long long *)(stypesize + 1);
+  ssize[0] = size;
+  void *out = (void *)(ssize + 1);
+  Rinegine::Lock::MemUsed += size * typesize + sizeof(unsigned long long) +
+                             sizeof(unsigned int) + sizeof(char) * 2;
 
-  unsigned long long &ptrtypesize = *((unsigned long long *)raw_newmem);
-  char *ptrmnum = (char *)raw_newmem;
-  size_t &ptr_arrsize = *(size_t*)(((char *)raw_newmem) + 8);
-
-  ptrtypesize = typesize;
-  ptrmnum[0] = 'R';
-  ptrmnum[1] = 'G';
-  ptr_arrsize = size;
-  void *out = (void *)(raw_newmem + Rinegine::Lock::Magic_Num);
-  Rinegine::Lock::MemUsed += rsize;
-
-  RG_LOG_LOCK_MEM("Mem aloc: " + std::to_string(rsize) +
+  RG_LOG_LOCK_MEM("Mem aloc: " +
+                  std::to_string(size * typesize + sizeof(unsigned long long) +
+                                 sizeof(char) * 2) +
                   "b, type: " + std::to_string(typesize));
 #ifdef RG_MEM_LIMIT
   if (Rinegine::Lock::MemUsed >= RG_MEM_LIMIT)
@@ -75,7 +60,8 @@ bool Kernel::s_rawmemtest(char *in) {
 bool Kernel::s_memtest(const void *in) {
   if (in == nullptr)
     return false;
-  char *rawmem = (((char *)(in)) - Rinegine::Lock::Magic_Num);
+  char *rawmem =
+      (char *)((unsigned long long *)(in)-1) - (2 + sizeof(unsigned int));
   if (rawmem[1] == 'G' && rawmem[0] == 'R')
     return true;
 
@@ -148,29 +134,29 @@ char *Kernel::s_getraw(void *in) {
 
 template <typename T> decltype(auto) s_move(T &obj) { return (T &&)obj; }
 
-uint Kernel::Lock::s_delete(void *in, unsigned int typesize) {
-  if (!Rinegine::Kernel::s_memtest(in))
-    return SD_NO_RG_TYPE;
+void Kernel::Lock::s_delete(void *in, unsigned int typesize) {
   if (in == nullptr)
-    return SD_PTR_IS_NULLPTR;
-  int page_size = getpagesize();
+    return;
+  if (Rinegine::Kernel::s_memtest(in)) {
+    const unsigned long long &size = Rinegine::Kernel::s_get_size(in);
 
-  const size_t size = Rinegine::Kernel::s_get_size(in);
-
-  size_t rsize =
-      ((size * typesize + Rinegine::Lock::Magic_Num) + page_size - 1) /
-      page_size * page_size;
-
-  // free(Rinegine::Kernel::s_getraw(in));
-  if (munmap((void*)((char*)in-Rinegine::Lock::Magic_Num), rsize) == -1) {
-    RG_LOG_ERROR("s_delete deallocate error");
-    return SD_DEALOC_ERROR;
-  }
-  RG_LOG_LOCK_MEM("Mem clean: " + std::to_string(rsize) +
+    RG_LOG_LOCK_MEM("Mem clean: " +
+                    std::to_string(Rinegine::Kernel::s_get_size(in) * typesize +
+                                   sizeof(unsigned long long) +
+                                   sizeof(char) * 2) +
                     "b, type: " + std::to_string(typesize));
-    Rinegine::Lock::MemUsed -= rsize;
-  return SD_NO_ERR;
-  //
+
+    Rinegine::Lock::MemUsed -=
+        size * typesize + sizeof(unsigned long long) + sizeof(char) * 2;
+
+    // unsigned long long *clearsize = ((unsigned long long *)(in)) - 1;
+    // *clearsize = 0;
+    free(Rinegine::Kernel::s_getraw(in));
+    // in = nullptr;
+  } else {
+    RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
+    // in = nullptr;
+  }
 }
 void *Kernel::Lock::s_fast_new(const unsigned long long &size,
                                const unsigned long long &typesize) {
