@@ -6,9 +6,55 @@ static bool notseeitmsgmore = 0;
 namespace Lock {
 
 inline static std::atomic_ullong MemUsed = 0;
+
+static size_t page_size = getpagesize();
 // magic nums
 static int Magic_Num = 8 + (sizeof(size_t));
 }
+
+// Allocator
+// Kernel::Allocator::;
+//! Allocator
+/////
+// LOW LEVEL ALLOC
+void *Kernel::s_page(size_t count, void *addr, int prot, int flags, int fd,
+                     off_t offset) {
+  if (count == 0) {
+    return MAP_FAILED;
+  }
+  size_t rsize = count * Rinegine::Lock::page_size;
+  void *raw_mem = mmap(addr, rsize, prot, flags, fd, offset);
+  if (raw_mem != MAP_FAILED) {
+    RG_LOG_LOCK_MEM("Mem page alloc: " + std::to_string(rsize) + "b | 0x" +
+                    Rinegine::Kernel::itos((size_t)raw_mem, 16));
+    Rinegine::Lock::MemUsed += rsize;
+  } else {
+    // int err = errno;
+    RG_LOG_LOCK_ERROR("Mem page alloc: " + std::to_string(rsize) +
+                      "b has failed: " + strerror(errno));
+  }
+  // errno;
+  return raw_mem;
+}
+void Kernel::s_depage(void *addr, size_t count) {
+  size_t rsize = count * Rinegine::Lock::page_size;
+  if (munmap(addr, rsize)) {
+    int err = errno;
+    RG_LOG_LOCK_ERROR("Mem page dealloc: " + std::to_string(rsize) +
+                      "b has failed: " + strerror(err)+ " | 0x" +
+                    Rinegine::Kernel::itos((size_t)addr, 16));
+    if (err == EINVAL)
+      RG_LOG_LOCK_INFO("I guess you are trying to delete unallocated memory");
+
+  } else {
+
+    RG_LOG_LOCK_MEM("Mem page dealloc: " + std::to_string(rsize) + "b | 0x" +
+                    Rinegine::Kernel::itos((size_t)addr, 16));
+    Rinegine::Lock::MemUsed -= rsize;
+  }
+}
+
+/////
 void *
 Kernel::Lock::s_new(const size_t &size,
                     const size_t &typesize) { // todo                     ||
@@ -22,11 +68,9 @@ Kernel::Lock::s_new(const size_t &size,
   if (size == 0)
     return nullptr;
 
-  int page_size = getpagesize();
-
-  size_t rsize =
-      ((size * typesize + Rinegine::Lock::Magic_Num) + page_size - 1) /
-      page_size * page_size;
+  size_t rsize = ((size * typesize + Rinegine::Lock::Magic_Num) +
+                  Rinegine::Lock::page_size - 1) /
+                 Rinegine::Lock::page_size * Rinegine::Lock::page_size;
 
   void *raw_newmem = mmap(nullptr, rsize, PROT_READ | PROT_WRITE,
                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -48,13 +92,13 @@ Kernel::Lock::s_new(const size_t &size,
 
   unsigned long long &ptrtypesize = *((unsigned long long *)raw_newmem);
   char *ptrmnum = (char *)raw_newmem;
-  size_t &ptr_arrsize = *(size_t*)(((char *)raw_newmem) + 8);
+  size_t &ptr_arrsize = *(size_t *)(((char *)raw_newmem) + 8);
 
   ptrtypesize = typesize;
   ptrmnum[0] = 'R';
   ptrmnum[1] = 'G';
   ptr_arrsize = size;
-  void *out = (void *)(raw_newmem + Rinegine::Lock::Magic_Num);
+  void *out = (void *)((char *)(raw_newmem) + Rinegine::Lock::Magic_Num);
   Rinegine::Lock::MemUsed += rsize;
 
   RG_LOG_LOCK_MEM("Mem aloc: " + std::to_string(rsize) +
@@ -162,13 +206,13 @@ uint Kernel::Lock::s_delete(void *in, unsigned int typesize) {
       page_size * page_size;
 
   // free(Rinegine::Kernel::s_getraw(in));
-  if (munmap((void*)((char*)in-Rinegine::Lock::Magic_Num), rsize) == -1) {
+  if (munmap((void *)((char *)in - Rinegine::Lock::Magic_Num), rsize) == -1) {
     RG_LOG_ERROR("s_delete deallocate error");
     return SD_DEALOC_ERROR;
   }
   RG_LOG_LOCK_MEM("Mem clean: " + std::to_string(rsize) +
-                    "b, type: " + std::to_string(typesize));
-    Rinegine::Lock::MemUsed -= rsize;
+                  "b, type: " + std::to_string(typesize));
+  Rinegine::Lock::MemUsed -= rsize;
   return SD_NO_ERR;
   //
 }

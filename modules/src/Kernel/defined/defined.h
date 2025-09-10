@@ -92,13 +92,14 @@ int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
   _setmode(_fileno(stdin), _O_U16TEXT);
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
+  int exit_code = 0;
   RG_CATCH_ERROR
   
   (void) argc;
   (void)argv;
-  int exit_code = own_main();
-  return exit_code;
+  exit_code = own_main();
   RG_ERROR_LOG;
+  return exit_code;
 };
 
 int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
@@ -107,13 +108,14 @@ int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
   _setmode(_fileno(stdin), _O_U16TEXT);
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
+  int exit_code = 0;
   RG_CATCH_ERROR
   
   (void) argc;
   (void)argv;
-  int exit_code = own_main();
-  return exit_code;
+  exit_code = own_main();
   RG_ERROR_LOG;
+  return exit_code;
 };
 // DECODE ENCODE UNICODE
 #ifdef RG_WIN

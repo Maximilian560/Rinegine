@@ -158,9 +158,11 @@ public:
   static std::wstring tolowwstr(std::wstring); // [done,exp] // todo
 
   //* decode
-  static char *itoa(int, int = 10, char * = nullptr); // [done]
-  static std::string itos(int, int = 10);             // [done]
-  static std::wstring itows(int, int = 10);           // [done]
+  static char *itoa(int, int = 10, char * = nullptr);           // [done]
+  static std::string itos(long long int, long long int = 10);   // [done]
+  static std::string itos(size_t, size_t = 10);                 // [done]
+  static std::wstring itows(long long int, long long int = 10); // [done]
+  static std::wstring itows(size_t, size_t = 10);               // [done]
   //*folder
   static bool isDirectory(std::string);        // [done]
   static bool isDirectory(std::wstring);       // [done]
@@ -308,6 +310,50 @@ public:
     bool operator==(const Allocator &) const { return true; }
     bool operator!=(const Allocator &) const { return false; }
   }; //! EXPERIMENTAL
+
+  /**
+   * @brief
+   *
+   * @brief Allocates memory to pages, wrapper over mmap
+   * @param count
+   *   The number of pages to allocate.
+   *   Set on 1.
+   * @param addr
+   *   Suggested starting address for the mapping.
+   *   Set on nullptr.
+   * @param prot
+   *   Memory protection flags for the mapped region .
+   *   Set on PROT_READ | PROT_WRITE.
+   * @param flags
+   *   Controls the type and behavior of the mapping.
+   *   Set on MAP_PRIVATE | MAP_ANONYMOUS.
+   * @param fd
+   *   File descriptor of the file to map.
+   *   Set on -1.
+   * @param offset
+   *   Offset within the file where mapping starts.
+   *   Set on 0 .
+   * @return
+   *    Returns a pointer to the page on success, or MAP_FAILED if allocation
+   *    fails.
+   */
+  static void *s_page(size_t count = 1, void *addr = nullptr,
+                      int prot = PROT_READ | PROT_WRITE,
+                      int flags = MAP_PRIVATE | MAP_ANONYMOUS, int fd = -1,
+                      off_t offset = 0); //[done,exp]
+
+  /**
+   * @brief Deallocate the memory allocated by s_page
+   *
+   * @param addr
+   * Address of the page that needs to be deallocate
+   *
+   * @param count
+   * Count of page,
+   *
+   */
+  static void s_depage(void *addr, size_t count); //[done,exp]
+
   static bool s_rawmemtest(char *); // [done]
 
   // template <class type> static bool s_memtest(type *);
@@ -460,7 +506,7 @@ public:
   struct Raw_Pointer { // [done,exp]
     void *ptr = nullptr;
     unsigned int typesize = 0;
-    unsigned int arrsize = 0;
+    size_t arrsize = 0;
     // init test
     bool is_init() const;
 

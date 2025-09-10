@@ -98,7 +98,11 @@
     "atlas,h": "c",
     "__hash_table": "cpp",
     "__tree": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "__bit_reference": "cpp",
+    "__split_buffer": "cpp",
+    "__verbose_abort": "cpp",
+    "locale": "cpp"
   },
   "C_Cpp.default.compilerPath": "d:\\RinemestCollection\\RinegineNew\\compiler\\mingw64\\bin\\g++.exe",
   "C_Cpp_Runner.cCompilerPath": "gcc",
@@ -160,5 +164,6 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.autoSave": "onFocusChange",
   "C_Cpp.errorSquiggles": "disabled",
-  "cmake.ignoreCMakeListsMissing": true
+  "cmake.ignoreCMakeListsMissing": true,
+  "C_Cpp.doxygen.generateOnType": false
 }

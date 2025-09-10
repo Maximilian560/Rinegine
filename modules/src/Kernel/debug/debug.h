@@ -163,7 +163,7 @@ void Kernel::Debug::add(rg_string tex, Log::Types type, bool print,
     if (type == Log::MEM)
       SetColorConsole(CONSOLE_COLOR::C_BLUE + CONSOLE_COLOR::C_TEXT);
 #endif
-    rg_cout << text << std::endl;
+    rg_cout << text;
 #ifdef RG_WIN
     SetColorTCMD(7);
 #else
