@@ -12,6 +12,26 @@ static size_t page_size = getpagesize();
 static int Magic_Num = 8 + (sizeof(size_t));
 }
 
+struct Allocator {
+  struct Page {
+    void *ptr;
+    size_t count;
+    Page *next;
+  };
+  byte static Page *page = nullptr;
+
+  static void *alloc(size_t alloc_size) {
+    if (page == nullptr) {
+      size_t rsize = alloc_size + 2;
+      char *temp = (char *)Rinegine::Kernel::s_page(
+          (rsize / Rinegine::Kernel::page_size) + 1);
+      
+    }
+  }
+
+  static void dealloc(void *ptr) {}
+};
+
 // Allocator
 // Kernel::Allocator::;
 //! Allocator
@@ -41,8 +61,8 @@ void Kernel::s_depage(void *addr, size_t count) {
   if (munmap(addr, rsize)) {
     int err = errno;
     RG_LOG_LOCK_ERROR("Mem page dealloc: " + std::to_string(rsize) +
-                      "b has failed: " + strerror(err)+ " | 0x" +
-                    Rinegine::Kernel::itos((size_t)addr, 16));
+                      "b has failed: " + strerror(err) + " | 0x" +
+                      Rinegine::Kernel::itos((size_t)addr, 16));
     if (err == EINVAL)
       RG_LOG_LOCK_INFO("I guess you are trying to delete unallocated memory");
 
