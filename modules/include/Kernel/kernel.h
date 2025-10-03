@@ -25,12 +25,17 @@ public:
     static LogVars _vars;
 
   public:
+    static const size_t page_size;
     static void *s_new(const size_t &,
                        const size_t & = 1); // todo
     static void *s_fast_new(const unsigned long long &size,
                             const unsigned long long &typesize = 1); // todo
     static uint s_delete(void *, unsigned int);                      // todo
     static void s_fast_delete(void *, unsigned int);                 // todo
+    static void *s_page(size_t count = 1, void *addr = nullptr,
+                        int prot = PROT_READ | PROT_WRITE,
+                        int flags = MAP_PRIVATE | MAP_ANONYMOUS, int fd = -1,
+                        off_t offset = 0); //[done,exp]
     // static char s_print(void *, unsigned int = 1);
 
     static void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
@@ -286,30 +291,30 @@ public:
 
   //! ALLOCATOR EXPERIMENTAL/WIP
 
-  template <typename T> struct Allocator {
-    using value_type = T;
+  // template <typename T> struct Allocator {
+  //   using value_type = T;
 
-    Allocator() = default;
-    template <class U> constexpr Allocator(const Allocator<U> &) noexcept {}
+  //   Allocator() = default;
+  //   template <class U> constexpr Allocator(const Allocator<U> &) noexcept {}
 
-    T *allocate(std::size_t n) {
-      if (n == 0)
-        return nullptr;
-      void *ptr = Kernel::s_fast_new<T>(static_cast<unsigned int>(n));
-      if (!ptr)
-        throw std::bad_alloc{};
-      return static_cast<T *>(ptr);
-    }
+  //   T *allocate(std::size_t n) {
+  //     if (n == 0)
+  //       return nullptr;
+  //     void *ptr = Kernel::s_fast_new<T>(static_cast<unsigned int>(n));
+  //     if (!ptr)
+  //       throw std::bad_alloc{};
+  //     return static_cast<T *>(ptr);
+  //   }
 
-    void deallocate(T *ptr, std::size_t n) noexcept {
-      if (ptr) {
-        Kernel::Lock::s_fast_delete(ptr, sizeof(T));
-      }
-    }
+  //   void deallocate(T *ptr, std::size_t n) noexcept {
+  //     if (ptr) {
+  //       Kernel::Lock::s_fast_delete(ptr, sizeof(T));
+  //     }
+  //   }
 
-    bool operator==(const Allocator &) const { return true; }
-    bool operator!=(const Allocator &) const { return false; }
-  }; //! EXPERIMENTAL
+  //   bool operator==(const Allocator &) const { return true; }
+  //   bool operator!=(const Allocator &) const { return false; }
+  // }; //! EXPERIMENTAL
 
   /**
    * @brief
@@ -337,10 +342,6 @@ public:
    *    Returns a pointer to the page on success, or MAP_FAILED if allocation
    *    fails.
    */
-  static void *s_page(size_t count = 1, void *addr = nullptr,
-                      int prot = PROT_READ | PROT_WRITE,
-                      int flags = MAP_PRIVATE | MAP_ANONYMOUS, int fd = -1,
-                      off_t offset = 0); //[done,exp]
 
   /**
    * @brief Deallocate the memory allocated by s_page

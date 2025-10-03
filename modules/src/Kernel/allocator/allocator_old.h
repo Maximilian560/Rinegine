@@ -12,7 +12,7 @@ namespace Lock {
 // };
 // inline static unsigned long long int MemUsed = 0;
 inline static std::atomic_ullong MemUsed = 0;
-}
+} // namespace Lock
 void *Kernel::Lock::s_new(const unsigned long long &size,
                           const unsigned long long &typesize) {
   if (size == 0)
@@ -196,4 +196,4 @@ unsigned int Kernel::s_get_typesize(void *in) {
   }
   return *((unsigned int *)((unsigned long long *)(in)-1) - 1);
 }
-}
+} // namespace Rinegine

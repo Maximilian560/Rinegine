@@ -3,46 +3,45 @@
 namespace Rinegine {
 static bool notseeitmsgmore = 0;
 
+const size_t Kernel::Lock::page_size = getpagesize();
 namespace Lock {
 
 inline static std::atomic_ullong MemUsed = 0;
 
-static size_t page_size = getpagesize();
 // magic nums
 static int Magic_Num = 8 + (sizeof(size_t));
-}
+} // namespace Lock
 
-struct Allocator {
-  struct Page {
-    void *ptr;
-    size_t count;
-    Page *next;
-  };
-  byte static Page *page = nullptr;
+// struct Allocator {
+//   struct Page {
+//     void *ptr;
+//     size_t count;
+//     Page *next;
+//   };
+//   byte static Page *page = nullptr;
 
-  static void *alloc(size_t alloc_size) {
-    if (page == nullptr) {
-      size_t rsize = alloc_size + 2;
-      char *temp = (char *)Rinegine::Kernel::s_page(
-          (rsize / Rinegine::Kernel::page_size) + 1);
-      
-    }
-  }
+//   static void *alloc(size_t alloc_size) {
+//     if (page == nullptr) {
+//       size_t rsize = alloc_size + 2;
+//       char *temp = (char *)Rinegine::Kernel::s_page(
+//           (rsize / Rinegine::Kernel::page_size) + 1);
+//     }
+//   }
 
-  static void dealloc(void *ptr) {}
-};
+//   static void dealloc(void *ptr) {}
+// };
 
 // Allocator
 // Kernel::Allocator::;
 //! Allocator
 /////
 // LOW LEVEL ALLOC
-void *Kernel::s_page(size_t count, void *addr, int prot, int flags, int fd,
+void *Kernel::Lock::s_page(size_t count, void *addr, int prot, int flags, int fd,
                      off_t offset) {
   if (count == 0) {
     return MAP_FAILED;
   }
-  size_t rsize = count * Rinegine::Lock::page_size;
+  size_t rsize = count * Rinegine::Kernel::Lock::page_size;
   void *raw_mem = mmap(addr, rsize, prot, flags, fd, offset);
   if (raw_mem != MAP_FAILED) {
     RG_LOG_LOCK_MEM("Mem page alloc: " + std::to_string(rsize) + "b | 0x" +
@@ -57,7 +56,7 @@ void *Kernel::s_page(size_t count, void *addr, int prot, int flags, int fd,
   return raw_mem;
 }
 void Kernel::s_depage(void *addr, size_t count) {
-  size_t rsize = count * Rinegine::Lock::page_size;
+  size_t rsize = count * Rinegine::Kernel::Lock::page_size;
   if (munmap(addr, rsize)) {
     int err = errno;
     RG_LOG_LOCK_ERROR("Mem page dealloc: " + std::to_string(rsize) +
@@ -89,8 +88,8 @@ Kernel::Lock::s_new(const size_t &size,
     return nullptr;
 
   size_t rsize = ((size * typesize + Rinegine::Lock::Magic_Num) +
-                  Rinegine::Lock::page_size - 1) /
-                 Rinegine::Lock::page_size * Rinegine::Lock::page_size;
+                  Rinegine::Kernel::Lock::page_size - 1) /
+                 Rinegine::Kernel::Lock::page_size * Rinegine::Kernel::Lock::page_size;
 
   void *raw_newmem = mmap(nullptr, rsize, PROT_READ | PROT_WRITE,
                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -274,4 +273,4 @@ unsigned int Kernel::s_get_typesize(void *in) {
   }
   return *((unsigned int *)((unsigned long long *)(in)-1) - 1);
 }
-}
+} // namespace Rinegine
