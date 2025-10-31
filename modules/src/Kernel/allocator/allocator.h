@@ -12,32 +12,283 @@ inline static std::atomic_ullong MemUsed = 0;
 static int Magic_Num = 8 + (sizeof(size_t));
 } // namespace Lock
 
-// struct Allocator {
-//   struct Page {
-//     void *ptr;
-//     size_t count;
-//     Page *next;
-//   };
-//   byte static Page *page = nullptr;
+//** Allocator
+void Kernel::Allocator::init() {
+  if (_main_map == nullptr) {
+    // std::cout << "init" << std::endl;
+    RG_LOG_LOCK_MEM("Allocator init");
+    _main_map = s_map(1);
+    g_page_mask = ~(uintptr_t)(Rinegine::Kernel::Lock::page_size - 1);
+  }
+}
+void Kernel::Allocator::push(size_t in) {
+  // std::cout << "push" << std::endl;
+  RG_LOG_LOCK_MEM("Push page");
+  Kernel::Allocator::_map *addr = s_map(in);
 
-//   static void *alloc(size_t alloc_size) {
-//     if (page == nullptr) {
-//       size_t rsize = alloc_size + 2;
-//       char *temp = (char *)Rinegine::Kernel::s_page(
-//           (rsize / Rinegine::Kernel::page_size) + 1);
-//     }
-//   }
+  if (addr != nullptr) {
+    Kernel::Allocator::_map *mmin = rg_min(addr, _main_map);
+    Kernel::Allocator::_map *mmax = rg_max(addr, _main_map);
+    if (size_t(mmax) - size_t(mmin) == Rinegine::Kernel::Lock::page_size * in) {
+      // std::cout << "prev: " << (int)mmax->magnum[2] << std::endl;
+      mmin->_mem.next = &mmax->_mem;
+      mmin->magnum[2] += mmax->magnum[2];
+      mmax->magnum[0] = 0;
+      mmax->magnum[1] = 0;
+      mmax->magnum[2] = 0;
 
-//   static void dealloc(void *ptr) {}
-// };
+      _main_map = mmin;
+      print_map();
+      // std::cout << "now: " << (int)_main_map->magnum[2] << std::endl
+      // << std::endl;
+      if (_main_map->magnum[2] == UINT8_MAX) {
+        RG_LOG_LOCK_CRITICAL("Strange, but the size of the page pool has "
+                             "become too large, the number of pages is " +
+                             std::to_string(int(_main_map->magnum[2])));
+      }
+    } else {
+      RG_LOG_LOCK_MEM("Error! Failed to add page to shared heap!");
+      RG_LOG_LOCK_DEBUG("size_t(mmax) - size_t(mmin) = " +
+                        std::to_string(size_t(mmax) - size_t(mmin)));
+      print_map();
+      RG_LOG_LOCK_CRITICAL("See previous log");
+    }
+  }
+}
+Kernel::Allocator::_map *Kernel::Allocator::s_map(size_t count) {
+  /**/
+  void *addr = _main_map;
+  int prot = PROT_READ | PROT_WRITE;
+  int flags = MAP_PRIVATE | MAP_ANONYMOUS;
+  int fd = -1;
+  off_t offset = 0;
+  /**/
+  if (count == 0) {
+    return (Kernel::Allocator::_map *)MAP_FAILED;
+  }
+  size_t rsize = count * Rinegine::Kernel::Lock::page_size;
 
-// Allocator
-// Kernel::Allocator::;
+  Kernel::Allocator::_map *out =
+      (Kernel::Allocator::_map *)mmap(addr, rsize, prot, flags, fd, offset);
+  // std::cout << "Map address: " << out << std::endl;
+  if (out == (MAP_FAILED) || out == nullptr || out == NULL) {
+    RG_LOG_LOCK_MEM(
+        "Allocator error; s_map error;"); // +
+                                          // rg_string(strerror(errno)));//todo
+                                          // fix
+    RG_LOG_LOCK_CRITICAL("See previous log");
+  } else {
+    ((char *)out)[0] = 'R';
+    ((char *)out)[1] = 'G';
+    ((char *)out)[2] = 1;
+    // *((size_t *)(((char *)out) + 2)) = Rinegine::Kernel::Lock::page_size;
+    // Kernel::Allocator::_map &custom_map = *(Kernel::Allocator::_map *)(out);
+    // out->_mem.init = false;
+    // std::cout << "0!!!!!!!!!!!!!!!!!!!!!Next mem: " << size_t(next_mem)
+    //           << std::endl;
+    // out->_mem.next = Kernel::Allocator::next_mem;
+    // std::cout << "0!!!!!!!!!!!!!!!!!!!!!NOW mem: " << size_t(&out->_mem)
+    //           << std::endl;
+    // print_map();
+    // *((&custom_map.nearest_free_mem)) = &custom_map._mem;
+    // custom_map.nearest_free_mem = &custom_map._mem;
+  }
+  return out;
+}
+void *Kernel::Allocator::s_new(size_t count, size_t type_size) {
+  // If there is potentially not enough space in the heap
+  if (count * type_size >
+      // actual size > pagesize * count merged pages - header //todo remove
+      Rinegine::Kernel::Lock::page_size * _main_map->magnum[2] - sizeof(_map)) {
+    RG_LOG_LOCK_MEM("map less then new array size, push new page...");
+    RG_LOG_LOCK_MEM("size array: " + std::to_string(count * type_size));
+    RG_LOG_LOCK_MEM("size page: " +
+                    std::to_string(Rinegine::Kernel::Lock::page_size));
+    RG_LOG_LOCK_MEM("count page in map: " +
+                    std::to_string(_main_map->magnum[2]));
+    RG_LOG_LOCK_MEM("Available space for allocation (if heap is empty): " +
+                    std::to_string(Rinegine::Kernel::Lock::page_size *
+                                       _main_map->magnum[2] -
+                                   sizeof(Rinegine::Kernel::Allocator::_map)));
+    push(count * type_size /
+         (Rinegine::Kernel::Lock::page_size -
+          sizeof(Rinegine::Kernel::Allocator::_map)));
+    // RG_LOG_LOCK_CRITICAL(
+    // "Turn RG_D_W_L = 4; This hasn't yet been implemented");
+  }
+  Kernel::Allocator::_map::mem *out = &_main_map->_mem;
+  // _map::mem *prev = nullptr;
+  while (true) {
+    if (out->init == false) {
+      if (((out->next) &&
+           (size_t(out->next) - size_t(out)) <
+               (count * type_size + sizeof(Kernel::Allocator::_map::mem)))) {
+
+        Kernel::Allocator::_map::mem *next = out->next;
+        Kernel::Allocator::_map::mem *next2 = out;
+        while (next != nullptr && next->init == false) {
+          // std::cout << "Cell " << size_t(next2) << " and " << size_t(next)
+          // << " merged" << std::endl;
+          next2 = next;
+          next = next->next;
+        }
+        out->next = next2->next;
+        if (((out->next) &&
+             (size_t(out->next) - size_t(out)) <
+                 (count * type_size + sizeof(Kernel::Allocator::_map::mem)))) {
+          out = out->next;
+          continue;
+        }
+        break;
+      }
+      break;
+    } else {
+      // std::cout << size_t(out) << std::dec << std::endl;
+      // prev = out;
+      if (out->next == nullptr)
+        RG_LOG_LOCK_CRITICAL("ITS IS IMPOSIBLE!!!");
+      // out->next =
+      //     (_map::mem *)(((char *)out) + out->size + sizeof(_map::mem));
+      out = out->next;
+    }
+  }
+  if (out->init && out->next == nullptr) {
+    RG_LOG_LOCK_ERROR("The cell is initialized but the next cell has not "
+                      "been created, deleting this cell");
+  }
+  // {
+  //   if (out->next != nullptr) {
+  //     _map::mem *next = out->next;
+  //     _map::mem *last_free = out;
+  //     while (next != nullptr && next->init == false) {
+  //       last_free = next;
+  //       next = next->next;
+  //     }
+  //     out->next = next; // пропускаем все подряд идущие свободные блоки
+  //   }
+  // }
+
+  // std::cout << size_t(out) << std::dec << std::endl;
+
+  // if (out->prev) {
+  //   if (out->prev != prev) {
+  //     RG_LOG_LOCK_ERROR("Some strange error");
+  //     RG_LOG_LOCK_INFO("out->prev != prev: " +
+  //     std::to_string(size_t(out->prev))
+  //     +
+  //                      " != " + std::to_string(size_t(prev)));
+  //   }
+  // } else
+  // out->prev = prev;
+  if (out->next) {
+    // if (out + (count * type_size) + sizeof(_map::mem) * 2 + 1 <
+    // out->next)
+    // {
+    if ((char *)out + sizeof(Kernel::Allocator::_map::mem) + count * type_size +
+            sizeof(Kernel::Allocator::_map::mem) <=
+        (char *)out->next) {
+      Kernel::Allocator::_map::mem *temp =
+          (Kernel::Allocator::_map::mem *)(((char *)out) + (count * type_size) +
+                                           sizeof(
+                                               Kernel::Allocator::_map::mem));
+      temp->next = out->next;
+      temp->init = 0;
+      // temp->prev = out;
+      out->next = temp;
+    }
+  } else /* (((Kernel::Lock::page_size)*_main_map->magnum[3] -
+           (size_t(out) + sizeof(_map::mem)) - size_t(_main_map)) <
+          count * type_size)*/
+  {
+
+    RG_LOG_LOCK_MEM("Not enough space, create new cell:");
+
+    // size_t temp = Rinegine::Kernel::Lock::page_size;
+    // if(out->next){
+    // size_t temp =
+    //     ((size_t(_main_map) - size_t(out) +
+    //     Rinegine::Kernel::Lock::page_size));
+    size_t temp = ((Kernel::Lock::page_size)*_main_map->magnum[3] -
+                   (size_t(out) + sizeof(_map::mem)) - size_t(_main_map));
+    // }
+
+    size_t temp2 =
+        (count * type_size + sizeof(Kernel::Allocator::_map::mem) * 2);
+    // size_t temp2 = count * type_size;
+    RG_LOG_LOCK_MEM("temp (left): " + std::to_string(temp));
+    RG_LOG_LOCK_MEM("temp2 (need): " + std::to_string(temp2));
+    if (temp > temp2) {
+
+      out->next =
+          (Kernel::Allocator::_map::mem *)(((char *)out) + (count * type_size) +
+                                           sizeof(
+                                               Kernel::Allocator::_map::mem));
+      RG_LOG_LOCK_MEM("New cell: 0x" +
+                      Rinegine::Kernel::itos(size_t(out->next), 16));
+      RG_LOG_LOCK_MEM("Free space left: " +
+                      std::to_string(size_t(_main_map) - size_t(out->next) +
+                                     Rinegine::Kernel::Lock::page_size));
+      RG_LOG_LOCK_MEM("Need space: " +
+                      std::to_string((count * type_size +
+                                      sizeof(Kernel::Allocator::_map::mem))));
+    } else {
+      RG_LOG_LOCK_MEM("No free space in old page, create new page...");
+      push();
+      print_map();
+      return s_new(count, type_size);
+    }
+  }
+  out->init = true;
+  print_map();
+  return (out + 1);
+}
+void Kernel::Allocator::s_free(void *in) {
+  // _map::mem* temp = (_map::mem*)(((char*)in)-sizeof(_map::mem))
+  // _map::mem *temp = ((_map::mem *)((bool *)in) - 1);
+  Kernel::Allocator::_map::mem *temp = ((Kernel::Allocator::_map::mem *)in - 1);
+  // std::cout << "Free: " << size_t(temp) << std::endl;
+  if (temp->init == 1) {
+    temp->init = false;
+  }
+  elif (temp->init == 0) {
+    RG_LOG_LOCK_MEM("Memory is corrupted or has already been cleared");
+    RG_LOG_LOCK_ERROR("Invalid mem in s_delete");
+  }
+  else {
+    RG_LOG_LOCK_MEM(
+        "Damaged memory or memory not from the engine was received");
+    RG_LOG_LOCK_CRITICAL("Invalid mem in s_delete");
+  }
+}
+void Kernel::Allocator::print_map() {
+  if (_main_map == nullptr)
+    return;
+  RG_LOG_LOCK_DEBUG("Debug info about map");
+  std::cout << std::dec << "Size map: "
+            << _main_map->magnum[2] * Rinegine::Kernel::Lock::page_size
+            << std::endl;
+  std::cout << "Heap:\n";
+  Kernel::Allocator::_map::mem *temp = &_main_map->_mem;
+  int i = 0;
+  while (temp != nullptr) {
+    std::cout << "count: " << i << std::endl;
+    std::cout << "init: " << temp->init << std::endl;
+    std::cout << "size: " << size_t(temp->next) - size_t(temp) << std::endl;
+    std::cout << "address: " << std::dec << size_t(temp) << std::dec
+              << std::endl;
+    std::cout << "next: " << std::dec << size_t(temp->next) << std::dec
+              << std::endl;
+    // std::cout << "prev: " << std::dec << size_t(temp->prev) << std::dec
+    // << std::endl << std::endl;
+    temp = temp->next;
+    i++;
+  }
+}
 //! Allocator
 /////
 // LOW LEVEL ALLOC
-void *Kernel::Lock::s_page(size_t count, void *addr, int prot, int flags, int fd,
-                     off_t offset) {
+void *Kernel::Lock::s_page(size_t count, void *addr, int prot, int flags,
+                           int fd, off_t offset) {
   if (count == 0) {
     return MAP_FAILED;
   }
@@ -89,7 +340,8 @@ Kernel::Lock::s_new(const size_t &size,
 
   size_t rsize = ((size * typesize + Rinegine::Lock::Magic_Num) +
                   Rinegine::Kernel::Lock::page_size - 1) /
-                 Rinegine::Kernel::Lock::page_size * Rinegine::Kernel::Lock::page_size;
+                 Rinegine::Kernel::Lock::page_size *
+                 Rinegine::Kernel::Lock::page_size;
 
   void *raw_newmem = mmap(nullptr, rsize, PROT_READ | PROT_WRITE,
                           MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);

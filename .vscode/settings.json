@@ -102,7 +102,10 @@
     "__bit_reference": "cpp",
     "__split_buffer": "cpp",
     "__verbose_abort": "cpp",
-    "locale": "cpp"
+    "locale": "cpp",
+    "__locale": "cpp",
+    "__verbose_trap": "cpp",
+    "__log_hardening_failure": "cpp"
   },
   "C_Cpp.default.compilerPath": "d:\\RinemestCollection\\RinegineNew\\compiler\\mingw64\\bin\\g++.exe",
   "C_Cpp_Runner.cCompilerPath": "gcc",
