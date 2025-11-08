@@ -501,7 +501,7 @@ typedef unsigned int uint;
 #endif
 
 // DEBUG
-
+#ifdef RG_DEBUG
 /**
  * @def GET_MACRO(_1, _2, NAME, ...)
  * @brief Helper macro for function overloading based on number of arguments.
@@ -720,3 +720,22 @@ typedef unsigned int uint;
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, true, __FILE__,     \
                                 __LINE__)
 #endif
+#else//RG_DEBUG
+
+#define RG_LOG_DEBUG(...){}
+#define RG_LOG_INFO(...){}
+#define RG_LOG_WARN(...){}
+#define RG_LOG_WARNING(...){}
+#define RG_LOG_ERROR(...){}
+#define RG_LOG_FATAL(...){}
+#define RG_LOG_CRITICAL(...){}
+#define RG_LOG_MEM(...){}
+#define RG_LOG_LOCK_DEBUG(...){}
+#define RG_LOG_LOCK_INFO(...){}
+#define RG_LOG_LOCK_WARN(...){}
+#define RG_LOG_LOCK_WARNING(...){}
+#define RG_LOG_LOCK_ERROR(...){}
+#define RG_LOG_LOCK_FATAL(...){}
+#define RG_LOG_LOCK_CRITICAL(...){}
+#define RG_LOG_LOCK_MEM(...){}
+#endif//RG_DEBUG
