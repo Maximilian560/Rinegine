@@ -102,8 +102,6 @@ void *Kernel::Allocator::s_new(size_t count, size_t type_size) {
     push((count * type_size + sizeof(Kernel::Allocator::_map::mem) * 1) /
          (Rinegine::Kernel::Lock::page_size -
           sizeof(Rinegine::Kernel::Allocator::_map)));
-    // RG_LOG_LOCK_CRITICAL(
-    // "Turn RG_D_W_L = 4; This hasn't yet been implemented");
   }
   Kernel::Allocator::_map::mem *out = &_main_map->_mem;
   while (true) {
