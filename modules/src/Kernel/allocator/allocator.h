@@ -106,7 +106,6 @@ void *Kernel::Allocator::s_new(size_t count, size_t type_size) {
     // "Turn RG_D_W_L = 4; This hasn't yet been implemented");
   }
   Kernel::Allocator::_map::mem *out = &_main_map->_mem;
-  // _map::mem *prev = nullptr;
   while (true) {
     if (out->init == false) {
       if (((out->next) &&
