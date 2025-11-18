@@ -3,7 +3,7 @@
 namespace Rinegine {
 // Console input
 int Kernel::RG_CMD(std::string command, bool print) {
-  RG_LOG_LOCK_INFO("Command run: \"" + rg_to_string(command) + "\"\n\n\n",
+  RG_LOG_LOCK_INFO("Command run: \"" + rg_to_string(command) + "\"",
                    print);
   return system(command.c_str());
 }

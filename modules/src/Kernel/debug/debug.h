@@ -171,7 +171,7 @@ void Kernel::Debug::add(rg_string tex, Log::Types type, bool print,
 #endif
   }
 #endif
-  text += rg_char(10);
+  // text += rg_char(10);
   _vars.textErr += text;
 #ifdef RG_DEBUG_ALWAYS_UPDATE
   Debug::update();
