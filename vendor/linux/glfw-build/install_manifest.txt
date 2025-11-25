@@ -1,0 +1,8 @@
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/libglfw3.a
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/include/GLFW/glfw3native.h
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/include/GLFW/glfw3.h
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/cmake/glfw3/glfw3Config.cmake
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/cmake/glfw3/glfw3ConfigVersion.cmake
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/cmake/glfw3/glfw3Targets.cmake
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/cmake/glfw3/glfw3Targets-release.cmake
+/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static/lib/pkgconfig/glfw3.pc

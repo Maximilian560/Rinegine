@@ -1,4 +1,0 @@
-[ 13:40:40.0771 ] Info:  	Rinegine program start
-[ 13:40:40.0792 ] Info:  	Rinegine init
-[ 13:40:40.0799 ] Info:  	Rinegine initialized
-[ 13:40:40.0807 ] Info:  	Program start

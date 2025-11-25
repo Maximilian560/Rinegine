@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_0',['x',['../structRinegine_1_1Kernel_1_1POINT2D.html#aa1cfe88e5f2f1a69d9f319ae63897f98',1,'Rinegine::Kernel::POINT2D::x'],['../structRinegine_1_1Kernel_1_1POINT3D.html#a05fa24457b2127e0bb12e51d42d7e8d2',1,'Rinegine::Kernel::POINT3D::x']]]
+  ['oldtype_0',['oldType',['../structRinegine_1_1Kernel_1_1Debug_1_1DebugVars.html#a47487246023a47760bbfca20983dc17c',1,'Rinegine::Kernel::Debug::DebugVars']]],
+  ['open_5fshell_1',['OPEN_SHELL',['../structRinegine_1_1Kernel_1_1Debug_1_1DebugVars.html#ac3396365321c78f79a5e5798e3227535',1,'Rinegine::Kernel::Debug::DebugVars']]]
 ];

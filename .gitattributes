@@ -6,3 +6,9 @@ lib/backup/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
 lib/backup/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
 lib/win/llvm/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
 lib/win/llvm/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/llvw/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/llvw/64/ibavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/llvm/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+lib/backup/win/llvm/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text

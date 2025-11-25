@@ -1,0 +1,805 @@
+\doxysection{defined.\+h}
+\hypertarget{defined_8h_source}{}\label{defined_8h_source}\index{modules/src/Kernel/defined/defined.h@{modules/src/Kernel/defined/defined.h}}
+\mbox{\hyperlink{defined_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine}{Rinegine}}\ \{}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Console\ input}}
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(std::string\ command,\ \textcolor{keywordtype}{bool}\ print)\ \{}
+\DoxyCodeLine{00006\ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\textcolor{stringliteral}{"{}Command\ run:\ \(\backslash\)"{}"{}}\ +\ \mbox{\hyperlink{include_2Kernel_2define_8h_af8c97cf3ab1a6fd7be2200b5c7a57c7d}{rg\_to\_string}}(command)\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}},\ print);}
+\DoxyCodeLine{00007\ \ \ \textcolor{keywordflow}{return}\ system(command.c\_str());}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ TRY\ CATCH\ ERRORS}}
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespaceRinegine_a6f6b74fdd8e15278dc1ac238d707e9bb}{RINEGINE\_IS\_INIT}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_a3261d13a5dc49a33d6206f7445a0c950}{RG\_ERROR\_PROGRAM}}\ =\ 0;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{const}\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{namespaceRinegine_ada6f023a649c3793669a7fb328d02d45}{ErrorCode}}[]\{}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}NULL"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/1}}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Error\ creating\ window."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0}}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Font\ loading\ error."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Font\ not\ found."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Out\ of\ RAM\ memory."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Symbol\ not\ found."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4}}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}GLFW\ initialization\ error."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5}}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}File\ not\ found."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 6}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_Array\ access\ error,\ RG\_Array\ size\ =\ 0."{}},\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_Array\ access\ error,\ RG\_Array\ size\ <\ [i]."{}},\ \ \ \ \ \ \textcolor{comment}{//\ 8}}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_Array\ access\ error,\ RG\_Array\ size\ -\/\ i\ >\ size."{}},\ \textcolor{comment}{//\ 9}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}The\ loaded\ texture\ has\ fewer\ color\ channels\ supported\ (less\ than\ "{}}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}4)."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 10}}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Incorrect\ use\ of\ the\ material\ creation\ function."{}},\ \textcolor{comment}{//\ 11}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_Matrix\ access\ error,\ RG\_Matrix\ size\ =\ 0\ or\ width\ <\ "{}}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}getPoint(width)."{}},\ \textcolor{comment}{//\ 12}}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_LoadTexture(string\ path)\ -\/\ the\ wrong\ path\ was\ passed\ to\ the\ "{}}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}function."{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 13}}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_FindPlanet(string)\ could\ not\ find\ the\ planet."{}},\ \textcolor{comment}{//\ 14}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_GetBlockType\ could\ not\ find\ the\ block."{}},\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 15}}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}RG\_GetTexture\ could\ not\ find\ the\ texture."{}},\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 16}}
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_abb9b1e1736c305dafacde051dddfc610}{TryCatch}}(std::function<\textcolor{keywordtype}{void}()>\ func)\ \{}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ func();}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00039\ \ \ \}\ \textcolor{keywordflow}{catch}\ (\mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09a}{ErrorRinegine}}\ error)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_a3261d13a5dc49a33d6206f7445a0c950}{RG\_ERROR\_PROGRAM}}\ =\ error;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (error\ !=\ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aaee36da8ca2876600de0d98c4aa744c64}{RG\_OWN\_ERROR}})\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_aba0472a26fcf7949161d3cef8b79481e}{Kernel::Debug::no\_close}}();}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Code\ =\ "{}}\ +\ \mbox{\hyperlink{src_2Kernel_2define_8h_aef8cd37f2e982548514407130b59d9c9}{rg\_to\_string\_}}(\textcolor{keywordtype}{int}(error))\ +}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}.\ "{}}\ +\ \mbox{\hyperlink{namespaceRinegine_ada6f023a649c3793669a7fb328d02d45}{ErrorCode}}[error]);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a22afdc99956afe5c24f38c36d6c20cea}{RG\_LOG\_LOCK\_DEBUG}}(\textcolor{stringliteral}{"{}Exit\ code:\ "{}}\ +\ std::to\_string(error));}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ error;}
+\DoxyCodeLine{00051\ \ \ \ \ exit(error);}
+\DoxyCodeLine{00052\ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::exception\ \&e)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}Standart\ error:\ "{}}\ +\ std::string(e.what()));}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00058\ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::string\ error)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}String\ error:\ "{}}\ +\ error);}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00064\ \ \ \}\ \textcolor{keywordflow}{catch}\ (std::wstring\ error)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(L\textcolor{stringliteral}{"{}Wstring\ error:\ "{}}\ +\ error);}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00070\ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keywordtype}{char}\ *error)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}char\ error:\ "{}}\ +\ std::string(error));}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00076\ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keywordtype}{wchar\_t}\ *error)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(L\textcolor{stringliteral}{"{}wchar\_t\ error:\ "{}}\ +\ std::wstring(error));}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_a951546edbe5371f015b500db3056d077}{RG\_LOG\_LOCK\_INFO}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a2d874b1a6881beceb99b2f1914b6b856}{RG\_L}}\ \textcolor{stringliteral}{"{}Open:\ "{}}\ +\ (\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}()));}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a785aa0a712282c6205ba953f78f2ab40}{Kernel::Debug::update}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_aaddd3dfa191d0e4b19772eea3918273a}{Kernel::RG\_CMD}}(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Debug_a71a6ee422aaf122997eeb0e758501ca4}{Kernel::Debug::log\_path}}().c\_str());}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00082\ \ \ \}\ \textcolor{keywordflow}{catch}\ (...)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}Unknown\ error"{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ INTERPOINT}}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a10b5621551e4e1bdd1440c5b7567dead}{Kernel::InterPoint}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[],\ \textcolor{keywordtype}{int}\ (*own\_main)())\ \{}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#if\ defined(RG\_WIN)\ \&\&\ defined(RG\_UTF)}}
+\DoxyCodeLine{00090\ \ \ \_setmode(\_fileno(stdout),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00091\ \ \ \_setmode(\_fileno(stdin),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00092\ \ \ \_setmode(\_fileno(stderr),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{int}\ exit\_code\ =\ 0;}
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{other__define_8h_a306300db0790d2ec4d16cd81e783b095}{RG\_CATCH\_ERROR}}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00098\ \ \ argc;}
+\DoxyCodeLine{00099\ \ \ (void)argv;}
+\DoxyCodeLine{00100\ \ \ exit\_code\ =\ own\_main();}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{other__define_8h_a47d325a36ff893a8207d91c9b64c02b3}{RG\_ERROR\_LOG}};}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordflow}{return}\ exit\_code;}
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a10b5621551e4e1bdd1440c5b7567dead}{Kernel::InterPoint}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{wchar\_t}\ *argv[],\ \textcolor{keywordtype}{int}\ (*own\_main)())\ \{}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#if\ defined(RG\_WIN)\ \&\&\ defined(RG\_UTF)}}
+\DoxyCodeLine{00107\ \ \ \_setmode(\_fileno(stdout),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00108\ \ \ \_setmode(\_fileno(stdin),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00109\ \ \ \_setmode(\_fileno(stderr),\ \_O\_U16TEXT);}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{int}\ exit\_code\ =\ 0;}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{other__define_8h_a306300db0790d2ec4d16cd81e783b095}{RG\_CATCH\_ERROR}}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00115\ \ \ argc;}
+\DoxyCodeLine{00116\ \ \ (void)argv;}
+\DoxyCodeLine{00117\ \ \ exit\_code\ =\ own\_main();}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{other__define_8h_a47d325a36ff893a8207d91c9b64c02b3}{RG\_ERROR\_LOG}};}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordflow}{return}\ exit\_code;}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ DECODE\ ENCODE\ UNICODE}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00123\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_ac80dad6bfe5e69aa3adbff516e547a20}{Kernel::utf8\_decode}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordflow}{if}\ (str.empty())}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring();}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ SizeWstr\ =}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ MultiByteToWideChar(CP\_UTF8,\ 0,\ \&str[0],\ (\textcolor{keywordtype}{int})str.size(),\ NULL,\ 0);}
+\DoxyCodeLine{00128\ \ \ std::wstring\ str\_to\_wstr(SizeWstr,\ 0);}
+\DoxyCodeLine{00129\ \ \ MultiByteToWideChar(CP\_UTF8,\ 0,\ \&str[0],\ (\textcolor{keywordtype}{int})str.size(),\ \&str\_to\_wstr[0],}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SizeWstr);}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordflow}{return}\ str\_to\_wstr;}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{Kernel::utf8\_encode}}(\textcolor{keyword}{const}\ std::wstring\ \&wstr)\ \{}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordflow}{if}\ (wstr.empty())}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{int}\ size\_needed\ =\ WideCharToMultiByte(CP\_UTF8,\ 0,\ \&wstr[0],\ (\textcolor{keywordtype}{int})wstr.size(),}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NULL,\ 0,\ NULL,\ NULL);}
+\DoxyCodeLine{00138\ \ \ std::string\ strTo(size\_needed,\ 0);}
+\DoxyCodeLine{00139\ \ \ WideCharToMultiByte(CP\_UTF8,\ 0,\ \&wstr[0],\ (\textcolor{keywordtype}{int})wstr.size(),\ \&strTo[0],}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_needed,\ NULL,\ NULL);}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordflow}{return}\ strTo;}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00144\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_ac80dad6bfe5e69aa3adbff516e547a20}{Kernel::utf8\_decode}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordflow}{if}\ (str.empty())}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring();}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ iconv\_t\ cd\ =\ iconv\_open(\textcolor{stringliteral}{"{}UTF-\/16LE"{}},\ \textcolor{stringliteral}{"{}UTF-\/8"{}});}
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordflow}{if}\ (cd\ ==\ (iconv\_t)-\/1)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}iconv\_open\ failed\ for\ UTF-\/8\ to\ UTF-\/16LE"{}};}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring();}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *in\_buf\ =\ str.c\_str();}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{size\_t}\ in\_bytes\_left\ =\ str.size();}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{size\_t}\ out\_buf\_size\ =\ str.size()\ *\ 2;\ \textcolor{comment}{//\ Примерный\ размер\ под\ UTF-\/16}}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{char}\ *out\_buf\ =}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)calloc(out\_buf\_size\ +\ 2,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));\ \textcolor{comment}{//\ +2\ для\ завершающего\ \(\backslash\)0}}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{char}\ *out\_ptr\ =\ out\_buf;}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{size\_t}\ out\_bytes\_left\ =\ out\_buf\_size;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordflow}{if}\ (!out\_buf)\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}Memory\ allocation\ failed"{}};}
+\DoxyCodeLine{00164\ \ \ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring();}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{size\_t}\ ret\ =\ iconv(cd,\ \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ **\textcolor{keyword}{>}(\&in\_buf),\ \&in\_bytes\_left,\ \&out\_ptr,}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&out\_bytes\_left);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordflow}{if}\ (ret\ ==\ (\textcolor{keywordtype}{size\_t})-\/1)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}iconv\ conversion\ failed"{}};}
+\DoxyCodeLine{00173\ \ \ \ \ free(out\_buf);}
+\DoxyCodeLine{00174\ \ \ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ std::wstring();}
+\DoxyCodeLine{00176\ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{size\_t}\ wchar\_count\ =\ (out\_ptr\ -\/\ out\_buf)\ /\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{wchar\_t});}
+\DoxyCodeLine{00181\ \ \ std::wstring\ result;}
+\DoxyCodeLine{00182\ \ \ result.assign((\textcolor{keywordtype}{wchar\_t}\ *)out\_buf,\ wchar\_count);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ free(out\_buf);}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00187\ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{Kernel::utf8\_encode}}(\textcolor{keyword}{const}\ std::wstring\ \&wstr)\ \{}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordflow}{if}\ (wstr.empty())}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ iconv\_t\ cd\ =\ iconv\_open(\textcolor{stringliteral}{"{}UTF-\/8"{}},\ \textcolor{stringliteral}{"{}UTF-\/16LE"{}});}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordflow}{if}\ (cd\ ==\ (iconv\_t)-\/1)\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}iconv\_open\ failed\ for\ UTF-\/16LE\ to\ UTF-\/8"{}};}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *in\_buf\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(wstr.c\_str());}
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordtype}{size\_t}\ in\_bytes\_left\ =\ wstr.size()\ *\ \textcolor{keyword}{sizeof}(wchar\_t);}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{size\_t}\ out\_buf\_size\ =}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ wstr.size()\ *\ 4;\ \textcolor{comment}{//\ Максимум\ 4\ байта\ на\ один\ символ\ в\ UTF-\/8}}
+\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{char}\ *out\_buf\ =\ (\textcolor{keywordtype}{char}\ *)calloc(out\_buf\_size\ +\ 1,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));\ \textcolor{comment}{//\ +1\ для\ '\(\backslash\)0'}}
+\DoxyCodeLine{00204\ \ \ \textcolor{keywordtype}{char}\ *out\_ptr\ =\ out\_buf;}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{size\_t}\ out\_bytes\_left\ =\ out\_buf\_size;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordflow}{if}\ (!out\_buf)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}Memory\ allocation\ failed"{}};}
+\DoxyCodeLine{00209\ \ \ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{00211\ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{size\_t}\ ret\ =\ iconv(cd,\ \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ **\textcolor{keyword}{>}(\&in\_buf),\ \&in\_bytes\_left,\ \&out\_ptr,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&out\_bytes\_left);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordflow}{if}\ (ret\ ==\ (\textcolor{keywordtype}{size\_t})-\/1)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}iconv\ conversion\ failed"{}};}
+\DoxyCodeLine{00218\ \ \ \ \ free(out\_buf);}
+\DoxyCodeLine{00219\ \ \ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{00221\ \ \ \}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ iconv\_close(cd);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{size\_t}\ result\_size\ =\ out\_ptr\ -\/\ out\_buf;}
+\DoxyCodeLine{00226\ \ \ std::string\ result(out\_buf,\ result\_size);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ free(out\_buf);}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00231\ \}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00233\ \textcolor{comment}{//\ Lock::addl}}
+\DoxyCodeLine{00234\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Lock_1_1LogVars}{Kernel::Lock::LogVars}}\ \{}
+\DoxyCodeLine{00235\ \ \ std::string\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Lock_1_1LogVars_a54631682f3751c4fbde11943a5bb426b}{TempError}};}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Lock_1_1LogVars_a2d5d6f9a62292a94c9902b3e2508af34}{\_logs}}\ =\ 0;}
+\DoxyCodeLine{00237\ \};}
+\DoxyCodeLine{00238\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Lock_1_1LogVars}{Kernel::Lock::LogVars}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{Kernel::Lock::\_vars}};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_a582255a29ff01c0579ea4e912454a0a1}{Kernel::Lock::addl}}(\mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0b}{Log::Types}}\ type,\ std::string\ text,\ \textcolor{keywordtype}{bool}\ print,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ file,\ \textcolor{keywordtype}{int}\ line)\ \{}
+\DoxyCodeLine{00242\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(type);}
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ bool(print);}
+\DoxyCodeLine{00244\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 0));}
+\DoxyCodeLine{00245\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 1));}
+\DoxyCodeLine{00246\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 2));}
+\DoxyCodeLine{00247\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 3));}
+\DoxyCodeLine{00248\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ text;}
+\DoxyCodeLine{00249\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(3);}
+\DoxyCodeLine{00250\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ file;}
+\DoxyCodeLine{00251\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(4);}
+\DoxyCodeLine{00252\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.\_logs++;}
+\DoxyCodeLine{00253\ \}}
+\DoxyCodeLine{00254\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_a582255a29ff01c0579ea4e912454a0a1}{Kernel::Lock::addl}}(\mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0b}{Log::Types}}\ type,\ std::wstring\ text,\ \textcolor{keywordtype}{bool}\ print,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::wstring\ file,\ \textcolor{keywordtype}{int}\ line)\ \{}
+\DoxyCodeLine{00256\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(type);}
+\DoxyCodeLine{00257\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ bool(print);}
+\DoxyCodeLine{00258\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 0));}
+\DoxyCodeLine{00259\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 1));}
+\DoxyCodeLine{00260\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 2));}
+\DoxyCodeLine{00261\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ (char(line\ >>\ 8\ *\ 3));}
+\DoxyCodeLine{00262\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{utf8\_encode}}(text);}
+\DoxyCodeLine{00263\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(3);}
+\DoxyCodeLine{00264\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{utf8\_encode}}(file);}
+\DoxyCodeLine{00265\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.TempError\ +=\ char(4);}
+\DoxyCodeLine{00266\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_ae06520ab467326d9af009b788f32fd68}{\_vars}}.\_logs++;}
+\DoxyCodeLine{00267\ \}\ }
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ rg\_to\_string}}
+\DoxyCodeLine{00269\ std::wstring}
+\DoxyCodeLine{00270\ \mbox{\hyperlink{classRinegine_1_1Kernel_a0fc565dc437db038173900b622f0988f}{Kernel::to\_stringw}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{\ \textcolor{comment}{//\ std::string\ to\ std::wstring}}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_ac80dad6bfe5e69aa3adbff516e547a20}{Kernel::utf8\_decode}}(str);}
+\DoxyCodeLine{00272\ \}}
+\DoxyCodeLine{00273\ std::string}
+\DoxyCodeLine{00274\ \mbox{\hyperlink{classRinegine_1_1Kernel_a46ac00c6b6df34bbc9fb55a9f7fc64e4}{Kernel::to\_stringa}}(\textcolor{keyword}{const}\ std::wstring\ \&str)\ \{\ \textcolor{comment}{//\ std::wstring\ to\ std::string}}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{Kernel::utf8\_encode}}(str);}
+\DoxyCodeLine{00276\ \}}
+\DoxyCodeLine{00277\ std::wstring}
+\DoxyCodeLine{00278\ \mbox{\hyperlink{classRinegine_1_1Kernel_a0fc565dc437db038173900b622f0988f}{Kernel::to\_stringw}}(\textcolor{keyword}{const}\ std::wstring\ \&str)\ \{\ \textcolor{comment}{//\ std::wstring\ to\ std::wstring}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00280\ \}}
+\DoxyCodeLine{00281\ std::string}
+\DoxyCodeLine{00282\ \mbox{\hyperlink{classRinegine_1_1Kernel_a46ac00c6b6df34bbc9fb55a9f7fc64e4}{Kernel::to\_stringa}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{\ \textcolor{comment}{//\ std::string\ to\ std::string}}
+\DoxyCodeLine{00283\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#ifdef\ RG\_UTF}}
+\DoxyCodeLine{00286\ std::wstring}
+\DoxyCodeLine{00287\ \mbox{\hyperlink{classRinegine_1_1Kernel_acc1b1efa8b6b8f479edae3200a039f0b}{Kernel::to\_string}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{\ \textcolor{comment}{//\ std::string\ to\ std::wstring}}
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_ac80dad6bfe5e69aa3adbff516e547a20}{Kernel::utf8\_decode}}(str);}
+\DoxyCodeLine{00289\ \}}
+\DoxyCodeLine{00290\ std::wstring}
+\DoxyCodeLine{00291\ \mbox{\hyperlink{classRinegine_1_1Kernel_acc1b1efa8b6b8f479edae3200a039f0b}{Kernel::to\_string}}(\textcolor{keyword}{const}\ std::wstring\ \&str)\ \{\ \textcolor{comment}{//\ std::wstring\ to\ std::wstring}}
+\DoxyCodeLine{00292\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00295\ std::string}
+\DoxyCodeLine{00296\ \mbox{\hyperlink{classRinegine_1_1Kernel_acc1b1efa8b6b8f479edae3200a039f0b}{Kernel::to\_string}}(\textcolor{keyword}{const}\ std::wstring\ \&str)\ \{\ \textcolor{comment}{//\ std::wstring\ to\ std::string}}
+\DoxyCodeLine{00297\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a69ed99157ce4327c2822fec63a0707b5}{Kernel::utf8\_encode}}(str);}
+\DoxyCodeLine{00298\ \}}
+\DoxyCodeLine{00299\ std::string}
+\DoxyCodeLine{00300\ \mbox{\hyperlink{classRinegine_1_1Kernel_acc1b1efa8b6b8f479edae3200a039f0b}{Kernel::to\_string}}(\textcolor{keyword}{const}\ std::string\ \&str)\ \{\ \textcolor{comment}{//\ std::string\ to\ std::string}}
+\DoxyCodeLine{00301\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00302\ \}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \textcolor{comment}{//\ POINTs}}
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ 2D}}
+\DoxyCodeLine{00308\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_a4f2d52d8a58f48bff0516dfaee967659}{Kernel::POINT2D<type>::operator==}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00309\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ ==\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}}\ ==\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}})}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00312\ \}}
+\DoxyCodeLine{00313\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ad61e52dc0d421418d9aaa4d0178bbd74}{Kernel::POINT2D<type>::operator>=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00314\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ >=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}}\ >=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}})}
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00316\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00317\ \}}
+\DoxyCodeLine{00318\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_a4f81d6b08da7fa0f291155346905cf26}{Kernel::POINT2D<type>::operator<=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ <=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}}\ <=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}})}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00321\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00322\ \}}
+\DoxyCodeLine{00323\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aee800b09f13f78857db3e7c0c4afe8fe}{Kernel::POINT2D<type>::operator>}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00324\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ >\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}}\ >\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}})}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00327\ \}}
+\DoxyCodeLine{00328\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_a9a5e365f12f140ff04e9e916ddc25e91}{Kernel::POINT2D<type>::operator<}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00329\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ <\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}}\ <\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}})}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00332\ \}}
+\DoxyCodeLine{00333\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ type\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ab22962946a50e23f080671c4aa76a9da}{Kernel::POINT2D<type>::operator[]}}(\mbox{\hyperlink{src_2Kernel_2typedef_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ i)\ \{}
+\DoxyCodeLine{00334\ \ \ \textcolor{keywordflow}{return}\ (\&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}})[i\ \%\ 2];}
+\DoxyCodeLine{00335\ \}}
+\DoxyCodeLine{00337\ \textcolor{comment}{//\ 3D}}
+\DoxyCodeLine{00338\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a2a9b288f607680f76367560b55bc0e37}{Kernel::POINT3D<type>::operator==}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D}{POINT3D<type>}}\ p)\ \{}
+\DoxyCodeLine{00339\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ ==\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ ==\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}}\ ==\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}})}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00341\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00342\ \}}
+\DoxyCodeLine{00343\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_ae0534c7015cf04dbdd850e34d01a43cf}{Kernel::POINT3D<type>::operator>=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D}{POINT3D<type>}}\ p)\ \{}
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ >=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ >=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}}\ >=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}})}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00346\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00347\ \}}
+\DoxyCodeLine{00348\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05225fa234a193319ca1ddce6ffa5af3}{Kernel::POINT3D<type>::operator<=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D}{POINT3D<type>}}\ p)\ \{}
+\DoxyCodeLine{00349\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ <=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ <=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}}\ <=\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}})}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00351\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00352\ \}}
+\DoxyCodeLine{00353\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_ad344254509a929b782eb072da83768db}{Kernel::POINT3D<type>::operator>}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D}{POINT3D<type>}}\ p)\ \{}
+\DoxyCodeLine{00354\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ >\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ >\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}}\ >\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}})}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00357\ \}}
+\DoxyCodeLine{00358\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a416bd8273f3f6b434d90b8e14c236f12}{Kernel::POINT3D<type>::operator<}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D}{POINT3D<type>}}\ p)\ \{}
+\DoxyCodeLine{00359\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ <\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ <\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}}\ <\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a5b1225a9c7c2b755905c3ba8d643cfb7}{z}})}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00361\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00362\ \}}
+\DoxyCodeLine{00363\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ type\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a1bc48fa118eed9ebeb775a6bddc72314}{Kernel::POINT3D<type>::operator=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00364\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}}\ =\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}};}
+\DoxyCodeLine{00365\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a8d1f2643d3289c921b3a1c948ecad444}{y}}\ =\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}};}
+\DoxyCodeLine{00366\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00367\ \}}
+\DoxyCodeLine{00368\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ type\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_afb9341cf266404cfea66e444d6ddc238}{Kernel::POINT3D<type>::operator[]}}(\mbox{\hyperlink{src_2Kernel_2typedef_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ i)\ \{}
+\DoxyCodeLine{00369\ \ \ \textcolor{keywordflow}{return}\ (\&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT3D_a05fa24457b2127e0bb12e51d42d7e8d2}{x}})[i\ \%\ 3];}
+\DoxyCodeLine{00370\ \}}
+\DoxyCodeLine{00372\ \textcolor{comment}{//\ !POINTs}}
+\DoxyCodeLine{00373\ \textcolor{comment}{//\ COLORs}}
+\DoxyCodeLine{00374\ \textcolor{comment}{//\ 3D}}
+\DoxyCodeLine{00375\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_ab1c7ab87242ad968d564b4dbdad94558}{Kernel::COLOR3D<type>::operator==}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D}{COLOR3D<type>}}\ c)\ \{}
+\DoxyCodeLine{00376\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}})}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00378\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00379\ \}}
+\DoxyCodeLine{00380\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_ac5fd6590ce3dd343e48fadc06f5239fc}{Kernel::COLOR3D<type>::operator>=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D}{COLOR3D<type>}}\ c)\ \{}
+\DoxyCodeLine{00381\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ >=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ >=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}}\ >=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}})}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00383\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00384\ \}}
+\DoxyCodeLine{00385\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a7cfcb026287f554224d1e08352ebfa0e}{Kernel::COLOR3D<type>::operator<=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D}{COLOR3D<type>}}\ c)\ \{}
+\DoxyCodeLine{00386\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ <=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ <=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}}\ <=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}})}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00388\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00389\ \}}
+\DoxyCodeLine{00390\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a12ed32ab2763cd2f66a5f00717fa41e8}{Kernel::COLOR3D<type>::operator>}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D}{COLOR3D<type>}}\ c)\ \{}
+\DoxyCodeLine{00391\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ >\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ >\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}}\ >\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}})}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00393\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00394\ \}}
+\DoxyCodeLine{00395\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a69d67cb80d24c6143d595cafffc2ae9a}{Kernel::COLOR3D<type>::operator<}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D}{COLOR3D<type>}}\ c)\ \{}
+\DoxyCodeLine{00396\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ <\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ <\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}}\ <\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa2bdafd8f387b0745398a62fe0025149}{b}})}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00398\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00399\ \}}
+\DoxyCodeLine{00400\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ type\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a0b5f350a400d96505361dc26080bb467}{Kernel::COLOR3D<type>::operator=}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D}{POINT2D<type>}}\ p)\ \{}
+\DoxyCodeLine{00401\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}}\ =\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_aa1cfe88e5f2f1a69d9f319ae63897f98}{x}};}
+\DoxyCodeLine{00402\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_aa20038f731e0381df1c5e38f05fb8485}{g}}\ =\ p.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1POINT2D_ac0086283f775ca9593ccd9c8fad775b1}{y}};}
+\DoxyCodeLine{00403\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00404\ \}}
+\DoxyCodeLine{00405\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>\ type\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a2dfbaa3b79f0e6ea4dad9fe8a96214c2}{Kernel::COLOR3D<type>::operator[]}}(\mbox{\hyperlink{src_2Kernel_2typedef_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ i)\ \{}
+\DoxyCodeLine{00406\ \ \ \textcolor{keywordflow}{return}\ (\&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR3D_a1cd95063e3f32a14da5ed4ee1e021981}{r}})[i\ \%\ 3];}
+\DoxyCodeLine{00407\ \}}
+\DoxyCodeLine{00409\ \textcolor{comment}{//\ 4D}}
+\DoxyCodeLine{00410\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>}
+\DoxyCodeLine{00411\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a4f81d5f3a89864dd26d12802d764c948}{Kernel::COLOR4D<type>::operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D}{COLOR4D<type>}}\ \&c)\ \{}
+\DoxyCodeLine{00412\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_aaf5b8c49bc5f98c6e392bb7792fc61e9}{r}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_aaf5b8c49bc5f98c6e392bb7792fc61e9}{r}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a4df1646b1e7145138fd7c1b7ca733dce}{g}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a4df1646b1e7145138fd7c1b7ca733dce}{g}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a1bfd6065111100ff2821252085724498}{b}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a1bfd6065111100ff2821252085724498}{b}}\ \&\&\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_ad1c77fe4e8ec39123c27b6abb929937c}{a}}\ ==\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_ad1c77fe4e8ec39123c27b6abb929937c}{a}})}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00414\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00416\ \}}
+\DoxyCodeLine{00417\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ type>}
+\DoxyCodeLine{00418\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a931ce06ec7ba2c996dcb4270d98708c6}{Kernel::COLOR4D<type>::operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D}{COLOR4D<type>}}\ \&c)\ \{}
+\DoxyCodeLine{00419\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_aaf5b8c49bc5f98c6e392bb7792fc61e9}{r}}\ !=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_aaf5b8c49bc5f98c6e392bb7792fc61e9}{r}}\ ||\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a4df1646b1e7145138fd7c1b7ca733dce}{g}}\ !=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a4df1646b1e7145138fd7c1b7ca733dce}{g}}\ ||\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a1bfd6065111100ff2821252085724498}{b}}\ !=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_a1bfd6065111100ff2821252085724498}{b}}\ ||\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_ad1c77fe4e8ec39123c27b6abb929937c}{a}}\ !=\ c.\mbox{\hyperlink{structRinegine_1_1Kernel_1_1COLOR4D_ad1c77fe4e8ec39123c27b6abb929937c}{a}})}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00421\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00423\ \}}
+\DoxyCodeLine{00426\ \textcolor{comment}{//\ Keys}}
+\DoxyCodeLine{00427\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_aff6acb65ee18bced38394b361d8c5f49}{RG\_KEYS}}[350];}
+\DoxyCodeLine{00428\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_a3b1ffa3bcdf7426dcf319660bbc2f2e9}{RG\_KEYS\_TEST}}[350];}
+\DoxyCodeLine{00429\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceRinegine_afa0eee5888b3d811f89825d70b842230}{RG\_MOUSE}}[10]\ =\ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\};}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a2a3b733f1f6428f5bc1d9e3103900fa5}{Kernel::KeyIs}}(\textcolor{keywordtype}{int}\ in,\ \textcolor{keywordtype}{bool}\ sticky\ =\ 1)\ \{}
+\DoxyCodeLine{00432\ \ \ \textcolor{keywordtype}{int}\ out\ =\ \mbox{\hyperlink{namespaceRinegine_aff6acb65ee18bced38394b361d8c5f49}{RG\_KEYS}}[in];}
+\DoxyCodeLine{00433\ \ \ \textcolor{keywordflow}{if}\ (sticky)\ \{}
+\DoxyCodeLine{00434\ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_aff6acb65ee18bced38394b361d8c5f49}{RG\_KEYS}}[in]\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00435\ \ \ \}}
+\DoxyCodeLine{00436\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00437\ \}}
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a25d9037a57f003767e37139fedd58aec}{Kernel::KeyIsPress}}(\textcolor{keywordtype}{int}\ in,\ \textcolor{keywordtype}{bool}\ sticky\ =\ 1)\ \{}
+\DoxyCodeLine{00439\ \ \ \textcolor{keywordtype}{int}\ out\ =\ (\mbox{\hyperlink{namespaceRinegine_aff6acb65ee18bced38394b361d8c5f49}{RG\_KEYS}}[in]\ ==\ 1);}
+\DoxyCodeLine{00440\ \ \ \textcolor{keywordflow}{if}\ (sticky)\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_aff6acb65ee18bced38394b361d8c5f49}{RG\_KEYS}}[in]\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00442\ \ \ \}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00445\ \}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a855af4deeea9d7c8f37067113cc8ed88}{Kernel::TestKeyIs}}(\textcolor{keywordtype}{int}\ in,\ \textcolor{keywordtype}{bool}\ sticky\ =\ 1)\ \{}
+\DoxyCodeLine{00448\ \ \ \textcolor{keywordtype}{int}\ out\ =\ \mbox{\hyperlink{namespaceRinegine_a3b1ffa3bcdf7426dcf319660bbc2f2e9}{RG\_KEYS\_TEST}}[in];}
+\DoxyCodeLine{00449\ \ \ \textcolor{keywordflow}{if}\ (sticky)\ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_a3b1ffa3bcdf7426dcf319660bbc2f2e9}{RG\_KEYS\_TEST}}[in]-\/-\/;}
+\DoxyCodeLine{00451\ \ \ \}}
+\DoxyCodeLine{00452\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00453\ \}}
+\DoxyCodeLine{00455\ \textcolor{comment}{//\ SysTime}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00457\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRinegine_1_1Kernel_1_1SysTime_1_1SysTimeVar}{Kernel::SysTime::SysTimeVar}}\ \{}
+\DoxyCodeLine{00458\ \ \ SYSTEMTIME\ SystemTime;}
+\DoxyCodeLine{00459\ \};}
+\DoxyCodeLine{00460\ Kernel::SysTime::SysTimeVar\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{Kernel::SysTime::\_vars}};}
+\DoxyCodeLine{00461\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aed24cedad20964b9a26e305be686bb03}{Kernel::SysTime::update}}()\ \{\ GetLocalTime(\&\_vars.SystemTime);\ \}}
+\DoxyCodeLine{00462\ \textcolor{comment}{//\ W}}
+\DoxyCodeLine{00463\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae78786228f6ca8b5641db85251f6e39b}{Kernel::SysTime::YearW}}()\ \{}
+\DoxyCodeLine{00464\ \ \ \textcolor{keywordflow}{return}\ std::to\_wstring(\_vars.SystemTime.wYear);}
+\DoxyCodeLine{00465\ \}}
+\DoxyCodeLine{00466\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a802483d53d5672c0d61ad294c823b124}{Kernel::SysTime::MonthW}}()\ \{}
+\DoxyCodeLine{00467\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wMonth);}
+\DoxyCodeLine{00468\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00469\ \}}
+\DoxyCodeLine{00470\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a89e71fb8c89d90428c6785298d91d596}{Kernel::SysTime::DayOfWeekW}}()\ \{}
+\DoxyCodeLine{00471\ \ \ \textcolor{keywordflow}{return}\ std::to\_wstring(\_vars.SystemTime.wDayOfWeek);}
+\DoxyCodeLine{00472\ \}}
+\DoxyCodeLine{00473\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae52f4b8ebb9ffcab2d1fed312b90ceb5}{Kernel::SysTime::DayW}}()\ \{}
+\DoxyCodeLine{00474\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wDay);}
+\DoxyCodeLine{00475\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00476\ \}}
+\DoxyCodeLine{00477\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a2d277951754def0e3c80693780cfe2bb}{Kernel::SysTime::HourW}}()\ \{}
+\DoxyCodeLine{00478\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wHour);}
+\DoxyCodeLine{00479\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00480\ \}}
+\DoxyCodeLine{00481\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aebbcbb6a7c9134d1ac9cad11170ac452}{Kernel::SysTime::MinuteW}}()\ \{}
+\DoxyCodeLine{00482\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wMinute);}
+\DoxyCodeLine{00483\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00484\ \}}
+\DoxyCodeLine{00485\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0d3aec7f0c5d482144fabd66bbaffd3a}{Kernel::SysTime::SecondW}}()\ \{}
+\DoxyCodeLine{00486\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wSecond);}
+\DoxyCodeLine{00487\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00488\ \}}
+\DoxyCodeLine{00489\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a7d95c37f5c26681990bdec1cbf16f0c4}{Kernel::SysTime::MillisecondsW}}()\ \{}
+\DoxyCodeLine{00490\ \ \ std::wstring\ temp\ =\ std::to\_wstring(\_vars.SystemTime.wMilliseconds);}
+\DoxyCodeLine{00491\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ \ \ ?\ L\textcolor{stringliteral}{"{}000"{}}}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ :\ temp.size()\ ==\ 2\ ?\ L\textcolor{stringliteral}{"{}00"{}}}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ :\ temp.size()\ ==\ 3\ ?\ L\textcolor{stringliteral}{"{}0"{}}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ L\textcolor{stringliteral}{"{}"{}})\ +}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ temp);}
+\DoxyCodeLine{00496\ \}}
+\DoxyCodeLine{00497\ \textcolor{comment}{//\ A}}
+\DoxyCodeLine{00498\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a4f7b8a6dea38b2d7dbd2cfe1b3332a7a}{Kernel::SysTime::YearA}}()\ \{}
+\DoxyCodeLine{00499\ \ \ \textcolor{keywordflow}{return}\ std::to\_string(\_vars.SystemTime.wYear);}
+\DoxyCodeLine{00500\ \}}
+\DoxyCodeLine{00501\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0b8b9e41e040adebf7973a7ba816ad80}{Kernel::SysTime::MonthA}}()\ \{}
+\DoxyCodeLine{00502\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wMonth);}
+\DoxyCodeLine{00503\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00504\ \}}
+\DoxyCodeLine{00505\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aafedec0448870c8772d62cd2f098520b}{Kernel::SysTime::DayOfWeekA}}()\ \{}
+\DoxyCodeLine{00506\ \ \ \textcolor{keywordflow}{return}\ std::to\_string(\_vars.SystemTime.wDayOfWeek);}
+\DoxyCodeLine{00507\ \}}
+\DoxyCodeLine{00508\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a60759b629f8a77a736ed65e0e9bf0cd9}{Kernel::SysTime::DayA}}()\ \{}
+\DoxyCodeLine{00509\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wDay);}
+\DoxyCodeLine{00510\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00511\ \}}
+\DoxyCodeLine{00512\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6c1508109e049a69d46907dc3302518f}{Kernel::SysTime::HourA}}()\ \{}
+\DoxyCodeLine{00513\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wHour);}
+\DoxyCodeLine{00514\ \ \ \textcolor{keywordflow}{return}\ std::string((temp.length()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00515\ \}}
+\DoxyCodeLine{00516\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad6c34b02d263e66a73ae85261373c995}{Kernel::SysTime::MinuteA}}()\ \{}
+\DoxyCodeLine{00517\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wMinute);}
+\DoxyCodeLine{00518\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00519\ \}}
+\DoxyCodeLine{00520\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6d12a06f2916aba75a95897037f6dea3}{Kernel::SysTime::SecondA}}()\ \{}
+\DoxyCodeLine{00521\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wSecond);}
+\DoxyCodeLine{00522\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp);}
+\DoxyCodeLine{00523\ \}}
+\DoxyCodeLine{00524\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_af121d105a9ebfda9cf9df788c080c31e}{Kernel::SysTime::MillisecondsA}}()\ \{}
+\DoxyCodeLine{00525\ \ \ std::string\ temp\ =\ std::to\_string(\_vars.SystemTime.wMilliseconds);}
+\DoxyCodeLine{00526\ \ \ \textcolor{keywordflow}{return}\ ((temp.size()\ ==\ 1\ \ \ ?\ \textcolor{stringliteral}{"{}000"{}}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ :\ temp.size()\ ==\ 2\ ?\ \textcolor{stringliteral}{"{}00"{}}}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ :\ temp.size()\ ==\ 3\ ?\ \textcolor{stringliteral}{"{}0"{}}}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \textcolor{stringliteral}{"{}"{}})\ +}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ temp);}
+\DoxyCodeLine{00531\ \}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00533\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structRinegine_1_1Kernel_1_1SysTime_1_1SysTimeVar}{Kernel::SysTime::SysTimeVar}}\ \{}
+\DoxyCodeLine{00534\ \ \ std::chrono::system\_clock::time\_point\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1SysTime_1_1SysTimeVar_a7bcef7f9fe8f4063c816e0af16ee6066}{SystemTime}};}
+\DoxyCodeLine{00535\ \};}
+\DoxyCodeLine{00536\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1SysTime_1_1SysTimeVar}{Kernel::SysTime::SysTimeVar}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{Kernel::SysTime::\_vars}};}
+\DoxyCodeLine{00537\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aed24cedad20964b9a26e305be686bb03}{Kernel::SysTime::update}}()\ \{}
+\DoxyCodeLine{00538\ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime\ =\ std::chrono::system\_clock::now();}
+\DoxyCodeLine{00539\ \}}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae78786228f6ca8b5641db85251f6e39b}{Kernel::SysTime::YearW}}()\ \{}
+\DoxyCodeLine{00542\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00543\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00544\ \ \ \textcolor{keywordflow}{return}\ std::to\_wstring(1900\ +\ now\_tm-\/>tm\_year);}
+\DoxyCodeLine{00545\ \}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a802483d53d5672c0d61ad294c823b124}{Kernel::SysTime::MonthW}}()\ \{}
+\DoxyCodeLine{00548\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00549\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00550\ \ \ std::wstring\ temp\ =\ std::to\_wstring(1\ +\ now\_tm-\/>tm\_mon);}
+\DoxyCodeLine{00551\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00552\ \}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a89e71fb8c89d90428c6785298d91d596}{Kernel::SysTime::DayOfWeekW}}()\ \{}
+\DoxyCodeLine{00555\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00556\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00557\ \ \ \textcolor{keywordflow}{return}\ std::to\_wstring(now\_tm-\/>tm\_wday);}
+\DoxyCodeLine{00558\ \}}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae52f4b8ebb9ffcab2d1fed312b90ceb5}{Kernel::SysTime::DayW}}()\ \{}
+\DoxyCodeLine{00561\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00562\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00563\ \ \ std::wstring\ temp\ =\ std::to\_wstring(now\_tm-\/>tm\_mday);}
+\DoxyCodeLine{00564\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00565\ \}}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a2d277951754def0e3c80693780cfe2bb}{Kernel::SysTime::HourW}}()\ \{}
+\DoxyCodeLine{00568\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00569\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00570\ \ \ std::wstring\ temp\ =\ std::to\_wstring(now\_tm-\/>tm\_hour);}
+\DoxyCodeLine{00571\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00572\ \}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aebbcbb6a7c9134d1ac9cad11170ac452}{Kernel::SysTime::MinuteW}}()\ \{}
+\DoxyCodeLine{00575\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00576\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00577\ \ \ std::wstring\ temp\ =\ std::to\_wstring(now\_tm-\/>tm\_min);}
+\DoxyCodeLine{00578\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00579\ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0d3aec7f0c5d482144fabd66bbaffd3a}{Kernel::SysTime::SecondW}}()\ \{}
+\DoxyCodeLine{00582\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00583\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00584\ \ \ std::wstring\ temp\ =\ std::to\_wstring(now\_tm-\/>tm\_sec);}
+\DoxyCodeLine{00585\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ L\textcolor{stringliteral}{"{}0"{}}\ :\ L\textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00586\ \}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a7d95c37f5c26681990bdec1cbf16f0c4}{Kernel::SysTime::MillisecondsW}}()\ \{}
+\DoxyCodeLine{00589\ \ \ \textcolor{keyword}{auto}\ ms\ =\ std::chrono::duration\_cast<std::chrono::milliseconds>(}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime.time\_since\_epoch())\ \%}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ 1000;}
+\DoxyCodeLine{00592\ \ \ std::wstring\ temp\ =\ std::to\_wstring(ms.count());}
+\DoxyCodeLine{00593\ \ \ \textcolor{keywordflow}{return}\ std::wstring(3\ -\/\ temp.size(),\ L\textcolor{charliteral}{'0'})\ +\ temp;}
+\DoxyCodeLine{00594\ \}}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a4f7b8a6dea38b2d7dbd2cfe1b3332a7a}{Kernel::SysTime::YearA}}()\ \{}
+\DoxyCodeLine{00597\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00598\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00599\ \ \ \textcolor{keywordflow}{return}\ std::to\_string(1900\ +\ now\_tm-\/>tm\_year);}
+\DoxyCodeLine{00600\ \}}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0b8b9e41e040adebf7973a7ba816ad80}{Kernel::SysTime::MonthA}}()\ \{}
+\DoxyCodeLine{00603\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00604\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00605\ \ \ std::string\ temp\ =\ std::to\_string(1\ +\ now\_tm-\/>tm\_mon);}
+\DoxyCodeLine{00606\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00607\ \}}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aafedec0448870c8772d62cd2f098520b}{Kernel::SysTime::DayOfWeekA}}()\ \{}
+\DoxyCodeLine{00610\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00611\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00612\ \ \ \textcolor{keywordflow}{return}\ std::to\_string(now\_tm-\/>tm\_wday);}
+\DoxyCodeLine{00613\ \}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a60759b629f8a77a736ed65e0e9bf0cd9}{Kernel::SysTime::DayA}}()\ \{}
+\DoxyCodeLine{00616\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00617\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00618\ \ \ std::string\ temp\ =\ std::to\_string(now\_tm-\/>tm\_mday);}
+\DoxyCodeLine{00619\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00620\ \}}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6c1508109e049a69d46907dc3302518f}{Kernel::SysTime::HourA}}()\ \{}
+\DoxyCodeLine{00623\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00624\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00625\ \ \ std::string\ temp\ =\ std::to\_string(now\_tm-\/>tm\_hour);}
+\DoxyCodeLine{00626\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00627\ \}}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad6c34b02d263e66a73ae85261373c995}{Kernel::SysTime::MinuteA}}()\ \{}
+\DoxyCodeLine{00630\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00631\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00632\ \ \ std::string\ temp\ =\ std::to\_string(now\_tm-\/>tm\_min);}
+\DoxyCodeLine{00633\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00634\ \}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6d12a06f2916aba75a95897037f6dea3}{Kernel::SysTime::SecondA}}()\ \{}
+\DoxyCodeLine{00637\ \ \ time\_t\ now\_c\ =\ std::chrono::system\_clock::to\_time\_t(\mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime);}
+\DoxyCodeLine{00638\ \ \ tm\ *now\_tm\ =\ localtime(\&now\_c);}
+\DoxyCodeLine{00639\ \ \ std::string\ temp\ =\ std::to\_string(now\_tm-\/>tm\_sec);}
+\DoxyCodeLine{00640\ \ \ \textcolor{keywordflow}{return}\ (temp.size()\ ==\ 1\ ?\ \textcolor{stringliteral}{"{}0"{}}\ :\ \textcolor{stringliteral}{"{}"{}})\ +\ temp;}
+\DoxyCodeLine{00641\ \}}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_af121d105a9ebfda9cf9df788c080c31e}{Kernel::SysTime::MillisecondsA}}()\ \{}
+\DoxyCodeLine{00644\ \ \ \textcolor{keyword}{auto}\ ms\ =\ std::chrono::duration\_cast<std::chrono::milliseconds>(}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad0f032ba28a11923aa7b9086c71e93a3}{\_vars}}.SystemTime.time\_since\_epoch())\ \%}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ 1000;}
+\DoxyCodeLine{00647\ \ \ std::string\ temp\ =\ std::to\_string(ms.count());}
+\DoxyCodeLine{00648\ \ \ \textcolor{keywordflow}{return}\ std::string(3\ -\/\ temp.size(),\ \textcolor{charliteral}{'0'})\ +\ temp;}
+\DoxyCodeLine{00649\ \}}
+\DoxyCodeLine{00650\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \textcolor{preprocessor}{\#ifdef\ RG\_UTF}}
+\DoxyCodeLine{00653\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a018e8ce6b2e993e19e4a4b1b3da07c72}{Kernel::SysTime::Year}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae78786228f6ca8b5641db85251f6e39b}{Kernel::SysTime::YearW}}();\ \}}
+\DoxyCodeLine{00654\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a85257119bc5d41a4e4d375a377b315b5}{Kernel::SysTime::Month}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a802483d53d5672c0d61ad294c823b124}{Kernel::SysTime::MonthW}}();\ \}}
+\DoxyCodeLine{00655\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aefe188a6b58f1d4ba2d54942b9b77b47}{Kernel::SysTime::DayOfWeek}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a89e71fb8c89d90428c6785298d91d596}{Kernel::SysTime::DayOfWeekW}}();\ \}}
+\DoxyCodeLine{00656\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_adf7872fdd0278a9ca9324b20c8a1ced0}{Kernel::SysTime::Day}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ae52f4b8ebb9ffcab2d1fed312b90ceb5}{Kernel::SysTime::DayW}}();\ \}}
+\DoxyCodeLine{00657\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a12e35cdefe06fc62048990e948cd7b01}{Kernel::SysTime::Hour}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a2d277951754def0e3c80693780cfe2bb}{Kernel::SysTime::HourW}}();\ \}}
+\DoxyCodeLine{00658\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a58d41ac326e518e90597c2090faf55a8}{Kernel::SysTime::Minute}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aebbcbb6a7c9134d1ac9cad11170ac452}{Kernel::SysTime::MinuteW}}();\ \}}
+\DoxyCodeLine{00659\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a488e58ae9403dfc84edafc40629fa06c}{Kernel::SysTime::Second}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0d3aec7f0c5d482144fabd66bbaffd3a}{Kernel::SysTime::SecondW}}();\ \}}
+\DoxyCodeLine{00660\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a25af2f1bb39cac9d8fcf22f004a52ecf}{Kernel::SysTime::Milliseconds}}()\ \{}
+\DoxyCodeLine{00661\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a7d95c37f5c26681990bdec1cbf16f0c4}{Kernel::SysTime::MillisecondsW}}();}
+\DoxyCodeLine{00662\ \}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00665\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a018e8ce6b2e993e19e4a4b1b3da07c72}{Kernel::SysTime::Year}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a4f7b8a6dea38b2d7dbd2cfe1b3332a7a}{Kernel::SysTime::YearA}}();\ \}}
+\DoxyCodeLine{00666\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a85257119bc5d41a4e4d375a377b315b5}{Kernel::SysTime::Month}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a0b8b9e41e040adebf7973a7ba816ad80}{Kernel::SysTime::MonthA}}();\ \}}
+\DoxyCodeLine{00667\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aefe188a6b58f1d4ba2d54942b9b77b47}{Kernel::SysTime::DayOfWeek}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_aafedec0448870c8772d62cd2f098520b}{Kernel::SysTime::DayOfWeekA}}();\ \}}
+\DoxyCodeLine{00668\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_adf7872fdd0278a9ca9324b20c8a1ced0}{Kernel::SysTime::Day}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a60759b629f8a77a736ed65e0e9bf0cd9}{Kernel::SysTime::DayA}}();\ \}}
+\DoxyCodeLine{00669\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a12e35cdefe06fc62048990e948cd7b01}{Kernel::SysTime::Hour}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6c1508109e049a69d46907dc3302518f}{Kernel::SysTime::HourA}}();\ \}}
+\DoxyCodeLine{00670\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a58d41ac326e518e90597c2090faf55a8}{Kernel::SysTime::Minute}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_ad6c34b02d263e66a73ae85261373c995}{Kernel::SysTime::MinuteA}}();\ \}}
+\DoxyCodeLine{00671\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a488e58ae9403dfc84edafc40629fa06c}{Kernel::SysTime::Second}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a6d12a06f2916aba75a95897037f6dea3}{Kernel::SysTime::SecondA}}();\ \}}
+\DoxyCodeLine{00672\ \mbox{\hyperlink{src_2Kernel_2define_8h_a3dce7e7b7b91d22aae8e829521920979}{rg\_string}}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_a25af2f1bb39cac9d8fcf22f004a52ecf}{Kernel::SysTime::Milliseconds}}()\ \{}
+\DoxyCodeLine{00673\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1SysTime_af121d105a9ebfda9cf9df788c080c31e}{Kernel::SysTime::MillisecondsA}}();}
+\DoxyCodeLine{00674\ \}}
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00676\ \textcolor{comment}{//\ SetColorCMD}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00678\ \textcolor{keyword}{static}\ HANDLE\ RG\_MainConsole\ =\ GetStdHandle(STD\_OUTPUT\_HANDLE);}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \textcolor{keywordtype}{void}\ Kernel::SetColorTCMD(\mbox{\hyperlink{include_2Kernel_2typedef_8h_ab24077addd3b7b13e086987ff296552c}{WORD}}\ col)\ \{}
+\DoxyCodeLine{00681\ \ \ SetConsoleTextAttribute(RG\_MainConsole,\ col);}
+\DoxyCodeLine{00682\ \}}
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\#elif\ defined(RG\_LINUX)}}
+\DoxyCodeLine{00684\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a2745a8a286f846c6faa10a3bce13af5a}{Kernel::SetColorConsole}}(\mbox{\hyperlink{include_2Kernel_2typedef_8h_ab24077addd3b7b13e086987ff296552c}{WORD}}\ col)\ \{}
+\DoxyCodeLine{00685\ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)x1b["{}}\ +\ std::to\_string(col)\ +\ \textcolor{stringliteral}{"{}m"{}};}
+\DoxyCodeLine{00686\ \}}
+\DoxyCodeLine{00687\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_ae55df9aba4933d287989214640c10bf7}{Kernel::SetTrueColorConsole}}(Kernel::COLOR3D<uint8\_t>\ in,}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997b}{Rinegine::CONSOLE\_COLOR}}\ type)\ \{}
+\DoxyCodeLine{00689\ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ Rinegine::CONSOLE\_COLOR::C\_BACKGROUND)}
+\DoxyCodeLine{00690\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)x1b[48;2;"{}}\ <<\ std::to\_string(in.r)\ <<\ \textcolor{stringliteral}{"{};"{}}}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::to\_string(in.g)\ <<\ \textcolor{stringliteral}{"{};"{}}\ <<\ std::to\_string(in.b)\ <<\ \textcolor{stringliteral}{"{}m"{}};}
+\DoxyCodeLine{00692\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00693\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)x1b[38;2;"{}}\ <<\ std::to\_string(in.r)\ <<\ \textcolor{stringliteral}{"{};"{}}}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::to\_string(in.g)\ <<\ \textcolor{stringliteral}{"{};"{}}\ <<\ std::to\_string(in.b)\ <<\ \textcolor{stringliteral}{"{}m"{}};}
+\DoxyCodeLine{00695\ \}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00697\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a2745a8a286f846c6faa10a3bce13af5a}{Kernel::SetColorConsole}}(\mbox{\hyperlink{include_2Kernel_2typedef_8h_ab24077addd3b7b13e086987ff296552c}{WORD}}\ col)\ \{}
+\DoxyCodeLine{00698\ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nTrying\ to\ change\ color\(\backslash\)nError!\ MacOS\ (and\ other\ OS\ other\ than\ "{}}}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Windows\ and\ Linux)\ is\ not\ supported\(\backslash\)n"{}};}
+\DoxyCodeLine{00700\ \}}
+\DoxyCodeLine{00701\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00703\ \textcolor{comment}{//\ Substring//TODO!!!!}}
+\DoxyCodeLine{00704\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00705\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \&a,\ \textcolor{keyword}{const}\ std::string\ \&b)\ \{}
+\DoxyCodeLine{00706\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ b.size();\ ++i)\ \{}
+\DoxyCodeLine{00707\ \ \ \ \ \textcolor{keywordflow}{if}\ ((\&a)[i]\ !=\ b[i]\ ||\ (\&a)[i]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00709\ \ \ \ \ \}}
+\DoxyCodeLine{00710\ \ \ \}}
+\DoxyCodeLine{00711\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00712\ \}}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ \&a,\ \textcolor{keyword}{const}\ std::wstring\ \&b)\ \{}
+\DoxyCodeLine{00715\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ b.size();\ ++i)\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \textcolor{keywordflow}{if}\ ((\&a)[i]\ !=\ b[i]\ ||\ (\&a)[i]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00718\ \ \ \ \ \}}
+\DoxyCodeLine{00719\ \ \ \}}
+\DoxyCodeLine{00720\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00721\ \}}
+\DoxyCodeLine{00722\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ std::string\ \&a,\ \textcolor{keyword}{const}\ std::string\ \&b)\ \{}
+\DoxyCodeLine{00723\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ b.size();\ ++i)\ \{}
+\DoxyCodeLine{00724\ \ \ \ \ \textcolor{keywordflow}{if}\ ((a)[i]\ !=\ b[i]\ ||\ (a)[i]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00726\ \ \ \ \ \}}
+\DoxyCodeLine{00727\ \ \ \}}
+\DoxyCodeLine{00728\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00729\ \}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ std::string\ \&a,\ \textcolor{keyword}{const}\ std::wstring\ \&b)\ \{}
+\DoxyCodeLine{00732\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ b.size();\ ++i)\ \{}
+\DoxyCodeLine{00733\ \ \ \ \ \textcolor{keywordflow}{if}\ ((a)[i]\ !=\ b[i]\ ||\ (a)[i]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'})\ \{}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00735\ \ \ \ \ \}}
+\DoxyCodeLine{00736\ \ \ \}}
+\DoxyCodeLine{00737\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00738\ \}}
+\DoxyCodeLine{00739\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00740\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \&a,\ \textcolor{keyword}{const}\ std::string\ \&b)\ \{}
+\DoxyCodeLine{00741\ \ \ \textcolor{keywordflow}{return}\ (b.size()\ >\ 0\ \&\&\ a\ ==\ b[0]);}
+\DoxyCodeLine{00742\ \}}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}\ \&a,\ \textcolor{keyword}{const}\ std::wstring\ \&b)\ \{}
+\DoxyCodeLine{00745\ \ \ \textcolor{keywordflow}{return}\ (b.size()\ >\ 0\ \&\&\ a\ ==\ b[0]);}
+\DoxyCodeLine{00746\ \}}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ std::string\ \&a,\ \textcolor{keyword}{const}\ std::string\ \&b)\ \{}
+\DoxyCodeLine{00749\ \ \ \textcolor{keywordflow}{return}\ (b.size()\ >=\ a.size()\ \&\&\ b.compare(0,\ a.size(),\ a)\ ==\ 0);}
+\DoxyCodeLine{00750\ \}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aac149e34e173908cbbd37f72052c6e3d}{Kernel::isSubstringAt}}(\textcolor{keyword}{const}\ std::string\ \&a,\ \textcolor{keyword}{const}\ std::wstring\ \&b)\ \{}
+\DoxyCodeLine{00753\ \ \ \textcolor{keywordflow}{return}\ (b.size()\ >=\ a.size()\ \&\&}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ std::wstring(b.begin(),\ b.begin()\ +\ a.size())\ ==}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::wstring(a.begin(),\ a.end()));}
+\DoxyCodeLine{00756\ \}}
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TODO!!!}}
+\DoxyCodeLine{00759\ \textcolor{comment}{//\ Open}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00761\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::string\ path)\ \{}
+\DoxyCodeLine{00762\ \ \ ShellExecuteA(0,\ \textcolor{stringliteral}{"{}open"{}},\ path.c\_str(),\ NULL,\ NULL,\ SW\_SHOWDEFAULT);}
+\DoxyCodeLine{00763\ \}}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::wstring\ path)\ \{}
+\DoxyCodeLine{00766\ \ \ ShellExecuteW(0,\ L\textcolor{stringliteral}{"{}open"{}},\ path.c\_str(),\ NULL,\ NULL,\ SW\_SHOWDEFAULT);}
+\DoxyCodeLine{00767\ \}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\#elif\ defined(RG\_LINUX)}}
+\DoxyCodeLine{00769\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::string\ path)\ \{}
+\DoxyCodeLine{00770\ \ \ \textcolor{comment}{//\ std::filesystem::path\ fs\_path(path);}}
+\DoxyCodeLine{00771\ \ \ \textcolor{comment}{//\ if\ (std::filesystem::exists(fs\_path)\ ||\ check)\ \{}}
+\DoxyCodeLine{00772\ \ \ \ \ system((\textcolor{stringliteral}{"{}xdg-\/open\ "{}}\ +\ path).c\_str());}
+\DoxyCodeLine{00773\ \ \ \textcolor{comment}{//\ \}\ else\ \{}}
+\DoxyCodeLine{00774\ \ \ \ \ \textcolor{comment}{//\ RG\_LOG\_LOCK\_DEBUG("{}Open:\ path\ '"{}\ +\ path\ +\ "{}'\ does\ not\ exist"{});}}
+\DoxyCodeLine{00775\ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00776\ \}}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00778\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::wstring\ path)\ \{}
+\DoxyCodeLine{00779\ \ \ \textcolor{comment}{//\ std::filesystem::path\ fs\_path(path);}}
+\DoxyCodeLine{00780\ \ \ \textcolor{comment}{//\ if\ (std::filesystem::exists(fs\_path)\ ||\ check)\ \{}}
+\DoxyCodeLine{00781\ \ \ \ \ system((\textcolor{stringliteral}{"{}xdg-\/open\ "{}}\ +\ std::string(path.begin(),\ path.end())).c\_str());}
+\DoxyCodeLine{00782\ \ \ \textcolor{comment}{//\ \}\ else\ \{}}
+\DoxyCodeLine{00783\ \ \ \ \ \textcolor{comment}{//\ RG\_LOG\_LOCK\_DEBUG(L"{}Open:\ path\ '"{}\ +\ path\ +\ L"{}'\ does\ not\ exist"{});}}
+\DoxyCodeLine{00784\ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00785\ \}}
+\DoxyCodeLine{00786\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00787\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::string\ path)\ \{}
+\DoxyCodeLine{00788\ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nTrying\ to\ open\ file\(\backslash\)nError!\ MacOS\ (and\ other\ OS\ other\ than\ "{}}}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Windows\ and\ Linux)\ is\ not\ supported\(\backslash\)n"{}};}
+\DoxyCodeLine{00790\ \}}
+\DoxyCodeLine{00791\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a22115859be7d695b57a2235daf877db6}{Kernel::Open}}(std::wstring\ path)\ \{}
+\DoxyCodeLine{00792\ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nTrying\ to\ open\ file\(\backslash\)nError!\ MacOS\ (and\ other\ OS\ other\ than\ "{}}}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Windows\ and\ Linux)\ is\ not\ supported\(\backslash\)n"{}};}
+\DoxyCodeLine{00794\ \}}
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00797\ std::string\ \mbox{\hyperlink{classRinegine_1_1Kernel_a6d2e82cd6277488b04f0b446f80bd670}{Kernel::tolowstr}}(std::string\ str)\ \{}
+\DoxyCodeLine{00798\ \ \ std::transform(str.begin(),\ str.end(),\ str.begin(),}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ c)\ \{\ return\ std::tolower(c);\ \});}
+\DoxyCodeLine{00800\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00801\ \}}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ std::wstring\ \mbox{\hyperlink{classRinegine_1_1Kernel_a028fb178e360f804932192a270c69161}{Kernel::tolowwstr}}(std::wstring\ str)\ \{}
+\DoxyCodeLine{00804\ \ \ std::transform(str.begin(),\ str.end(),\ str.begin(),\ [](\textcolor{keywordtype}{wchar\_t}\ c)\ \{}
+\DoxyCodeLine{00805\ \ \ \ \ return\ std::towlower(static\_cast<wint\_t>(c));}
+\DoxyCodeLine{00806\ \ \ \});}
+\DoxyCodeLine{00807\ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{00808\ \}}
+\DoxyCodeLine{00811\ \}\ \textcolor{comment}{//\ namespace\ Rinegine}}
+
+\end{DoxyCode}

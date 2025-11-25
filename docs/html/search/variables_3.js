@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['g_0',['g',['../structRinegine_1_1Kernel_1_1COLOR3D.html#aa20038f731e0381df1c5e38f05fb8485',1,'Rinegine::Kernel::COLOR3D::g'],['../structRinegine_1_1Kernel_1_1COLOR4D.html#a4df1646b1e7145138fd7c1b7ca733dce',1,'Rinegine::Kernel::COLOR4D::g']]]
+  ['debug_0',['debug',['../structRinegine_1_1Kernel_1_1Debug_1_1DebugVars.html#a1fa631b93cb9c6d478c9292e269ac7ab',1,'Rinegine::Kernel::Debug::DebugVars']]]
 ];

@@ -1,12 +1,15 @@
 var classRinegine_1_1Kernel_1_1Lock =
 [
     [ "CountPointers", "structRinegine_1_1Kernel_1_1Lock_1_1CountPointers.html", null ],
-    [ "addl", "classRinegine_1_1Kernel_1_1Lock.html#a7f758c69ff26182df92d7dfc471d536a", null ],
-    [ "addl", "classRinegine_1_1Kernel_1_1Lock.html#affc5556a68f6c46f8b91af2f5e7b317a", null ],
-    [ "s_delete", "classRinegine_1_1Kernel_1_1Lock.html#a2caa08ee7b32a69b6343c00ecf95c840", null ],
-    [ "s_fast_delete", "classRinegine_1_1Kernel_1_1Lock.html#a041e21fbcd6809265cffc82a74b0f1ad", null ],
-    [ "s_fast_new", "classRinegine_1_1Kernel_1_1Lock.html#a0d003cdc85fd44533f0b30a6f038fec5", null ],
-    [ "s_new", "classRinegine_1_1Kernel_1_1Lock.html#a5f576db9a84c1d52a84f18531899b36a", null ],
+    [ "LogVars", "structRinegine_1_1Kernel_1_1Lock_1_1LogVars.html", "structRinegine_1_1Kernel_1_1Lock_1_1LogVars" ],
+    [ "addl", "classRinegine_1_1Kernel_1_1Lock.html#a582255a29ff01c0579ea4e912454a0a1", null ],
+    [ "addl", "classRinegine_1_1Kernel_1_1Lock.html#ad117fce124d7e8e84f709354fe5d3694", null ],
+    [ "s_delete", "classRinegine_1_1Kernel_1_1Lock.html#abbc2f564a8bec3eee6c358471840cdc7", null ],
+    [ "s_fast_delete", "classRinegine_1_1Kernel_1_1Lock.html#afbb3da14dfebbfb75711cf52beb3508f", null ],
+    [ "s_fast_new", "classRinegine_1_1Kernel_1_1Lock.html#a9ca846bfb09d0e4e0fdda74ebeebaa35", null ],
+    [ "s_new", "classRinegine_1_1Kernel_1_1Lock.html#aeaba848ee95c744b0d29e99cfe45401a", null ],
+    [ "s_page", "classRinegine_1_1Kernel_1_1Lock.html#aa2e9eb8b6c822cdf301b6c4783d8bd17", null ],
     [ "Kernel", "classRinegine_1_1Kernel_1_1Lock.html#a3807a3ebd0e05ca8cb4d928025a943d2", null ],
-    [ "_vars", "classRinegine_1_1Kernel_1_1Lock.html#a38ff1e04452c785d7360a45acce17790", null ]
+    [ "_vars", "classRinegine_1_1Kernel_1_1Lock.html#ae06520ab467326d9af009b788f32fd68", null ],
+    [ "page_size", "classRinegine_1_1Kernel_1_1Lock.html#ad593868671024ac0c8a51cfcdf2d72d7", null ]
 ];

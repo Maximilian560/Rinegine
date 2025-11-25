@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['other_5fdefine_2eh_0',['other_define.h',['../other__define_8h.html',1,'']]]
+  ['net_2eh_0',['Net.h',['../Net_8h.html',1,'']]],
+  ['neural_2eh_1',['Neural.h',['../Neural_8h.html',1,'']]]
 ];
