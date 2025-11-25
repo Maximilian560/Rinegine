@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['types_0',['Types',['../namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0b',1,'Rinegine::Log']]]
+  ['s_5fdelete_5ferrors_0',['s_delete_errors',['../namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5',1,'Rinegine']]]
 ];

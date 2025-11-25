@@ -1,0 +1,83 @@
+\doxysection{typedef.\+h}
+\hypertarget{include_2Kernel_2typedef_8h_source}{}\label{include_2Kernel_2typedef_8h_source}\index{modules/include/Kernel/typedef.h@{modules/include/Kernel/typedef.h}}
+\mbox{\hyperlink{include_2Kernel_2typedef_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#undef\ RG\_HERE\_FILE\_NAME}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ RG\_HERE\_FILE\_NAME\ "{}kernel/typedef"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}};}
+\DoxyCodeLine{00006\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}};}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ uint8\_t\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a33a5e996e7a90acefb8b1c0bea47e365}{uint8}};}
+\DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_ac2a9e79eb120216f855626495b7bd18a}{uint16}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ int16\_t\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_aa0d0fdc87fd135ef2bedb030901cdb9c}{int16}};}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ RG\_WIN}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \_\_int32\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a2a685d51a631e16b7001141c78b45b8a}{int32}};}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ \_\_int32\_t\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a2a685d51a631e16b7001141c78b45b8a}{int32}};}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ WORD}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{include_2Kernel_2typedef_8h_ab24077addd3b7b13e086987ff296552c}{WORD}};}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ DWORD}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ uint32\_t\ \mbox{\hyperlink{include_2Kernel_2typedef_8h_af483253b2143078cede883fc3c111ad2}{DWORD}};}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_ae8d1bac9e4e18b4d8ceab3bbb0bceddb}{lint}};}
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{src_2Kernel_2typedef_8h_a31c81a77cfd373514f7878719897fca6}{luint}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine}{Rinegine}}\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997b}{CONSOLE\_COLOR}}\ \{}
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997baaa9f217232225a61a0a033f750962c91}{C\_BLACK}}\ =\ 0,}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997baa94747a661fd57fc8a7a50481a36b334}{C\_RED}},}
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba9777757f8b64dd39fe385b3aec8e286d}{C\_GREEN}},}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997baff31d45668b3771b40f3e6f958b47280}{C\_YELLOW}},}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997bab5b441f59d9ec3a6e2ae3ddb98a9384b}{C\_BLUE}},}
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba08e0dd38d0aa2b108e57ffffddfad183}{C\_MAGENTA}},}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba20c4eaca5f30f080c7ff469053ce62ef}{C\_CYAN}},}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba337d0aaf0c3de2c66e74f9c98a79f698}{C\_WHITE}},}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba039b0635b7e5f1d116bcd85547e475f5}{C\_TEXT}}\ =\ 30,}
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997baa42914bad6402812f2758eb646fd5315}{C\_BACKGROUND}}\ =\ 40,}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{namespaceRinegine_a3e7ba71d5bda62da79d6e1450a0a997ba0d2a962b7097b8bc13b755a89b7a475c}{C\_BRIGHT}}\ =\ 60}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{namespace\ }Log\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0b}{Types}}\ \{\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0ba8ef33b0d1c44d1685c3a034bb586129a}{CRITICAL}},\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0bacc694ab48615bdc9782aec80472bf04e}{ERR}},\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0ba5b8917f45e88eb36403517f862c7649a}{WARNING}},\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0ba1a880d0766131cbea0b01a342c730412}{INFO}},\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0ba69b0302a87e618d45c39d40a33ee836d}{DEBUG}},\ \mbox{\hyperlink{namespaceRinegine_1_1Log_ac2d51dd91b2f17cb47fb12e4f040cc0baf50ecf3f224d86e5f5f5d057586d2940}{MEM}}\ \};}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceRinegine_a7d6663a78927c7ec98eaba5916a0253b}{Mouse\_State}}\ \{}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{namespaceRinegine_a7d6663a78927c7ec98eaba5916a0253bafb8c4a18adbbacf9f3e6cdf1c9585bf6}{MNPress}},}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{namespaceRinegine_a7d6663a78927c7ec98eaba5916a0253ba5066f7b56cf65dfc78d58d6d5c3e18ae}{MPress}},}
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{namespaceRinegine_a7d6663a78927c7ec98eaba5916a0253ba0f4a16d9bbc142100de00dceaa7b0235}{MRelease}},}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09a}{ErrorRinegine}}\ \{}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aaee36da8ca2876600de0d98c4aa744c64}{RG\_OWN\_ERROR}}\ =\ -\/1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/1}}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa09dccb17958f0ef5ed7a671b92c3ae77}{RG\_ERROR\_WINDOWS\_NO\_CREATED}},\ \ \ \ \ \ \ \textcolor{comment}{//\ 0}}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa5635bba534c0e1a6ce47ee695cccace0}{RG\_ERROR\_FREETYPE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa81f11f71f52618b161e33308adbce045}{RG\_ERROR\_FREETYPE\_FONTS\_NOT\_FOUND}},\ \textcolor{comment}{//\ 2}}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aaaaf96a21a54da507eeee7c4c066ff16a}{RG\_ERROR\_OUT\_OF\_MEMORY}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3}}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa133d43f658f7ae863d2467af5c8616f7}{RG\_ERROR\_FREETYPE\_CHAR\_NOT\_LOAD}},\ \ \ \textcolor{comment}{//\ 4}}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aaf319f97c57a91cc3b9744508115dc999}{RG\_ERROR\_GLFW\_INIT\_ERR}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5}}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa4ee162450d8e869e1105208c0f6b924a}{RG\_ERROR\_FILE\_NOT\_FOUND}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 6}}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aad98e7693d014411a0fe2e26b42897e5b}{RG\_ERROR\_RGARRAY\_SIZE0}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7}}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aafeac16669b3146746e9cafefa25881cc}{RG\_ERROR\_RGARRAY\_SIZE1}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 8}}
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aaec12fc2491283baa66c2ae3579db2f95}{RG\_ERROR\_RGARRAY\_SIZE2}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 9}}
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aab49fc484683e37bda590869db49bc16c}{RG\_ERROR\_LOAD\_NOT4CNT\_IMAGE}},\ \ \ \ \ \ \ \textcolor{comment}{//\ 10}}
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa04823e9478c86ed5f2a6c26fe4632fa2}{RG\_ERROR\_MATERIAL\_MISUSE}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 11}}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aafb597354228015e60bb8554cda24a901}{RG\_ERROR\_RGMATRIX\_SIZE0}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 12}}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa3cbe30c42f46994a7697c4b873b276db}{RG\_ERROR\_LOAD\_TEXTURE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 13}}
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa97fb21e05b389ccf6783397ee35ba5d2}{RG\_ERROR\_PLANET\_NOT\_FOUND}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 14}}
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa481fb1d5e3a9a944131b4a5e52a6f07b}{RG\_ERROR\_BLOCK\_TYPE\_INCORRECT}},\ \ \ \ \ \textcolor{comment}{//\ 15}}
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{namespaceRinegine_a4dd0da84bddd1747dd009653bffbc09aa561e5aea5af116966f1f68879ac9e395}{RG\_ERROR\_FIND\_TEXTURE}},\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 16}}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespaceRinegine_a3cc38eabb5e33e65e3c167533798cea5}{s\_delete\_errors}}\ \{}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{namespaceRinegine_a3cc38eabb5e33e65e3c167533798cea5a969fef8d1f94b3968a9208eb9d8b05ea}{SD\_NO\_ERR}}\ =\ 0,}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{namespaceRinegine_a3cc38eabb5e33e65e3c167533798cea5afd7108f8067f38d34078a926ea0541d9}{SD\_NO\_RG\_TYPE}},}
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{namespaceRinegine_a3cc38eabb5e33e65e3c167533798cea5a21bb8745c7cd827281962b621fb97991}{SD\_PTR\_IS\_NULLPTR}},}
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{namespaceRinegine_a3cc38eabb5e33e65e3c167533798cea5aae743bf6847bcd6a84183c0965996573}{SD\_DEALOC\_ERROR}}}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \}\ \textcolor{comment}{//\ namespace\ Rinegine}}
+
+\end{DoxyCode}

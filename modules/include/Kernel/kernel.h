@@ -18,7 +18,7 @@ public:
   static int InterPoint(int, wchar_t **, int (*)()); // [done]
   static void init();                                // todo
 
-  class Lock {
+  class Lock { // LOCK
     friend class Kernel;
 
     struct LogVars;
@@ -45,7 +45,7 @@ public:
 
     template <class type> struct CountPointers;
   };
-
+  // code
   static std::wstring utf8_decode(const std::string &); // [done]
   static std::string utf8_encode(const std::wstring &); // [done]
 
@@ -146,7 +146,10 @@ public:
     static rg_string
     Milliseconds(); // [done,outdate], may do some bug. In fact - outdate
   };
-  static void SetColorConsole(WORD);                                   // [done]
+  static void SetColorConsole(WORD); // [done]
+  static void SetTrueColorConsole(
+      COLOR3D<uint8_t>,
+      Rinegine::CONSOLE_COLOR = Rinegine::CONSOLE_COLOR::C_TEXT);      // [done]
   static bool isSubstringAt(const char &, const std::string &);        // [done]
   static bool isSubstringAt(const wchar_t &, const std::wstring &);    // [done]
   static bool isSubstringAt(const std::string &, const std::string &); // [done]

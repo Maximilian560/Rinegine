@@ -30,6 +30,7 @@ var NAVTREE =
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ],
         [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
@@ -41,7 +42,6 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
         [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -60,12 +60,13 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"Addons_2set_8h.html",
-"classRinegine_1_1Kernel_1_1Array.html#a3825708630693b4084a52c5eea57cb4d",
-"classRinegine_1_1Kernel_1_1Matrix.html#a7d929b14ae9475bbf78ef6841ec2ba28",
-"classRinegine_1_1Kernel_1_1RG__Matrix3D.html#a364b4c7f0bd272995a55229418c4be08",
-"define_8h.html#a8592f6cca821e2a8005ba3928b5a5754",
-"structRinegine_1_1Kernel_1_1POINT2D.html#aee800b09f13f78857db3e7c0c4afe8fe"
+"Addons_8h.html",
+"classRinegine_1_1Kernel_1_1Array.html#a20e8e8d3f6bbd9daca41fbe900c2d443",
+"classRinegine_1_1Kernel_1_1Matrix.html#a4d022082c97cda514ee128ece385f043",
+"classRinegine_1_1Kernel_1_1RG__Matrix3D.html#a096d29dacdfa2ad95d6e7f867fc7b79a",
+"dir_aa187c60a548b04217569f42ac987c4a.html",
+"namespaceRinegine.html#aff6acb65ee18bced38394b361d8c5f49",
+"structRinegine_1_1Kernel_1_1Raw__Pointer.html#ad871758eb9d70ea7fcdb2332709a0083"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

@@ -3,8 +3,7 @@
 namespace Rinegine {
 // Console input
 int Kernel::RG_CMD(std::string command, bool print) {
-  RG_LOG_LOCK_INFO("Command run: \"" + rg_to_string(command) + "\"",
-                   print);
+  RG_LOG_LOCK_INFO("Command run: \"" + rg_to_string(command) + "\"", print);
   return system(command.c_str());
 }
 // TRY CATCH ERRORS
@@ -94,8 +93,9 @@ int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
 #endif
   int exit_code = 0;
   RG_CATCH_ERROR
-  
-  (void) argc;
+
+      (void)
+  argc;
   (void)argv;
   exit_code = own_main();
   RG_ERROR_LOG;
@@ -110,8 +110,9 @@ int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
 #endif
   int exit_code = 0;
   RG_CATCH_ERROR
-  
-  (void) argc;
+
+      (void)
+  argc;
   (void)argv;
   exit_code = own_main();
   RG_ERROR_LOG;
@@ -592,7 +593,6 @@ std::wstring Kernel::SysTime::MillisecondsW() {
   return std::wstring(3 - temp.size(), L'0') + temp;
 }
 
-// A-версии для согласованности с Windows
 std::string Kernel::SysTime::YearA() {
   time_t now_c = std::chrono::system_clock::to_time_t(_vars.SystemTime);
   tm *now_tm = localtime(&now_c);
@@ -684,6 +684,15 @@ void Kernel::SetColorTCMD(WORD col) {
 void Kernel::SetColorConsole(WORD col) {
   rg_cout << "\x1b[" + std::to_string(col) + "m";
 }
+void Kernel::SetTrueColorConsole(Kernel::COLOR3D<uint8_t> in,
+                                 Rinegine::CONSOLE_COLOR type) {
+  if (type == Rinegine::CONSOLE_COLOR::C_BACKGROUND)
+    rg_cout << "\x1b[48;2;" << std::to_string(in.r) << ";"
+            << std::to_string(in.g) << ";" << std::to_string(in.b) << "m";
+  else
+    rg_cout << "\x1b[38;2;" << std::to_string(in.r) << ";"
+            << std::to_string(in.g) << ";" << std::to_string(in.b) << "m";
+}
 #else
 void Kernel::SetColorConsole(WORD col) {
   rg_cout << "\nTrying to change color\nError! MacOS (and other OS other than "
@@ -758,17 +767,21 @@ void Kernel::Open(std::wstring path) {
 }
 #elif defined(RG_LINUX)
 void Kernel::Open(std::string path) {
-  std::filesystem::path fs_path(path);
-  if (std::filesystem::exists(fs_path)) {
+  // std::filesystem::path fs_path(path);
+  // if (std::filesystem::exists(fs_path) || check) {
     system(("xdg-open " + path).c_str());
-  }
+  // } else {
+    // RG_LOG_LOCK_DEBUG("Open: path '" + path + "' does not exist");
+  // }
 }
 
 void Kernel::Open(std::wstring path) {
-  std::filesystem::path fs_path(path);
-  if (std::filesystem::exists(fs_path)) {
+  // std::filesystem::path fs_path(path);
+  // if (std::filesystem::exists(fs_path) || check) {
     system(("xdg-open " + std::string(path.begin(), path.end())).c_str());
-  }
+  // } else {
+    // RG_LOG_LOCK_DEBUG(L"Open: path '" + path + L"' does not exist");
+  // }
 }
 #else
 void Kernel::Open(std::string path) {

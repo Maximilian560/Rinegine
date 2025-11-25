@@ -1,0 +1,54 @@
+\doxysection{pointer.\+h}
+\hypertarget{pointer_8h_source}{}\label{pointer_8h_source}\index{modules/src/Kernel/pointer/pointer.h@{modules/src/Kernel/pointer/pointer.h}}
+\mbox{\hyperlink{pointer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine}{Rinegine}}\ \{}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ init\ test}}
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a57dafc6d68c29fd1984f51741c848efc}{Kernel::Raw\_Pointer::is\_init}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}\ !=\ \textcolor{keyword}{nullptr};\ \}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ POINTER\ GET}}
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_ada3031dfea5772e720687eb4c58c6011}{Kernel::Raw\_Pointer::get}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}};\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ CONSTRUCTORs}}
+\DoxyCodeLine{00011\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_aca3d25ba66b62d760cc34388d326d3d9}{Kernel::Raw\_Pointer::Raw\_Pointer}}()\ :\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}(nullptr)\ \{\}}
+\DoxyCodeLine{00012\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_aca3d25ba66b62d760cc34388d326d3d9}{Kernel::Raw\_Pointer::Raw\_Pointer}}(\textcolor{keywordtype}{void}\ *in)\ :\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}(in)\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{s\_memtest}}(in))\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a6550394628002a42a7dd7cc5160b0e92}{typesize}}\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_abac73f72f74840f13662955bb996ff3e}{s\_get\_typesize}}(in);}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a7dd033ac30e92612739df8b9d76da6f6}{arrsize}}\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00016\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af9aad6dc1bc4a64f1e083405d1ecf175}{RG\_LOG\_INFO}}(\textcolor{stringliteral}{"{}Raw\ Pointer\ received\ a\ pointer\ that\ is\ not\ of\ type\ rg,\ array\ "{}}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}size\ and\ type\ not\ received"{}});}
+\DoxyCodeLine{00019\ \ \ \}}
+\DoxyCodeLine{00020\ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ INITs}}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_ae070bd19fd199149c5b79a6b515e2cc7}{Kernel::Raw\_Pointer::init}}()\ \{}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a04fb9a6509ebef2f3ad28b40fe613682}{clear}}();}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_aeaba848ee95c744b0d29e99cfe45401a}{Lock::s\_new}}(1,\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a6550394628002a42a7dd7cc5160b0e92}{typesize}});}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_ae070bd19fd199149c5b79a6b515e2cc7}{Kernel::Raw\_Pointer::init}}(\textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a04fb9a6509ebef2f3ad28b40fe613682}{clear}}();}
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}\ =\ in;}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ OPERATORs}}
+\DoxyCodeLine{00032\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer}{Kernel::Raw\_Pointer}}\ \&\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_afd81dc13c63008acdc1daf8bccfabc5e}{Kernel::Raw\_Pointer::operator=}}(\textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a04fb9a6509ebef2f3ad28b40fe613682}{clear}}();}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}\ =\ in;}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a32cadd94c741313fd30bcd20e002b8a6}{Kernel::Raw\_Pointer::operator-\/>}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}};\ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a04fb9a6509ebef2f3ad28b40fe613682}{Kernel::Raw\_Pointer::clear}}()\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}})\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_abbc2f564a8bec3eee6c358471840cdc7}{Lock::s\_delete}}(\mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}},\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a6550394628002a42a7dd7cc5160b0e92}{typesize}});}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ Kernel::Raw\_Pointer::operator\ \textcolor{keywordtype}{void}\ *()\ \textcolor{keyword}{const}\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a926042dff8069807f770933b0bb40c40}{ptr}};\ \}}
+\DoxyCodeLine{00046\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a3ee19871e62afa83cb1e79d574996e23}{Kernel::Raw\_Pointer::\string~Raw\_Pointer}}()\ \{\ \mbox{\hyperlink{structRinegine_1_1Kernel_1_1Raw__Pointer_a04fb9a6509ebef2f3ad28b40fe613682}{clear}}();\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \}\ \textcolor{comment}{//\ namespace\ Rinegine}}
+
+\end{DoxyCode}

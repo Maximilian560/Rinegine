@@ -1,0 +1,205 @@
+\doxysection{allocator\+\_\+old.\+h}
+\hypertarget{allocator__old_8h_source}{}\label{allocator__old_8h_source}\index{modules/src/Kernel/allocator/allocator\_old.h@{modules/src/Kernel/allocator/allocator\_old.h}}
+\mbox{\hyperlink{allocator__old_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine}{Rinegine}}\ \{}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceRinegine_1_1Lock}{Lock}}\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ template\ <class\ type>\ struct\ CountPointers\ \{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ inline\ static\ int\ count\ =\ 0;}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ \ inline\ static\ int\ size\ =\ 0;}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ \ \ inline\ static\ type\ *max\_pointer\ =\ nullptr;}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ \ \ inline\ static\ type\ *min\_pointer\ =\ nullptr;}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ inline\ static\ unsigned\ long\ long\ int\ MemUsed\ =\ 0;}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ std::atomic\_ullong\ \mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{MemUsed}}\ =\ 0;}
+\DoxyCodeLine{00015\ \}\ \textcolor{comment}{//\ namespace\ Lock}}
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_aeaba848ee95c744b0d29e99cfe45401a}{Kernel::Lock::s\_new}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&size,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&typesize)\ \{}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{char}\ *newmem\ =\ (\textcolor{keywordtype}{char}\ *)malloc(size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ +}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2);}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordflow}{if}\ (!newmem)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ 30\ \&\&\ !newmem;\ i++)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ newmem\ =\ (\textcolor{keywordtype}{char}\ *)malloc(size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ +}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (newmem\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_acf779cb1339a4d4168ed6e91a7095915}{RG\_LOG\_LOCK\_ERROR}}(\textcolor{stringliteral}{"{}Memory\ allocate\ error,\ retry:\ "{}}\ +\ std::to\_string(i)\ +}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}/"{}}\ +\ std::to\_string(30));}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}\ (newmem\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}MEMORY\ ALLOCATE\ ERROR"{}});}
+\DoxyCodeLine{00032\ \ \ \}}
+\DoxyCodeLine{00033\ \ \ newmem[0]\ =\ \textcolor{charliteral}{'R'};}
+\DoxyCodeLine{00034\ \ \ newmem[1]\ =\ \textcolor{charliteral}{'G'};}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *stypesize\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *)(newmem\ +\ 2);}
+\DoxyCodeLine{00036\ \ \ stypesize[0]\ =\ (\textcolor{keywordtype}{unsigned}\ int)typesize;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *ssize\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(stypesize\ +\ 1);}
+\DoxyCodeLine{00038\ \ \ ssize[0]\ =\ size;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ *out\ =\ (\textcolor{keywordtype}{void}\ *)(ssize\ +\ 1);}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{Rinegine::Lock::MemUsed}}\ +=\ size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ +}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ +\ \textcolor{keyword}{sizeof}(char)\ *\ 2;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_aff66cb5be0a62dec3cf9aa58e3bd6dd1}{RG\_LOG\_LOCK\_MEM}}(\textcolor{stringliteral}{"{}Mem\ aloc:\ "{}}\ +}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::to\_string(size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ +}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2)\ +}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}b,\ type:\ "{}}\ +\ std::to\_string(typesize));}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ RG\_MEM\_LIMIT}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{Rinegine::Lock::MemUsed}}\ >=\ RG\_MEM\_LIMIT)}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}Memory\ limit\ exceeded"{}});}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_a176c81898b285bb3152e71ec5e1b6401}{Kernel::s\_rawmemtest}}(\textcolor{keywordtype}{char}\ *in)\ \{}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordflow}{if}\ (in[0]\ ==\ \textcolor{charliteral}{'R'}\ \&\&\ in[1]\ ==\ \textcolor{charliteral}{'G'})}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00058\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{Kernel::s\_memtest}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordflow}{if}\ (in\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{char}\ *rawmem\ =}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(in)-\/1)\ -\/\ (2\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int));}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordflow}{if}\ (rawmem[1]\ ==\ \textcolor{charliteral}{'G'}\ \&\&\ rawmem[0]\ ==\ \textcolor{charliteral}{'R'})}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{Kernel::s\_get\_size}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{s\_memtest}}(in))}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}s\_get\_size:\ array\ is\ not\ rg\ type"{}});}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordflow}{return}\ (((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(in))\ -\/\ 1)[0];}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a8ebfeae83c3a34a84bfa0fee14ee8ebe}{to\_rrvalue}}(\textcolor{keywordtype}{char}\ *)\ in)\ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ in[i];}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ temp\_size\ -\/\ 1)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ std::endl;}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a8ebfeae83c3a34a84bfa0fee14ee8ebe}{to\_rrvalue}}(\textcolor{keywordtype}{wchar\_t}\ *)\ in)\ \{}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ std::wcout\ <<\ in[i];\ \textcolor{comment}{//\ TODO}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ temp\_size\ -\/\ 1)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ std::endl;}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a8ebfeae83c3a34a84bfa0fee14ee8ebe}{to\_rrvalue}}(std::string\ *)\ in)\ \{}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \mbox{\hyperlink{include_2Kernel_2define_8h_af8c97cf3ab1a6fd7be2200b5c7a57c7d}{rg\_to\_string}}(in[i]);}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(\mbox{\hyperlink{src_2Kernel_2define_8h_a8ebfeae83c3a34a84bfa0fee14ee8ebe}{to\_rrvalue}}(std::wstring\ *)\ in)\ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \mbox{\hyperlink{include_2Kernel_2define_8h_af8c97cf3ab1a6fd7be2200b5c7a57c7d}{rg\_to\_string}}(in[i])\ <<\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{00110\ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(std::string\ *in)\ \{}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \mbox{\hyperlink{include_2Kernel_2define_8h_af8c97cf3ab1a6fd7be2200b5c7a57c7d}{rg\_to\_string}}(in[i]);}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00122\ \}}
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{classRinegine_1_1Kernel_aa7e2a24bf09ea9c856f3d6c8470bf772}{Kernel::s\_print}}(std::wstring\ *in)\ \{}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{int}\ temp\_size\ =\ (int)\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{s\_get\_size}}(in);}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ temp\_size;\ i++)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{src_2Kernel_2define_8h_ae670483ad5699bd8d87bbed0c982b6b2}{rg\_cout}}\ <<\ \mbox{\hyperlink{include_2Kernel_2define_8h_af8c97cf3ab1a6fd7be2200b5c7a57c7d}{rg\_to\_string}}(in[i])\ <<\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordflow}{return}\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classRinegine_1_1Kernel_a98d07332bb49aa66d5f345542ae2dcef}{Kernel::s\_getraw}}(\textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(in)-\/1)\ -\/\ (2\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int));}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{decltype}(\textcolor{keyword}{auto})\ \mbox{\hyperlink{classRinegine_1_1Kernel_ac28e6912378a322e118b10ad5e165fb1}{s\_move}}(T\ \&obj)\ \{\ \textcolor{keywordflow}{return}\ (T\ \&\&)obj;\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_abbc2f564a8bec3eee6c358471840cdc7}{Kernel::Lock::s\_delete}}(\textcolor{keywordtype}{void}\ *in,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ typesize)\ \{}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordflow}{if}\ (in\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{Rinegine::Kernel::s\_memtest}}(in))\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&size\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{Rinegine::Kernel::s\_get\_size}}(in);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_aff66cb5be0a62dec3cf9aa58e3bd6dd1}{RG\_LOG\_LOCK\_MEM}}(\textcolor{stringliteral}{"{}Mem\ clean:\ "{}}\ +}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::to\_string(\mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{Rinegine::Kernel::s\_get\_size}}(in)\ *\ typesize\ +}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ +}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2)\ +}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}b,\ type:\ "{}}\ +\ std::to\_string(typesize));}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{Rinegine::Lock::MemUsed}}\ -\/=}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{comment}{//\ unsigned\ long\ long\ *clearsize\ =\ ((unsigned\ long\ long\ *)(in))\ -\/\ 1;}}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{comment}{//\ *clearsize\ =\ 0;}}
+\DoxyCodeLine{00154\ \ \ \ \ free(\mbox{\hyperlink{classRinegine_1_1Kernel_a98d07332bb49aa66d5f345542ae2dcef}{Rinegine::Kernel::s\_getraw}}(in));}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{comment}{//\ in\ =\ nullptr;}}
+\DoxyCodeLine{00156\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_acf779cb1339a4d4168ed6e91a7095915}{RG\_LOG\_LOCK\_ERROR}}(\textcolor{stringliteral}{"{}Memory\ Deallocation\ is\ failed,\ array\ is\ not\ RG\ type"{}});}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{comment}{//\ in\ =\ nullptr;}}
+\DoxyCodeLine{00159\ \ \ \}}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_a9ca846bfb09d0e4e0fdda74ebeebaa35}{Kernel::Lock::s\_fast\_new}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&size,}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&typesize)\ \{}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{char}\ *newmem\ =\ (\textcolor{keywordtype}{char}\ *)malloc(size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ +}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2);}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordflow}{if}\ (!newmem)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_acf779cb1339a4d4168ed6e91a7095915}{RG\_LOG\_LOCK\_ERROR}}(\textcolor{stringliteral}{"{}Fast\ alloc\ failed,\ try\ standard\ alloc"{}});}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ *out\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_aeaba848ee95c744b0d29e99cfe45401a}{Kernel::Lock::s\_new}}(size,\ typesize);}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00169\ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ newmem[0]\ =\ \textcolor{charliteral}{'R'};}
+\DoxyCodeLine{00172\ \ \ newmem[1]\ =\ \textcolor{charliteral}{'G'};}
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *stypesize\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *)(newmem\ +\ 2);}
+\DoxyCodeLine{00174\ \ \ stypesize[0]\ =\ (\textcolor{keywordtype}{unsigned}\ int)typesize;}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *ssize\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(stypesize\ +\ 1);}
+\DoxyCodeLine{00176\ \ \ ssize[0]\ =\ size;}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{void}\ *out\ =\ (\textcolor{keywordtype}{void}\ *)(ssize\ +\ 1);}
+\DoxyCodeLine{00178\ \ \ \mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{Rinegine::Lock::MemUsed}}\ +=\ size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ +}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\ +\ \textcolor{keyword}{sizeof}(char)\ *\ 2;}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classRinegine_1_1Kernel_1_1Lock_afbb3da14dfebbfb75711cf52beb3508f}{Kernel::Lock::s\_fast\_delete}}(\textcolor{keywordtype}{void}\ *in,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ typesize)\ \{}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{Rinegine::Kernel::s\_memtest}}(in))}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \&size\ =\ \mbox{\hyperlink{classRinegine_1_1Kernel_a7389c3b432703dfd13257faf679977c0}{Rinegine::Kernel::s\_get\_size}}(in);}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{namespaceRinegine_1_1Lock_add6a2c8c0cc65007c842e258169c86b2}{Rinegine::Lock::MemUsed}}\ -\/=}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ size\ *\ typesize\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ +\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 2;}
+\DoxyCodeLine{00189\ \ \ free(\mbox{\hyperlink{classRinegine_1_1Kernel_a98d07332bb49aa66d5f345542ae2dcef}{Rinegine::Kernel::s\_getraw}}(in));}
+\DoxyCodeLine{00190\ \ \ in\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00191\ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classRinegine_1_1Kernel_abac73f72f74840f13662955bb996ff3e}{Kernel::s\_get\_typesize}}(\textcolor{keywordtype}{void}\ *in)\ \{}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{classRinegine_1_1Kernel_aa571f54f5ef6fd53952744c43bcb886e}{s\_memtest}}(in))\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \mbox{\hyperlink{include_2Kernel_2define_8h_af8191129e0c8dec9e92519ca742df1b3}{RG\_LOG\_LOCK\_CRITICAL}}(\textcolor{stringliteral}{"{}s\_get\_typesize:\ array\ is\ not\ RG\ type"{}});}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ *((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ *)((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *)(in)-\/1)\ -\/\ 1);}
+\DoxyCodeLine{00198\ \}}
+\DoxyCodeLine{00199\ \}\ \textcolor{comment}{//\ namespace\ Rinegine}}
+
+\end{DoxyCode}

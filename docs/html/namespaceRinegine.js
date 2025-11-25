@@ -1,28 +1,90 @@
 var namespaceRinegine =
 [
+    [ "Lock", "namespaceRinegine_1_1Lock.html", [
+      [ "Magic_Num", "namespaceRinegine_1_1Lock.html#ac7bde797991ef8790e41c3b53afa7b62", null ],
+      [ "Magic_Num", "namespaceRinegine_1_1Lock.html#ac7bde797991ef8790e41c3b53afa7b62", null ],
+      [ "MemUsed", "namespaceRinegine_1_1Lock.html#add6a2c8c0cc65007c842e258169c86b2", null ],
+      [ "MemUsed", "namespaceRinegine_1_1Lock.html#add6a2c8c0cc65007c842e258169c86b2", null ],
+      [ "MemUsed", "namespaceRinegine_1_1Lock.html#add6a2c8c0cc65007c842e258169c86b2", null ]
+    ] ],
     [ "Log", "namespaceRinegine_1_1Log.html", [
       [ "Types", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0b", [
-        [ "CRITICAL", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baf1bcd6632a0f307b5975cf80eee926ee", null ],
-        [ "ERR", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0bafeffa4ba0833a879fe578b06b8838203", null ],
-        [ "WARNING", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba3bdaf3e039ff5da3f2f2f94ff0f3576e", null ],
-        [ "INFO", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba4d6e5b7b967cf8b43fd71bc3f5933c01", null ],
-        [ "DEBUG", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baa8667d6dc8d7f7c732c40f87c0003039", null ],
-        [ "MEM", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba1df81530e23f7b7f512a5e8657ae7231", null ]
+        [ "CRITICAL", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba8ef33b0d1c44d1685c3a034bb586129a", null ],
+        [ "ERR", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0bacc694ab48615bdc9782aec80472bf04e", null ],
+        [ "WARNING", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba5b8917f45e88eb36403517f862c7649a", null ],
+        [ "INFO", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba1a880d0766131cbea0b01a342c730412", null ],
+        [ "DEBUG", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba69b0302a87e618d45c39d40a33ee836d", null ],
+        [ "MEM", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baf50ecf3f224d86e5f5f5d057586d2940", null ],
+        [ "CRITICAL", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba8ef33b0d1c44d1685c3a034bb586129a", null ],
+        [ "ERR", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0bacc694ab48615bdc9782aec80472bf04e", null ],
+        [ "WARNING", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba5b8917f45e88eb36403517f862c7649a", null ],
+        [ "INFO", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba1a880d0766131cbea0b01a342c730412", null ],
+        [ "DEBUG", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba69b0302a87e618d45c39d40a33ee836d", null ],
+        [ "MEM", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baf50ecf3f224d86e5f5f5d057586d2940", null ]
+      ] ],
+      [ "Types", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0b", [
+        [ "CRITICAL", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba8ef33b0d1c44d1685c3a034bb586129a", null ],
+        [ "ERR", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0bacc694ab48615bdc9782aec80472bf04e", null ],
+        [ "WARNING", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba5b8917f45e88eb36403517f862c7649a", null ],
+        [ "INFO", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba1a880d0766131cbea0b01a342c730412", null ],
+        [ "DEBUG", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba69b0302a87e618d45c39d40a33ee836d", null ],
+        [ "MEM", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baf50ecf3f224d86e5f5f5d057586d2940", null ],
+        [ "CRITICAL", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba8ef33b0d1c44d1685c3a034bb586129a", null ],
+        [ "ERR", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0bacc694ab48615bdc9782aec80472bf04e", null ],
+        [ "WARNING", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba5b8917f45e88eb36403517f862c7649a", null ],
+        [ "INFO", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba1a880d0766131cbea0b01a342c730412", null ],
+        [ "DEBUG", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0ba69b0302a87e618d45c39d40a33ee836d", null ],
+        [ "MEM", "namespaceRinegine_1_1Log.html#ac2d51dd91b2f17cb47fb12e4f040cc0baf50ecf3f224d86e5f5f5d057586d2940", null ]
       ] ]
     ] ],
     [ "Kernel", "classRinegine_1_1Kernel.html", "classRinegine_1_1Kernel" ],
     [ "CONSOLE_COLOR", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997b", [
-      [ "C_BLACK", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997babc0ac6f967dbf982cad6b8a9c7a1ef57", null ],
-      [ "C_RED", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba549569394de4c5ceaae37071bf702aef", null ],
-      [ "C_GREEN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba06402b72ad5023a1152bade1931064d4", null ],
-      [ "C_YELLOW", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba96f85da88aae6200789f0e3945db6c3e", null ],
-      [ "C_BLUE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bab89be520cb1ee3282ea687c2228e78f5", null ],
-      [ "C_MAGENTA", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba3079c4fbe7d1ea3ec676b50d03a23885", null ],
-      [ "C_CYAN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba4fb0ec895988e7a55ed63b96a638ffc7", null ],
-      [ "C_WHITE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba969b83842cef9721ebcb1adab5f777e8", null ],
-      [ "C_TEXT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bad41595d3df00523392d00d78215e0be2", null ],
-      [ "C_BACKGROUND", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba2a2e94d3beaf91657bf3543341a35c8e", null ],
-      [ "C_BRIGHT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba1341e735a8a7e7301c53bdd5db2a0a0f", null ]
+      [ "C_BLACK", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baaa9f217232225a61a0a033f750962c91", null ],
+      [ "C_RED", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa94747a661fd57fc8a7a50481a36b334", null ],
+      [ "C_GREEN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba9777757f8b64dd39fe385b3aec8e286d", null ],
+      [ "C_YELLOW", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baff31d45668b3771b40f3e6f958b47280", null ],
+      [ "C_BLUE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bab5b441f59d9ec3a6e2ae3ddb98a9384b", null ],
+      [ "C_MAGENTA", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba08e0dd38d0aa2b108e57ffffddfad183", null ],
+      [ "C_CYAN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba20c4eaca5f30f080c7ff469053ce62ef", null ],
+      [ "C_WHITE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba337d0aaf0c3de2c66e74f9c98a79f698", null ],
+      [ "C_TEXT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba039b0635b7e5f1d116bcd85547e475f5", null ],
+      [ "C_BACKGROUND", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa42914bad6402812f2758eb646fd5315", null ],
+      [ "C_BRIGHT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba0d2a962b7097b8bc13b755a89b7a475c", null ],
+      [ "C_BLACK", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baaa9f217232225a61a0a033f750962c91", null ],
+      [ "C_RED", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa94747a661fd57fc8a7a50481a36b334", null ],
+      [ "C_GREEN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba9777757f8b64dd39fe385b3aec8e286d", null ],
+      [ "C_YELLOW", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baff31d45668b3771b40f3e6f958b47280", null ],
+      [ "C_BLUE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bab5b441f59d9ec3a6e2ae3ddb98a9384b", null ],
+      [ "C_MAGENTA", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba08e0dd38d0aa2b108e57ffffddfad183", null ],
+      [ "C_CYAN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba20c4eaca5f30f080c7ff469053ce62ef", null ],
+      [ "C_WHITE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba337d0aaf0c3de2c66e74f9c98a79f698", null ],
+      [ "C_TEXT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba039b0635b7e5f1d116bcd85547e475f5", null ],
+      [ "C_BACKGROUND", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa42914bad6402812f2758eb646fd5315", null ],
+      [ "C_BRIGHT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba0d2a962b7097b8bc13b755a89b7a475c", null ]
+    ] ],
+    [ "CONSOLE_COLOR", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997b", [
+      [ "C_BLACK", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baaa9f217232225a61a0a033f750962c91", null ],
+      [ "C_RED", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa94747a661fd57fc8a7a50481a36b334", null ],
+      [ "C_GREEN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba9777757f8b64dd39fe385b3aec8e286d", null ],
+      [ "C_YELLOW", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baff31d45668b3771b40f3e6f958b47280", null ],
+      [ "C_BLUE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bab5b441f59d9ec3a6e2ae3ddb98a9384b", null ],
+      [ "C_MAGENTA", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba08e0dd38d0aa2b108e57ffffddfad183", null ],
+      [ "C_CYAN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba20c4eaca5f30f080c7ff469053ce62ef", null ],
+      [ "C_WHITE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba337d0aaf0c3de2c66e74f9c98a79f698", null ],
+      [ "C_TEXT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba039b0635b7e5f1d116bcd85547e475f5", null ],
+      [ "C_BACKGROUND", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa42914bad6402812f2758eb646fd5315", null ],
+      [ "C_BRIGHT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba0d2a962b7097b8bc13b755a89b7a475c", null ],
+      [ "C_BLACK", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baaa9f217232225a61a0a033f750962c91", null ],
+      [ "C_RED", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa94747a661fd57fc8a7a50481a36b334", null ],
+      [ "C_GREEN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba9777757f8b64dd39fe385b3aec8e286d", null ],
+      [ "C_YELLOW", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baff31d45668b3771b40f3e6f958b47280", null ],
+      [ "C_BLUE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997bab5b441f59d9ec3a6e2ae3ddb98a9384b", null ],
+      [ "C_MAGENTA", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba08e0dd38d0aa2b108e57ffffddfad183", null ],
+      [ "C_CYAN", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba20c4eaca5f30f080c7ff469053ce62ef", null ],
+      [ "C_WHITE", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba337d0aaf0c3de2c66e74f9c98a79f698", null ],
+      [ "C_TEXT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba039b0635b7e5f1d116bcd85547e475f5", null ],
+      [ "C_BACKGROUND", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997baa42914bad6402812f2758eb646fd5315", null ],
+      [ "C_BRIGHT", "namespaceRinegine.html#a3e7ba71d5bda62da79d6e1450a0a997ba0d2a962b7097b8bc13b755a89b7a475c", null ]
     ] ],
     [ "ErrorRinegine", "namespaceRinegine.html#a4dd0da84bddd1747dd009653bffbc09a", [
       [ "RG_OWN_ERROR", "namespaceRinegine.html#a4dd0da84bddd1747dd009653bffbc09aaee36da8ca2876600de0d98c4aa744c64", null ],
@@ -45,9 +107,35 @@ var namespaceRinegine =
       [ "RG_ERROR_FIND_TEXTURE", "namespaceRinegine.html#a4dd0da84bddd1747dd009653bffbc09aa561e5aea5af116966f1f68879ac9e395", null ]
     ] ],
     [ "Mouse_State", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253b", [
-      [ "MNPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253baef2a8db7dd6886a6eeb4f540d16dc927", null ],
-      [ "MPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253bad934e45a0935f942cb54a3c4de2e0e98", null ],
-      [ "MRelease", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba6609a2c20b6aa8f388760b869656111a", null ]
+      [ "MNPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253bafb8c4a18adbbacf9f3e6cdf1c9585bf6", null ],
+      [ "MPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba5066f7b56cf65dfc78d58d6d5c3e18ae", null ],
+      [ "MRelease", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba0f4a16d9bbc142100de00dceaa7b0235", null ],
+      [ "MNPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253bafb8c4a18adbbacf9f3e6cdf1c9585bf6", null ],
+      [ "MPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba5066f7b56cf65dfc78d58d6d5c3e18ae", null ],
+      [ "MRelease", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba0f4a16d9bbc142100de00dceaa7b0235", null ]
     ] ],
-    [ "TryCatch", "namespaceRinegine.html#abb9b1e1736c305dafacde051dddfc610", null ]
+    [ "Mouse_State", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253b", [
+      [ "MNPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253bafb8c4a18adbbacf9f3e6cdf1c9585bf6", null ],
+      [ "MPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba5066f7b56cf65dfc78d58d6d5c3e18ae", null ],
+      [ "MRelease", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba0f4a16d9bbc142100de00dceaa7b0235", null ],
+      [ "MNPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253bafb8c4a18adbbacf9f3e6cdf1c9585bf6", null ],
+      [ "MPress", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba5066f7b56cf65dfc78d58d6d5c3e18ae", null ],
+      [ "MRelease", "namespaceRinegine.html#a7d6663a78927c7ec98eaba5916a0253ba0f4a16d9bbc142100de00dceaa7b0235", null ]
+    ] ],
+    [ "s_delete_errors", "namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5", [
+      [ "SD_NO_ERR", "namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5a969fef8d1f94b3968a9208eb9d8b05ea", null ],
+      [ "SD_NO_RG_TYPE", "namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5afd7108f8067f38d34078a926ea0541d9", null ],
+      [ "SD_PTR_IS_NULLPTR", "namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5a21bb8745c7cd827281962b621fb97991", null ],
+      [ "SD_DEALOC_ERROR", "namespaceRinegine.html#a3cc38eabb5e33e65e3c167533798cea5aae743bf6847bcd6a84183c0965996573", null ]
+    ] ],
+    [ "s_move", "namespaceRinegine.html#a1cbd64b14296eddb656a9be4914ac797", null ],
+    [ "TryCatch", "namespaceRinegine.html#abb9b1e1736c305dafacde051dddfc610", null ],
+    [ "ErrorCode", "namespaceRinegine.html#ada6f023a649c3793669a7fb328d02d45", null ],
+    [ "notseeitmsgmore", "namespaceRinegine.html#af6ad9e758922bfcda87bd7b0df4219fd", null ],
+    [ "notseeitmsgmore", "namespaceRinegine.html#af6ad9e758922bfcda87bd7b0df4219fd", null ],
+    [ "RG_ERROR_PROGRAM", "namespaceRinegine.html#a3261d13a5dc49a33d6206f7445a0c950", null ],
+    [ "RG_KEYS", "namespaceRinegine.html#aff6acb65ee18bced38394b361d8c5f49", null ],
+    [ "RG_KEYS_TEST", "namespaceRinegine.html#a3b1ffa3bcdf7426dcf319660bbc2f2e9", null ],
+    [ "RG_MOUSE", "namespaceRinegine.html#afa0eee5888b3d811f89825d70b842230", null ],
+    [ "RINEGINE_IS_INIT", "namespaceRinegine.html#a6f6b74fdd8e15278dc1ac238d707e9bb", null ]
 ];
