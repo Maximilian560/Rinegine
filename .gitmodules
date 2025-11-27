@@ -1,3 +1,9 @@
 [submodule "include/linux/stb"]
 	path = include/linux/stb
 	url = https://github.com/nothings/stb.git
+[submodule "vendor/linux/freetype-src"]
+	path = vendor/linux/freetype-src
+	url = https://git.savannah.gnu.org/git/freetype/freetype2.git
+[submodule "vendor/linux/glfw-src"]
+	path = vendor/linux/glfw-src
+	url = https://github.com/glfw/glfw.git
