@@ -14,14 +14,11 @@
 # EXTERNAL cache entries
 ########################
 
-//Path to a file.
-BROTLIDEC_INCLUDE_DIRS:PATH=/usr/include
-
-//Path to a library.
-BROTLIDEC_LIBRARIES:FILEPATH=/usr/lib/libbrotlidec.so
-
 //No help, variable specified on the command line.
 BUILD_SHARED_LIBS:UNINITIALIZED=OFF
+
+//No help, variable specified on the command line.
+BUILD_TESTING:UNINITIALIZED=OFF
 
 //Path to a file.
 BZIP2_INCLUDE_DIR:PATH=/usr/include
@@ -283,65 +280,44 @@ CPACK_SOURCE_TZ:BOOL=ON
 CPACK_SOURCE_ZIP:BOOL=OFF
 
 //Disable support of compressed WOFF2 fonts.
-FT_DISABLE_BROTLI:BOOL=OFF
+FT_DISABLE_BROTLI:BOOL=ON
 
 //Disable support of bzip2 compressed fonts.
 FT_DISABLE_BZIP2:BOOL=OFF
 
 //Disable HarfBuzz (used for improving auto-hinting of OpenType
 // fonts).
-FT_DISABLE_HARFBUZZ:BOOL=OFF
+FT_DISABLE_HARFBUZZ:BOOL=ON
 
 //Disable support of PNG compressed OpenType embedded bitmaps.
-FT_DISABLE_PNG:BOOL=OFF
+FT_DISABLE_PNG:BOOL=ON
 
 //Disable use of system zlib and use internal zlib library instead.
-FT_DISABLE_ZLIB:BOOL=OFF
-
-//Load HarfBuzz library dynamically at runtime, if possible.
-FT_DYNAMIC_HARFBUZZ:BOOL=ON
+FT_DISABLE_ZLIB:BOOL=ON
 
 //Enable support for meaningful error descriptions.
 FT_ENABLE_ERROR_STRINGS:BOOL=OFF
 
-//Require support of compressed WOFF2 fonts.
-FT_REQUIRE_BROTLI:BOOL=OFF
-
 //Require support of bzip2 compressed fonts.
 FT_REQUIRE_BZIP2:BOOL=OFF
 
-//Require HarfBuzz for improving auto-hinting of OpenType fonts.
-FT_REQUIRE_HARFBUZZ:BOOL=OFF
+//No help, variable specified on the command line.
+FT_WITH_BROTLI:UNINITIALIZED=OFF
 
-//Require support of PNG compressed OpenType embedded bitmaps.
-FT_REQUIRE_PNG:BOOL=OFF
+//No help, variable specified on the command line.
+FT_WITH_HARFBUZZ:UNINITIALIZED=OFF
 
-//Require system zlib instead of internal zlib library.
-FT_REQUIRE_ZLIB:BOOL=OFF
+//No help, variable specified on the command line.
+FT_WITH_PNG:UNINITIALIZED=OFF
+
+//No help, variable specified on the command line.
+FT_WITH_ZLIB:UNINITIALIZED=OFF
 
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
-
-//Path to a library.
-PNG_LIBRARY_DEBUG:FILEPATH=PNG_LIBRARY_DEBUG-NOTFOUND
-
-//Path to a library.
-PNG_LIBRARY_RELEASE:FILEPATH=/usr/lib/libpng.so
-
-//Path to a file.
-PNG_PNG_INCLUDE_DIR:PATH=/usr/include
-
-//Path to a file.
-ZLIB_INCLUDE_DIR:PATH=/usr/include
-
-//Path to a library.
-ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
-
-//Path to a library.
-ZLIB_LIBRARY_RELEASE:FILEPATH=/usr/lib/libz.so
 
 //Value Computed by CMake
 freetype_BINARY_DIR:STATIC=/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-build
@@ -353,9 +329,6 @@ freetype_IS_TOP_LEVEL:STATIC=ON
 freetype_SOURCE_DIR:STATIC=/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src
 
 //Path to a library.
-pkgcfg_lib_PC_BROTLIDEC_brotlidec:FILEPATH=/usr/lib/libbrotlidec.so
-
-//Path to a library.
 pkgcfg_lib_PC_BZIP2_bz2:FILEPATH=/usr/lib/libbz2.so
 
 
@@ -363,10 +336,6 @@ pkgcfg_lib_PC_BZIP2_bz2:FILEPATH=/usr/lib/libbz2.so
 # INTERNAL cache entries
 ########################
 
-//ADVANCED property for variable: BROTLIDEC_INCLUDE_DIRS
-BROTLIDEC_INCLUDE_DIRS-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: BROTLIDEC_LIBRARIES
-BROTLIDEC_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BZIP2_INCLUDE_DIR
 BZIP2_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BZIP2_LIBRARY_DEBUG
@@ -554,55 +523,20 @@ CPACK_SOURCE_TZ-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Details about finding BZip2
 FIND_PACKAGE_MESSAGE_DETAILS_BZip2:INTERNAL=[/usr/lib/libbz2.so][/usr/include][v1.0.8()]
-//Details about finding BrotliDec
-FIND_PACKAGE_MESSAGE_DETAILS_BrotliDec:INTERNAL=[/usr/include][/usr/lib/libbrotlidec.so][v1.1.0()]
-//Details about finding PNG
-FIND_PACKAGE_MESSAGE_DETAILS_PNG:INTERNAL=[/usr/lib/libpng.so][/usr/include][v1.6.50()]
 //Details about finding PkgConfig
 FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v2.5.1()]
-//Details about finding ZLIB
-FIND_PACKAGE_MESSAGE_DETAILS_ZLIB:INTERNAL=[/usr/lib/libz.so][/usr/include][ ][v1.3.1()]
-//Have symbol dlopen
-HAVE_DLOPEN_IN_LIBC:INTERNAL=1
+//Require support of compressed WOFF2 fonts.
+FT_REQUIRE_BROTLI:INTERNAL=OFF
+//Require HarfBuzz for improving auto-hinting of OpenType fonts.
+FT_REQUIRE_HARFBUZZ:INTERNAL=OFF
+//Require support of PNG compressed OpenType embedded bitmaps.
+FT_REQUIRE_PNG:INTERNAL=OFF
+//Require system zlib instead of internal zlib library.
+FT_REQUIRE_ZLIB:INTERNAL=OFF
 //Have include fcntl.h
 HAVE_FCNTL_H:INTERNAL=1
 //Have include unistd.h
 HAVE_UNISTD_H:INTERNAL=1
-PC_BROTLIDEC_CFLAGS:INTERNAL=-I/usr/include
-PC_BROTLIDEC_CFLAGS_I:INTERNAL=
-PC_BROTLIDEC_CFLAGS_OTHER:INTERNAL=
-PC_BROTLIDEC_FOUND:INTERNAL=1
-PC_BROTLIDEC_INCLUDEDIR:INTERNAL=/usr/include
-PC_BROTLIDEC_INCLUDE_DIRS:INTERNAL=/usr/include
-PC_BROTLIDEC_LDFLAGS:INTERNAL=-L/usr/lib;-lbrotlidec
-PC_BROTLIDEC_LDFLAGS_OTHER:INTERNAL=
-PC_BROTLIDEC_LIBDIR:INTERNAL=/usr/lib
-PC_BROTLIDEC_LIBRARIES:INTERNAL=brotlidec
-PC_BROTLIDEC_LIBRARY_DIRS:INTERNAL=/usr/lib
-PC_BROTLIDEC_LIBS:INTERNAL=
-PC_BROTLIDEC_LIBS_L:INTERNAL=
-PC_BROTLIDEC_LIBS_OTHER:INTERNAL=
-PC_BROTLIDEC_LIBS_PATHS:INTERNAL=
-PC_BROTLIDEC_MODULE_NAME:INTERNAL=libbrotlidec
-PC_BROTLIDEC_PREFIX:INTERNAL=/usr
-PC_BROTLIDEC_STATIC_CFLAGS:INTERNAL=-I/usr/include
-PC_BROTLIDEC_STATIC_CFLAGS_I:INTERNAL=
-PC_BROTLIDEC_STATIC_CFLAGS_OTHER:INTERNAL=
-PC_BROTLIDEC_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include
-PC_BROTLIDEC_STATIC_LDFLAGS:INTERNAL=-L/usr/lib;-lbrotlidec;-lbrotlicommon
-PC_BROTLIDEC_STATIC_LDFLAGS_OTHER:INTERNAL=
-PC_BROTLIDEC_STATIC_LIBDIR:INTERNAL=
-PC_BROTLIDEC_STATIC_LIBRARIES:INTERNAL=brotlidec;brotlicommon
-PC_BROTLIDEC_STATIC_LIBRARY_DIRS:INTERNAL=/usr/lib
-PC_BROTLIDEC_STATIC_LIBS:INTERNAL=
-PC_BROTLIDEC_STATIC_LIBS_L:INTERNAL=
-PC_BROTLIDEC_STATIC_LIBS_OTHER:INTERNAL=
-PC_BROTLIDEC_STATIC_LIBS_PATHS:INTERNAL=
-PC_BROTLIDEC_VERSION:INTERNAL=1.1.0
-PC_BROTLIDEC_libbrotlidec_INCLUDEDIR:INTERNAL=
-PC_BROTLIDEC_libbrotlidec_LIBDIR:INTERNAL=
-PC_BROTLIDEC_libbrotlidec_PREFIX:INTERNAL=
-PC_BROTLIDEC_libbrotlidec_VERSION:INTERNAL=
 PC_BZIP2_CFLAGS:INTERNAL=-I/usr/include
 PC_BZIP2_CFLAGS_I:INTERNAL=
 PC_BZIP2_CFLAGS_OTHER:INTERNAL=
@@ -642,26 +576,10 @@ PC_BZIP2_bzip2_VERSION:INTERNAL=
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: PNG_LIBRARY_DEBUG
-PNG_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: PNG_LIBRARY_RELEASE
-PNG_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: PNG_PNG_INCLUDE_DIR
-PNG_PNG_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: ZLIB_INCLUDE_DIR
-ZLIB_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: ZLIB_LIBRARY_DEBUG
-ZLIB_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: ZLIB_LIBRARY_RELEASE
-ZLIB_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/static
-__pkg_config_arguments_PC_BROTLIDEC:INTERNAL=QUIET;libbrotlidec
 __pkg_config_arguments_PC_BZIP2:INTERNAL=bzip2
-__pkg_config_checked_PC_BROTLIDEC:INTERNAL=1
 __pkg_config_checked_PC_BZIP2:INTERNAL=1
-//ADVANCED property for variable: pkgcfg_lib_PC_BROTLIDEC_brotlidec
-pkgcfg_lib_PC_BROTLIDEC_brotlidec-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_PC_BZIP2_bz2
 pkgcfg_lib_PC_BZIP2_bz2-ADVANCED:INTERNAL=1
 prefix_result:INTERNAL=/usr/lib

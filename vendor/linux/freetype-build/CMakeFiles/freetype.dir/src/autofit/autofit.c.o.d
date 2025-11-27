@@ -87,22 +87,11 @@ CMakeFiles/freetype.dir/src/autofit/autofit.c.o: \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afmodule.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/ft-hb.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/internal/compiler-macros.h \
- /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/ft-hb-types.h \
- /usr/include/inttypes.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
- /usr/include/stdint.h /usr/include/bits/wchar.h \
- /usr/include/bits/stdint-uintn.h /usr/include/bits/stdint-least.h \
- /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/hb-script-list.h \
- /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/ft-hb-decls.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afshaper.h \
- /usr/include/dlfcn.h /usr/include/bits/dlfcn.h \
- /usr/include/bits/dl_find_object.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/ft-hb-ft.c \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/tttables.h \
- /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/ft-hb-ft.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afadjust.c \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afadjust.h \
- /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afgsub.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afblue.c \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/autofit/afcjk.c \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/ftadvanc.h \

@@ -76,7 +76,17 @@ CMakeFiles/freetype.dir/src/gzip/ftgzip.c.o: \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/ftincrem.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/internal/ftdebug.h \
  /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/include/freetype/ftgzip.h \
- /usr/include/zlib.h /usr/include/zconf.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
- /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
- /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/zutil.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/zutil.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/zlib.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/ftzconf.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inffast.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inftrees.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inflate.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inffast.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inflate.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inffixed.h \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/inftrees.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/adler32.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/crc32.c \
+ /home/maxsimilian560/Rinemest/Rinegine/vendor/linux/freetype-src/src/gzip/crc32.h

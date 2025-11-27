@@ -60,7 +60,7 @@ add_library(freetype STATIC IMPORTED)
 
 set_target_properties(freetype PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include/freetype2"
-  INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:ZLIB::ZLIB>;\$<LINK_ONLY:BZip2::BZip2>;\$<LINK_ONLY:PNG::PNG>;/usr/lib/libbrotlidec.so"
+  INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:BZip2::BZip2>"
 )
 
 # Create imported target Freetype::Freetype
