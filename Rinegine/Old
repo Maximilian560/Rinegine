@@ -1,0 +1,28 @@
+#pragma once
+
+#ifdef _WIN32
+#define RG_WINos
+#define RG_WIN
+#define RG_Win
+#define RG_Windows
+#endif
+#ifdef __linux__
+#define RG_Linuxos
+#define RG_Linux
+#define RG_LINUX
+#define RG_LNX
+#endif
+
+#if defined(UNICODE) && !defined(RG_UTF)
+#define RG_UTF
+#endif
+
+#ifdef RG_UTF
+#define _GLIBCXX_USE_WCHAR_T
+#endif
+
+#if defined(RG_GLFW_NATIVE_WIN32) && defined(RG_WINos)
+	#define GLFW_EXPOSE_NATIVE_WIN32
+#endif
+
+#include "../modules/include/old/set.h"
