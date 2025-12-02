@@ -116,7 +116,7 @@ int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
     MainArguments[0] = onearg;
 #else
     MainArguments.resize(argc);
-    for (int i = 0; i <= argc; i++) {
+    for (int i = 0; i < argc; i++) {
       MainArguments[i] = argv[i];
     }
 
@@ -157,11 +157,11 @@ int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
 #else
     if (argc >= 1) {
       WMainArguments.resize(argc);
-      for (int i = 0; i <= argc; i++) {
+      for (int i = 0; i < argc; i++) {
         WMainArguments[i] = argv[i];
       }
-      MainArguments.resize(argc + 1);
-      for (int i = 0; i <= argc; i++) {
+      MainArguments.resize(argc);
+      for (int i = 0; i < argc; i++) {
         MainArguments[i] = utf8_encode(argv[i]);
       }
     }
