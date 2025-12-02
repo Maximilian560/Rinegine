@@ -5,7 +5,7 @@
 #define RG_V_PATCH 0
 #define RG_V_WIP 1
 
-namespace RG{
+namespace Rinegine{
 
   void GetVersion(int& major, int& minor,int& patch, int&wip){
     major = RG_V_MAJOR;

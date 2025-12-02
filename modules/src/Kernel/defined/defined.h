@@ -84,6 +84,16 @@ int TryCatch(std::function<void()> func) {
     return -1;
   }
 }
+
+std::vector<std::string> AMainArguments;  // remove vector, set RG::Array!
+std::vector<std::wstring> WMainArguments; // remove vector, set RG::Array!
+#ifdef RG_UTF
+std::vector<std::wstring> &MainArguments =
+    WMainArguments; // remove vector, set RG::Array!
+#else
+std::vector<std::string> &MainArguments =
+    AMainArguments; // remove vector, set RG::Array!
+#endif
 // INTERPOINT
 int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
 #if defined(RG_WIN) && defined(RG_UTF)
@@ -92,12 +102,27 @@ int Kernel::InterPoint(int argc, char *argv[], int (*own_main)()) {
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
   int exit_code = 0;
-  RG_CATCH_ERROR
+  RG_CATCH_ERROR {
+    (void)argc;
+    (void)argv;
 
-      (void)
-  argc;
-  (void)argv;
-  exit_code = own_main();
+#ifdef RG_WIN
+    MainArguments.resize(argc + 1);
+    for (int i = 1; i <= argc; i++) {
+      MainArguments[i] = argv[i - 1];
+    }
+    char onearg[MAX_PATH];
+    GetModuleFileNameA(NULL, onearg, MAX_PATH);
+    MainArguments[0] = onearg;
+#else
+    MainArguments.resize(argc);
+    for (int i = 0; i <= argc; i++) {
+      MainArguments[i] = argv[i];
+    }
+
+#endif
+    exit_code = own_main();
+  }
   RG_ERROR_LOG;
   return exit_code;
 };
@@ -109,12 +134,40 @@ int Kernel::InterPoint(int argc, wchar_t *argv[], int (*own_main)()) {
   _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
   int exit_code = 0;
-  RG_CATCH_ERROR
+  RG_CATCH_ERROR {
+#ifdef RG_WIN
+    if (argc >= 1) {
+      WMainArguments.resize(argc + 1);
+      for (int i = 1; i <= argc; i++) {
+        WMainArguments[i] = argv[i - 1];
+      }
+      MainArguments.resize(argc + 1);
+      for (int i = 1; i <= argc; i++) {
+        MainArguments[i] = RG::utf8_encode(argv[i - 1]);
+      }
+      WCHAR wonearg[MAX_PATH];
 
-      (void)
-  argc;
-  (void)argv;
-  exit_code = own_main();
+      GetModuleFileNameW(NULL, wonearg, MAX_PATH);
+      WMainArguments[0] = wonearg;
+
+      CHAR onearg[MAX_PATH];
+      GetModuleFileNameA(NULL, onearg, MAX_PATH);
+      MainArguments[0] = onearg;
+    }
+#else
+    if (argc >= 1) {
+      WMainArguments.resize(argc);
+      for (int i = 0; i <= argc; i++) {
+        WMainArguments[i] = argv[i];
+      }
+      MainArguments.resize(argc + 1);
+      for (int i = 0; i <= argc; i++) {
+        MainArguments[i] = utf8_encode(argv[i]);
+      }
+    }
+#endif
+    exit_code = own_main();
+  }
   RG_ERROR_LOG;
   return exit_code;
 };
@@ -769,18 +822,18 @@ void Kernel::Open(std::wstring path) {
 void Kernel::Open(std::string path) {
   // std::filesystem::path fs_path(path);
   // if (std::filesystem::exists(fs_path) || check) {
-    system(("xdg-open " + path).c_str());
+  system(("xdg-open " + path).c_str());
   // } else {
-    // RG_LOG_LOCK_DEBUG("Open: path '" + path + "' does not exist");
+  // RG_LOG_LOCK_DEBUG("Open: path '" + path + "' does not exist");
   // }
 }
 
 void Kernel::Open(std::wstring path) {
   // std::filesystem::path fs_path(path);
   // if (std::filesystem::exists(fs_path) || check) {
-    system(("xdg-open " + std::string(path.begin(), path.end())).c_str());
+  system(("xdg-open " + std::string(path.begin(), path.end())).c_str());
   // } else {
-    // RG_LOG_LOCK_DEBUG(L"Open: path '" + path + L"' does not exist");
+  // RG_LOG_LOCK_DEBUG(L"Open: path '" + path + L"' does not exist");
   // }
 }
 #else
