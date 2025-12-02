@@ -999,7 +999,13 @@ public:
 #endif
   // otherDef
   static int RG_CMD(std::string, bool = true);
-  struct RG_ConfigRunProgram;
+  // struct RG_ConfigRunProgram;
+  struct RG_ConfigRunProgram {
+    std::string path = "err";
+    bool assinhrone = true;
+    bool InItFol = false;
+    bool otherCMD = false;
+  };
 #ifdef RG_WIN
   static int RG_RunProgram(RG_ConfigRunProgram conf);
 #elif defined(RG_Linux)
