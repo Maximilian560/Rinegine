@@ -63,12 +63,50 @@ public:
   template <class type> struct POINT2D {
     type x = type(), y = type();
 
-    bool operator==(POINT2D<type>); // [done]
-    bool operator>=(POINT2D<type>); // [done]
-    bool operator<=(POINT2D<type>); // [done]
-    bool operator>(POINT2D<type>);  // [done]
-    bool operator<(POINT2D<type>);  // [done]
-    type &operator[](uint);         // [done]
+    POINT2D<type> operator+(POINT2D<type> p) {
+      return Kernel::POINT2D<type>(x + p.x, y + p.y);
+    } // [done]
+    POINT2D<type> operator-(POINT2D<type> p) {
+      return Kernel::POINT2D<type>(x + -p.x, y - p.y);
+    } // [done]
+    POINT2D<type> &operator+=(POINT2D<type> p) {
+      x += p.x;
+      y += p.y;
+      return *this;
+    } // [done]
+    POINT2D<type> &operator-=(POINT2D<type> p) {
+      x -= p.x;
+      y -= p.y;
+      return *this;
+    } // [done]
+    bool operator==(POINT2D<type> p) {
+      if (x == p.x && y == p.y)
+        return true;
+      return false;
+    }
+    bool operator>=(POINT2D<type> p) {
+      if (x >= p.x && y >= p.y)
+        return true;
+      return false;
+    }
+    bool operator<=(POINT2D<type> p) {
+      if (x <= p.x && y <= p.y)
+        return true;
+      return false;
+    }
+    bool operator>(POINT2D<type> p) {
+      if (x > p.x && y > p.y)
+        return true;
+      return false;
+    }
+    bool operator<(POINT2D<type> p) {
+      if (x < p.x && y < p.y)
+        return true;
+      return false;
+    }
+     type &operator[](uint i) {
+      return (&x)[i % 2];
+    }
   };
 
   template <class type> struct POINT3D {

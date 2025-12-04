@@ -358,34 +358,34 @@ Kernel::to_string(const std::string &str) { // std::string to std::string
 
 // POINTs
 // 2D
-template <class type> bool Kernel::POINT2D<type>::operator==(POINT2D<type> p) {
-  if (x == p.x && y == p.y)
-    return true;
-  return false;
-}
-template <class type> bool Kernel::POINT2D<type>::operator>=(POINT2D<type> p) {
-  if (x >= p.x && y >= p.y)
-    return true;
-  return false;
-}
-template <class type> bool Kernel::POINT2D<type>::operator<=(POINT2D<type> p) {
-  if (x <= p.x && y <= p.y)
-    return true;
-  return false;
-}
-template <class type> bool Kernel::POINT2D<type>::operator>(POINT2D<type> p) {
-  if (x > p.x && y > p.y)
-    return true;
-  return false;
-}
-template <class type> bool Kernel::POINT2D<type>::operator<(POINT2D<type> p) {
-  if (x < p.x && y < p.y)
-    return true;
-  return false;
-}
-template <class type> type &Kernel::POINT2D<type>::operator[](uint i) {
-  return (&x)[i % 2];
-}
+// template <class type> bool Kernel::POINT2D<type>::operator==(POINT2D<type> p) {
+//   if (x == p.x && y == p.y)
+//     return true;
+//   return false;
+// }
+// template <class type> bool Kernel::POINT2D<type>::operator>=(POINT2D<type> p) {
+//   if (x >= p.x && y >= p.y)
+//     return true;
+//   return false;
+// }
+// template <class type> bool Kernel::POINT2D<type>::operator<=(POINT2D<type> p) {
+//   if (x <= p.x && y <= p.y)
+//     return true;
+//   return false;
+// }
+// template <class type> bool Kernel::POINT2D<type>::operator>(POINT2D<type> p) {
+//   if (x > p.x && y > p.y)
+//     return true;
+//   return false;
+// }
+// template <class type> bool Kernel::POINT2D<type>::operator<(POINT2D<type> p) {
+//   if (x < p.x && y < p.y)
+//     return true;
+//   return false;
+// }
+// template <class type> type &Kernel::POINT2D<type>::operator[](uint i) {
+//   return (&x)[i % 2];
+// }
 //! 2D
 // 3D
 template <class type> bool Kernel::POINT3D<type>::operator==(POINT3D<type> p) {
