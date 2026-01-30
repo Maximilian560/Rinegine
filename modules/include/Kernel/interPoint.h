@@ -2,8 +2,8 @@
 
 //_UNICODE
 
-int rg_main();
 #ifndef RinegineLib
+int rg_main();
 #ifdef RG_UTF
 int wmain(int argc, wchar_t *argv[]) {
   return Rinegine::Kernel::InterPoint(argc, argv, rg_main);
