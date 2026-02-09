@@ -4,38 +4,56 @@ namespace Rinegine {
   // const size_t Lock::page_size = getpagesize();
 
   // namespace Lock {
-  //   inline static std::atomic_ullong MemUsed = 0;
-  //   static int Magisc_Num = 8 + (sizeof(size_t));//todo, i guese it shuld be removed
+  //   inline std::atomic_ullong MemUsed = 0;
+  //   int Magisc_Num = 8 + (sizeof(size_t));//todo, i guese it shuld be removed
   // }
-  class WIP {
-  public:
-    class Lock {
+  namespace WIP {
+    //MAP
+    class RawMap {
+      template <class key, class value>
+      friend class Map;
+      Kernel::RawArray keys;
+      Kernel::RawArray values;
+      size_t count = 0;
     public:
-      static const size_t page_size;
-      static void* s_new(const size_t&, const size_t & = 1); // [done,stub]
-      static void* s_fast_new(const size_t& size, const size_t& typesize = 1); // [done,stub]
-      static uint s_delete(const void*);                      // [done,stub]
-      static void s_fast_delete(const void*);                 // [done,stub]
-      // static void s_depage(void* addr, size_t count); 
-      static bool s_rawmemtest(const char*);
-      // template <class type> static bool s_memtest(type *);
-      static bool s_memtest(const void*);
+      RawMap() = default;
+      RawMap(size_t size) : count(0) { init(size); }
+      void init(size_t size) {
+        resize(size);
+      }
+      void resize(size_t size) {
+        keys.resize(size);
+        values.resize(size);
+      }
+      ~RawMap()=default;
+    };
 
-      static size_t s_get_size(const void*);
-      static size_t s_get_typesize(const void*);
+    namespace Lock {
+      // const size_t page_size;
+      void* s_new(const size_t&, const size_t & = 1); // [done,stub]
+      void* s_fast_new(const size_t& size, const size_t& typesize = 1); // [done,stub]
+      uint s_delete(const void*);                      // [done,stub]
+      void s_fast_delete(const void*);                 // [done,stub]
+      // void s_depage(void* addr, size_t count); 
+      bool s_rawmemtest(const char*);
+      // template <class type> bool s_memtest(type *);
+      bool s_memtest(const void*);
 
-      static char* s_getraw(const void*);
-      static char s_print(std::wstring*);
-      static char s_print(std::string*);
-      static char s_print(to_rrvalue(std::wstring*));
-      static char s_print(to_rrvalue(std::string*));
-      static char s_print(to_rrvalue(wchar_t*));
-      static char s_print(to_rrvalue(char*));
+      size_t s_get_size(const void*);
+      size_t s_get_typesize(const void*);
+
+      char* s_getraw(const void*);
+      char s_print(std::wstring*);
+      char s_print(std::string*);
+      char s_print(to_rrvalue(std::wstring*));
+      char s_print(to_rrvalue(std::string*));
+      char s_print(to_rrvalue(wchar_t*));
+      char s_print(to_rrvalue(char*));
 
     };
     //! ALLOCATOR EXPERIMENTAL/WIP
     // class Allocator {
-    //   inline static uintptr_t g_page_mask = 0;
+    //   inline uintptr_t g_page_mask = 0;
     //   struct _map {
     //     u_char magnum[3]; // R,G,SIZE
     //     struct mem {
@@ -43,32 +61,32 @@ namespace Rinegine {
     //       bool init = false;
     //     } _mem;
     //   };
-    //   inline static _map* _main_map = nullptr;
+    //   inline _map* _main_map = nullptr;
 
     // public:
-    //   static inline bool rg_map_test(void* in) {
+    //   inline bool rg_map_test(void* in) {
     //     const unsigned char* p =
     //       (const unsigned char*)((uintptr_t)in & g_page_mask);
     //     return p[0] == 'R' && p[1] == 'G';
     //   }
-    //   static void init();
-    //   static void push(size_t in = 1);
+    //   void init();
+    //   void push(size_t in = 1);
 
-    //   // static _map *s_map(size_t count = 1);
-    //   // static void *s_new(size_t count, size_t type_size);
+    //   // _map *s_map(size_t count = 1);
+    //   // void *s_new(size_t count, size_t type_size);
 
-    //   static void print_map();
+    //   void print_map();
     //   //!
-    //   static void s_free(void* in);
-    //   // static void *get_free() {}
+    //   void s_free(void* in);
+    //   // void *get_free() {}
 
     //   Allocator() {}
     // };
 
     //!
-    static void* s_new(size_t count, size_t type_size);
+    void* s_new(size_t count, size_t type_size);
     template <class type>
-    static type* s_new(size_t count, type&&) { //[todo]
+    type* s_new(size_t count, type&&) { //[todo]
       return (type*)Kernel::Lock::s_new(count * sizeof(type));
       // for(int i = 0; i < count; i++) new (type*) i;
     }
@@ -80,10 +98,10 @@ namespace Rinegine {
         bool init = false;
       };
     };
-    inline static thread_local ThreadLocalPool TLPVar;
 
     template <typename type = void>
     class Allocator {
+      static thread_local ThreadLocalPool TLPVar;
       inline static uintptr_t s_map_size = 0;
       struct _map {
         uintptr_t size;
@@ -107,7 +125,7 @@ namespace Rinegine {
           throw std::bad_alloc();
         }
         thread_local ThreadLocalPool pool;
-        return static_cast<type*>(pool.pool = s_new(n, type()));
+        return (type*)(pool.pool = Kernel::s_new(n, type()));
       }
 
       void deallocate(type* p, std::size_t) noexcept {

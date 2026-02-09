@@ -162,7 +162,7 @@ uint rg_count_temp = 0;
 #define rg_count_clear rg_count_temp = 0
 #define elif else if
 
-namespace RG {
+namespace Rinegine::Kernel {
 	namespace Log {
 		// namespace Debug {
 		enum Types {
@@ -191,11 +191,11 @@ enum RG_CONSOLE_COLOR{
 };
 
 
-namespace RG {
+namespace Rinegine::Kernel {
 	namespace Lock {
 		string TempError;
 		int _logs = 0;
-		void addl(RG::Log::Types type = RG::Log::DEBUG, string text = "empty", bool print = true, string file = __FILE__, int line = __LINE__) {
+		void addl(Rinegine::Kernel::Log::Types type = Rinegine::Kernel::Log::DEBUG, string text = "empty", bool print = true, string file = __FILE__, int line = __LINE__) {
 			TempError += char(type);
 			TempError += bool(print);
 			TempError += (char(line >> 8 * 0));
@@ -315,7 +315,7 @@ namespace RG {
 #endif
 
 	namespace Lock {
-		void addl(RG::Log::Types type = RG::Log::DEBUG, wstring text = L"empty", bool print = true, wstring file = utf8_decode(__FILE__), int line = __LINE__) {
+		void addl(Rinegine::Kernel::Log::Types type = Rinegine::Kernel::Log::DEBUG, wstring text = L"empty", bool print = true, wstring file = utf8_decode(__FILE__), int line = __LINE__) {
 			TempError += char(type);
 			TempError += bool(print);
 			TempError += (char(line >> 8 * 0));
@@ -331,41 +331,41 @@ namespace RG {
 	}
 }
 
-inline wstring rg_to_stringw(const string& str) { return RG::utf8_decode(str); }
+inline wstring rg_to_stringw(const string& str) { return Rinegine::Kernel::utf8_decode(str); }
 inline wstring rg_to_stringw(const wstring& str) { return str; }
 inline string rg_to_stringa(const string& str) { return str; }
-inline string rg_to_stringa(const wstring& str) { return RG::utf8_encode(str); }
+inline string rg_to_stringa(const wstring& str) { return Rinegine::Kernel::utf8_encode(str); }
 
 #ifdef RG_UTF
 // template<typename T>
 // inline rg_string rg_to_string(const T& in) { rg_cout<<"rg_to_string error: unsupported type\n";throw("rg_to_string error: unsupported type"); }
 
 inline rg_string rg_to_string(const int& in) { return rg_to_string_(in); }
-inline rg_string rg_to_string(const string& str) { return RG::utf8_decode(str); }
-inline rg_string rg_to_string(const char* str) { return RG::utf8_decode(string(str)); }
+inline rg_string rg_to_string(const string& str) { return Rinegine::Kernel::utf8_decode(str); }
+inline rg_string rg_to_string(const char* str) { return Rinegine::Kernel::utf8_decode(string(str)); }
 inline rg_string rg_to_string(const wchar_t* str) { return wstring(str); }
 
 
 
 inline std::wostream& operator<<(std::wostream& out, const std::string& text) {
-	std::wstring decoded = RG::utf8_decode(text);
+	std::wstring decoded = Rinegine::Kernel::utf8_decode(text);
 	return out.write(decoded.data(), decoded.size());
 }
 #else
 inline string rg_to_string(const string& str) { return str; }
-inline string rg_to_string(const wstring& str) { return RG::utf8_encode(str); }
-// inline wstring rg_to_stringw(const string& str) { return RG::utf8_decode(str); }
+inline string rg_to_string(const wstring& str) { return Rinegine::Kernel::utf8_encode(str); }
+// inline wstring rg_to_stringw(const string& str) { return Rinegine::Kernel::utf8_decode(str); }
 // inline wstring rg_to_stringw(const wstring& str) { return str; }
 
 // inline rg_string rg_to_string(const int& in) { return rg_to_string_(in); }
 
 inline rg_string rg_to_string(const char* str) { return string(str); }
-inline rg_string rg_to_string(const wchar_t* str) { return RG::utf8_encode(wstring(str)); }
+inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf8_encode(wstring(str)); }
 // inline rg_string rg_to_stringa(const string& str) { return str; }
-// inline rg_string rg_to_stringa(const wstring& str) { return RG::utf8_encode(str); }
+// inline rg_string rg_to_stringa(const wstring& str) { return Rinegine::Kernel::utf8_encode(str); }
 // #define rg_to_string(in) in
 // inline std::ostream& operator<<(std::ostream& out, const std::wstring& text) {
-// 	std::string encoded = RG::utf8_encode(text);
+// 	std::string encoded = Rinegine::Kernel::utf8_encode(text);
 // 	return out.write(encoded.data(), encoded.size());
 // }
 #endif
@@ -1052,7 +1052,7 @@ void RG_Open(wstring path) {
 #endif
 
 
-namespace RG {
+namespace Rinegine::Kernel {
 	int GlobalSeed = 0;
 };
 
@@ -1066,7 +1066,7 @@ int rg_count_temp_deb = 0;
 //INIT DEFINE MODULE
 bool RG_DEFINIT = false;
 
-namespace RG{
+namespace Rinegine::Kernel{
 	string tolowstr(string str) {//TODO replace!
 		string str2;
 		for (int i = 0; i < str.size(); i++) {

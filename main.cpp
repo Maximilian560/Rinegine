@@ -1,7 +1,13 @@
-#include <Rinegine/Kernel>
-#include <Rinegine/WIP>
-
+#include <Rinegine/Kernel>                
+#include <Rinegine/Tokenize>                
+#include <Rinegine/Graphics>
+#include <Rinegine/Net>                
+#include <Rinegine/Neural>                
+#include <Rinegine/WebCore>                
+#include <Rinegine/Addons>
+#include <Rinegine/WIP>                
+#include <Rinegine/Old>                
 int rg_main(){
-  std::cout<<"Hello, World!"<<std::endl;
+  rg_cout<<"Hello, World!"<<std::endl;
   return 0;
 }

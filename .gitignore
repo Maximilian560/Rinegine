@@ -1,2 +1,14 @@
 cache/
 Logs/
+.vscode/
+bin/backup/
+.gitignore
+bin/rgcmd2
+modules/include/Addons/backup/
+modules/include/Addons/defined/backup/
+*backup/
+*/backup/
+*old/
+*/old/
+old/
+modules/include/Addons/other/

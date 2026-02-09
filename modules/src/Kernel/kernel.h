@@ -11,3 +11,6 @@
 #include "debug/set.h"
 #include "allocator/set.h"
 #include "pointer/set.h"
+#include "array/set.h"
+#include "map/set.h"
+#include "files/set.h"

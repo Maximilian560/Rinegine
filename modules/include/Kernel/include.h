@@ -7,4 +7,6 @@
 #include <windows.h>
 #endif
 #include <type_traits>
+#ifdef __linux__
 #include <sys/mman.h>
+#endif

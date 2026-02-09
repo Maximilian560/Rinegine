@@ -13,3 +13,4 @@ lib/backup/win/llvw/64/ibavcodec.a filter=lfs diff=lfs merge=lfs -text
 lib/backup/win/llvm/32/libavcodec.a filter=lfs diff=lfs merge=lfs -text
 lib/backup/win/llvm/64/libavcodec.a filter=lfs diff=lfs merge=lfs -text
 modules/include/old/other/ffmpeg/64/lib/libavcodec.a filter=lfs diff=lfs merge=lfs -text
+modules/include/Addons/other/ffmpeg/64/lib/*.a filter=lfs diff=lfs merge=lfs -text

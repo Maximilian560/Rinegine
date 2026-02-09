@@ -14,11 +14,11 @@
 #include <thread>
 
 #ifdef _WIN32
-#include <Psapi.h>
+#include <windows.h>
+#include <psapi.h>
 #include <direct.h>
 #include <fcntl.h>
 #include <io.h>
-#include <windows.h>
 #define getcwd _getcwd
 #endif
 

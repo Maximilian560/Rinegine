@@ -2,67 +2,70 @@
 #undef RG_HERE_FILE_NAME
 #define RG_HERE_FILE_NAME "kernel/kernel"
 namespace Rinegine {
-  class Kernel {
-  public:
+  namespace Kernel {
+    extern std::vector<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
+    extern std::vector<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
+
+    //
     template <class type1, class type2> struct MapData;
     //* types
     template <class type> class Matrix;
     template <class type> class Array;
     //* vars
-    static std::string AMainFolder;
-    static std::wstring WMainFolder;
-    static rg_string MainFolder;
-    static __uint8_t RG_D_W_L;
+    extern std::string AMainFolder;
+    extern std::wstring WMainFolder;
+    extern rg_string MainFolder;
+    extern uint8_t RG_D_W_L;
 
-    static int InterPoint(int, char**, int (*)());    // [done]
-    static int InterPoint(int, wchar_t**, int (*)()); // [done]
-    static void init();                               // [todo]
+    int InterPoint(int, char**, int (*)());    // [done]
+    int InterPoint(int, wchar_t**, int (*)()); // [done]
+    void init();                               // [todo]
 
-    class Lock { // LOCK
-      friend class Kernel;
+    namespace Lock { // LOCK
+      // friend class Kernel;
 
       struct LogVars;
-      static LogVars _vars;
+      extern LogVars _vars;
 
-    public:
-      static void* s_new(const size_t&); // [done,stub]
-      static void* s_fast_new(const size_t& size); // [done,stub]
-      static uint s_delete(void*);                      // [done,stub]
-      static void s_fast_delete(void*);                 // [done,stub]
-      // static void s_depage(void* addr, size_t count); 
-      static bool s_rawmemtest(const char*);
-      // template <class type> static bool s_memtest(type *);
-      static bool s_memtest(const void*);
+      // public:
+      void* s_new(const size_t&); // [done,stub]
+      void* s_fast_new(const size_t& size); // [done,stub]
+      uint s_delete(void*);                      // [done,stub]
+      void s_fast_delete(void*);                 // [done,stub]
+      // void s_depage(void* addr, size_t count); 
+      bool s_rawmemtest(const char*);
+      // template <class type> bool s_memtest(type *);
+      int s_memtest(const void*);
 
-      static size_t s_get_size(const void*);
-      static size_t s_get_typesize(const void*);
+      size_t s_get_size(const void*);
+      size_t s_get_typesize(const void*);
 
-      // template <class type> static char s_print(type *);
-        // static void* s_page(size_t count = 1, void* addr = nullptr,
+      // template <class type> char s_print(type *);
+        // void* s_page(size_t count = 1, void* addr = nullptr,
           // int prot = PROT_READ | PROT_WRITE,
           // int flags = MAP_PRIVATE | MAP_ANONYMOUS, int fd = -1,
           // off_t offset = 0); //[exp]
-        // static char s_print(void *, unsigned int = 1);
+        // char s_print(void *, size_t = 1);
 
-      static void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
+      void addl(Log::Types = Log::DEBUG, std::string = "NULL", bool = 1,
         std::string = "NULL", int = -1); // [done]
-      static void addl(Log::Types = Log::DEBUG, std::wstring = L"NULL", bool = 1,
+      void addl(Log::Types = Log::DEBUG, std::wstring = L"NULL", bool = 1,
         std::wstring = L"NULL", int = -1); // [done]
 
       template <class type> struct CountPointers;
-    };
+    }
     // code
-    static std::wstring utf8_decode(const std::string&); // [done]
-    static std::string utf8_encode(const std::wstring&); // [done]
 
-    static std::wstring to_stringw(const std::string&);  // [done]
-    static std::wstring to_stringw(const std::wstring&); // [done]
-    static std::string to_stringa(const std::string&);   // [done]
-    static std::string to_stringa(const std::wstring&);  // [done]
-    static rg_string
+
+    std::wstring to_stringw(const std::string&);  // [done]
+    std::wstring to_stringw(const std::wstring&); // [done]
+    std::string to_stringa(const std::string&);   // [done]
+    std::string to_stringa(const std::wstring&);  // [done]
+
+    rg_string
       to_string(const std::string
         &); // [outdate], may do some bug. In fact - outdate
-    static rg_string
+    rg_string
       to_string(const std::wstring
         &); // [outdate], may do some bug. In fact - outdate
     //!!! ↓outdate soon↓ !!!
@@ -143,9 +146,9 @@ namespace Rinegine {
     //!!! use vec types instead!!!
     //!!! as example vec3<int> instead POINT3<int> and COLOR3<int>!!!
 
-    static int KeyIs(int, bool);      // [done]
-    static int KeyIsPress(int, bool); // [done]
-    static int TestKeyIs(int, bool);  // [done]
+    int KeyIs(int, bool);      // [done]
+    int KeyIsPress(int, bool); // [done]
+    int TestKeyIs(int, bool);  // [done]
 
     class SysTime {
       struct SysTimeVar;
@@ -189,36 +192,50 @@ namespace Rinegine {
       static rg_string
         Milliseconds(); // [outdate], may do some bug. In fact - outdate
     };
-    static void SetColorConsole(WORD); // [done,exp]
-    static void SetTrueColorConsole(
+    // #ifdef RG_WIN
+    //     void SetColorTCMD(WORD); // [done,exp]
+    // #else
+    void SetColorConsole(WORD); // [done,exp]
+    // #ifdef RG_WIN
+#ifdef __WIN32
+    inline void SetColorTCMD(WORD col) { // [done,exp]
+      static HANDLE HandleMainConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+      SetConsoleTextAttribute(HandleMainConsole, col);
+    }
+#endif
+    // #ifdef __WIN32 && !defined(RinegineLib)
+
+    // #endif
+    void SetTrueColorConsole(
       COLOR3D<uint8_t>,
       Rinegine::CONSOLE_COLOR = Rinegine::CONSOLE_COLOR::C_TEXT);      // [done,exp]
-    static bool isSubstringAt(const char&, const std::string&);        // [done]
-    static bool isSubstringAt(const wchar_t&, const std::wstring&);    // [done]
-    static bool isSubstringAt(const std::string&, const std::string&); // [done]
-    static bool isSubstringAt(const std::string&,
+    // #endif
+    bool isSubstringAt(const char&, const std::string&);        // [done]
+    bool isSubstringAt(const wchar_t&, const std::wstring&);    // [done]
+    bool isSubstringAt(const std::string&, const std::string&); // [done]
+    bool isSubstringAt(const std::string&,
       const std::wstring&); // []
-    static void Open(std::string);                   // [done]
-    static void Open(std::wstring);                  // [done,exp]
+    void Open(std::string);                   // [done]
+    void Open(std::wstring);                  // [done,exp]
 
-    static std::string tolowstr(std::string); // [done]
+    std::string tolowstr(std::string); // [done]
     /// @brief Converts the string to lowercase. Does not work with unicode!!!
     /// Only Latin
     /// @param wstring any case
     /// @return `wstring`  lowercase
-    static std::wstring tolowwstr(std::wstring); // [redo,exp]
+    std::wstring tolowwstr(std::wstring); // [redo,exp]
 
     //* decode
-    static char* itoa(int, int = 10, char* = nullptr);            // [done,todo]
-    static std::string itos(long long int, long long int = 10);   // [done]
-    static std::string itos(size_t, size_t = 10);                 // [done]
-    static std::wstring itows(long long int, long long int = 10); // [done]
-    static std::wstring itows(size_t, size_t = 10);               // [done]
+    char* itoa(int, int = 10, char* = nullptr);            // [done,todo]
+    // std::string itos(long long int, long long int = 10);   // [done]
+    std::string itos(size_t, size_t = 10);                 // [done]
+    std::wstring itows(long long int, long long int = 10); // [done]
+    std::wstring itows(size_t, size_t = 10);               // [done]
     //*folder
-    static bool isDirectory(std::string);        // [done]
-    static bool isDirectory(std::wstring);       // [done]
-    static bool CreateFolder(std::string path);  // [done]
-    static bool CreateFolder(std::wstring path); // [done]
+    bool isDirectory(std::string);        // [done]
+    bool isDirectory(std::wstring);       // [done]
+    bool CreateFolder(std::string path);  // [done]
+    bool CreateFolder(std::wstring path); // [done]
 
     //*debug
     class Debug {             // [done]
@@ -261,8 +278,8 @@ namespace Rinegine {
 
     // template <class type> static type *s_new(int, type &&);
 
-    // template <class type> static type *s_new(int, const type &);
-    template <class type> static type* s_new(int s) { // [done]
+    // template <class type> type *s_new(int, const type &);
+    template <class type> type* s_new(size_t s) { // [done]
       if (!std::is_default_constructible<type>::value) {
         RG_LOG_LOCK_ERROR("Type must be default constructible");
         return nullptr;
@@ -272,69 +289,70 @@ namespace Rinegine {
       return t;
     }
 
-    template <class type> static type* s_new(int s, type&& in) { // [done]
+    template <class type> type* s_new(size_t s, type&& in) { // [done]
       if (!std::is_default_constructible<type>::value) {
         RG_LOG_LOCK_ERROR("Type must be default constructible");
         return nullptr;
       }
       type* t = (type*)Lock::s_new(s * sizeof(type));
-      for (int i = 0; i < s; i++)
-        new (t + i) type(std::forward<type>(in));
+      for (size_t i = 0; i < s; i++)
+        new (t + i) type(std::move(in));
+      // new (t + i) type(std::forward<type>(in));
       return t;
     }
 
-    template <class type> static type* s_new(int s, const type& in) { // [done]
+    template <class type> type* s_new(size_t s, const type& in) { // [done]
       if (!std::is_default_constructible<type>::value) {
         RG_LOG_LOCK_ERROR("Type must be default constructible");
         return nullptr;
       }
-      type* t = (type*)Lock::s_new(s*sizeof(type));
-      for (int i = 0; i < s; i++)
+      type* t = (type*)Lock::s_new(s * sizeof(type));
+      for (size_t i = 0; i < s; i++)
         t[i] = in;
       return t;
     }
 
     template <class type, class gen>
-    static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
-      s_new(unsigned int s, gen&& in) { // [done]
-      type* t = (type*)Lock::s_new(s*sizeof(type));
-      for (unsigned int i = 0; i < s; i++)
+    std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
+      s_new(size_t s, gen&& in) { // [done]
+      type* t = (type*)Lock::s_new(s * sizeof(type));
+      for (size_t i = 0; i < s; i++)
         new (t + i) type(in());
       return t;
     }
     // new fast
-    template <class type> static type* s_fast_new(unsigned int s) { // [done]
-      type* t = (type*)Lock::s_fast_new(s*sizeof(type));
+    template <class type> type* s_fast_new(size_t s) { // [done]
+      type* t = (type*)Lock::s_fast_new(s * sizeof(type));
       return t;
     }
 
     template <class type>
-    static type* s_fast_new(unsigned int s, type&& in) { // [done]
-      type* t = (type*)Lock::s_fast_new(s* sizeof(type));
-      for (unsigned int i = 0; i < s; i++)
+    type* s_fast_new(size_t s, type&& in) { // [done]
+      type* t = (type*)Lock::s_fast_new(s * sizeof(type));
+      for (size_t i = 0; i < s; i++)
         new (t + i) type(std::forward<type>(in));
       return t;
     }
     template <class type>
-    static type* s_fast_new(unsigned int s, const type& in) { // [done]
-      type* t = (type*)Lock::s_fast_new(s* sizeof(type));
-      for (unsigned int i = 0; i < s; i++)
+    type* s_fast_new(size_t s, const type& in) { // [done]
+      type* t = (type*)Lock::s_fast_new(s * sizeof(type));
+      for (size_t i = 0; i < s; i++)
         new (t + i) type(in);
       return t;
     }
 
     template <class type, class gen>
-    static std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
-      s_fast_new(unsigned int s, gen&& in) { // [done]
-      type* t = (type*)Lock::s_fast_new(s* sizeof(type));
-      for (unsigned int i = 0; i < s; i++)
+    std::enable_if_t<std::is_invocable_r_v<type, gen>, type*>
+      s_fast_new(size_t s, gen&& in) { // [done]
+      type* t = (type*)Lock::s_fast_new(s * sizeof(type));
+      for (size_t i = 0; i < s; i++)
         new (t + i) type(in());
       return t;
     }
-    // static void *s_fast_new(unsigned int s, int typesize) { return
+    // void *s_fast_new(size_t s, int typesize) { return
     // Lock::s_fast_new(s, typesize); }
 
-    static unsigned int s_get_typesize(void*);
+    size_t s_get_typesize(void*);
 
     /**
      * @brief
@@ -375,19 +393,19 @@ namespace Rinegine {
       */
 
 
-    static char s_print(to_rrvalue(char*));
+    char s_print(to_rrvalue(char*));
 
-    static char s_print(to_rrvalue(wchar_t*));
+    char s_print(to_rrvalue(wchar_t*));
 
-    static char s_print(to_rrvalue(std::string*));
+    char s_print(to_rrvalue(std::string*));
 
-    static char s_print(to_rrvalue(std::wstring*));
+    char s_print(to_rrvalue(std::wstring*));
 
-    static char s_print(std::string*);
+    char s_print(std::string*);
 
-    static char s_print(std::wstring*);
+    char s_print(std::wstring*);
 
-    template <class type> static char s_print(type* in) {
+    template <class type> char s_print(type* in) {
       size_t temp_size = (size_t)Kernel::Lock::s_get_size(in);
       for (size_t i = 0; i < temp_size; i++) {
         if (i != temp_size - 1)
@@ -399,38 +417,38 @@ namespace Rinegine {
     }
 
     template <class ForwardIt, class Generator>
-    static void s_fill_func(ForwardIt first, ForwardIt last,
+    void s_fill_func(ForwardIt first, ForwardIt last,
       Generator g) {
       for (; first != last; ++first)
         *first = g();
     }
 
     template <class ForwardIt, class Generator>
-    static void s_fill(ForwardIt first, ForwardIt last, Generator g) {
+    void s_fill(ForwardIt first, ForwardIt last, Generator g) {
       for (; first != last; ++first)
         *first = g;
     }
     template <class type, class gen>
-    static void s_fill_func(type arr, int size, gen g) {
+    void s_fill_func(type arr, int size, gen g) {
       for (int i = 0; i < size; i++) {
         arr[i] = g();
       }
     }
     template <class type, class gen>
-    static void s_fill(type arr, int size, gen g) {
+    void s_fill(type arr, int size, gen g) {
       for (int i = 0; i < size; i++) {
         arr[i] = g;
       }
     }
 
-    static char* s_getraw(void* in);
+    char* s_getraw(void* in);
 
     template <typename type>
     typename std::enable_if<std::is_class<type>::value,
-      void>::type static s_delete(type*& in) {
+      void>::type s_delete(type*& in) {
       if (in == nullptr)
         return;
-      if (!s_memtest(in)) {
+      if (!Lock::s_memtest(in)) {
         RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");
         return;
       }
@@ -443,7 +461,7 @@ namespace Rinegine {
 
     template <typename type>
     typename std::enable_if<!std::is_class<type>::value,
-      void>::type static s_delete(type*& in) {
+      void>::type s_delete(type*& in) {
       if (in == nullptr)
         return;
       if (!Lock::s_memtest(in)) {
@@ -455,7 +473,7 @@ namespace Rinegine {
 
     template <typename type>
     typename std::enable_if<std::is_class<type>::value,
-      void>::type static s_fast_delete(type*
+      void>::type s_fast_delete(type*
         & in) {
       if (in == nullptr)
         return;
@@ -472,7 +490,7 @@ namespace Rinegine {
 
     template <typename type>
     typename std::enable_if<!std::is_class<type>::value,
-      void>::type static s_fast_delete(type*
+      void>::type s_fast_delete(type*
         & in) {
       if (in == nullptr)
         return;
@@ -483,13 +501,13 @@ namespace Rinegine {
       Lock::s_fast_delete(in);
     }
 
-    template <typename T> static decltype(auto) s_move(T& obj) {
+    template <typename T> decltype(auto) s_move(T& obj) {
       return (T&&)obj;
     }
 
-    // template <class type> static void s_resize(type *&, to_rvalue(int));
+    // template <class type> void s_resize(type *&, to_rvalue(int));
     template <class type>
-    static void s_resize(type*& in, to_rvalue(int) n_size) { // 
+    void s_resize(type*& in, to_rvalue(int) n_size) { // 
       if (n_size <= 0) {
         s_delete(in);
         return;
@@ -527,6 +545,11 @@ namespace Rinegine {
       // CONSTRUCTORs
       Raw_Pointer();
       Raw_Pointer(void* in);
+      // В Raw_Pointer можно добавить:
+      Raw_Pointer(const Raw_Pointer&) = default;
+      Raw_Pointer& operator=(const Raw_Pointer&) = default;
+      Raw_Pointer(Raw_Pointer&&) = default;
+      Raw_Pointer& operator=(Raw_Pointer&&) = default;
 
       // INITs
       void init();
@@ -545,15 +568,21 @@ namespace Rinegine {
 
     public:
       bool is_init() const { return _ptr.is_init(); }
-      const type* get() const { return (type)_ptr.get(); }
+      type* get() const { return (type*)_ptr.get(); }
       Pointer() : _ptr() {}
       Pointer(const type& in) : _ptr(s_new(1, in)) {}
-      Pointer(Pointer&& in) noexcept : _ptr(s_new(1, in)) {}
-      Pointer(const Pointer& in) : _ptr(in.get) {}
+      // Pointer(Pointer&& in) noexcept : _ptr(s_new(1, in)) {}
+      Pointer(Pointer&& in) noexcept : _ptr(in._ptr) {
+        in._ptr.init(); // или in._ptr.ptr = nullptr, чтобы избежать двойного освобождения
+      }
+
+      // Pointer(const Pointer<type>& in) : _ptr(in.get()) {}
+      Pointer(const Pointer<type>& in) : _ptr(in._ptr) {}
       Pointer(type* in) : _ptr(in) {}
       void init() {
         if (is_init())
           clear();
+        _ptr.init(s_new<type>(1));
       }
       void init(type& in) { _ptr.init(s_new(1, in)); }
       void init(const type& in) { _ptr.init(s_new(1, in)); }
@@ -563,24 +592,111 @@ namespace Rinegine {
         _ptr.init(s_new(1, in));
         return *this;
       }
+      // Pointer& operator=(Pointer&& in) noexcept {
+      //   _ptr.init(s_new(1, in));
+      //   return *this;
+      // }
       Pointer& operator=(Pointer&& in) noexcept {
-        _ptr.init(s_new(1, in));
+        if (this != &in) {
+          _ptr.clear();      // освободить старое
+          _ptr = in._ptr;    // забрать владение
+          in._ptr.init();    // обнулить источник
+        }
         return *this;
       }
+      // Pointer& operator=(const Pointer& in) {
+      //   _ptr.init(s_new(1, in));
+      //   return *this;
+      // }
       Pointer& operator=(const Pointer& in) {
-        _ptr.init(s_new(1, in));
+        if (this != &in) {
+          _ptr = in._ptr;  // ← копировать ВЕСЬ Raw_Pointer
+        }
         return *this;
       }
       Pointer& operator=(type* in) {
         _ptr.init(in);
         return *this;
       }
-      type* operator->() { return (type*)_ptr.get(); }
+      inline type* operator->() { return (type*)_ptr.get(); }
       void clear() { _ptr.clear(); }
       operator type* () const { return (type*)_ptr.get(); }
     };
     //*array
-    template <class type> class Array {
+    class RawArray {
+      template <class type>
+      friend class Array;
+      DATA_OUT* ptr = nullptr;
+      inline void* get() const { return (void*)(ptr + 1); }
+    public:
+      RawArray() = default;
+      RawArray(size_t);
+      RawArray(const RawArray&);
+      RawArray& operator=(const RawArray&);
+      void resize(const size_t& size);
+      size_t size() const;
+      void clear();
+      ~RawArray();
+    };
+    template <class type>
+    class Array :protected RawArray {
+
+    public:
+      inline Array() = default;
+      inline Array(Array&&) = default;
+      inline Array(const Array& in) {
+        RawArray::resize(in.size());
+        for (size_t i = 0; i < in.size(); i++)
+          ((type*)get())[i] = ((type*)in.get())[i];
+      };
+      inline Array(const size_t& size) { resize(size); }
+      // inline Array(const size_t& size, type&& in) { resize(size); for (size_t i = 0; i < size; i++) ((type*)get())[i] = std::move(in); }
+      inline Array(const size_t& size, const type& in) { resize(size); for (size_t i = 0; i < size; i++) ((type*)get())[i] = in; }
+      inline Array(type&& in) { resize(1); ((type*)get())[0] = std::move(in); }
+      inline Array(const type& in) { resize(1); ((type*)get())[0] = in; }
+
+
+      inline type& operator[](long i) const {
+        if (ptr == nullptr)
+          RG_LOG_LOCK_CRITICAL("Array not initialized");
+        if (i >= ptr->size)
+          RG_LOG_LOCK_CRITICAL("Index out of range");
+        if (i < 0)
+          return *(type*)(((char*)get())[ptr->size + i]);
+        return ((type*)get())[i];
+      }
+      inline type& back() const { if (ptr == nullptr) RG_LOG_LOCK_CRITICAL("Array not initialized"); return ((type*)get())[size() - 1]; }
+      inline void resize(const size_t& size) {
+        RawArray::resize(size * sizeof(type));
+      }
+      // inline void push_back(type&& in) {
+      //   if (ptr == nullptr) {
+      //     resize(1);
+      //     ((type*)get())[0] = std::move(in);
+      //   }
+      //   else {
+      //     resize(ptr->size + sizeof(type));
+      //     ((type*)get())[ptr->size - 1] = std::move(in);
+      //   }
+      // }
+      inline void push_back(const type& in) {
+        if (ptr == nullptr) {
+          resize(1);
+          ((type*)get())[0] = std::move(in);
+        }
+        else {
+          resize(ptr->size + sizeof(type));
+          ((type*)get())[ptr->size - 1] = in;
+        }
+      }
+      inline size_t size() const { if (ptr == nullptr)return 0; else return ptr->size / sizeof(type); }
+      inline void clear() {
+        Rinegine::Kernel::s_delete(ptr);
+        ptr = nullptr;
+      }
+      inline ~Array() { clear(); }
+    };
+    /*template <class type> class Array {
       struct ArrayVars;
       ArrayVars _vars;
 
@@ -664,7 +780,7 @@ namespace Rinegine {
       void clear();
       void fastclear();
       ~Array();
-    };
+    };*/
     // matrix
     template <typename type> class Matrix {
       struct MatrixVars;
@@ -754,10 +870,10 @@ namespace Rinegine {
       template <class tttt> void place(POINT2D<int>, Matrix<tttt>&);
     };
     template <class type, class type2>
-    static type SpecialMatMulti(Matrix<type>&, Matrix<type2>&, int, int);
+    type SpecialMatMulti(Matrix<type>&, Matrix<type2>&, int, int);
     // [todo] Удалить
     template <class type, class type2>
-    static bool CountMatMinus(Matrix<type>&, Matrix<type2>&, int, int);
+    bool CountMatMinus(Matrix<type>&, Matrix<type2>&, int, int);
     //* 3D Matrix
     template <typename type> class RG_Matrix3D {
       struct Matrix3DVars;
@@ -832,75 +948,132 @@ namespace Rinegine {
       template <class tttt> void place(POINT3D<int>, RG_Matrix3D<tttt>&);
     };
     // map
-    template <class type> class RG_Map {
-    public:
-      RG_Map();
-      RG_Map(uint size);
-      RG_Map(std::string key, type val);
-      RG_Map(MapData<std::string, type>);
-      RG_Map(Array<MapData<std::string, type>>);
-      RG_Map(std::initializer_list<MapData<std::string, type>>);
-      void init(uint size);
-      void init(std::string key, type val);
-      void init(MapData<std::string, type>);
-      void init(Array<MapData<std::string, type>>);
-      void init(std::initializer_list<MapData<std::string, type>>);
-      void fill(std::string key, type val);
-      void fill(MapData<std::string, type>);
-      void fill(uint size);
-      void fill(Array<MapData<std::string, type>>);
-      void fill(std::initializer_list<MapData<std::string, type>>);
-      int findpos(std::string ii);
-      type find(std::string ii);
-      type find(int ii);
-      type operator[](std::string i);
-      void sort();
-      MapData<std::string, type>& operator[](uint i);
-      void push_back(MapData<std::string, type>);
-      void resize(uint size);
-      int size();
-      MapData<std::string, type>* get_arr();
-      Array<type>& get_rgarr();
-      void clear();
-      ~RG_Map();
-    };
-    template <class type> class RG_WMap {
+    // class RawMap {
+    //   template <class key, class value>
+    //   friend class Map;
+    //   RawArray keys;
+    //   RawArray values;
+    //   size_t count = 0;
+    // public:
+    //   RawMap() = default;
+    //   RawMap(size_t size) : count(0) { init(size); }
+    //   void init(size_t size) {
+    //     resize(size);
+    //   }
+    //   void resize(size_t size) {
+    //     keys.resize(size);
+    //     values.resize(size);
+    //   }
+    //   ~RawMap() {
+    //     keys.~RawArray();
+    //     values.~RawArray();
+    //   }
+    // };
+    // class RawMap {
+    //   template<class key, class value>
+    //   friend class Map;
+    //   char* key = nullptr;
+    //   char* value = nullptr;
+    //   size_t count = 0;
+    // public:
+    //   RawMap() :key(nullptr), value(nullptr) {}
+    //   void set_type_size(size_t key, size_t value);
+    //   void resize(size_t size);
+    //   void init(size_t key, size_t value,size_t size);
+    //   ~RawMap();
+    //   char* getkey(size_t i);
+    //   char* getval(size_t i);
+    // };
+    // template<class Key, class Value>
+    // class Map :protected RawMap {
+    // public:
+    //   Map() {
+    //     init();
+    //   }
+    //   void init() {
+    //     set_type_size(sizeof(Key), sizeof(Value));
+    //   }
+    //   void init(size_t count){
+    //     set_type_size(sizeof(Key), sizeof(Value));
+    //     resize(count);
+    //   }
+    //   Value& operator[](Key in){
+    //     Value* out = nullptr;
+    //     for(size_t i = 0; i < count; i++){
+    //       if(RawMap::)
+    //     }
+    //   }
 
-    public:
-      RG_WMap();
-      RG_WMap(uint size);
-      RG_WMap(std::wstring key, type val);
-      RG_WMap(MapData<std::wstring, type>);
-      RG_WMap(Array<MapData<std::wstring, type>>);
-      RG_WMap(std::initializer_list<MapData<std::wstring, type>>);
-      void init(uint size);
-      void init(std::wstring key, type val);
-      void init(MapData<std::wstring, type>);
-      void init(Array<MapData<std::wstring, type>>);
-      void init(std::initializer_list<MapData<std::wstring, type>>);
-      void fill(std::wstring key, type val);
-      void fill(MapData<std::wstring, type>);
-      void fill(uint size);
-      void fill(Array<MapData<std::wstring, type>>);
-      void fill(std::initializer_list<MapData<std::wstring, type>>);
-      int findpos(std::wstring ii);
-      type& find(std::wstring ii);
-      type& find(int ii);
-      MapData<std::wstring, type>& findstring(std::wstring ii);
-      type& operator[](std::wstring i);
-      MapData<std::wstring, type>& findchar(wchar_t in);
-      void revsort();
-      void sort();
-      MapData<std::wstring, type>& operator[](uint i);
-      void push_back(MapData<std::wstring, type>);
-      void resize(uint size);
-      int size();
-      MapData<std::wstring, type>* get_arr();
-      Array<type>& get_rgarr();
-      void clear();
-      ~RG_WMap();
-    };
-    static uint64_t wstring_to_seed(const std::wstring&);
+    // };
+    // template <class type> class RG_Map {
+    // public:
+    //   RG_Map();
+    //   RG_Map(uint size);
+    //   RG_Map(std::string key, type val);
+    //   RG_Map(MapData<std::string, type>);
+    //   RG_Map(Array<MapData<std::string, type>>);
+    //   RG_Map(std::initializer_list<MapData<std::string, type>>);
+    //   void init(uint size);
+    //   void init(std::string key, type val);
+    //   void init(MapData<std::string, type>);
+    //   void init(Array<MapData<std::string, type>>);
+    //   void init(std::initializer_list<MapData<std::string, type>>);
+    //   void fill(std::string key, type val);
+    //   void fill(MapData<std::string, type>);
+    //   void fill(uint size);
+    //   void fill(Array<MapData<std::string, type>>);
+    //   void fill(std::initializer_list<MapData<std::string, type>>);
+    //   int findpos(std::string ii);
+    //   type find(std::string ii);
+    //   type find(int ii);
+    //   type operator[](std::string i);
+    //   void sort();
+    //   MapData<std::string, type>& operator[](uint i);
+    //   void push_back(MapData<std::string, type>);
+    //   void resize(uint size);
+    //   int size();
+    //   MapData<std::string, type>* get_arr();
+    //   Array<type>& get_rgarr();
+    //   void clear();
+    //   ~RG_Map();
+    // };
+    // template <class type> class RG_WMap {
+
+    // public:
+    //   RG_WMap();
+    //   RG_WMap(uint size);
+    //   RG_WMap(std::wstring key, type val);
+    //   RG_WMap(MapData<std::wstring, type>);
+    //   RG_WMap(Array<MapData<std::wstring, type>>);
+    //   RG_WMap(std::initializer_list<MapData<std::wstring, type>>);
+    //   void init(uint size);
+    //   void init(std::wstring key, type val);
+    //   void init(MapData<std::wstring, type>);
+    //   void init(Array<MapData<std::wstring, type>>);
+    //   void init(std::initializer_list<MapData<std::wstring, type>>);
+    //   void fill(std::wstring key, type val);
+    //   void fill(MapData<std::wstring, type>);
+    //   void fill(uint size);
+    //   void fill(Array<MapData<std::wstring, type>>);
+    //   void fill(std::initializer_list<MapData<std::wstring, type>>);
+    //   int findpos(std::wstring ii);
+    //   type& find(std::wstring ii);
+    //   type& find(int ii);
+    //   MapData<std::wstring, type>& findstring(std::wstring ii);
+    //   type& operator[](std::wstring i);
+    //   MapData<std::wstring, type>& findchar(wchar_t in);
+    //   void revsort();
+    //   void sort();
+    //   MapData<std::wstring, type>& operator[](uint i);
+    //   void push_back(MapData<std::wstring, type>);
+    //   void resize(uint size);
+    //   int size();
+    //   MapData<std::wstring, type>* get_arr();
+    //   Array<type>& get_rgarr();
+    //   void clear();
+    //   ~RG_WMap();
+    // };
+    uint64_t wstring_to_seed(const std::wstring&);
     class RG_CRand {
     public:
       RG_CRand();
@@ -909,10 +1082,10 @@ namespace Rinegine {
       bool is_init();
       uint64_t rand();
     };
-    static int set_seed();
-    static uint64_t RG_Rand();
-    static uint64_t Rand();
-    static double RandRange(double, double);
+    int set_seed();
+    uint64_t RG_Rand();
+    uint64_t Rand();
+    double RandRange(double, double);
     // encode
     template <class type> class RG_List {
     public:
@@ -935,18 +1108,33 @@ namespace Rinegine {
     std::wstring utf8_to_utf16(const std::string& str);
     std::string utf16_to_utf8(const std::wstring& wstr);
 #endif
-    static std::wstring WFileLoad(std::string path);
-    static std::string AFileLoad(std::string path);
-    static std::wstring WFileLoad(std::wstring path);
+    std::string AFileLoad(std::string path);
+    std::wstring WFileLoad(std::string path);
+    std::wstring WFileLoad(std::wstring path);
+    // #ifdef RG_UTF
+        // template <class in_string> rg_string FileLoad(in_string path);
 #ifdef RG_UTF
-    template <class in_string> static rg_string FileLoad(in_string path);
+    template <class in_string>
+    rg_string FileLoad(in_string path) {
+      return WFileLoad(rg_to_stringa(path));
+    }
 #else
-    template <class in_string> static rg_string FileLoad(in_string path);
+    template <class in_string>
+    rg_string FileLoad(in_string path) {
+      return AFileLoad(rg_to_stringa(path));
+    }
 #endif
-    static bool RG_IsFile(std::string path);
-    static std::string GetTypePath(std::string path);
+    // #else
+        // template <class in_string> rg_string FileLoad(in_string path);
+    // #endif
+    bool RG_IsFile(std::string path);
+    std::string GetTypePath(std::string path);
 #ifdef RG_WINos
     class FileFinder {
+      HANDLE hFindFile;
+      WIN32_FIND_DATA findFileData; // Используем объект, а не указатель
+      bool _init = false;
+      bool _eof = false;
     public:
       bool eof();
       WIN32_FIND_DATA* init(const rg_string& path);
@@ -955,6 +1143,10 @@ namespace Rinegine {
       ~FileFinder();
     };
     class FileFinderA {
+      HANDLE hFindFile;
+      WIN32_FIND_DATAA findFileData; // Используем объект, а не указатель
+      bool _init = false;
+      bool _eof = false;
     public:
       bool eof();
       WIN32_FIND_DATAA* init(const std::string& path);
@@ -963,6 +1155,10 @@ namespace Rinegine {
       ~FileFinderA();
     };
     class FileFinderW {
+      HANDLE hFindFile;
+      WIN32_FIND_DATAW findFileData; // Используем объект, а не указатель
+      bool _init = false;
+      bool _eof = false;
     public:
       bool eof();
       WIN32_FIND_DATAW* init(const std::wstring& path);
@@ -972,25 +1168,25 @@ namespace Rinegine {
     };
 #endif
     // otherDef
-    static int RG_CMD(std::string, bool = true);
-    // struct RG_ConfigRunProgram;
-    struct RG_ConfigRunProgram {
+    int RG_CMD(std::string, bool = true);
+    // struct ConfigRunProgram;
+    struct ConfigRunProgram {
       std::string path = "err";
       bool assinhrone = true;
       bool InItFol = false;
       bool otherCMD = false;
     };
 #ifdef RG_WIN
-    static int RG_RunProgram(RG_ConfigRunProgram conf);
+    int RunProgram(ConfigRunProgram conf);
 #elif defined(RG_Linux)
-    static int RG_RunProgram(RG_ConfigRunProgram conf);
+    int RunProgram(ConfigRunProgram conf);
 #endif
-    static std::string RG_AGetMainFolder();
-    static std::wstring RG_WGetMainFolder();
+    std::string RG_AGetMainFolder();
+    std::wstring RG_WGetMainFolder();
 #ifdef RG_UTF
-    static std::wstring RG_GetMainFolder();
+    std::wstring RG_GetMainFolder();
 #else
-    static std::string RG_GetMainFolder();
+    std::string RG_GetMainFolder();
 #endif
     template <class type> struct vec2 {
       void operator=(vec2<type> in);
@@ -1020,16 +1216,23 @@ namespace Rinegine {
       type& operator[](int i) const;
       template <class type2> vec4<type> operator*(const Matrix<type2>& in);
     };
-    // Version
-    static void RG_GetVersion(int& major, int& minor, int& patch, int& wip);
-    static void RG_GetVersion(int& major, int& minor, int& patch);
-    class File {
-    public:
-      template <typename lambda> static void Read(std::string path, lambda func);
-      void Write(std::string path, const std::string& in);
-      template <typename lambdaw>
-      static void ReadW(const wchar_t* path, lambdaw func);
-      void WriteW(const char* path, const std::wstring& in);
-    };
+    // Version    // class File {
+    // public:
+    //   template <typename lambda> static void Read(std::string path, lambda func);
+    //   void Write(std::string path, const std::string& in);
+    //   template <typename lambdaw>
+    //   static void ReadW(const wchar_t* path, lambdaw func);
+    //   void WriteW(const char* path, const std::wstring& in);
+    // };
+    void RG_GetVersion(int& major, int& minor, int& patch, int& wip);
+    void RG_GetVersion(int& major, int& minor, int& patch);
+    // class File {
+    // public:
+    //   template <typename lambda> static void Read(std::string path, lambda func);
+    //   void Write(std::string path, const std::string& in);
+    //   template <typename lambdaw>
+    //   static void ReadW(const wchar_t* path, lambdaw func);
+    //   void WriteW(const char* path, const std::wstring& in);
+    // };
   };
 } // namespace Rinegine

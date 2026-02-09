@@ -37,7 +37,7 @@ Kernel::Raw_Pointer &Kernel::Raw_Pointer::operator=(void *in) {
 void *Kernel::Raw_Pointer::operator->() { return ptr; }
 
 void Kernel::Raw_Pointer::clear() {
-  if (ptr) {
+  if (ptr != nullptr) {
     Lock::s_delete(ptr);
     ptr = nullptr;
   }
