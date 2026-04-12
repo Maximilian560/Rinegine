@@ -273,6 +273,62 @@ namespace Rinegine {
         return node;
       }
 
+      // ═══════════════════════════════════════════
+      //  Insert / Erase
+      // ═══════════════════════════════════════════
+
+      //* Вставляет ноду перед pos, инициализирует копированием
+      NODE<T>* insert_before(NODE<T>* pos, const T& in) {
+        if (!pos) return push(in);  // nullptr = push_back
+        NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+        if (!node) return nullptr;
+        ::new (static_cast<void*>(std::addressof(node->data))) T(in);
+
+        node->prev = pos->prev;
+        node->next = pos;
+        if (pos->prev) pos->prev->next = node;
+        else head = node;
+        pos->prev = node;
+        ++count;
+        return node;
+      }
+
+      //* Вставляет ноду перед pos, инициализирует перемещением
+      NODE<T>* insert_before(NODE<T>* pos, T&& in) {
+        if (!pos) return push(std::move(in));
+        NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+        if (!node) return nullptr;
+        ::new (static_cast<void*>(std::addressof(node->data))) T(std::move(in));
+
+        node->prev = pos->prev;
+        node->next = pos;
+        if (pos->prev) pos->prev->next = node;
+        else head = node;
+        pos->prev = node;
+        ++count;
+        return node;
+      }
+
+      //* Удаляет ноду pos, возвращает следующую (или nullptr)
+      NODE<T>* erase(NODE<T>* pos) {
+        if (!pos) return nullptr;
+        NODE<T>* next = pos->next;
+        NODE<T>* prev = pos->prev;
+
+        // Вызываем деструктор если нужен
+        if constexpr (!Traits::has_trivial_destructor_v<T>) {
+          pos->data.~T();
+        }
+        ALLOCATOR::deallocate(pos);
+
+        if (prev) prev->next = next;
+        else head = next;
+        if (next) next->prev = prev;
+        else end = prev;
+        --count;
+        return next;
+      }
+
       //* Вариант push для POD типов (без вызова конструкторов)
       template <typename U>
         requires Traits::is_trivially_constructible_v<U, const U&>
