@@ -12,3 +12,6 @@ modules/include/Addons/defined/backup/
 */old/
 old/
 modules/include/Addons/other/
+.qwen/settings.json
+.qwen/settings.json.orig
+.qwen/
