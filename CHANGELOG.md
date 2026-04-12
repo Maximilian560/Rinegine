@@ -4,6 +4,8 @@
 - Немного подправлен файл WIP.h в модуле WIP
 
 ## ADD
+> Rinegine::Kernel::LIST::push_front() has been added
+- Добавлен метод Rinegine::Kernel::LIST::push_front()
 > Allocator, stream, (f/io)stream update:
 - Добавлены is_trivially_constructible, is_trivially_constructible, is_trivial, is_trivial_v, has_trivial_destructor и has_trivial_destructor_v. Вероятно временно расположены в именном пространстве Rinegine::Kernel::Traits. Аналоги из std, разницы по сути нет, добавленны для большей независимости от STD.
 - Добавлены __addressof и addressof. Временно расположены в Rinegine::Kernel::Addres, добавлены для большей независимости от STD.

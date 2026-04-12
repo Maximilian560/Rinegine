@@ -240,6 +240,39 @@ namespace Rinegine {
         }
         return node;
       }
+
+      //* Вставляет ноду в начало списка (push_front)
+      NODE<T>* push_front() {
+        NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+        if (!node) return nullptr;
+
+        node->next = head;
+        node->prev = nullptr;
+        if (head) head->prev = node;
+        else end = node;
+        head = node;
+        ++count;
+        return node;
+      }
+
+      //* push_front с копированием
+      NODE<T>* push_front(const T& in) {
+        NODE<T>* node = push_front();
+        if (node) {
+          ::new (static_cast<void*>(std::addressof(node->data))) T(in);
+        }
+        return node;
+      }
+
+      //* push_front с перемещением
+      NODE<T>* push_front(T&& in) {
+        NODE<T>* node = push_front();
+        if (node) {
+          ::new (static_cast<void*>(std::addressof(node->data))) T(std::move(in));
+        }
+        return node;
+      }
+
       //* Вариант push для POD типов (без вызова конструкторов)
       template <typename U>
         requires Traits::is_trivially_constructible_v<U, const U&>
