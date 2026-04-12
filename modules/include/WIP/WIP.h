@@ -25,7 +25,7 @@ namespace Rinegine {
         keys.resize(size);
         values.resize(size);
       }
-      ~RawMap()=default;
+      ~RawMap() = default;
     };
 
     namespace Lock {
@@ -167,5 +167,11 @@ namespace Rinegine {
         //   bool operator==(const Allocator &) const { return true; }
         //   bool operator!=(const Allocator &) const { return false; }
         // }; //! EXPERIMENTAL
+
+
+    //***TOKENIZE MODULE***//
+    // class Tokenizer {
+
+    // };
   };
 }
