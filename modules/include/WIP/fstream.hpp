@@ -2,13 +2,13 @@
 #include <fcntl.h>
 namespace Rinegine::Kernel {
   namespace File {
-    enum FILE_FLAG : uint32_t {
-      FILE_READ = 1 << 0,   // Читать
-      FILE_WRITE = 1 << 1,   // Писать
-      FILE_CREATE = 1 << 2,   // Создать если нет
-      FILE_APPEND = 1 << 3,   // Дописывать в конец
-      FILE_TRUNC = 1 << 4,   // Очистить если существует
-      FILE_BINARY = 1 << 5,   // Бинарный режим (только Windows, на Linux игнор)
+    enum struct FLAG : uint32_t {
+      READ = 1 << 0,   // Читать
+      WRITE = 1 << 1,   // Писать
+      CREATE = 1 << 2,   // Создать если нет
+      APPEND = 1 << 3,   // Дописывать в конец
+      TRUNC = 1 << 4,   // Очистить если существует
+      BINARY = 1 << 5,   // Бинарный режим (только Windows, на Linux игнор)
     };
     // ОБЩЕЕ — не зависит от ОС
     static Rinegine::Kernel::Stream open(const char* path, uint32_t flags);
@@ -26,16 +26,16 @@ namespace Rinegine::Kernel {
       int os_flags = 0;
 
       // Транслируем наши флаги → POSIX флаги
-      if ((flags & FILE_READ) && (flags & FILE_WRITE))
+      if ((flags & File::FLAG::READ) && (flags & File::FLAG::WRITE))
         os_flags = O_RDWR;
-      else if (flags & FILE_READ)
+      else if (flags & File::FLAG::READ)
         os_flags = O_RDONLY;
-      else if (flags & FILE_WRITE)
+      else if (flags & File::FLAG::WRITE)
         os_flags = O_WRONLY;
 
-      if (flags & FILE_CREATE)  os_flags |= O_CREAT;
-      if (flags & FILE_TRUNC)   os_flags |= O_TRUNC;
-      if (flags & FILE_APPEND)  os_flags |= O_APPEND;
+      if (flags & File::FLAG::CREATE)  os_flags |= O_CREAT;
+      if (flags & File::FLAG::TRUNC)   os_flags |= O_TRUNC;
+      if (flags & File::FLAG::APPEND)  os_flags |= O_APPEND;
 
       // Открываем
       int fd = ::open(path, os_flags, 0644);  // 0644 = права для нового файла
@@ -49,8 +49,8 @@ namespace Rinegine::Kernel {
       Stream s;
       s.handle = (void*)(intptr_t)fd;
       s.flags = 0;
-      if (flags & FILE_READ)  Flags::set(s.flags, STREAM_READABLE);
-      if (flags & FILE_WRITE) Flags::set(s.flags, STREAM_WRITABLE);
+      if (flags & File::FLAG::READ)  Flags::set(s.flags, STREAM_READABLE);
+      if (flags & File::FLAG::WRITE) Flags::set(s.flags, STREAM_WRITABLE);
       s.buffer = nullptr;
       s.ops = &ops;
       return s;
@@ -93,18 +93,53 @@ namespace Rinegine::Kernel {
     }
 
 #elif defined(_WIN32)
+    inline constexpr FLAG operator~(FLAG f) noexcept {
+      return static_cast<FLAG>(~static_cast<unsigned>(f));
+    }
+
+    // Разрешаем побитовое И
+    inline constexpr unsigned operator&(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) & static_cast<unsigned>(rhs);
+    }
+
+    // Разрешаем побитовое ИЛИ
+    inline constexpr unsigned operator|(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) | static_cast<unsigned>(rhs);
+    }
+
+    // Разрешаем побитовое исключающее ИЛИ
+    inline constexpr unsigned operator^(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) ^ static_cast<unsigned>(rhs);
+    }
+
+    // Разрешаем &=
+    inline constexpr FLAG& operator&=(FLAG& lhs, FLAG rhs) noexcept {
+      return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) & static_cast<unsigned>(rhs));
+    }
+
+    // Разрешаем |=
+    inline constexpr FLAG& operator|=(FLAG& lhs, FLAG rhs) noexcept {
+      return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | static_cast<unsigned>(rhs));
+    }
+    inline constexpr unsigned operator&(unsigned lhs, FLAG rhs) noexcept { return lhs & static_cast<unsigned>(rhs); }
+    inline constexpr unsigned operator&(FLAG lhs, unsigned rhs) noexcept { return static_cast<unsigned>(lhs) & rhs; }
+    inline constexpr unsigned operator|(unsigned lhs, FLAG rhs) noexcept { return lhs | static_cast<unsigned>(rhs); }
+    inline constexpr unsigned operator|(FLAG lhs, unsigned rhs) noexcept { return static_cast<unsigned>(lhs) | rhs; }
+    inline constexpr FLAG& operator&=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) & rhs); }
+    inline constexpr FLAG& operator|=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | rhs); }
+
     // read_raw, write_raw, open
     Stream open(const char* path, uint32_t flags) {
       DWORD access = 0;
-      if (flags & FILE_READ)  access |= GENERIC_READ;
-      if (flags & FILE_WRITE) access |= GENERIC_WRITE;
+      if (flags & File::FLAG::READ)  access |= GENERIC_READ;
+      if (flags & File::FLAG::WRITE) access |= GENERIC_WRITE;
 
       DWORD disposition = OPEN_EXISTING;
-      if (flags & FILE_CREATE && flags & FILE_TRUNC)
+      if (flags & File::FLAG::CREATE && flags & File::FLAG::TRUNC)
         disposition = CREATE_ALWAYS;         // всегда новый
-      else if (flags & FILE_CREATE)
+      else if (flags & File::FLAG::CREATE)
         disposition = OPEN_ALWAYS;           // открыть или создать
-      else if (flags & FILE_WRITE)
+      else if (flags & File::FLAG::WRITE)
         disposition = TRUNCATE_EXISTING;     // очистить
 
       HANDLE h = CreateFileA(path, access, FILE_SHARE_READ, nullptr,
@@ -118,8 +153,8 @@ namespace Rinegine::Kernel {
       Stream s;
       s.handle = h;
       s.flags = 0;
-      if (flags & FILE_READ)  Flags::set(s.flags, STREAM_READABLE);
-      if (flags & FILE_WRITE) Flags::set(s.flags, STREAM_WRITABLE);
+      if (flags & File::FLAG::READ)  Flags::set(s.flags, STREAM_READABLE);
+      if (flags & File::FLAG::WRITE) Flags::set(s.flags, STREAM_WRITABLE);
       s.buffer = nullptr;
       s.ops = &ops;
       return s;
@@ -149,7 +184,8 @@ namespace Rinegine::Kernel {
     }
     static int64_t tell(void* handle) {
       LARGE_INTEGER pos;
-      if (!SetFilePointerEx((HANDLE)handle, { 0 }, &pos, FILE_CURRENT)) return -1;
+      // if (!SetFilePointerEx((HANDLE)handle, { 0 }, &pos, FILE_CURRENT)) return -1;
+      if (!SetFilePointerEx((HANDLE)handle, LARGE_INTEGER{ 0, 0 }, &pos, FILE_CURRENT)) return -1;
       return pos.QuadPart;
     }
     static int64_t size(void* handle) {

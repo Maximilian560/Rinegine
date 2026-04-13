@@ -16,9 +16,31 @@
 #error "Unsupported OS"
 #endif
 
+#ifndef _GLIBCXX_NOEXCEPT
+#  define _GLIBCXX_NOEXCEPT noexcept
+#endif
+#ifndef _GLIBCXX_NOEXCEPT_PARM
+#  define _GLIBCXX_NOEXCEPT_PARM
+#endif
+#ifndef _GLIBCXX_NOEXCEPT_QUAL
+#  define _GLIBCXX_NOEXCEPT_QUAL noexcept
+#endif
+#ifndef _GLIBCXX_CONSTEXPR
+#  define _GLIBCXX_CONSTEXPR constexpr
+#endif
+#ifndef _GLIBCXX17_CONSTEXPR
+#  define _GLIBCXX17_CONSTEXPR constexpr
+#endif
+#ifndef _GLIBCXX_USE_NOEXCEPT
+#  define _GLIBCXX_USE_NOEXCEPT noexcept
+#endif
 namespace Rinegine {
   namespace Kernel {
     namespace Traits {
+#if defined(__clang__) && __has_builtin(__is_trivially_destructible)
+#  undef __has_trivial_destructor
+#  define __has_trivial_destructor(T) __is_trivially_destructible(T)
+#endif
       // Тривиальный конструктор
       template<typename T, typename... Args>
       struct is_trivially_constructible {
