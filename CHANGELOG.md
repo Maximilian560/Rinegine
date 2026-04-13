@@ -1,5 +1,7 @@
 # [0.3.0/latest]
 ## FIX
+> Windows support has been expanded  
+- Были исправлены ошибки компиляции в новых типах (LIST,Socket и пр.)
 > Allocator, stream, (f/io)stream update:
 - Немного подправлен файл WIP.h в модуле WIP
 
