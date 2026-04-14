@@ -2,7 +2,7 @@
 #include <fcntl.h>
 namespace Rinegine::Kernel {
   namespace File {
-    enum FLAG : uint32_t {
+    enum struct FLAG : uint32_t {
       READ = 1 << 0,   // Читать
       WRITE = 1 << 1,   // Писать
       CREATE = 1 << 2,   // Создать если нет
@@ -11,7 +11,36 @@ namespace Rinegine::Kernel {
       BINARY = 1 << 5,   // Бинарный режим (только Windows, на Linux игнор)
     };
     // ОБЩЕЕ — не зависит от ОС
-    static Rinegine::Kernel::Stream open(const char* path, uint32_t flags);
+    inline constexpr FLAG operator~(FLAG f) noexcept {
+      return static_cast<FLAG>(~static_cast<unsigned>(f));
+    }
+
+    inline constexpr unsigned operator&(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) & static_cast<unsigned>(rhs);
+    }
+
+    inline constexpr unsigned operator|(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) | static_cast<unsigned>(rhs);
+    }
+
+    inline constexpr unsigned operator^(FLAG lhs, FLAG rhs) noexcept {
+      return static_cast<unsigned>(lhs) ^ static_cast<unsigned>(rhs);
+    }
+
+    inline constexpr FLAG& operator&=(FLAG& lhs, FLAG rhs) noexcept {
+      return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) & static_cast<unsigned>(rhs));
+    }
+
+    inline constexpr FLAG& operator|=(FLAG& lhs, FLAG rhs) noexcept {
+      return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | static_cast<unsigned>(rhs));
+    }
+    inline constexpr unsigned operator&(unsigned lhs, FLAG rhs) noexcept { return lhs & static_cast<unsigned>(rhs); }
+    inline constexpr unsigned operator&(FLAG lhs, unsigned rhs) noexcept { return static_cast<unsigned>(lhs) & rhs; }
+    inline constexpr unsigned operator|(unsigned lhs, FLAG rhs) noexcept { return lhs | static_cast<unsigned>(rhs); }
+    inline constexpr unsigned operator|(FLAG lhs, unsigned rhs) noexcept { return static_cast<unsigned>(lhs) | rhs; }
+    inline constexpr FLAG& operator&=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) & rhs); }
+    inline constexpr FLAG& operator|=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | rhs); }
+    inline Rinegine::Kernel::Stream open(const char* path, uint32_t flags);
     static Rinegine::Kernel::StreamResult read_raw(void* handle, void* dst, size_t len);
     static Rinegine::Kernel::StreamResult write_raw(void* handle, const void* src, size_t len);
     static int close(void* handle);
@@ -93,7 +122,7 @@ namespace Rinegine::Kernel {
     }
 
 #elif defined(_WIN32)
-    inline constexpr FLAG operator~(FLAG f) noexcept {
+    /*inline constexpr FLAG operator~(FLAG f) noexcept {
       return static_cast<FLAG>(~static_cast<unsigned>(f));
     }
 
@@ -126,7 +155,7 @@ namespace Rinegine::Kernel {
     inline constexpr unsigned operator|(unsigned lhs, FLAG rhs) noexcept { return lhs | static_cast<unsigned>(rhs); }
     inline constexpr unsigned operator|(FLAG lhs, unsigned rhs) noexcept { return static_cast<unsigned>(lhs) | rhs; }
     inline constexpr FLAG& operator&=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) & rhs); }
-    inline constexpr FLAG& operator|=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | rhs); }
+    inline constexpr FLAG& operator|=(FLAG& lhs, unsigned rhs) noexcept { return lhs = static_cast<FLAG>(static_cast<unsigned>(lhs) | rhs); }*/
 
     // read_raw, write_raw, open
     Stream open(const char* path, uint32_t flags) {
