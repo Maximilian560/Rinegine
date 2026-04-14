@@ -2,7 +2,7 @@
 #include <fcntl.h>
 namespace Rinegine::Kernel {
   namespace File {
-    enum struct FLAG : uint32_t {
+    enum FLAG : uint32_t {
       READ = 1 << 0,   // Читать
       WRITE = 1 << 1,   // Писать
       CREATE = 1 << 2,   // Создать если нет
