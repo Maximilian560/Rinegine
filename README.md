@@ -44,7 +44,7 @@
 * Больше возможностей! Новые технологии, старые, но ещё не реализованные технологии, свои технологии!
 
 ### Сравнение некоторых типов
-![benchmark](https://github.com/maxsimilian560/rinegine-benchmark/blob/main/chart2.svg)
+![benchmark](https://github.com/maxsimilian560/rinegine-benchmark/blob/main/list/fast/chart.svg)
 Подробнее - https://github.com/maxsimilian560/rinegine-benchmark
 
 ## Мы очень ждём ваши отзывы и пожелания!
