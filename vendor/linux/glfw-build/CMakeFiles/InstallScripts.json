@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/glfw-build/cmake_install.cmake",
-		"/home/maxsimilian560/Rinemest/Rinegine/vendor/linux/glfw-build/src/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

@@ -1,9 +1,9 @@
-[submodule "include/linux/stb"]
-	path = include/cross/stb
-	url = https://github.com/nothings/stb.git
-[submodule "vendor/linux/freetype-src"]
-	path = vendor/src/freetype-src
-	url = https://git.savannah.gnu.org/git/freetype/freetype2.git
-[submodule "vendor/linux/glfw-src"]
-	path = vendor/src/glfw-src
-	url = https://github.com/glfw/glfw.git
+[submodule "vendor/include/stb"]
+	path = vendor/include/stb
+	url = https://github.com/nothings/stb
+[submodule "vendor/src/freetype"]
+	path = vendor/src/freetype
+	url = https://github.com/freetype/freetype
+[submodule "vendor/src/glfw"]
+	path = vendor/src/glfw
+	url = https://github.com/glfw/glfw

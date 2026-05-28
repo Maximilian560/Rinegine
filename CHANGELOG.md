@@ -23,6 +23,9 @@
 ## REMOVED
 
 ## CHANGED
+> Reorganizing submodules
+- Были переорганизованны модули, stb теперь не в include/cross а в vendor/include  
+- Были изменены некоторые файлы документации
 > Allocator, stream, (f/io)stream update:
 - Изменена система CHANGELOG, теперь тут будут писаться все обновления без привязки ко времени до выхода стабильной версии фреймворка (Rinegine)
 - На данный момент файл WIP.h устарел, и был отключён из сборки WIP модуля
