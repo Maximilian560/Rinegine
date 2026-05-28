@@ -28,83 +28,93 @@ namespace Rinegine {
     bool INIT = false, ENDINIT = false, PREINIT = false, OPEN_SHELL = 1;
     bool noclose;
     Log::Types oldType;
+    ~DebugVars() {
+      rg_cout << "[Fallback debug] DebugVars has destructed" << std::endl;
+    }
   };
-  Kernel::Debug::DebugVars Kernel::Debug::_vars;
+  Kernel::Debug::DebugVars& Kernel::Debug::DebugVars_safe_get() {
+    static DebugVars instance;
+    return instance;
+  }
+  // Kernel::Debug::DebugVars Kernel::Debug::DebugVars_safe_get();
   // constructors
   Kernel::Debug::Debug() { init(RG_L "Logs"); }
   Kernel::Debug::Debug(rg_string pat) { init(pat); }
   // init
   void Kernel::Debug::init() {
-    if (_vars.INIT)
+    rg_cout << "[Fallback debug] Debug has init\n";
+    if (DebugVars_safe_get().INIT)
       return;
     init(RG_L "Logs");
   }
   void Kernel::Debug::init(rg_string pat) {
-    if (_vars.INIT)
+    if (DebugVars_safe_get().INIT)
       return;
-    _vars.INIT = true;
+    DebugVars_safe_get().INIT = true;
     rg_string pathFol = MainFolder + pat;
     if (!CreateFolder(pathFol)) {
       addl(Log::WARNING, RG_L "Log folder missing, folder creation error");
       pathFol.clear();
     };
     SysTime::update();
-    _vars.path = pathFol;
+    DebugVars_safe_get().path = pathFol;
     if (!pathFol.empty()) {
       if (((pathFol[pathFol.size() - 1] != '\\') &&
         (pathFol[pathFol.size() - 1] != '/'))) {
-        _vars.path += RG_L "/";
+        DebugVars_safe_get().path += RG_L "/";
       }
     }
-    _vars.path += RG_L "log_" + SysTime::Year() + RG_L "-" + SysTime::Month() +
+    DebugVars_safe_get().path += RG_L "log_" + SysTime::Year() + RG_L "-" + SysTime::Month() +
       RG_L "-" + SysTime::Day() + RG_L "_" + SysTime::Hour() +
       RG_L "-" + SysTime::Minute() + RG_L "-" + SysTime::Second() +
       RG_L ".txt";
-    addl(Log::INFO, RG_L "Log path: " + (_vars.path), true, RGLOCK_DEBUG_INLINE);
+    addl(Log::INFO, RG_L "Log path: " + (DebugVars_safe_get().path), true, RGLOCK_DEBUG_INLINE);
     // path =
     // pathFol+'/'+"log-yy"+to_string(SystemTime.wYear)+"_mm"+to_string(SystemTime.wMonth)+"_dd"+to_string(SystemTime.wDay)+"[h"+to_string(SystemTime.wHour)+"'m"+to_string(SystemTime.wMinute)+"'s"+to_string(SystemTime.wSecond)+"]"+".txt";
     // addl(Log::INFO,"Debug pre init end");
   }
   // open log after error setter
-  void Kernel::Debug::open_log_after_error(bool i) { _vars.OPEN_SHELL = i; }
-  void Kernel::Debug::open_shell(bool i) { _vars.OPEN_SHELL = i; }
+  void Kernel::Debug::open_log_after_error(bool i) { DebugVars_safe_get().OPEN_SHELL = i; }
+  void Kernel::Debug::open_shell(bool i) { DebugVars_safe_get().OPEN_SHELL = i; }
   // path to log
-  rg_string Kernel::Debug::log_path() { return _vars.path; }
+  rg_string Kernel::Debug::log_path() { return DebugVars_safe_get().path; }
   // update error buffer
   void Kernel::Debug::update() {
-    if (_vars.textErr.empty())
+    if (DebugVars_safe_get().textErr.empty())
       return;
-    if (!_vars.INIT)
+    if (!DebugVars_safe_get().INIT)
       init();
-    _vars.debug.open(_vars.path, std::ios::app);
-    if (!_vars.debug.is_open()) {
+    DebugVars_safe_get().debug.open(DebugVars_safe_get().path, std::ios::app);
+    if (!DebugVars_safe_get().debug.is_open()) {
       addl(Log::WARNING, "Error opening log file", true, RGLOCK_DEBUG_INLINE);
       return;
     }
 
-    _vars.debug << to_stringa(_vars.textErr);
-    _vars.debug.close();
-    _vars.textErr.clear();
+    DebugVars_safe_get().debug << to_stringa(DebugVars_safe_get().textErr);
+    DebugVars_safe_get().debug.close();
+    DebugVars_safe_get().textErr.clear();
   }
   // emergency stop
   void Kernel::Debug::stop() {
-    if (!_vars.INIT)
+    if (!DebugVars_safe_get().INIT)
       init();
-    if (_vars.OPEN_SHELL) {
-      addl(Log::INFO, RG_L "Open: " + (_vars.path), true, RGLOCK_DEBUG_INLINE);
+    if (DebugVars_safe_get().OPEN_SHELL) {
+      addl(Log::INFO, RG_L "Open: " + (DebugVars_safe_get().path), true, RGLOCK_DEBUG_INLINE);
       update();
-      Open(_vars.path);
+      Open(DebugVars_safe_get().path);
     }
     else
       update();
     throw(RG_OWN_ERROR);
+    __builtin_unreachable();
   }
   // set up to not close program after critical error
-  void Kernel::Debug::no_close() { _vars.noclose = 1; }
+  void Kernel::Debug::no_close() { DebugVars_safe_get().noclose = 1; }
   // destructor
   Kernel::Debug::~Debug() {
+    rg_cout << "[Fallback debug] Debug has deleted" << std::endl;
     addl(Log::DEBUG, "Debug was destructed", true, RGLOCK_DEBUG_INLINE);
-    if (_vars.textErr.size() > 0)
+    if (DebugVars_safe_get().textErr.size() > 0)
       update();
   }
   // ADD/ADDL
@@ -120,9 +130,9 @@ namespace Rinegine {
     if (type > RG_D_W_L)
       return;
     rg_string text;
-    if (_vars.oldType != type)
+    if (DebugVars_safe_get().oldType != type)
       text += rg_char(10);
-    _vars.oldType = type;
+    DebugVars_safe_get().oldType = type;
     // GetLocalTime(&RG_SystemTime);
     // string text =
     // to_string(RG_SystemTime.wHour)+":"+to_string(RG_SystemTime.wMinute)+":"+to_string(RG_SystemTime.wSecond)+"|"+tex;
@@ -174,12 +184,18 @@ namespace Rinegine {
     }
 #endif
     // text += rg_char(10);
-    _vars.textErr += text;
+    // rg_cout<<"1[[[\n"<<DebugVars_safe_get().textErr<<"\n]]]1"<<std::endl;//TODO DEBUG!!
+    // rg_cout<<"2[[[\n"<<text<<"\n]]]2"<<std::endl;
+    DebugVars_safe_get().textErr += text;
+    // rg_cout<<"3[[[\n"<<DebugVars_safe_get().textErr<<"\n]]]3"<<std::endl;
+    // rg_cout<<"4[[[\n"<<text<<"\n]]]4"<<std::endl;
 #ifdef RG_DEBUG_ALWAYS_UPDATE
     Debug::update();
 #endif
-    if (type == Log::CRITICAL && !_vars.noclose)
+    if (type == Log::CRITICAL && !DebugVars_safe_get().noclose) {
       Debug::stop();
+      __builtin_unreachable();
+    }
   }
   // other
   /// overloaded to add to error buffer

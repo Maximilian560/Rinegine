@@ -1,5 +1,5 @@
 #pragma once
-
+#define RINEGINE_OLD
 #ifdef _WIN32
 #define RG_WINos
 #define RG_WIN

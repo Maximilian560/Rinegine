@@ -3,6 +3,28 @@
 #define RG_HERE_FILE_NAME "kernel/kernel"
 namespace Rinegine {
   namespace Kernel {
+    // [Flags namespace for work with flags]
+    namespace Flags {
+      template <class T1, class T2>
+      concept FlagTypeCompatible = requires(T1 val, T2 flag) {
+        { val |= static_cast<T1>(flag) };
+        { val &= ~static_cast<T1>(flag) };
+        { (val & static_cast<T1>(flag)) != 0 };
+      };
+      // [2 args]
+      template <class T1, class T2>
+        requires FlagTypeCompatible<T1, T2>
+      constexpr void set(T1& val, T2 flag) { val |= static_cast<T1>(flag); }
+
+      template <class T1, class T2>
+        requires FlagTypeCompatible<T1, T2>
+      constexpr bool has(T1 val, T2 flag) { return (val & static_cast<T1>(flag)) != 0; }
+
+      template <class T1, class T2>
+        requires FlagTypeCompatible<T1, T2>
+      constexpr void clear(T1& val, T2 flag) { val &= ~static_cast<T1>(flag); }
+    }
+    // [Arrays with main arguments]
     extern std::vector<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
     extern std::vector<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
 
@@ -16,9 +38,12 @@ namespace Rinegine {
     extern std::wstring WMainFolder;
     extern rg_string MainFolder;
     extern uint8_t RG_D_W_L;
-
-    int InterPoint(int, char**, int (*)());    // [done]
-    int InterPoint(int, wchar_t**, int (*)()); // [done]
+    // typedef void_func  void(*)(void)
+#ifndef RinegineLib
+    int rg_main();
+    int InterPoint(int, char**, int (*)() = rg_main);    // [done]
+    int InterPoint(int, wchar_t**, int (*)() = rg_main); // [done]
+#endif
     void init();                               // [todo]
 
     namespace Lock { // LOCK
@@ -240,7 +265,7 @@ namespace Rinegine {
     //*debug
     class Debug {             // [done]
       struct DebugVars;       // [done]
-      static DebugVars _vars; // [done]
+      // static DebugVars _vars; // [done]
 
     public:
       Debug();                                // [done]
@@ -253,6 +278,7 @@ namespace Rinegine {
       static void update();         // [done]
       static void stop() __attribute__((noreturn)); // [done]
       static void no_close();                       // [done]
+      static DebugVars& DebugVars_safe_get();   //[done]
       ~Debug();                                     // [done]
 
       //*special add/addl for dif os
@@ -623,6 +649,7 @@ namespace Rinegine {
       operator type* () const { return (type*)_ptr.get(); }
     };
     //*array
+    /*
     class RawArray {
       template <class type>
       friend class Array;
@@ -665,7 +692,13 @@ namespace Rinegine {
           return *(type*)(((char*)get())[ptr->size + i]);
         return ((type*)get())[i];
       }
-      inline type& back() const { if (ptr == nullptr) RG_LOG_LOCK_CRITICAL("Array not initialized"); return ((type*)get())[size() - 1]; }
+      inline type* back() const { if (ptr == nullptr) RG_LOG_LOCK_CRITICAL("Array not initialized"); return ((type*)get()) + (size() - 1); }
+
+      inline type* begin() const { return ((type*)ptr); }
+      inline type* end() const { if (ptr == nullptr) RG_LOG_LOCK_CRITICAL("Array not initialized"); return ((type*)get()) + size(); }
+      inline type* data() {
+        return (type*)ptr;
+      }
       inline void resize(const size_t& size) {
         RawArray::resize(size * sizeof(type));
       }
@@ -696,7 +729,7 @@ namespace Rinegine {
       }
       inline ~Array() { clear(); }
     };
-    /*template <class type> class Array {
+    / *template <class type> class Array {
       struct ArrayVars;
       ArrayVars _vars;
 
@@ -1165,7 +1198,7 @@ namespace Rinegine {
       WIN32_FIND_DATAW* next();
       void close();
       ~FileFinderW();
-    };
+  };
 #endif
     // otherDef
     int RG_CMD(std::string, bool = true);
@@ -1234,5 +1267,5 @@ namespace Rinegine {
     //   static void ReadW(const wchar_t* path, lambdaw func);
     //   void WriteW(const char* path, const std::wstring& in);
     // };
-  };
+};
 } // namespace Rinegine

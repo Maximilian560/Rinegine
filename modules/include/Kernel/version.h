@@ -5,7 +5,9 @@
 #define RG_V_PATCH 0
 #define RG_V_WIP 1
 
-namespace Rinegine{
-  void GetVersion(int& major, int& minor,int& patch, int&wip);
-  void GetVersion(int& major, int& minor,int& patch);
+namespace Rinegine {
+  void GetVersion(int& major, int& minor, int& patch, int& wip);
+  void GetVersion(int& major, int& minor, int& patch);
+  constexpr const char* VERSION = "0.3.0";
+  constexpr const char* EDITION = "Beginning";
 }

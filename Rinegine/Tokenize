@@ -1,3 +1,3 @@
 #pragma once
-
+#define RINEGINE_TOKENIZE
 #include "../modules/include/Tokenize.h"

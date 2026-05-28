@@ -92,8 +92,8 @@ namespace Rinegine {
     }
   }
 
-    std::vector<std::string> Kernel::AMainArguments;  //TODO remove vector, set RG::Array!
-    std::vector<std::wstring> Kernel::WMainArguments; //TODO remove vector, set RG::Array!
+  std::vector<std::string> Kernel::AMainArguments;  //TODO remove vector, set RG::Array!
+  std::vector<std::wstring> Kernel::WMainArguments; //TODO remove vector, set RG::Array!
   // #ifdef RG_UTF
   //   std::vector<std::wstring>& MainArguments =
   //     WMainArguments; //TODO remove vector, set RG::Array!
@@ -102,82 +102,86 @@ namespace Rinegine {
   //     AMainArguments; //TODO remove vector, set RG::Array!
   // #endif
     // INTERPOINT
-  int Kernel::InterPoint(int argc, char* argv[], int (*own_main)()) {
-#if defined(RG_WIN) && defined(RG_UTF)
+namespace Kernel{
+
+  int InterPoint(int argc, char** argv, int (*own_main)()) {
+    #if defined(RG_WIN) && defined(RG_UTF)
     _setmode(_fileno(stdout), _O_U16TEXT);
     _setmode(_fileno(stdin), _O_U16TEXT);
     _setmode(_fileno(stderr), _O_U16TEXT);
-#endif
+    #endif
     int exit_code = 0;
     RG_CATCH_ERROR{
       (void)argc;
       (void)argv;
-
-  #ifdef RG_WIN
+      
+      #ifdef RG_WIN
       AMainArguments.resize(argc + 1);
       for (int i = 1; i <= argc; i++) {
-        Kernel::AMainArguments[i] = argv[i - 1];
+        AMainArguments[i] = argv[i - 1];
       }
       char onearg[MAX_PATH];
       GetModuleFileNameA(NULL, onearg, MAX_PATH);
-      Kernel::AMainArguments[0] = onearg;
-  #else
-      Kernel::AMainArguments.resize(argc);
+      AMainArguments[0] = onearg;
+      #else
+      AMainArguments.resize(argc);
       for (int i = 0; i < argc; i++) {
-        Kernel::AMainArguments[i] = argv[i];
+        AMainArguments[i] = argv[i];
       }
-
-  #endif
+      
+      #endif
       exit_code = own_main();
     }
     RG_ERROR_LOG;
     return exit_code;
   };
-
-  int Kernel::InterPoint(int argc, wchar_t* argv[], int (*own_main)()) {
-#if defined(RG_WIN) && defined(RG_UTF)
+  
+  int InterPoint(int argc, wchar_t** argv, int (*own_main)()) {
+    #if defined(RG_WIN) && defined(RG_UTF)
     _setmode(_fileno(stdout), _O_U16TEXT);
     _setmode(_fileno(stdin), _O_U16TEXT);
     _setmode(_fileno(stderr), _O_U16TEXT);
-#endif
-    int exit_code = 0;
+    #endif
+    int exit_code = 0,rinegine_exit_code = 0;
     RG_CATCH_ERROR{
-  #ifdef RG_WIN
+      #ifdef RG_WIN
       if (argc >= 1) {
-        Kernel::WMainArguments.resize(argc + 1);
+        WMainArguments.resize(argc + 1);
         for (int i = 1; i <= argc; i++) {
-          Kernel::WMainArguments[i] = argv[i - 1];
+          WMainArguments[i] = argv[i - 1];
         }
         AMainArguments.resize(argc + 1);
         for (int i = 1; i <= argc; i++) {
-          Kernel::AMainArguments[i] = utf8_encode(argv[i - 1]);
+          AMainArguments[i] = utf8_encode(argv[i - 1]);
         }
         WCHAR wonearg[MAX_PATH];
-
+        
         GetModuleFileNameW(NULL, wonearg, MAX_PATH);
         WMainArguments[0] = wonearg;
-
+        
         CHAR onearg[MAX_PATH];
         GetModuleFileNameA(NULL, onearg, MAX_PATH);
         AMainArguments[0] = onearg;
       }
-  #else
+      #else
       if (argc >= 1) {
-        Kernel::WMainArguments.resize(argc);
+        WMainArguments.resize(argc);
         for (int i = 0; i < argc; i++) {
-          Kernel::WMainArguments[i] = argv[i];
+          WMainArguments[i] = argv[i];
         }
-        Kernel::AMainArguments.resize(argc);
+        AMainArguments.resize(argc);
         for (int i = 0; i < argc; i++) {
-          Kernel::AMainArguments[i] = utf8_encode(argv[i]);
+          AMainArguments[i] = utf8_encode(argv[i]);
         }
       }
-  #endif
+      #endif
+      rinegine_exit_code = 
       exit_code = own_main();
     }
     RG_ERROR_LOG;
     return exit_code;
   };
+}
   // DECODE ENCODE UNICODE
 #ifdef RG_WIN
   std::wstring Kernel::utf8_decode(const std::string& str) {
@@ -897,36 +901,38 @@ namespace Rinegine {
     return 0;
   }
 #elif defined(RG_Linux)
-int Kernel::RunProgram(ConfigRunProgram conf) { // [exp]
+  int Kernel::RunProgram(ConfigRunProgram conf) { // [exp]
     if (conf.path == "err") return 0;
 
     if (conf.assinhrone) {
-        RG_LOG_LOCK_INFO("Forking new process: '" + conf.path + "' in " +
-                         (conf.otherCMD ? "new terminal" : "background"));
+      RG_LOG_LOCK_INFO("Forking new process: '" + conf.path + "' in " +
+        (conf.otherCMD ? "new terminal" : "background"));
 
-        pid_t pid = fork();
-        if (pid == -1) {
-            RG_LOG_LOCK_ERROR("fork() failed");
-            return 0;
-        }
+      pid_t pid = fork();
+      if (pid == -1) {
+        RG_LOG_LOCK_ERROR("fork() failed");
+        return 0;
+      }
 
-        if (pid == 0) {
-            // Дочерний процесс
-            // TODO: поддержка запуска в новом терминале (conf.otherCMD)
-            execl("/bin/sh", "sh", "-c", conf.path.c_str(), (char*)nullptr);
-            // Если execl вернулся — ошибка
-            perror("execl failed");
-            _exit(127); // стандартный код ошибки exec
-        } else {
-            // Родитель: процесс запущен, не ждём
-            RG_LOG_LOCK_DEBUG("Started background PID: " + std::to_string(pid));
-            return 1; // успех (аналог TRUE в WinAPI)
-        }
-    } else {
-        return RG_CMD(conf.path); // блокирующий вызов через system()
+      if (pid == 0) {
+        // Дочерний процесс
+        // TODO: поддержка запуска в новом терминале (conf.otherCMD)
+        execl("/bin/sh", "sh", "-c", conf.path.c_str(), (char*)nullptr);
+        // Если execl вернулся — ошибка
+        perror("execl failed");
+        _exit(127); // стандартный код ошибки exec
+      }
+      else {
+        // Родитель: процесс запущен, не ждём
+        RG_LOG_LOCK_DEBUG("Started background PID: " + std::to_string(pid));
+        return 1; // успех (аналог TRUE в WinAPI)
+      }
+    }
+    else {
+      return RG_CMD(conf.path); // блокирующий вызов через system()
     }
     return 0;
-}
+  }
 #endif
   ///
 } // namespace Rinegine
