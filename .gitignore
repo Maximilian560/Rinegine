@@ -15,4 +15,8 @@ modules/include/Addons/other/
 .qwen/settings.json
 .qwen/settings.json.orig
 .qwen/
-vendor/
+vendor/*
+!vendor/src/
+!vendor/include/
+vendor/include/*
+!vendor/include/stb/
