@@ -9,7 +9,7 @@ I'll add this functionality to the builder later; this is a temporary solution.
 """
 Universal vendor submodule initializer & builder for Rinegine.
 Smart host-aware build with interactive target/compiler selection.
-Usage: python3 vendor/build_vendor.py [--target platform:arch] [--all]
+Usage: python3 vendor-build.py [--target platform:arch] [--all]
 """
 
 import os
@@ -41,19 +41,16 @@ VENDOR_DIR = ROOT_DIR / "vendor"
 GLOBAL_INCLUDE_DIR = VENDOR_DIR / "include"
 ANDROID_MIN_SDK = 21
 
-GIT_SUBMODULES = {
-    "vendor/src/glfw": "CMakeLists.txt",
-    "vendor/src/freetype": "CMakeLists.txt",
-}
-
-HEADER_LIBS = {
-    "vendor/include/stb": "stb_image.h",
-}
+ALL_SUBMODULES = [
+    "vendor/src/glfw",
+    "vendor/src/freetype",
+    "vendor/include/stb"
+]
 
 ALL_TARGETS = [
-    "linux:x86-64", "linux:x86-32", "linux:arm64-v8a", "linux:armeabi-v7a",
-    "windows:x86-64", "windows:x86-32",
-    "android:arm64-v8a", "android:armeabi-v7a", "android:x86-64",
+    "linux:x86_64", "linux:x86_32", "linux:arm64-v8a", "linux:armeabi-v7a",
+    "windows:x86_64", "windows:x86_32",
+    "android:arm64-v8a", "android:armeabi-v7a", "android:x86_64",
 ]
 
 # ============================================================================
@@ -78,12 +75,6 @@ def log_error(msg: str):
 def find_executable(name: str) -> Optional[Path]:
     path = shutil.which(name)
     return Path(path) if path else None
-
-def ask_path(prompt: str, default: Optional[str] = None) -> str:
-    if default:
-        val = input(f"{prompt} [{default}]: ").strip()
-        return val or default
-    return input(f"{prompt}: ").strip()
 
 def run_cmd(cmd: List[str], cwd: Optional[Path] = None) -> bool:
     log_info(f"$ {' '.join(str(c) for c in cmd)}")
@@ -112,7 +103,6 @@ def safe_rmtree(path: Path, retries: int = 3):
                 raise
 
 def interactive_choice(prompt: str, options: List[str], default: int = 0) -> int:
-    """Show numbered menu and return selected index (0-based)."""
     print(f"\n{prompt}")
     for i, opt in enumerate(options):
         marker = "➤" if i == default else " "
@@ -130,7 +120,6 @@ def interactive_choice(prompt: str, options: List[str], default: int = 0) -> int
         print("Invalid input, try again.")
 
 def interactive_multi_select(prompt: str, options: List[str], recommended: List[int]) -> List[int]:
-    """Allow user to select multiple options. Returns list of selected indices."""
     print(f"\n{prompt}")
     print("  (Enter comma-separated numbers, 'r' for recommended, 'a' for all, or 'q' to confirm)")
     for i, opt in enumerate(options):
@@ -158,40 +147,30 @@ def interactive_multi_select(prompt: str, options: List[str], recommended: List[
 # ============================================================================
 
 def detect_host() -> Dict:
-    """Detect host OS, architecture, and available toolchains."""
     host_os = sys_platform.system().lower()
     host_arch = sys_platform.machine().lower()
     
-    # Normalize host arch
-    if host_arch in ("amd64", "x86_64"):
-        host_arch = "x86_64"
-    elif host_arch in ("i686", "i386", "x86"):
-        host_arch = "x86"
-    elif "aarch64" in host_arch or "arm64" in host_arch:
-        host_arch = "aarch64"
-    elif "arm" in host_arch:
-        host_arch = "arm"
+    if host_arch in ("amd64", "x86_64"): host_arch = "x86_64"
+    elif host_arch in ("i686", "i386", "x86"): host_arch = "x86_32"
+    elif "aarch64" in host_arch or "arm64" in host_arch: host_arch = "aarch64"
+    elif "arm" in host_arch: host_arch = "arm"
     
-    # Detect available compilers
     compilers = []
     if find_executable("clang") and find_executable("clang++"):
         compilers.append(("clang", str(find_executable("clang")), str(find_executable("clang++"))))
     if find_executable("gcc") and find_executable("g++"):
         compilers.append(("gcc", str(find_executable("gcc")), str(find_executable("g++"))))
     
-    # Check NDK
     has_ndk = False
     ndk_candidates = [
-        os.environ.get("ANDROID_NDK"),
-        os.environ.get("ANDROID_NDK_HOME"),
+        os.environ.get("ANDROID_NDK"), os.environ.get("ANDROID_NDK_HOME"),
         str(Path.home() / "Android/Sdk/ndk-bundle"),
         str(Path.home() / "AppData/Local/Android/Sdk/ndk-bundle"),
     ]
     if host_os == "darwin":
         ndk_candidates.append(str(Path.home() / "Library/Android/sdk/ndk-bundle"))
     for search_dir in [
-        Path.home() / "Android/Sdk/ndk",
-        Path.home() / "Library/Android/sdk/ndk",
+        Path.home() / "Android/Sdk/ndk", Path.home() / "Library/Android/sdk/ndk",
         Path.home() / "AppData/Local/Android/Sdk/ndk",
     ]:
         if search_dir.is_dir():
@@ -202,43 +181,46 @@ def detect_host() -> Dict:
             has_ndk = True
             break
     
-    # Check MinGW
-    has_mingw = bool(find_executable("x86_64-w64-mingw32-gcc") or find_executable("i686-w64-mingw32-gcc"))
-    
-    # Check Linux cross-compilers
-    has_linux_cross = bool(
-        find_executable("aarch64-linux-gnu-gcc") or 
-        find_executable("arm-linux-gnueabihf-gcc") or
-        find_executable("i686-linux-gnu-gcc")
+    # Check for MinGW with both gcc and clang variants
+    has_mingw = bool(
+        find_executable("x86_64-w64-mingw32-gcc") or 
+        find_executable("i686-w64-mingw32-gcc") or
+        find_executable("x86_64-w64-mingw32-clang") or
+        find_executable("i686-w64-mingw32-clang")
     )
     
-    # Determine current Android arch (for Termux)
-    if host_arch == "aarch64":
-        current_android_arch = "arm64-v8a"
-    elif host_arch == "arm":
-        current_android_arch = "armeabi-v7a"
-    else:
-        current_android_arch = None
+    has_multilib = False
+    if host_arch == "x86_64" and host_os == "linux":
+        try:
+            test_result = subprocess.run(
+                ["gcc", "-m32", "-x", "c", "-c", "-", "-o", "/dev/null"],
+                input=b"int main() { return 0; }",
+                capture_output=True, timeout=5
+            )
+            has_multilib = (test_result.returncode == 0)
+        except Exception:
+            has_multilib = False
+    
+    current_android_arch = None
+    if host_os == "android":
+        if host_arch == "aarch64": current_android_arch = "arm64-v8a"
+        elif host_arch == "arm": current_android_arch = "armeabi-v7a"
+        elif host_arch == "x86_64": current_android_arch = "x86_64"
+        elif host_arch == "x86_32": current_android_arch = "x86"
     
     return {
-        "os": host_os,
-        "arch": host_arch,
-        "compilers": compilers,
-        "has_ndk": has_ndk,
-        "has_mingw": has_mingw,
-        "has_linux_cross": has_linux_cross,
+        "os": host_os, "arch": host_arch, "compilers": compilers,
+        "has_ndk": has_ndk, "has_mingw": has_mingw,
+        "has_multilib": has_multilib,
         "current_android_arch": current_android_arch,
     }
 
 def get_recommended_targets(host: Dict) -> Tuple[List[str], List[int]]:
-    """Return (all_possible_targets, recommended_indices)."""
     host_os = host["os"]
     host_arch = host["arch"]
-    
     possible = []
     recommended = []
     
-    # Helper to add target
     def add(target: str, is_recommended: bool):
         if target not in possible:
             possible.append(target)
@@ -246,99 +228,73 @@ def get_recommended_targets(host: Dict) -> Tuple[List[str], List[int]]:
                 recommended.append(len(possible) - 1)
     
     if host_os == "linux":
-        # Native Linux
         if host_arch == "x86_64":
-            add("linux:x86-64", True)
-        elif host_arch == "x86":
-            add("linux:x86-32", True)
+            add("linux:x86_64", True)
+            if host.get("has_multilib"):
+                add("linux:x86_32", True)
+            else:
+                add("linux:x86_32", False)
+        elif host_arch == "x86_32":
+            add("linux:x86_32", True)
         elif host_arch == "aarch64":
             add("linux:arm64-v8a", True)
         elif host_arch == "arm":
             add("linux:armeabi-v7a", True)
         
-        # Cross-compiled Linux
-        if host["has_linux_cross"]:
-            for t in ["linux:arm64-v8a", "linux:armeabi-v7a", "linux:x86-32"]:
-                add(t, True)
+        if find_executable("aarch64-linux-gnu-gcc"):
+            add("linux:arm64-v8a", True)
+        if find_executable("arm-linux-gnueabihf-gcc"):
+            add("linux:armeabi-v7a", True)
         
-        # Windows via MinGW
         if host["has_mingw"]:
-            add("windows:x86-64", True)
-            add("windows:x86-32", True)
-        
-        # Android via NDK
+            add("windows:x86_64", True)
+            add("windows:x86_32", True)
         if host["has_ndk"]:
-            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86-64"]:
+            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86_64"]:
                 add(t, True)
-        
-        # Add all as non-recommended fallbacks
         for t in ALL_TARGETS:
-            if t not in possible:
-                add(t, False)
-    
+            if t not in possible: add(t, False)
+            
     elif host_os == "windows":
-        # Native Windows
-        if host_arch == "x86_64":
-            add("windows:x86-64", True)
-        elif host_arch == "x86":
-            add("windows:x86-32", True)
-        
-        # Android via NDK
+        if host_arch == "x86_64": add("windows:x86_64", True)
+        elif host_arch == "x86_32": add("windows:x86_32", True)
         if host["has_ndk"]:
-            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86-64"]:
-                add(t, True)
-        
-        # Fallbacks (likely won't work but allow manual selection)
+            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86_64"]: add(t, True)
         for t in ALL_TARGETS:
-            if t not in possible:
-                add(t, False)
-    
+            if t not in possible: add(t, False)
+            
     elif host_os == "android":
-        # Termux: only current Android arch via system clang
-        if host["current_android_arch"]:
-            add(f"android:{host['current_android_arch']}", True)
-        
-        # NDK allows cross-Android archs
+        if host["current_android_arch"]: add(f"android:{host['current_android_arch']}", True)
         if host["has_ndk"]:
-            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86-64"]:
-                if t not in possible:
-                    add(t, True)
-        
-        # Fallbacks
+            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86_64"]:
+                if t not in possible: add(t, True)
         for t in ALL_TARGETS:
-            if t not in possible:
-                add(t, False)
-    
-    else:  # darwin, freebsd, etc.
+            if t not in possible: add(t, False)
+    else:
         if host["has_ndk"]:
-            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86-64"]:
-                add(t, True)
+            for t in ["android:arm64-v8a", "android:armeabi-v7a", "android:x86_64"]: add(t, True)
         for t in ALL_TARGETS:
-            if t not in possible:
-                add(t, False)
+            if t not in possible: add(t, False)
     
     return possible, recommended
 
-def select_compiler(host: Dict) -> Tuple[str, str]:
-    """Let user choose compiler if multiple are available."""
+def select_compiler(host: Dict) -> Tuple[str, str, str]:
+    """Returns (compiler_name, c_compiler_path, cxx_compiler_path)"""
     compilers = host["compilers"]
     if not compilers:
         log_error("No C/C++ compiler found (need clang or gcc in PATH)")
         sys.exit(1)
-    
     if len(compilers) == 1:
         name, cc, cxx = compilers[0]
         log_info(f"Using compiler: {name}")
-        return cc, cxx
+        return name, cc, cxx
     
-    # Multiple compilers: ask user
     options = [f"{name} ({cc})" for name, cc, _ in compilers]
-    # Prefer clang
     default_idx = 0 if compilers[0][0] == "clang" else 1
     idx = interactive_choice("Select compiler:", options, default_idx)
-    _, cc, cxx = compilers[idx]
-    log_info(f"Using compiler: {compilers[idx][0]}")
-    return cc, cxx
+    name, cc, cxx = compilers[idx]
+    log_info(f"Using compiler: {name}")
+    return name, cc, cxx
 
 # ============================================================================
 # Submodule Management
@@ -346,156 +302,172 @@ def select_compiler(host: Dict) -> Tuple[str, str]:
 
 def ensure_git_submodules():
     log_step("🔍 Checking git submodules")
-    for rel_path, marker in GIT_SUBMODULES.items():
+    for rel_path in ALL_SUBMODULES:
         target = ROOT_DIR / rel_path
-        if not (target / marker).exists():
+        if not target.exists() or not any(target.iterdir()):
             log_info(f"Initializing {rel_path}...")
             if not run_cmd(["git", "submodule", "update", "--init", str(target)]):
-                log_error(f"Failed to initialize {rel_path}")
-                sys.exit(1)
+                log_warn(f"Could not initialize {rel_path} via git.")
     log_success("Git submodules are ready")
 
 def copy_header_libs():
     log_info("Copying header-only libraries...")
     GLOBAL_INCLUDE_DIR.mkdir(parents=True, exist_ok=True)
     
-    for rel_path, marker in HEADER_LIBS.items():
-        src_dir = ROOT_DIR / rel_path
-        if not src_dir.is_dir() or not (src_dir / marker).exists():
-            log_warn(f"{rel_path} missing {marker}, skipping")
-            continue
-        
-        for f in src_dir.glob("*.h"):
-            shutil.copy2(f, GLOBAL_INCLUDE_DIR / f.name)
-        log_success(f"Copied headers from {rel_path}")
+    stb_dir = ROOT_DIR / "vendor/include/stb"
+    if stb_dir.is_dir() and any(stb_dir.iterdir()):
+        for f in stb_dir.rglob("*.h"):
+            rel = f.relative_to(stb_dir)
+            dst = GLOBAL_INCLUDE_DIR / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, dst)
+        log_success("Copied STB headers")
+    else:
+        log_warn("STB directory not found or empty, skipping")
 
 # ============================================================================
 # Toolchain Configuration
 # ============================================================================
 
-def build_toolchain_config(platform: str, arch: str, host: Dict, cc: str, cxx: str) -> Optional[Dict]:
-    """Build CMake toolchain configuration dict."""
+def build_toolchain_config(platform: str, arch: str, host: Dict, compiler_name: str, cc: str, cxx: str) -> Optional[Dict]:
     cfg: Dict = {"is_native": False}
     host_os = host["os"]
     host_arch = host["arch"]
 
-    # --- Linux ---
-    if platform == "linux":
-        # Check if this is a native build
+        if platform == "linux":
         is_native = (
-            (arch == "x86-64" and host_arch == "x86_64") or
-            (arch == "x86-32" and host_arch == "x86") or
+            (arch == "x86_64" and host_arch == "x86_64") or
+            (arch == "x86_32" and host_arch in ("x86_32", "x86_64")) or
             (arch == "arm64-v8a" and host_arch == "aarch64") or
             (arch == "armeabi-v7a" and host_arch == "arm")
         )
-        
         if is_native and host_os == "linux":
             cfg["is_native"] = True
             cfg["c_compiler"] = cc
-            cfg["cxx_compiler"] = cxx
-            # x86-32 on x86_64 host needs -m32
-            if arch == "x86-32" and host_arch == "x86_64":
+            if arch == "x86_32" and host_arch == "x86_64":
                 cfg["c_flags"] = "-m32"
-                cfg["cxx_flags"] = "-m32"
+                cfg["ld_flags"] = "-m32"
         else:
-            # Cross-compilation from Linux
             if host_os != "linux":
                 log_warn(f"Cannot cross-compile Linux {arch} from {host_os}")
                 return None
             
+            # Compiler mapping
             prefix_map = {
+                "arm64-v8a": "aarch64-linux-gnu", 
+                "armeabi-v7a": "arm-linux-gnueabihf",
+            }
+            
+            # Target mapping for clang --target
+            clang_target_map = {
                 "arm64-v8a": "aarch64-linux-gnu",
                 "armeabi-v7a": "arm-linux-gnueabihf",
-                "x86-32": "i686-linux-gnu",
             }
+            
             prefix = prefix_map.get(arch)
-            if not prefix:
+            if not prefix: 
                 log_warn(f"No cross-compiler mapping for Linux {arch}")
                 return None
             
+            # Try 1: GCC prefix compiler
             gcc = find_executable(f"{prefix}-gcc")
-            if not gcc:
-                log_warn(f"Cross-compiler {prefix}-gcc not found, skipping Linux {arch}")
-                return None
+            if gcc:
+                cfg["system_name"] = "Linux"
+                cfg["c_compiler"] = f"{prefix}-gcc"
+                return cfg
             
-            cfg["system_name"] = "Linux"
-            cfg["c_compiler"] = f"{prefix}-gcc"
-            cfg["cxx_compiler"] = f"{prefix}-g++"
+            # Try 2: Clang with --target (needs GCC toolchain for sysroot)
+            clang = find_executable("clang")
+            if clang and host.get("compilers") and any(c[0] == "clang" for c in host["compilers"]):
+                # Check if GCC toolchain exists (provides sysroot + binutils)
+                gcc_toolchain = find_executable(f"{prefix}-gcc")
+                if gcc_toolchain or find_executable(f"{prefix}-ld"):
+                    target = clang_target_map.get(arch)
+                    cfg["system_name"] = "Linux"
+                    cfg["c_compiler"] = "clang"
+                    cfg["c_flags"] = f"--target={target}"
+                    cfg["ld_flags"] = f"--target={target}"
+                    log_info(f"Using clang with --target={target} (GCC toolchain for sysroot)")
+                    return cfg
+            
+            log_warn(f"Cross-compiler for Linux {arch} not found (tried {prefix}-gcc and clang --target)")
+            return None
         return cfg
 
-    # --- Windows (MinGW only — produces .a) ---
     elif platform == "windows":
-        prefix = "x86_64-w64-mingw32" if arch == "x86-64" else "i686-w64-mingw32"
-        gcc = find_executable(f"{prefix}-gcc")
+        # Use clang or gcc based on user selection
+        if compiler_name == "clang":
+            prefix = "x86_64-w64-mingw32-clang" if arch == "x86_64" else "i686-w64-mingw32-clang"
+            alt_prefix = "x86_64-w64-mingw32-gcc" if arch == "x86_64" else "i686-w64-mingw32-gcc"
+        else:
+            prefix = "x86_64-w64-mingw32-gcc" if arch == "x86_64" else "i686-w64-mingw32-gcc"
+            alt_prefix = "x86_64-w64-mingw32-clang" if arch == "x86_64" else "i686-w64-mingw32-clang"
+        
+        gcc = find_executable(prefix)
+        if not gcc:
+            # Try alternative
+            gcc = find_executable(alt_prefix)
+            if gcc:
+                prefix = alt_prefix
         
         if not gcc:
-            if host_os == "windows" and arch == ("x86-64" if host_arch == "x86_64" else "x86-32"):
-                # Native Windows: try MinGW anyway (user said we want .a everywhere)
+            if host_os == "windows" and arch == ("x86_64" if host_arch == "x86_64" else "x86_32"):
                 alt = find_executable("gcc")
-                if alt and "mingw" in str(alt).lower():
-                    gcc = alt
-            
+                if alt and "mingw" in str(alt).lower(): gcc = alt
             if not gcc:
-                log_warn(f"MinGW {prefix}-gcc not found, skipping Windows {arch}")
+                log_warn(f"MinGW {prefix} not found, skipping Windows {arch}")
                 return None
         
         cfg.update({
-            "system_name": "Windows",
-            "c_compiler": f"{prefix}-gcc",
-            "cxx_compiler": f"{prefix}-g++",
-            "rc_compiler": f"{prefix}-windres",
+            "system_name": "Windows", 
+            "c_compiler": prefix,
+            "rc_compiler": prefix.replace("-gcc", "-windres").replace("-clang", "-windres"),
         })
         return cfg
 
-    # --- Android ---
     elif platform == "android":
-        # Case 1: Termux (host_os == "android") — use system clang for current arch
         if host_os == "android" and arch == host["current_android_arch"]:
             cfg["is_native"] = True
             cfg["c_compiler"] = cc
-            cfg["cxx_compiler"] = cxx
-            # Android system clang needs target flag
             target_map = {
                 "arm64-v8a": f"aarch64-linux-android{ANDROID_MIN_SDK}",
                 "armeabi-v7a": f"armv7a-linux-androideabi{ANDROID_MIN_SDK}",
-                "x86-64": f"x86_64-linux-android{ANDROID_MIN_SDK}",
+                "x86_64": f"x86_64-linux-android{ANDROID_MIN_SDK}",
             }
-            cfg["c_flags"] = f"-target {target_map[arch]}"
-            cfg["cxx_flags"] = f"-target {target_map[arch]}"
+            if arch in target_map:
+                cfg["c_flags"] = f"-target {target_map[arch]}"
             return cfg
         
-        # Case 2: Any host with NDK
-        if not host["has_ndk"]:
-            log_warn("NDK not found, cannot build Android")
-            return None
+        if not host["has_ndk"]: return None
         
-        # Find NDK path
         ndk_path = None
         ndk_candidates = [
-            os.environ.get("ANDROID_NDK"),
-            os.environ.get("ANDROID_NDK_HOME"),
+            os.environ.get("ANDROID_NDK"), os.environ.get("ANDROID_NDK_HOME"),
             str(Path.home() / "Android/Sdk/ndk-bundle"),
         ]
         for search_dir in [
-            Path.home() / "Android/Sdk/ndk",
-            Path.home() / "Library/Android/sdk/ndk",
+            Path.home() / "Android/Sdk/ndk", Path.home() / "Library/Android/sdk/ndk",
             Path.home() / "AppData/Local/Android/Sdk/ndk",
         ]:
             if search_dir.is_dir():
                 ndk_candidates += [str(d) for d in search_dir.iterdir() if d.is_dir()]
-        
         for p in ndk_candidates:
             if p and Path(p).is_dir() and (Path(p) / "build/cmake/android.toolchain.cmake").exists():
                 ndk_path = p
                 break
+        if not ndk_path: return None
         
-        if not ndk_path:
-            log_warn("NDK path not found despite has_ndk=True")
-            return None
+        abi_map = {
+            "arm64-v8a": "arm64-v8a", 
+            "armeabi-v7a": "armeabi-v7a",
+            "x86_64": "x86_64",
+            "x86_32": "x86",
+        }
+        android_abi = abi_map.get(arch, arch)
         
         cfg.update({
             "toolchain_file": str(Path(ndk_path) / "build/cmake/android.toolchain.cmake"),
-            "android_abi": arch,
+            "android_abi": android_abi,
             "android_platform": f"android-{ANDROID_MIN_SDK}",
             "android_stl": "c++_static",
         })
@@ -510,14 +482,11 @@ def build_toolchain_config(platform: str, arch: str, host: Dict, cc: str, cxx: s
 def setup_build_dirs(platform: str, arch: str) -> Tuple[Path, Path]:
     install_dir = VENDOR_DIR / arch / platform
     build_dir = VENDOR_DIR / "build" / arch / platform
-    
     if build_dir.exists():
-        try:
-            safe_rmtree(build_dir)
+        try: safe_rmtree(build_dir)
         except Exception as e:
             log_error(f"Failed to clean build dir: {e}")
             sys.exit(1)
-    
     build_dir.mkdir(parents=True, exist_ok=True)
     install_dir.mkdir(parents=True, exist_ok=True)
     GLOBAL_INCLUDE_DIR.mkdir(parents=True, exist_ok=True)
@@ -537,7 +506,6 @@ def collect_headers(install_dir: Path):
 
 def run_cmake_build(lib_name: str, src_dir: Path, install_dir: Path, build_dir: Path,
                      toolchain: Dict, extra_cmake_flags: List[str]) -> bool:
-    # Build label
     if toolchain.get("toolchain_file"):
         label = f"Android-{toolchain.get('android_abi', '?')}"
     elif toolchain.get("is_native"):
@@ -549,33 +517,21 @@ def run_cmake_build(lib_name: str, src_dir: Path, install_dir: Path, build_dir: 
 
     cmake_args = [
         "cmake", "-B", str(build_dir), "-S", str(src_dir),
-        "-DCMAKE_BUILD_TYPE=Release",
-        "-DBUILD_SHARED_LIBS=OFF",
-        "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
-        f"-DCMAKE_INSTALL_PREFIX={install_dir}",
+        "-DCMAKE_BUILD_TYPE=Release", "-DBUILD_SHARED_LIBS=OFF",
+        "-DCMAKE_POSITION_INDEPENDENT_CODE=ON", f"-DCMAKE_INSTALL_PREFIX={install_dir}",
     ]
 
     if toolchain.get("toolchain_file"):
         cmake_args.append(f"-DCMAKE_TOOLCHAIN_FILE={toolchain['toolchain_file']}")
-        if toolchain.get("android_abi"):
-            cmake_args.append(f"-DANDROID_ABI={toolchain['android_abi']}")
-        if toolchain.get("android_platform"):
-            cmake_args.append(f"-DANDROID_PLATFORM={toolchain['android_platform']}")
-        if toolchain.get("android_stl"):
-            cmake_args.append(f"-DANDROID_STL={toolchain['android_stl']}")
+        if toolchain.get("android_abi"): cmake_args.append(f"-DANDROID_ABI={toolchain['android_abi']}")
+        if toolchain.get("android_platform"): cmake_args.append(f"-DANDROID_PLATFORM={toolchain['android_platform']}")
+        if toolchain.get("android_stl"): cmake_args.append(f"-DANDROID_STL={toolchain['android_stl']}")
     else:
-        if toolchain.get("system_name"):
-            cmake_args.append(f"-DCMAKE_SYSTEM_NAME={toolchain['system_name']}")
-        if toolchain.get("c_compiler"):
-            cmake_args.append(f"-DCMAKE_C_COMPILER={toolchain['c_compiler']}")
-        if toolchain.get("cxx_compiler"):
-            cmake_args.append(f"-DCMAKE_CXX_COMPILER={toolchain['cxx_compiler']}")
-        if toolchain.get("rc_compiler"):
-            cmake_args.append(f"-DCMAKE_RC_COMPILER={toolchain['rc_compiler']}")
-        if toolchain.get("c_flags"):
-            cmake_args.append(f"-DCMAKE_C_FLAGS={toolchain['c_flags']}")
-        if toolchain.get("cxx_flags"):
-            cmake_args.append(f"-DCMAKE_CXX_FLAGS={toolchain['cxx_flags']}")
+        if toolchain.get("system_name"): cmake_args.append(f"-DCMAKE_SYSTEM_NAME={toolchain['system_name']}")
+        if toolchain.get("c_compiler"): cmake_args.append(f"-DCMAKE_C_COMPILER={toolchain['c_compiler']}")
+        if toolchain.get("rc_compiler"): cmake_args.append(f"-DCMAKE_RC_COMPILER={toolchain['rc_compiler']}")
+        if toolchain.get("c_flags"): cmake_args.append(f"-DCMAKE_C_FLAGS={toolchain['c_flags']}")
+        if toolchain.get("ld_flags"): cmake_args.append(f"-DCMAKE_EXE_LINKER_FLAGS={toolchain['ld_flags']}")
 
     cmake_args.extend(extra_cmake_flags)
 
@@ -594,26 +550,26 @@ def run_cmake_build(lib_name: str, src_dir: Path, install_dir: Path, build_dir: 
     return True
 
 def build_glfw(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
-    glfw_rel = next((k for k in GIT_SUBMODULES if "glfw" in k), None)
-    if not glfw_rel:
-        return True
-    src = ROOT_DIR / glfw_rel
-    if not (src / "CMakeLists.txt").exists():
-        return True
+    src = ROOT_DIR / "vendor/src/glfw"
+    if not (src / "CMakeLists.txt").exists(): return True
     
     flags = [
-        "-DGLFW_BUILD_EXAMPLES=OFF", "-DGLFW_BUILD_TESTS=OFF",
-        "-DGLFW_BUILD_DOCS=OFF", "-DGLFW_VULKAN_STATIC=OFF",
+        "-DGLFW_BUILD_EXAMPLES=OFF", 
+        "-DGLFW_BUILD_TESTS=OFF",
+        "-DGLFW_BUILD_DOCS=OFF",
     ]
+    
+    if toolchain.get("android_abi") or (toolchain.get("system_name") == "Linux" and not toolchain.get("is_native", True)):
+        flags.extend([
+            "-DGLFW_BUILD_X11=OFF",
+            "-DGLFW_BUILD_WAYLAND=OFF",
+        ])
+        
     return run_cmake_build("glfw", src, install_dir, build_dir, toolchain, flags)
 
 def build_freetype(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
-    ft_rel = next((k for k in GIT_SUBMODULES if "freetype" in k), None)
-    if not ft_rel:
-        return True
-    src = ROOT_DIR / ft_rel
-    if not (src / "CMakeLists.txt").exists():
-        return True
+    src = ROOT_DIR / "vendor/src/freetype"
+    if not (src / "CMakeLists.txt").exists(): return True
     
     flags = [
         "-DFT_DISABLE_ZLIB=ON", "-DFT_DISABLE_BZIP2=ON",
@@ -627,22 +583,21 @@ def build_freetype(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
 
 def main():
     parser = argparse.ArgumentParser(description="Build Rinegine vendor submodules")
-    parser.add_argument("--target", help="Build only one target (e.g., linux:x86-64)")
+    parser.add_argument("--target", help="Build only one target (e.g., linux:x86_64)")
     parser.add_argument("--all", action="store_true", help="Build all possible targets (no prompts)")
     parser.add_argument("--list-targets", action="store_true", help="List targets and exit")
     parser.add_argument("--detect-host", action="store_true", help="Show host capabilities and exit")
     args = parser.parse_args()
 
-    # Detect host environment
     host = detect_host()
     
     if args.detect_host:
         print(f"Host OS:       {host['os']}")
         print(f"Host Arch:     {host['arch']}")
         print(f"Compilers:     {[c[0] for c in host['compilers']]}")
+        print(f"Multilib (-m32): {host.get('has_multilib', False)}")
         print(f"NDK available: {host['has_ndk']}")
         print(f"MinGW available: {host['has_mingw']}")
-        print(f"Linux cross-compilers: {host['has_linux_cross']}")
         print(f"Current Android arch: {host['current_android_arch']}")
         return 0
 
@@ -656,7 +611,6 @@ def main():
         print("\n★ = recommended (dependencies available)")
         return 0
 
-    # Determine which targets to build
     if args.target:
         if args.target not in ALL_TARGETS:
             log_error(f"Unknown target: {args.target}")
@@ -667,36 +621,27 @@ def main():
         targets_to_build = possible_targets
         log_info(f"Building all {len(targets_to_build)} possible targets")
     else:
-        # Interactive selection
         log_step("🎯 Target Selection")
         print(f"\nDetected host: {host['os']} / {host['arch']}")
         print(f"Recommended targets are marked with ★")
         print(f"({len(recommended_indices)} of {len(possible_targets)} have all dependencies installed)\n")
-        
-        selected_indices = interactive_multi_select(
-            "Select targets to build:",
-            possible_targets,
-            recommended_indices
-        )
+        selected_indices = interactive_multi_select("Select targets to build:", possible_targets, recommended_indices)
         targets_to_build = [possible_targets[i] for i in selected_indices]
         log_info(f"Selected {len(targets_to_build)} target(s)")
 
-    # Compiler selection (once for all targets)
     log_step("🔧 Compiler Selection")
-    cc, cxx = select_compiler(host)
+    compiler_name, cc, cxx = select_compiler(host)
 
-    # Prepare submodules
     log_step("🚀 Preparation")
     ensure_git_submodules()
     copy_header_libs()
 
-    # Phase 1: GLFW for all selected targets
     log_step("🎯 Phase 1: Building GLFW")
     glfw_failures = []
     for target_spec in targets_to_build:
         platform, arch = target_spec.split(":")
         install_dir, build_dir = setup_build_dirs(platform, arch)
-        tc = build_toolchain_config(platform, arch, host, cc, cxx)
+        tc = build_toolchain_config(platform, arch, host, compiler_name, cc, cxx)
         if not tc:
             log_warn(f"Skipping {target_spec}: toolchain not available on this host")
             continue
@@ -704,34 +649,33 @@ def main():
             log_warn(f"GLFW failed for {target_spec}")
             glfw_failures.append(target_spec)
 
-    # Phase 2: FreeType for all selected targets
     log_step("🎯 Phase 2: Building FreeType")
     ft_failures = []
     for target_spec in targets_to_build:
         platform, arch = target_spec.split(":")
         install_dir, build_dir = setup_build_dirs(platform, arch)
-        tc = build_toolchain_config(platform, arch, host, cc, cxx)
-        if not tc:
-            continue
+        tc = build_toolchain_config(platform, arch, host, compiler_name, cc, cxx)
+        if not tc: continue
         if not build_freetype(tc, install_dir, build_dir):
             log_warn(f"FreeType failed for {target_spec}")
             ft_failures.append(target_spec)
 
-    # Summary
     log_step("🎉 Build Complete")
     print(f"  📁 Headers:   {GLOBAL_INCLUDE_DIR}")
     print(f"  📁 Libraries: {VENDOR_DIR}/{{arch}}/{{platform}}/lib/")
     
     if glfw_failures or ft_failures:
         print("\n  ⚠️  Failed targets:")
-        for t in glfw_failures:
-            print(f"      GLFW:      {t}")
-        for t in ft_failures:
-            print(f"      FreeType:  {t}")
+        for t in glfw_failures: print(f"      GLFW:      {t}")
+        for t in ft_failures: print(f"      FreeType:  {t}")
     
-    print("\n  💡 Linking example:")
-    print(f"    -I{GLOBAL_INCLUDE_DIR}")
-    print(f"    -L{VENDOR_DIR}/x86-64/linux/lib -lglfw3 -lfreetype")
+    print("\n  💡 Linking examples:")
+    print(f"    Linux (OpenGL + Vulkan):")
+    print(f"      -I{GLOBAL_INCLUDE_DIR} -L{VENDOR_DIR}/x86_64/linux/lib -lglfw3 -lfreetype -lGL -lvulkan -lpthread -ldl")
+    print(f"    Windows (OpenGL + Vulkan + DirectX):")
+    print(f"      -I{GLOBAL_INCLUDE_DIR} -L{VENDOR_DIR}/x86_64/windows/lib -lglfw3 -lfreetype -lopengl32 -lvulkan-1 -lgdi32 -ld3d11 -ldxgi")
+    print(f"    Android (OpenGL ES + Vulkan):")
+    print(f"      -I{GLOBAL_INCLUDE_DIR} -L{VENDOR_DIR}/arm64-v8a/android/lib -lglfw3 -lfreetype -lGLESv2 -lEGL -lvulkan -landroid -llog")
     print(f"  💡 Add 'vendor/build/' to .gitignore")
     
     return 1 if (glfw_failures or ft_failures) else 0
