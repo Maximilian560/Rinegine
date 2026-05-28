@@ -1,14 +1,36 @@
 # [0.3.0/latest]
+
 ## FIX
+
 > Windows support has been expanded  
-- Были исправлены ошибки компиляции в новых типах (LIST,Socket и пр.)
-> Allocator, stream, (f/io)stream update:
-- Немного подправлен файл WIP.h в модуле WIP
+
+- Были исправлены ошибки компиляции в новых типах (LIST,Socket и пр.)  
+
+> Allocator, stream, (f/io)stream update:  
+
+- Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Some changes, addition of abbreviations and expansion of the WIP module  
+
+- Были добавлены собранные бинарники OpenGL (пока только для линукса)
+- Были добавлены сокращения для модулей (Rinegine сокращён до RG, WIP до W, Kernel -> K, Graphics -> G, New -> N, Neural -> NN, Tokenize -> T, WebCore -> WC), с ним можно обращатся к модулям в следующем виде: RG::K:: 
+- Добавлен инструмент для работы с флагами RG::K::Flags::  
+Теперь можно добавлять, удалять и проверять флаги красиво  
+RG::K::Flags::set(var_flag,flag) - позволяет добавить флаг flag к переменной var_flag  
+RG::K::Flags::clear(var_flag,flag) - позволяет убрать флаг flag из var_flag  
+RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг flag в var_flag (true если есть)  
+Можно использовать как простые типы, так и свои перечисления (или типы, которые можно преобразовать в тип переменной флага через static_cast)
+- Были добавлены прекомпилированные переменные версий и её названия (Rinegine::VERSION и Rinegine::EDITION). Это C строки, не std::string и не определение препроцессора
+- Была добавлена простая реализация RawMap
+
 > Rinegine::Kernel::LIST::push_front() has been added
+
 - Добавлен метод Rinegine::Kernel::LIST::push_front()
+
 > Allocator, stream, (f/io)stream update:
+
 - Добавлены is_trivially_constructible, is_trivially_constructible, is_trivial, is_trivial_v, has_trivial_destructor и has_trivial_destructor_v. Вероятно временно расположены в именном пространстве Rinegine::Kernel::Traits. Аналоги из std, разницы по сути нет, добавленны для большей независимости от STD.
 - Добавлены __addressof и addressof. Временно расположены в Rinegine::Kernel::Addres, добавлены для большей независимости от STD.
 - Был добавлен MallocAllocator в Rinegine::Kernel. Обёртка над malloc для концепта Allocator. Сам концепт нужен для стандартизированния аллокаторов, дабы избежать непреднамеренных синтаксических ошибок в будущем.
@@ -23,10 +45,19 @@
 ## REMOVED
 
 ## CHANGED
+
+> Some changes, addition of abbreviations and expansion of the WIP module
+
+- Теперь файлы конфигураций разделены под различные ОС, win-kernel.rgset сборка ядра под Windows, linux-wip.rgset сборка WIP модуля под линукс
+- PoolAllocator из alocator.hpp из WIP был расширен до нескольких файлов
+
 > Reorganizing submodules
+
 - Были переорганизованны модули, stb теперь не в include/cross а в vendor/include  
 - Были изменены некоторые файлы документации
+
 > Allocator, stream, (f/io)stream update:
+
 - Изменена система CHANGELOG, теперь тут будут писаться все обновления без привязки ко времени до выхода стабильной версии фреймворка (Rinegine)
 - На данный момент файл WIP.h устарел, и был отключён из сборки WIP модуля
 

@@ -1,0 +1,27 @@
+#pragma once
+#define RINEGINE_SHORT
+namespace RG = Rinegine;
+namespace Rinegine {
+#ifdef RINEGINE_WIP
+  namespace W = WIP;
+#endif
+#ifdef RINEGINE_KERNEL
+  namespace K = Kernel;
+#endif
+#ifdef RINEGINE_GRAPHICS
+  namespace G = Graphics;
+#endif
+#ifdef RINEGINE_NEt
+  namespace N = Net;
+#endif
+#ifdef RINEGINE_NEURAL
+  namespace NN = Neural;
+#endif
+#ifdef RINEGINE_TOKENIZE
+  namespace T = Tokenize;
+#endif
+#ifdef RINEGINE_WEBCORE
+  namespace WC = WebCore;
+#endif
+
+};
