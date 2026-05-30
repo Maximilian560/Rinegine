@@ -22,7 +22,7 @@ namespace Rinegine {
     concept Convertible = requires(From f) {
       { To(f) };
     };
-    namespace Flags {
+    /*namespace Flags {
       template <class T1, class T2>
       concept FlagTypeCompatible = requires(T1 val, T2 flag) {
         { val |= static_cast<T1>(flag) };
@@ -40,7 +40,7 @@ namespace Rinegine {
       template <class T1, class T2>
         requires FlagTypeCompatible<T1, T2>
       constexpr void clear(T1& val, T2 flag) { val &= ~static_cast<T1>(flag); }
-    }
+    }*/
     // [Stream realization]
     enum STREAM_FLAG : uint32_t {
       STREAM_READABLE = 1 << 0,   // Поток поддерживает чтение

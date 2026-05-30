@@ -2,6 +2,10 @@
 
 ## FIX
 
+> Allocator and Array Update
+
+- Был исправлен конфликт между реализацией системы управления флагами в WIP и в Kernel модулях
+
 > Windows support has been expanded  
 
 - Были исправлены ошибки компиляции в новых типах (LIST,Socket и пр.)  
@@ -11,6 +15,12 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Allocator and Array Update
+
+- Был добавлен другой аллокатор в WIP модуль
+
+- Был добавлен тип массива в WIP модуль
 
 > Some changes, addition of abbreviations and expansion of the WIP module  
 
@@ -44,7 +54,15 @@ RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг fla
 
 ## REMOVED
 
+> Allocator and Array Update
+
+- Были веременно отключены src реализации в WIP модуле
+
 ## CHANGED
+
+> Allocator and Array Update
+
+- Был изменён аллокатор для WIP типов
 
 > Some changes, addition of abbreviations and expansion of the WIP module
 

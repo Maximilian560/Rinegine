@@ -1,6 +1,6 @@
 #pragma once
 namespace Rinegine::Kernel {
-  using ALLOCATOR = PoolAllocator;
+  auto& ALLOCATOR = Rinegine::WIP::GlobalAllocator;
   struct MallocAllocator {
     static void* allocate(std::size_t n) {
       void* ptr = std::malloc(n);
@@ -52,7 +52,7 @@ namespace Rinegine::Kernel {
       head = nullptr;
       end = nullptr;
       count = 0;
-      ALLOCATOR::reset();//[todo] Before creating a normal allocator
+      ALLOCATOR.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     template <typename U = T>
@@ -66,14 +66,14 @@ namespace Rinegine::Kernel {
       head = nullptr;
       end = nullptr;
       count = 0;
-      ALLOCATOR::reset();//[todo] Before creating a normal allocator
+      ALLOCATOR.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     //[PUSH]
     //* Создаёт новую ноду и возвращает указатель на неё (предназначено для использования внутри класса/библиотеки)
     //* Примечание: не инициализирует data, используйте emplace после push если требуется инициализация
     NODE<T>* push() {
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
 
       node->next = nullptr;
@@ -105,7 +105,7 @@ namespace Rinegine::Kernel {
 
     //* Вставляет ноду в начало списка (push_front)
     NODE<T>* push_front() {
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
 
       node->next = head;
@@ -142,7 +142,7 @@ namespace Rinegine::Kernel {
     //* Вставляет ноду перед pos, инициализирует копированием
     NODE<T>* insert_before(NODE<T>* pos, const T& in) {
       if (!pos) return push(in);  // nullptr = push_back
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
       ::new (static_cast<void*>(std::addressof(node->data))) T(in);
 
@@ -158,7 +158,7 @@ namespace Rinegine::Kernel {
     //* Вставляет ноду перед pos, инициализирует перемещением
     NODE<T>* insert_before(NODE<T>* pos, T&& in) {
       if (!pos) return push(std::move(in));
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
       ::new (static_cast<void*>(std::addressof(node->data))) T(std::move(in));
 
@@ -181,7 +181,7 @@ namespace Rinegine::Kernel {
       if constexpr (!Util::has_trivial_destructor_v<T>) {
         pos->data.~T();
       }
-      ALLOCATOR::deallocate(pos);
+      ALLOCATOR.deallocate(pos);
 
       if (prev) prev->next = next;
       else head = next;
@@ -226,7 +226,7 @@ namespace Rinegine::Kernel {
     // Для POD: просто копируем байты
     template<typename... Args>
     int emplace(Args&&... args) requires Util::is_trivially_constructible_v<T, Args...> {
-      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!new_node) throw - 1;
 
       // Обнуляем указатели
@@ -246,7 +246,7 @@ namespace Rinegine::Kernel {
     // Для сложных типов: placement new
     template<typename... Args>
     int emplace(Args&&... args) requires (!Util::is_trivially_constructible_v<T, Args...>) {
-      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR::allocate(sizeof(NODE<T>)));
+      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
       if (!new_node) throw - 1;
 
       // Ручная инициализация полей NODE
