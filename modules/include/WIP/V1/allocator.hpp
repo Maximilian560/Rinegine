@@ -347,9 +347,9 @@ namespace Rinegine {
 #else
       MEM_HEAD* ptr = nullptr;
 #endif
-      if (ptr == nullptr) { 
-        RG_LOG_LOCK_CRITICAL("Allocator: fault alloc new page"); 
-        }
+      if (ptr == nullptr) {
+        RG_LOG_LOCK_CRITICAL("Allocator: fault alloc new page");
+      }
       else {
         // //RG_LOG_LOCK_DEBUG("ptr of pool: "+std::to_string((long long)ptr)+", ptr of tail: "+std::format("{x}",(long long)(MEM_TAIL*)((char*)ptr) + align - sizeof(MEM_TAIL))+", size of tail: "+std::to_string(sizeof(MEM_TAIL)));
         //RG_LOG_LOCK_DEBUG(std::format("ptr of pool: {:#x}, ptr of tail: {:#x}, size of tail: {:d}", (long long)ptr, (long long)(MEM_TAIL*)(((char*)ptr) + align - sizeof(MEM_TAIL)), sizeof(MEM_TAIL)));
@@ -568,7 +568,7 @@ namespace Rinegine {
                       //[fill mem vars]
                       head_out->size = bytes;
                       head_out->magic = RG_MAG_NUM;
-                      head_out->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED | MEM_FLAG::CUSTOM_POOL);
+                      head_out->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED | MEM_FLAG::CUSTOM_POOL | MEM_FLAG::INIT);
                       head_out->id = SYS_MEM_ID++;
                       head_out->pool_id = (uint32_t)i;
 
@@ -576,7 +576,9 @@ namespace Rinegine {
                       tail->magic1 = RG_MAG_NUM;
                       tail->magic2 = RG_MAG_NUM;
 
-                      cache->near_free = (MEM_HEAD*)(tail + 1);
+                      MEM_HEAD* next_cell = (MEM_HEAD*)(tail + 1);
+                      if (cache->near_free > next_cell)cache->near_free = next_cell;
+                      // cache->near_free = (MEM_HEAD*)(tail + 1);
                       cache->used_mem += bytes + sizeof(MEM_TAIL) + sizeof(MEM_HEAD);
                       return head_out + 1;
                     }
@@ -608,7 +610,7 @@ namespace Rinegine {
             //[fill mem vars]
             head_out->size = bytes;
             head_out->magic = RG_MAG_NUM;
-            head_out->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED | MEM_FLAG::CUSTOM_POOL);
+            head_out->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED | MEM_FLAG::CUSTOM_POOL | MEM_FLAG::INIT);
             // head_out->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED);
             head_out->id = SYS_MEM_ID++;
             head_out->pool_id = (uint32_t)i;
@@ -619,6 +621,9 @@ namespace Rinegine {
 
 
             // cache->near_free = (MEM_HEAD*)(((char*)(head_out + 1)) + bytes + sizeof(MEM_TAIL));
+            // MEM_HEAD* next_cell = (MEM_HEAD*)(tail + 1);
+            // if (cache->near_free > next_cell)cache->near_free = next_cell;
+
             cache->near_free = (MEM_HEAD*)(tail + 1);
             // rg_cout << (long long)((((char*)(head_out + 1)) + bytes + sizeof(MEM_TAIL)) - (long long)head_out) << std::endl;
             // rg_cout << (sizeof(MEM_HEAD) * 2 + sizeof(MEM_TAIL) * 2 + bytes);

@@ -48,11 +48,13 @@ namespace Rinegine::Kernel {
       while (tmp != nullptr) {
         NODE<T>* next = tmp->next;
         tmp = next;
+        ALLOCATOR.deallocate(tmp);
       }
+      ALLOCATOR.deallocate(head);
       head = nullptr;
       end = nullptr;
       count = 0;
-      ALLOCATOR.clear();//[todo] Before creating a normal allocator
+      // ALLOCATOR.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     template <typename U = T>
@@ -62,11 +64,13 @@ namespace Rinegine::Kernel {
         NODE<T>* next = tmp->next;
         tmp->data.~T();
         tmp = next;
+        ALLOCATOR.deallocate(tmp);
       }
+      ALLOCATOR.deallocate(head);
       head = nullptr;
       end = nullptr;
       count = 0;
-      ALLOCATOR.clear();//[todo] Before creating a normal allocator
+      // ALLOCATOR.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     //[PUSH]
