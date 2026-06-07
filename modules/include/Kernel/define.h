@@ -543,6 +543,53 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 //TODO^description
 
    // DEBUG
+#define GET_MACRO(_1, _2, NAME, ...) NAME
+
+#define RG_LOG_FATAL(...)                                                      \
+  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_CRITICAL(...)                                                   \
+  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_FATAL_2(__msg, ...)                                             \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
+                                __FILE__, __LINE__)
+
+#define RG_LOG_FATAL_1(__msg)                                                  \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
+                                __FILE__, __LINE__)
+#ifndef RGLOCK_DEBUG
+#define RG_LOG_LOCK_FATAL(...)                                                 \
+  GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_FATAL_2, RG_LOG_LOCK_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_LOCK_CRITICAL(...)                                              \
+  GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_FATAL_2, RG_LOG_LOCK_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_LOCK_FATAL_2(__msg, ...)                                        \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
+                                RG_HERE_FILE_NAME, -1)
+
+#define RG_LOG_LOCK_FATAL_1(__msg)                                             \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
+                                RG_HERE_FILE_NAME, -1)
+
+#else
+#define RG_LOG_LOCK_FATAL(...)                                                 \
+  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_LOCK_CRITICAL(...)                                              \
+  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
+
+#define RG_LOG_LOCK_FATAL_2(__msg, ...)                                        \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
+                                __FILE__, __LINE__)
+
+#define RG_LOG_LOCK_FATAL_1(__msg)                                             \
+  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
+                                __FILE__, __LINE__)
+#endif
+
+
 #ifdef RG_DEBUG
 /**
  * @def GET_MACRO(_1, _2, NAME, ...)
@@ -550,7 +597,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
  * @internal Used by logging macros to select 1-arg or 2-arg version.
  * @ingroup logging
  */
-#define GET_MACRO(_1, _2, NAME, ...) NAME
 
  /**
   * @def RG_LOG_DEBUG(...)
@@ -593,10 +639,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
       * @brief Logs a critical/fatal message.
       * @ingroup logging
       */
-#define RG_LOG_FATAL(...)                                                      \
-  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
-#define RG_LOG_CRITICAL(...)                                                   \
-  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
 
       /**
        * @def RG_LOG_MEM(...)
@@ -624,9 +666,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 #define RG_LOG_ERROR_2(__msg, ...)                                             \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, __VA_ARGS__,        \
                                 __FILE__, __LINE__)
-#define RG_LOG_FATAL_2(__msg, ...)                                             \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
-                                __FILE__, __LINE__)
 #define RG_LOG_MEM_2(__msg, ...)                                               \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, __VA_ARGS__,        \
                                 __FILE__, __LINE__)
@@ -643,9 +682,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 #define RG_LOG_ERROR_1(__msg)                                                  \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, true, __FILE__,     \
                                 __LINE__)
-#define RG_LOG_FATAL_1(__msg)                                                  \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
-                                __FILE__, __LINE__)
 #define RG_LOG_MEM_1(__msg)                                                    \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, true, __FILE__,     \
                                 __LINE__)
@@ -662,10 +698,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
   GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_WARN_2, RG_LOG_LOCK_WARN_1)(__VA_ARGS__)
 #define RG_LOG_LOCK_ERROR(...)                                                 \
   GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_ERROR_2, RG_LOG_LOCK_ERROR_1)(__VA_ARGS__)
-#define RG_LOG_LOCK_FATAL(...)                                                 \
-  GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_FATAL_2, RG_LOG_LOCK_FATAL_1)(__VA_ARGS__)
-#define RG_LOG_LOCK_CRITICAL(...)                                              \
-  GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_FATAL_2, RG_LOG_LOCK_FATAL_1)(__VA_ARGS__)
 #define RG_LOG_LOCK_MEM(...)                                                   \
   GET_MACRO(__VA_ARGS__, RG_LOG_LOCK_MEM_2, RG_LOG_LOCK_MEM_1)(__VA_ARGS__)
 
@@ -680,9 +712,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
                                 RG_HERE_FILE_NAME, -1)
 #define RG_LOG_LOCK_ERROR_2(__msg, ...)                                        \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, __VA_ARGS__,        \
-                                RG_HERE_FILE_NAME, -1)
-#define RG_LOG_LOCK_FATAL_2(__msg, ...)                                        \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
                                 RG_HERE_FILE_NAME, -1)
 #define RG_LOG_LOCK_MEM_2(__msg, ...)                                          \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, __VA_ARGS__,        \
@@ -700,9 +729,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 #define RG_LOG_LOCK_ERROR_1(__msg)                                             \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, true,               \
                                 RG_HERE_FILE_NAME, -1)
-#define RG_LOG_LOCK_FATAL_1(__msg)                                             \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
-                                RG_HERE_FILE_NAME, -1)
 #define RG_LOG_LOCK_MEM_1(__msg)                                               \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, true,               \
                                 RG_HERE_FILE_NAME, -1)
@@ -717,10 +743,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
   GET_MACRO(__VA_ARGS__, RG_LOG_WARN_2, RG_LOG_WARN_1)(__VA_ARGS__)
 #define RG_LOG_LOCK_ERROR(...)                                                 \
   GET_MACRO(__VA_ARGS__, RG_LOG_ERROR_2, RG_LOG_ERROR_1)(__VA_ARGS__)
-#define RG_LOG_LOCK_FATAL(...)                                                 \
-  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
-#define RG_LOG_LOCK_CRITICAL(...)                                              \
-  GET_MACRO(__VA_ARGS__, RG_LOG_FATAL_2, RG_LOG_FATAL_1)(__VA_ARGS__)
 #define RG_LOG_LOCK_MEM(...)                                                   \
   GET_MACRO(__VA_ARGS__, RG_LOG_MEM_2, RG_LOG_MEM_1)(__VA_ARGS__)
 
@@ -735,9 +757,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
                                 __FILE__, __LINE__)
 #define RG_LOG_LOCK_ERROR_2(__msg, ...)                                        \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, __VA_ARGS__,        \
-                                __FILE__, __LINE__)
-#define RG_LOG_LOCK_FATAL_2(__msg, ...)                                        \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, __VA_ARGS__,   \
                                 __FILE__, __LINE__)
 #define RG_LOG_LOCK_MEM_2(__msg, ...)                                          \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, __VA_ARGS__,        \
@@ -755,9 +774,6 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 #define RG_LOG_LOCK_ERROR_1(__msg)                                             \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::ERR, __msg, true, __FILE__,     \
                                 __LINE__)
-#define RG_LOG_LOCK_FATAL_1(__msg)                                             \
-  Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, __msg, true,          \
-                                __FILE__, __LINE__)
 #define RG_LOG_LOCK_MEM_1(__msg)                                               \
   Rinegine::Kernel::Debug::addl(Rinegine::Log::MEM, __msg, true, __FILE__,     \
                                 __LINE__)
@@ -777,7 +793,5 @@ inline rg_string rg_to_string(const wchar_t* str) { return Rinegine::Kernel::utf
 #define RG_LOG_LOCK_WARN(...){}
 #define RG_LOG_LOCK_WARNING(...){}
 #define RG_LOG_LOCK_ERROR(...){}
-#define RG_LOG_LOCK_FATAL(...){}
-#define RG_LOG_LOCK_CRITICAL(...){}
 #define RG_LOG_LOCK_MEM(...){}
 #endif//RG_DEBUG

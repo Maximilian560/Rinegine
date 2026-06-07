@@ -2,6 +2,10 @@
 
 ## FIX
 
+> Debug fix
+
+- Исправлены препроцессорные определения RG_LOG_LOCK_CRITICAL/RG_LOG_LOCK_FATAL/RG_LOG_CRITICAL/RG_LOG_FATAL, теперь они работают даже без определения RG_DEBUG
+
 > Allocator and List fixes
 
 - Исправлена инициализация памяти при аллокации
