@@ -19,4 +19,4 @@ vendor/*
 !vendor/src/
 !vendor/include/
 vendor/include/*
-!vendor/include/stb/
+!vendor/include/stb

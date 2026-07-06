@@ -334,7 +334,7 @@ def build_toolchain_config(platform: str, arch: str, host: Dict, compiler_name: 
     host_os = host["os"]
     host_arch = host["arch"]
 
-        if platform == "linux":
+    if platform == "linux":
         is_native = (
             (arch == "x86_64" and host_arch == "x86_64") or
             (arch == "x86_32" and host_arch in ("x86_32", "x86_64")) or
