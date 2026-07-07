@@ -4,7 +4,7 @@
 
 > Debug fix
 
-- Исправлены препроцессорные определения RG_LOG_LOCK_CRITICAL/RG_LOG_LOCK_FATAL/RG_LOG_CRITICAL/RG_LOG_FATAL, теперь они работают даже без определения RG_DEBUG
+- Исправлены препроцессорные определения RG_LOG_LOCK_CRITICAL, RG_LOG_LOCK_FATAL, RG_LOG_CRITICAL и RG_LOG_FATAL. Теперь они работают даже без определения RG_DEBUG
 
 > Allocator and List fixes
 
@@ -29,6 +29,10 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Extending vendor-build.py functionality
+
+- Был расширен функционал vendor-build.py. Теперь он может генерировать файлы glad и собирать их в библиотеку
 
 > Allocator and Array Update
 

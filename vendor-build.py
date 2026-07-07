@@ -22,6 +22,131 @@ from pathlib import Path
 from typing import Optional, Tuple, List, Dict
 import platform as sys_platform
 
+#
+#
+#
+import sysconfig
+
+def detect_externally_managed() -> bool:
+    """
+    Детектирует PEP 668 маркер.
+    Возвращает True, если системный Python защищен от глобальной установки пакетов.
+    """
+    stdlib_path = Path(sysconfig.get_path("stdlib"))
+    marker = stdlib_path / "EXTERNALLY-MANAGED"
+    return marker.exists()
+
+def resolve_python_interpreter() -> Path:
+    """
+    Вычисляет оптимальный интерпретатор Python для установки glad2.
+    Если система защищена PEP 668, создает или использует изолированный venv.
+    """
+    if not detect_externally_managed():
+        log_info("Host Python environment is permissive (no PEP 668 detected).")
+        return Path(sys.executable)
+        
+    log_warn("Host Python is externally-managed (Arch Linux / PEP 668).")
+    
+    default_venv_path = ROOT_DIR / "vendor" / ".venv"
+    
+    options = [
+        f"Create new venv at: {default_venv_path}",
+        "Specify custom path to existing venv",
+        "Attempt system install (will likely fail)"
+    ]
+    idx = interactive_choice("Select Python environment strategy:", options, default=0)
+    
+    if idx == 2:
+        log_warn("Bypassing PEP 668 protection. Expect pip failure if strictly enforced.")
+        return Path(sys.executable)
+        
+    venv_path = default_venv_path
+    if idx == 1:
+        custom_path = input(f"\nEnter absolute path to existing venv (default={default_venv_path}): ").strip()
+        if custom_path:
+            venv_path = Path(custom_path).expanduser().resolve()
+            
+    venv_python = venv_path / ("Scripts" if sys_platform.system() == "Windows" else "bin") / "python"
+    
+    if idx == 1 and venv_python.exists():
+        log_success(f"Using existing venv at {venv_path}")
+        return venv_python
+        
+    if idx == 1 and not venv_python.exists():
+        log_error(f"Invalid venv path: {venv_python} not found.")
+        sys.exit(1)
+        
+    # Создание нового venv
+    if not venv_path.exists():
+        log_info(f"Initializing isolated venv at {venv_path}...")
+        import venv
+        try:
+            venv.create(venv_path, with_pip=True, clear=True)
+            log_success("Virtual environment initialized.")
+        except Exception as e:
+            log_error(f"Failed to create venv: {e}")
+            sys.exit(1)
+            
+    if not venv_python.exists():
+        log_error(f"Venv created but python executable not found at {venv_python}")
+        sys.exit(1)
+        
+    # Топологическая интеграция: добавление .venv в .gitignore
+    gitignore_path = ROOT_DIR / ".gitignore"
+    venv_rel = venv_path.relative_to(ROOT_DIR)
+    if gitignore_path.exists():
+        content = gitignore_path.read_text()
+        if str(venv_rel) not in content:
+            with open(gitignore_path, "a") as f:
+                f.write(f"\n# Python venv for build tools\n{venv_rel}/\n")
+            log_info(f"Added {venv_rel}/ to .gitignore")
+            
+    return venv_python
+
+#
+#
+#
+
+ALWAYS_REBUILD = False
+
+def compute_src_hash(src_dir: Path) -> str:
+    """O(1) для git submodules, O(n) fallback для локальных изменений."""
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=src_dir, text=True, stderr=subprocess.DEVNULL
+        ).strip()
+    except Exception:
+        import hashlib
+        h = hashlib.sha256()
+        for f in sorted(src_dir.rglob("*")):
+            if f.is_file():
+                h.update(str(f.relative_to(src_dir)).encode())
+                h.update(str(f.stat().st_mtime_ns).encode())
+        return h.hexdigest()
+
+def evaluate_build_necessity(lib_name: str, src_dir: Path, install_dir: Path) -> bool:
+    """Возвращает True, если сборка требуется, False - если пропущена."""
+    global ALWAYS_REBUILD
+    hash_file = install_dir / f".{lib_name}_state"
+    current_hash = compute_src_hash(src_dir)
+    
+    if hash_file.exists() and hash_file.read_text().strip() == current_hash and not ALWAYS_REBUILD:
+        log_info(f"{lib_name} topology is static (hash match).")
+        options = ["Yes", "No", "Abort", "Always Yes"]
+        idx = interactive_choice(f"Force rebuild of {lib_name}?", options, default=1)
+        if idx == 1: # No
+            log_info(f"Skipping {lib_name} build sequence.")
+            return False
+        if idx == 2: # Abort
+            log_warn("Build sequence aborted by user.")
+            sys.exit(0)
+        if idx == 3: # Always Yes
+            ALWAYS_REBUILD = True
+            return True
+            
+    return True
+
+
 # ============================================================================
 # Configuration
 # ============================================================================
@@ -306,7 +431,7 @@ def ensure_git_submodules():
         target = ROOT_DIR / rel_path
         if not target.exists() or not any(target.iterdir()):
             log_info(f"Initializing {rel_path}...")
-            if not run_cmd(["git", "submodule", "update", "--init", str(target)]):
+            if not run_cmd(["git", "submodule", "update", "--init", "--recursive", str(target)]):
                 log_warn(f"Could not initialize {rel_path} via git.")
     log_success("Git submodules are ready")
 
@@ -325,6 +450,163 @@ def copy_header_libs():
     else:
         log_warn("STB directory not found or empty, skipping")
 
+#
+#
+#
+
+def build_glad(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
+    glad_src_dir = VENDOR_DIR / "src" / "glad"
+    if not glad_src_dir.exists() or not any(glad_src_dir.glob("*.c")):
+        log_warn("No glad sources found. Skipping glad build.")
+        return True
+        
+    glad_build_dir = build_dir / "glad"
+    if glad_build_dir.exists():
+        safe_rmtree(glad_build_dir)
+    glad_build_dir.mkdir(parents=True, exist_ok=True)
+    
+    cc = str(toolchain.get("c_compiler", "cc"))
+    c_flags = toolchain.get("c_flags", "")
+    
+    # Топологическое вычисление архиватора
+    if "mingw" in cc:
+        ar_exec = cc.replace("-gcc", "-ar").replace("-clang", "-ar")
+    elif "clang" in cc:
+        ar_exec = str(find_executable("llvm-ar") or find_executable("ar") or "ar")
+    else:
+        ar_exec = str(find_executable("gcc-ar") or find_executable("ar") or "ar")
+        
+    c_files = list(glad_src_dir.glob("*.c"))
+    
+    for src_file in c_files:
+        stem = src_file.stem # gl, vulkan, gl_4_6, vulkan_1_3
+        
+        # 1. Вычисление version_tag из имени файла
+        version_tag = None
+        if stem not in ("gl", "vulkan"):
+            parts = stem.split("_", 1)
+            if len(parts) > 1:
+                version_tag = parts[1] # "4_6", "3_3", "1_3"
+                
+        # 2. Роутинг инклюдов (-I)
+        include_path = GLOBAL_INCLUDE_DIR
+        if version_tag:
+            candidate_path = GLOBAL_INCLUDE_DIR / "glad" / version_tag
+            if candidate_path.exists():
+                include_path = candidate_path
+                
+        # 3. Топология изоляции библиотек (-L)
+        lib_dir = install_dir / "lib" / f"glad{version_tag}"
+
+            
+        lib_dir.mkdir(parents=True, exist_ok=True)
+        lib_file = lib_dir / "libglad.a"
+        
+        obj_file = glad_build_dir / (stem + ".o")
+        
+        # Компиляция
+        cmd = [cc, "-c", str(src_file), "-o", str(obj_file), "-fPIC", "-O2", f"-I{include_path}"]
+        if c_flags:
+            cmd.extend(c_flags.split())
+            
+        if not run_cmd(cmd):
+            log_error(f"Failed to compile {src_file.name} (ABI mismatch or missing headers)")
+            return False
+            
+        # Архивация
+        ar_cmd = [ar_exec, "rcs", str(lib_file), str(obj_file)]
+        if not run_cmd(ar_cmd):
+            log_error(f"Failed to archive {lib_file.name}")
+            return False
+            
+        log_success(f"libglad.a installed to {lib_dir}")
+        
+    return True
+
+def glad_generate() -> bool:    
+    py_executable = resolve_python_interpreter()
+    log_info(f"Resolved Python interpreter: {py_executable}")
+    
+    log_info("Resolving glad2 dependency matrix...")
+    pip_cmd = [str(py_executable), "-m", "pip", "install", "--quiet", "--upgrade", "glad2"]
+    if not run_cmd(pip_cmd):
+        log_error("Dependency injection failed. Verify venv permissions.")
+        return False
+        
+    options = [
+        "OpenGL 2.0 (Compatibility)", 
+        "OpenGL 3.3 (Core)", 
+        "OpenGL 4.6 (Core)",
+    ]
+    # Индексы: 0=2.0, 1=3.3, 2=4.6. По умолчанию рекомендуется [2] (4.6 Core)
+    selected_indices = interactive_multi_select(
+        "Select target API profiles for Glad2 (comma-separated):", 
+        options, 
+        [2] 
+    )
+    
+    targets_map = {
+        0: "gl:compatibility=2.0",
+        1: "gl:core=3.3",
+        2: "gl:core=4.6",
+    }
+    targets = [targets_map[i] for i in selected_indices]
+
+    glad_out_dir = VENDOR_DIR / "tmp" / "glad"
+    if glad_out_dir.exists():
+        safe_rmtree(glad_out_dir)
+        
+    successful_targets = 0
+    for api_spec in targets:
+        log_info(f"Generating loader sequence for {api_spec}...")
+        out_path = glad_out_dir / api_spec.replace(":", "_").replace("=", "v")
+        out_path.mkdir(parents=True, exist_ok=True)
+        
+        cmd = [
+            str(py_executable), "-m", "glad",
+            "--api", api_spec,
+            "--out-path", str(out_path),
+            "c"
+        ]
+        
+        try:
+            subprocess.run(cmd, check=True, text=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            log_error(f"Glad2 generation failed for {api_spec}.")
+            log_error(f"STDOUT: {e.stdout}")
+            log_error(f"STDERR: {e.stderr}")
+            return False
+            
+        gen_include = out_path / "include"
+        gen_src = out_path / "src"
+        
+        version_tag = api_spec.split('=')[1].replace('.', '_')
+        dst_include_prefix = GLOBAL_INCLUDE_DIR / "glad" / version_tag
+
+            
+        if gen_include.exists():
+            for f in gen_include.rglob("*"):
+                if f.is_file():
+                    rel = f.relative_to(gen_include)
+                    dst = dst_include_prefix / rel
+                    dst.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(f, dst)
+                    
+        if gen_src.exists():
+            glad_src_dst = VENDOR_DIR / "src" / "glad"
+            glad_src_dst.mkdir(parents=True, exist_ok=True)
+            for f in gen_src.rglob("*.c"):
+                # dst_name = f.name
+                dst_name = f"{f.stem}_{api_spec.split('=')[1].replace('.', '_')}{f.suffix}"
+                shutil.copy2(f, glad_src_dst / dst_name)
+                print(f"TEST:'{glad_src_dst / dst_name}'")
+        successful_targets += 1            
+    if successful_targets == 0 and len(targets) > 0:
+        log_error("All selected Glad2 profiles failed to generate.")
+        return False
+    log_success(f"Glad2 artifacts localized ({successful_targets}/{len(targets)} profiles integrated).")
+    return True
+
 # ============================================================================
 # Toolchain Configuration
 # ============================================================================
@@ -337,21 +619,30 @@ def build_toolchain_config(platform: str, arch: str, host: Dict, compiler_name: 
     if platform == "linux":
         is_native = (
             (arch == "x86_64" and host_arch == "x86_64") or
-            (arch == "x86_32" and host_arch in ("x86_32", "x86_64")) or
+            (arch == "x86_32" and host_arch == "x86_32") or 
             (arch == "arm64-v8a" and host_arch == "aarch64") or
             (arch == "armeabi-v7a" and host_arch == "arm")
         )
         if is_native and host_os == "linux":
             cfg["is_native"] = True
             cfg["c_compiler"] = cc
-            if arch == "x86_32" and host_arch == "x86_64":
-                cfg["c_flags"] = "-m32"
-                cfg["ld_flags"] = "-m32"
         else:
             if host_os != "linux":
                 log_warn(f"Cannot cross-compile Linux {arch} from {host_os}")
                 return None
             
+            cfg["system_name"] = "Linux"
+            
+            # Патч для multilib (x86_64 host -> x86_32 target)
+            if arch == "x86_32" and host_arch == "x86_64":
+                cfg["c_compiler"] = cc
+                cfg["c_flags"] = "-m32"
+                cfg["ld_flags"] = "-m32"
+                
+                if compiler_name == "clang":
+                    cfg["c_flags"] += " --rtlib=compiler-rt --unwindlib=libunwind"
+                    cfg["ld_flags"] += " -L/usr/lib32 -Wl,-rpath-link,/usr/lib32 --rtlib=compiler-rt --unwindlib=libunwind -L/usr/lib32 -Wl,-rpath-link,/usr/lib32"
+                return cfg
             # Compiler mapping
             prefix_map = {
                 "arm64-v8a": "aarch64-linux-gnu", 
@@ -553,6 +844,9 @@ def build_glfw(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
     src = ROOT_DIR / "vendor/src/glfw"
     if not (src / "CMakeLists.txt").exists(): return True
     
+    if not evaluate_build_necessity("glfw", src, install_dir):
+        return True
+    
     flags = [
         "-DGLFW_BUILD_EXAMPLES=OFF", 
         "-DGLFW_BUILD_TESTS=OFF",
@@ -565,18 +859,26 @@ def build_glfw(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
             "-DGLFW_BUILD_WAYLAND=OFF",
         ])
         
-    return run_cmake_build("glfw", src, install_dir, build_dir, toolchain, flags)
+    success = run_cmake_build("glfw", src, install_dir, build_dir, toolchain, flags)
+    if success:
+        (install_dir / ".glfw_state").write_text(compute_src_hash(src))
+    return success
 
 def build_freetype(toolchain: Dict, install_dir: Path, build_dir: Path) -> bool:
     src = ROOT_DIR / "vendor/src/freetype"
     if not (src / "CMakeLists.txt").exists(): return True
     
+    if not evaluate_build_necessity("freetype", src, install_dir):
+        return True
+    
     flags = [
         "-DFT_DISABLE_ZLIB=ON", "-DFT_DISABLE_BZIP2=ON",
         "-DFT_DISABLE_PNG=ON", "-DFT_DISABLE_HARFBUZZ=ON", "-DFT_DISABLE_BROTLI=ON",
     ]
-    return run_cmake_build("freetype", src, install_dir, build_dir, toolchain, flags)
-
+    success = run_cmake_build("freetype", src, install_dir, build_dir, toolchain, flags)
+    if success:
+        (install_dir / ".freetype_state").write_text(compute_src_hash(src))
+    return success
 # ============================================================================
 # Main
 # ============================================================================
@@ -636,7 +938,12 @@ def main():
     ensure_git_submodules()
     copy_header_libs()
 
-    log_step("🎯 Phase 1: Building GLFW")
+    log_step("🎯 Phase 1: Glad Generation")
+    if not glad_generate():
+        log_error("Glad generation failed. Aborting pipeline.")
+        return 1
+
+    log_step("🎯 Phase 2: Building GLFW")
     glfw_failures = []
     for target_spec in targets_to_build:
         platform, arch = target_spec.split(":")
@@ -649,7 +956,7 @@ def main():
             log_warn(f"GLFW failed for {target_spec}")
             glfw_failures.append(target_spec)
 
-    log_step("🎯 Phase 2: Building FreeType")
+    log_step("🎯 Phase 3: Building FreeType")
     ft_failures = []
     for target_spec in targets_to_build:
         platform, arch = target_spec.split(":")
@@ -660,9 +967,23 @@ def main():
             log_warn(f"FreeType failed for {target_spec}")
             ft_failures.append(target_spec)
 
+    
+    
+
+    log_step("🎯 Phase 4: Building Glad")
+    glad_failures = []
+    for target_spec in targets_to_build:
+        platform, arch = target_spec.split(":")
+        install_dir, build_dir = setup_build_dirs(platform, arch)
+        tc = build_toolchain_config(platform, arch, host, compiler_name, cc, cxx)
+        if not tc: continue
+        if not build_glad(tc, install_dir, build_dir):
+            glad_failures.append(target_spec)
     log_step("🎉 Build Complete")
     print(f"  📁 Headers:   {GLOBAL_INCLUDE_DIR}")
     print(f"  📁 Libraries: {VENDOR_DIR}/{{arch}}/{{platform}}/lib/")
+    print(f"  📁 Glad Srcs: {VENDOR_DIR / 'src' / 'glad'}")
+    print(f"  📁 Glad Hdrs: {GLOBAL_INCLUDE_DIR} (inspect 'glad/' subdirs if multi-profile)")
     
     if glfw_failures or ft_failures:
         print("\n  ⚠️  Failed targets:")

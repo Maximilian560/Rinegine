@@ -16,7 +16,10 @@ modules/include/Addons/other/
 .qwen/settings.json.orig
 .qwen/
 vendor/*
-!vendor/src/
-!vendor/include/
+# !vendor/src/
+# !vendor/include/
 vendor/include/*
 !vendor/include/stb
+!vendor/src/freetype
+!vendor/src/glfw
+vendor/.venv/
