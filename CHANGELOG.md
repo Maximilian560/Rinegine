@@ -2,6 +2,14 @@
 
 ## FIX
 
+> Module restructuring, platform flags overhaul and build tooling
+
+- Исправлены пути в example (является примером как работать с rgset конфигом)
+
+- Исправлен файл main.cpp (используется в сборке example)
+
+- Исправлены некоторые проблемы возникшие в связи с изменением структуры модулей
+
 > Debug fix
 
 - Исправлены препроцессорные определения RG_LOG_LOCK_CRITICAL, RG_LOG_LOCK_FATAL, RG_LOG_CRITICAL и RG_LOG_FATAL. Теперь они работают даже без определения RG_DEBUG
@@ -29,6 +37,16 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Module restructuring, platform flags overhaul and build tooling
+
+- Некоторые фишки перешли из WIP в Kernel (такие как impl и util)
+
+- Добавлен compile_commands.json
+
+- Добавлен build.sh для сборки с bear и получения compile_commands.json
+
+- Создан каркас для разработки Graphics модуля
 
 > Extending vendor-build.py functionality
 
@@ -72,11 +90,23 @@ RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг fla
 
 ## REMOVED
 
+> Module restructuring, platform flags overhaul and build tooling
+
+- Удалены некоторые устаревшие файлы
+
 > Allocator and Array Update
 
 - Были веременно отключены src реализации в WIP модуле
 
 ## CHANGED
+
+> Module restructuring, platform flags overhaul and build tooling
+
+- Упрощён set файл WIP модуля
+
+- В прошлом комите были изменены флаги архитектуры и ОС, теперь для Windows - RG_SYS_WINDOWS, для Linux - RG_SYS_LINUX, для андройда - RG_SYS_ANDROID. Архитектурные флаги: RG_SYS_x64 для 64 битных систем и aarch64 (arm64) (вместе с ним определяется RG_SYS_x32, используйте 64 битную версию для проверки архитектуры), RG_SYS_x32 для 32 битных и arm.Старые флаги остались для сохранения совместимости, но в скоре будут удалены.
+
+- Внутряняя структура модуля Kernel была изменена на более удобную
 
 > Allocator and Array Update
 
