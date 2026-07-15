@@ -1,17 +1,7 @@
 #pragma once
-namespace Rinegine::Kernel {
-  auto& ALLOCATOR = Rinegine::WIP::GlobalAllocator;
-  struct MallocAllocator {
-    static void* allocate(std::size_t n) {
-      void* ptr = std::malloc(n);
-      if (!ptr) throw std::bad_alloc{};
-      return ptr;
-    }
-    static void deallocate(void* ptr) noexcept {
-      std::free(ptr);
-    }
-  };
 
+#pragma once
+namespace Rinegine::Kernel {
 
   //  === Базовые типы === //
   // Нода
@@ -48,13 +38,13 @@ namespace Rinegine::Kernel {
       while (tmp != nullptr) {
         NODE<T>* next = tmp->next;
         tmp = next;
-        ALLOCATOR.deallocate(tmp);
+        Rinegine::Kernel::GlobalAllocator.deallocate(tmp);
       }
-      ALLOCATOR.deallocate(head);
+      Rinegine::Kernel::GlobalAllocator.deallocate(head);
       head = nullptr;
       end = nullptr;
       count = 0;
-      // ALLOCATOR.clear();//[todo] Before creating a normal allocator
+      // Rinegine::Kernel::GlobalAllocator.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     template <typename U = T>
@@ -64,20 +54,20 @@ namespace Rinegine::Kernel {
         NODE<T>* next = tmp->next;
         tmp->data.~T();
         tmp = next;
-        ALLOCATOR.deallocate(tmp);
+        Rinegine::Kernel::GlobalAllocator.deallocate(tmp);
       }
-      ALLOCATOR.deallocate(head);
+      Rinegine::Kernel::GlobalAllocator.deallocate(head);
       head = nullptr;
       end = nullptr;
       count = 0;
-      // ALLOCATOR.clear();//[todo] Before creating a normal allocator
+      // Rinegine::Kernel::GlobalAllocator.clear();//[todo] Before creating a normal allocator
       return 0;
     }
     //[PUSH]
     //* Создаёт новую ноду и возвращает указатель на неё (предназначено для использования внутри класса/библиотеки)
     //* Примечание: не инициализирует data, используйте emplace после push если требуется инициализация
     NODE<T>* push() {
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* node = reinterpret_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
 
       node->next = nullptr;
@@ -109,7 +99,7 @@ namespace Rinegine::Kernel {
 
     //* Вставляет ноду в начало списка (push_front)
     NODE<T>* push_front() {
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* node = reinterpret_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
 
       node->next = head;
@@ -146,7 +136,7 @@ namespace Rinegine::Kernel {
     //* Вставляет ноду перед pos, инициализирует копированием
     NODE<T>* insert_before(NODE<T>* pos, const T& in) {
       if (!pos) return push(in);  // nullptr = push_back
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* node = static_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
       ::new (static_cast<void*>(std::addressof(node->data))) T(in);
 
@@ -162,7 +152,7 @@ namespace Rinegine::Kernel {
     //* Вставляет ноду перед pos, инициализирует перемещением
     NODE<T>* insert_before(NODE<T>* pos, T&& in) {
       if (!pos) return push(std::move(in));
-      NODE<T>* node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* node = reinterpret_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!node) return nullptr;
       ::new (static_cast<void*>(std::addressof(node->data))) T(std::move(in));
 
@@ -185,7 +175,7 @@ namespace Rinegine::Kernel {
       if constexpr (!Util::has_trivial_destructor_v<T>) {
         pos->data.~T();
       }
-      ALLOCATOR.deallocate(pos);
+      Rinegine::Kernel::GlobalAllocator.deallocate(pos);
 
       if (prev) prev->next = next;
       else head = next;
@@ -230,7 +220,7 @@ namespace Rinegine::Kernel {
     // Для POD: просто копируем байты
     template<typename... Args>
     int emplace(Args&&... args) requires Util::is_trivially_constructible_v<T, Args...> {
-      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* new_node = static_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!new_node) throw - 1;
 
       // Обнуляем указатели
@@ -250,7 +240,7 @@ namespace Rinegine::Kernel {
     // Для сложных типов: placement new
     template<typename... Args>
     int emplace(Args&&... args) requires (!Util::is_trivially_constructible_v<T, Args...>) {
-      NODE<T>* new_node = static_cast<NODE<T>*>(ALLOCATOR.allocate(sizeof(NODE<T>)));
+      NODE<T>* new_node = static_cast<NODE<T>*>(Rinegine::Kernel::GlobalAllocator.allocate(sizeof(NODE<T>)));
       if (!new_node) throw - 1;
 
       // Ручная инициализация полей NODE

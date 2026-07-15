@@ -204,7 +204,7 @@ namespace Rinegine {
       size_needed, NULL, NULL);
     return strTo;
   }
-  /*
+  
 #else
   std::wstring Kernel::utf8_decode(const std::string& str) {
     if (str.empty())
@@ -294,14 +294,17 @@ namespace Rinegine {
 
     return result;
   }
-*/
+
 #endif //! DECODE ENCODE UNICODE
 // Lock::addl
-  struct Kernel::Lock::LogVars {
-    std::string TempError;
-    int _logs = 0;
-  };
-  Kernel::Lock::LogVars Kernel::Lock::_vars;
+  namespace Kernel::Lock {
+
+    struct LogVars {
+      std::string TempError;
+      int _logs = 0;
+    }_vars;
+  }
+  // Kernel::Lock::LogVars Kernel::Lock::;
 
   void Kernel::Lock::addl(Log::Types type, std::string text, bool print,
     std::string file, int line) {
@@ -332,38 +335,30 @@ namespace Rinegine {
     _vars._logs++;
   } //! Lock::addl
   // rg_to_string
-  std::wstring
-    Kernel::to_stringw(const std::string& str) { // std::string to std::wstring
+  std::wstring Kernel::to_stringw(const std::string& str) { // std::string to std::wstring
     return Kernel::utf8_decode(str);
   }
-  std::string
-    Kernel::to_stringa(const std::wstring& str) { // std::wstring to std::string
+  std::string Kernel::to_stringa(const std::wstring& str) { // std::wstring to std::string
     return Kernel::utf8_encode(str);
   }
-  std::wstring
-    Kernel::to_stringw(const std::wstring& str) { // std::wstring to std::wstring
+  std::wstring Kernel::to_stringw(const std::wstring& str) { // std::wstring to std::wstring
     return str;
   }
-  std::string
-    Kernel::to_stringa(const std::string& str) { // std::string to std::string
+  std::string Kernel::to_stringa(const std::string& str) { // std::string to std::string
     return str;
   }
 #ifdef RG_UTF
-  std::wstring
-    Kernel::to_string(const std::string& str) { // std::string to std::wstring
+  std::wstring Kernel::to_string(const std::string& str) { // std::string to std::wstring
     return Kernel::utf8_decode(str);
   }
-  std::wstring
-    Kernel::to_string(const std::wstring& str) { // std::wstring to std::wstring
+  std::wstring Kernel::to_string(const std::wstring& str) { // std::wstring to std::wstring
     return str;
   }
 #else
-  std::string
-    Kernel::to_string(const std::wstring& str) { // std::wstring to std::string
+  std::string Kernel::to_string(const std::wstring& str) { // std::wstring to std::string
     return Kernel::utf8_encode(str);
   }
-  std::string
-    Kernel::to_string(const std::string& str) { // std::string to std::string
+  std::string Kernel::to_string(const std::string& str) { // std::string to std::string
     return str;
   }
 #endif

@@ -10,18 +10,18 @@ constexpr rg_string RG_TYPE_DEBUG_STRING[]{RG_L "Critical Error", RG_L "Error",
                                        RG_L "Warning",        RG_L "Info",
                                        RG_L "Debug",          RG_L "Memory"};
 
-namespace Rinegine {
+namespace Rinegine::Kernel {
 #ifdef RG_SYS_WINDOWS
-std::wstring Kernel::WMainFolder = L""; // TODO
-std::string Kernel::AMainFolder = "";   // TODO
-rg_string Kernel::MainFolder = RG_L ""; // TODO
+std::wstring WMainFolder = L""; // TODO
+std::string AMainFolder = "";   // TODO
+rg_string MainFolder = RG_L ""; // TODO
 #elif defined(RG_SYS_LINUX)
-std::wstring Kernel::WMainFolder = L""; // TODO
-std::string Kernel::AMainFolder = "";   // TODO
-rg_string Kernel::MainFolder = RG_L ""; // TODO
+std::wstring WMainFolder = L""; // TODO
+std::string AMainFolder = "";   // TODO
+rg_string MainFolder = RG_L ""; // TODO
 #endif
-uint8_t Kernel::RG_D_W_L = 4;
-struct Kernel::Debug::DebugVars {
+uint8_t RG_D_W_L = 4;
+struct Debug::DebugVars {
   std::ofstream debug;
   rg_string path;
   rg_string textErr;
@@ -30,22 +30,22 @@ struct Kernel::Debug::DebugVars {
   Log::Types oldType;
   ~DebugVars() = default;
 };
-inline Kernel::Debug::DebugVars &Kernel::Debug::DebugVars_safe_get() {
+inline Debug::DebugVars &Debug::DebugVars_safe_get() {
   static DebugVars instance;
   return instance;
 }
-// Kernel::Debug::DebugVars Kernel::Debug::DebugVars_safe_get();
+// Debug::DebugVars Debug::DebugVars_safe_get();
 // constructors
-Kernel::Debug::Debug() { init(RG_L "Logs"); }
-Kernel::Debug::Debug(rg_string pat) { init(pat); }
+Debug::Debug() { init(RG_L "Logs"); }
+Debug::Debug(rg_string pat) { init(pat); }
 // init
-void Kernel::Debug::init() {
+void Debug::init() {
   // rg_cout << "[Fallback debug] Debug has init\n";
   if (DebugVars_safe_get().INIT)
     return;
   init(RG_L "Logs");
 }
-void Kernel::Debug::init(rg_string pat) {
+void Debug::init(rg_string pat) {
   if (DebugVars_safe_get().INIT)
     return;
   DebugVars_safe_get().INIT = true;
@@ -73,14 +73,14 @@ void Kernel::Debug::init(rg_string pat) {
   // addl(Log::INFO,"Debug pre init end");
 }
 // open log after error setter
-void Kernel::Debug::open_log_after_error(bool i) {
+void Debug::open_log_after_error(bool i) {
   DebugVars_safe_get().OPEN_SHELL = i;
 }
-void Kernel::Debug::open_shell(bool i) { DebugVars_safe_get().OPEN_SHELL = i; }
+void Debug::open_shell(bool i) { DebugVars_safe_get().OPEN_SHELL = i; }
 // path to log
-rg_string Kernel::Debug::log_path() { return DebugVars_safe_get().path; }
+rg_string Debug::log_path() { return DebugVars_safe_get().path; }
 // update error buffer
-void Kernel::Debug::update() {
+void Debug::update() {
   if (DebugVars_safe_get().textErr.empty())
     return;
   if (!DebugVars_safe_get().INIT)
@@ -96,7 +96,7 @@ void Kernel::Debug::update() {
   DebugVars_safe_get().textErr.clear();
 }
 // emergency stop
-void Kernel::Debug::stop() {
+void Debug::stop() {
   if (!DebugVars_safe_get().INIT)
     init();
   if (DebugVars_safe_get().OPEN_SHELL) {
@@ -110,9 +110,9 @@ void Kernel::Debug::stop() {
   __builtin_unreachable();
 }
 // set up to not close program after critical error
-void Kernel::Debug::no_close() { DebugVars_safe_get().noclose = 1; }
+void Debug::no_close() { DebugVars_safe_get().noclose = 1; }
 // destructor
-Kernel::Debug::~Debug() {
+Debug::~Debug() {
   // rg_cout << "[Fallback debug] Debug has deleted" << std::endl;
   addl(Log::DEBUG, "Debug was destructed", true, RGLOCK_DEBUG_INLINE);
   if (DebugVars_safe_get().textErr.size() > 0)
@@ -122,10 +122,10 @@ Kernel::Debug::~Debug() {
 // ADD
 // special
 /// main add to error buffer
-void Kernel::Debug::add(rg_string tex, Log::Types type, bool print,
+void Debug::add(rg_string tex, Log::Types type, bool print,
                         rg_string file, int line) {
   if (!RINEGINE_IS_INIT) {
-    Kernel::Lock::addl(type, tex, print, file, line);
+    Lock::addl(type, tex, print, file, line);
     return;
   }
   if (type > RG_D_W_L)
@@ -201,21 +201,21 @@ void Kernel::Debug::add(rg_string tex, Log::Types type, bool print,
 // other
 /// overloaded to add to error buffer
 template <class string1, class string2>
-void Kernel::Debug::add(string1 tex, Log::Types type, bool print, string2 file,
+void Debug::add(string1 tex, Log::Types type, bool print, string2 file,
                         int line) {
   add(rg_to_string(tex), type, print, rg_to_string(file), line);
 }
 // ADDL
 // special
 /// main addl to error buffer
-void Kernel::Debug::addl(Log::Types type, rg_string text, bool print,
+void Debug::addl(Log::Types type, rg_string text, bool print,
                          rg_string file, int line) {
   add(text + rg_char(10), type, print, file, line);
 }
 // other
 /// overloaded addl to error buffer
 template <class string1, class string2>
-void Kernel::Debug::addl(Log::Types type, string1 text, bool print,
+void Debug::addl(Log::Types type, string1 text, bool print,
                          string2 file, int line) {
   addl(type, rg_to_string(text), print, rg_to_string(file), line);
 }
@@ -225,7 +225,7 @@ void Kernel::Debug::addl(Log::Types type, string1 text, bool print,
 */
 
 #ifdef RG_SYS_WINDOWS
-rg_string Kernel::GetLastErrorString(DWORD errorCode) {
+rg_string GetLastErrorString(DWORD errorCode) {
   if (errorCode == 0)
     return rg_to_string(L"Нет ошибки");
 
@@ -240,7 +240,7 @@ rg_string Kernel::GetLastErrorString(DWORD errorCode) {
   return rg_to_string(result);
 }
 #else
-rg_string Kernel::GetLastErrorString(DWORD errorCode) {
+rg_string GetLastErrorString(DWORD errorCode) {
   if (errorCode == 0)
     return "No error";
 

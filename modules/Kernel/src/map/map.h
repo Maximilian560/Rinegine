@@ -2,7 +2,7 @@
 
 namespace Rinegine {
   namespace Kernel {
-    class s_raw_ptr {
+    /*class s_raw_ptr {
       Rinegine::DATA_OUT* ptr = nullptr;
     public:
       virtual operator void* () const { return ptr; }
@@ -16,19 +16,19 @@ namespace Rinegine {
         return *this;
       }
       virtual ~s_raw_ptr() { s_raw_delete(ptr); }
-    };//TODO
+    };*///TODO
     /*template<class type>
     class s_ptr : public s_raw_ptr {
     public:
       virtual operator type* () const { return this->ptr; }
     };*///TODO
-    struct RawMap {
+    /*struct RawMap {
       struct Node {
         s_raw_ptr* key = nullptr;
         s_raw_ptr* value = nullptr;
         Node* next = nullptr;
       };
-    };//TODO
+    };*///TODO
   }
 }
 

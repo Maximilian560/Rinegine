@@ -1,0 +1,18 @@
+[
+  {
+    "file": "main.cpp",
+    "arguments": [
+      "/usr/bin/clang++",
+      "main.cpp",
+      "-g",
+      "-std=c++23",
+      "-I../Rinegine/",
+      "-I../Rinegine/include/",
+      "-I../Rinegine/vendor/include/",
+      "-o",
+      "example"
+    ],
+    "directory": "/usr/local/Rinegine",
+    "output": "example"
+  }
+]
