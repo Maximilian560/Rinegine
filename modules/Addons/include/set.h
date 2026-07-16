@@ -29,9 +29,9 @@ namespace Rinegine::Addons {
   //   #include "player/set.h"
   // #endif
 
-#ifdef RG_META_PARSE
-#include "meta_parse/set.h"
-#endif
+// #ifdef RG_META_PARSE
+// #include "meta_parse/set.h"
+// #endif
 
 // #ifdef RG_MOD_MANAGER
 //   #include "mod_manager/set.h"

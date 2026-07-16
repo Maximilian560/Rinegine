@@ -6,17 +6,18 @@ set {
     clear,
     static,
     createlib,
-    llvm,
     console,
     debug
   },
   var {
-    source = "modules/src/Kernel.cpp",
+    compilator = "clang++",
+    compilator32 = "clang++",
+    source = "modules/Kernel/Kernel.cpp",
     bit = "64",
     run = false,
     // name = "rg-kernel",
     name = "rg-kernel",
-    flags = "-g -DRGLOCK_DEBUG -DRG_DEBUG -std=c++23 -Wall -Wextra -Wpedantic -Wreturn-type -Wuninitialized -Wunused -Wconversion -Wshadow -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -g"
+    flags = "-O3 -std=c++23 -Wall -Wextra -Wpedantic -Wreturn-type -Wuninitialized -Wunused -Wconversion -Wshadow -Wnon-virtual-dtor -Wdelete-non-virtual-dtor"
   }
 },
 // add{

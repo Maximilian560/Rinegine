@@ -2,6 +2,14 @@
 
 ## FIX
 
+> Array, Allocator and Early init update
+
+- Последний аддон был отключён
+
+- Исправлен конфиг компиляции линукс библиотек. Теперь используется clang++ как и задумывалось
+
+- Были исправлены мелкие стилистические ошибки
+
 > Module restructuring, platform flags overhaul and build tooling
 
 - Исправлены пути в example (является примером как работать с rgset конфигом)
@@ -37,6 +45,16 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Array, Allocator and Early init update
+
+- Был реализован массив Rinegine::Kernel::Array
+
+- Были реализованы новые фитчи в утилитах такие как remove_reference, forward и is_lvalue_reference (и их разновидности)
+
+- Был реализован новый аллокатор
+
+- Был реализован механизм раней инициализации. Теперь можно инициализировать что-либо своё до полноценного запуска программы. Необходимо написать функцию EarlyInit следующим образом: `namespace Rinegine::Kernel{void EarlyInit() { RG::K::RG_D_W_L = RG::Log::MEM; RG_LOG_DEBUG("Early init");}}
 
 > Module restructuring, platform flags overhaul and build tooling
 
@@ -90,6 +108,10 @@ RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг fla
 
 ## REMOVED
 
+> Array, Allocator and Early init update
+
+- Удалён устаревший флаг RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
+
 > Module restructuring, platform flags overhaul and build tooling
 
 - Удалены некоторые устаревшие файлы
@@ -99,6 +121,14 @@ RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг fla
 - Были веременно отключены src реализации в WIP модуле
 
 ## CHANGED
+
+> Array, Allocator and Early init update
+
+- Была перенесена функция Rinegine::nop из графического модуля (пустая ассемблер функция, ничего не делает, заглушка и т.п.)
+
+- Все переменные, использующие vector, теперь постепенно переходят на Rinegine::Kernel::Array (совет - подключите Rinegine/Shorts чтобы упростить написание до RG::K::Array)
+
+- Теперь SYS_DEL_RAW_MEM и SYS_GET_RAW_MEM пишут mem логи (если ядро было собрано в режиме отладки)
 
 > Module restructuring, platform flags overhaul and build tooling
 

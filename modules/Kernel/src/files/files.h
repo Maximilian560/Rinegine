@@ -108,9 +108,9 @@ namespace Rinegine::Kernel {
 	// namespace Rinegine::Kernel {
 	std::string GetTypePath(std::string path) {
 		std::string out;
-		for (long i = path.size() - 1; i >= 0; i--) {
-			if (path[i] == '.') {
-				for (size_t j = i + 1; j < path.size(); j++) {
+		for (long i = (long)path.size() - 1; i >= 0; i--) {
+			if (path[(size_t)i] == '.') {
+				for (size_t j = (size_t)i + 1; j < path.size(); j++) {
 					out += path[j];
 				}
 				return out;
@@ -304,10 +304,10 @@ namespace Rinegine::Kernel {
 	template<typename lamda>
 	void Read(std::string path, lamda func) {
 		std::ifstream file(path);
-		char temp = file.get();
+		char temp = (char)file.get();
 		while (!file.eof()) {
 			func(temp);
-			temp = file.get();
+			temp = (char)file.get();
 		}
 
 		file.close();
@@ -347,10 +347,10 @@ namespace Rinegine::Kernel {
 	template<typename lamdaw>
 	void ReadW(const wchar_t* path, lamdaw func) {
 		std::wifstream file(rg_to_stringa(std::wstring(path)));
-		wchar_t temp = file.get();
+		wchar_t temp = (wchar_t)file.get();
 		while (!file.eof()) {
 			func(temp);
-			temp = file.get();
+			temp = (wchar_t)file.get();
 		}
 		file.close();
 	}

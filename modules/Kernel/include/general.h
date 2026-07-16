@@ -348,15 +348,15 @@ typedef unsigned int uint;
 #define to_rrvalue(type) const type  // todo
 
 
-            /**
-             * @def RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
-             * @brief Default reserve size for dynamic arrays (e.g., in vector growth).
-             * @value 16
-             * @ingroup config
-             */
-#ifndef RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
-#define RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER 16
-#endif
+//             /**
+//              * @def RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
+//              * @brief Default reserve size for dynamic arrays (e.g., in vector growth).
+//              * @value 16
+//              * @ingroup config
+//              */
+// #ifndef RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
+// #define RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER 16
+// #endif
 
              /**
               * @def RG_ERROR_STRING
@@ -768,8 +768,9 @@ namespace Rinegine {
         requires FlagTypeCompatible<T1, T2>
       constexpr void clear(T1& val, T2 flag) { val &= ~static_cast<T1>(flag); }
     }
-    // [Arrays with main arguments]
-    extern std::vector<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
-    extern std::vector<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
+
+
+
+
   }
 }

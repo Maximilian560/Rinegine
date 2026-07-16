@@ -1,111 +1,97 @@
 #pragma once
 
-namespace Rinegine {
-  inline static std::atomic_ullong MemUsed = 0;
-  // struct DATA_OUT{
-  //   size_t size = 0;
-  //   size_t typesize = 0;
-  //   char magnum[2] = "RG";
-  // };
-  //*ALLOC
-  void* Kernel::Lock::s_new(const size_t& size) { // [STUB]
-    if (size <= 0) return nullptr;
-    MemUsed += size + sizeof(DATA_OUT);
-    RG_LOG_LOCK_MEM("Alloc: '" + std::to_string(size) + "' bytes");
-    DATA_OUT* out = (DATA_OUT*)malloc(size + sizeof(DATA_OUT));
-    memset((long*)out, 0, sizeof(DATA_OUT));
-    out->magnum[0] = 'R';
-    out->magnum[1] = 'G';
-    out->size = size;
-    return (void*)(out + 1);
+namespace Rinegine::Kernel {
+#ifndef CACHE_LINE_SIZE_BYTE
+#define CACHE_LINE_SIZE_BYTE 64
+#endif
+
+  // Инкапсуляция макроса в типобезопасную constexpr переменную
+  // const size_t SYS_PAGE_SIZE = low_level::get_page_size();
+  const std::size_t low_level::CACHE_LINE_SIZE = CACHE_LINE_SIZE_BYTE;
+
+  static_assert((low_level::CACHE_LINE_SIZE& (low_level::CACHE_LINE_SIZE - 1)) == 0, "CACHE_LINE_SIZE must be a power of 2");
+  // class Allocator {
+
+  struct Allocator::ChainNode {
+    BYTE* prev = nullptr;
+    BYTE* next = nullptr;
+    BYTE* end = nullptr;
+    size_t cell_used = 0;
+  };
+
+  BYTE* Allocator::pool = nullptr;
+  BYTE* Allocator::next = nullptr;
+  size_t Allocator::size_of_allocate = 1;
+  // inline static BYTE* free_cells = nullptr;
+  size_t Allocator::allocator_count = 0;
+
+  Allocator::Allocator() {
+    allocator_count++;
+    if (!pool)init();
   }
-  inline DATA_OUT* s_raw_new(const size_t& size) { // [STUB]
-    if (size <= 0) return nullptr;
-    MemUsed += size + sizeof(DATA_OUT);
-    RG_LOG_LOCK_MEM("Alloc: '" + std::to_string(size) + "' bytes");
-    DATA_OUT* out = (DATA_OUT*)calloc(size + sizeof(DATA_OUT),1);
-    // DATA_OUT* out = (DATA_OUT*)malloc(size + sizeof(DATA_OUT));
-    memset((long*)out, 0, sizeof(DATA_OUT));
-    out->magnum[0] = 'R';
-    out->magnum[1] = 'G';
-    out->size = size;
+  void Allocator::init() {
+    size_of_allocate = rg_min(MAX_ALLOC_PAGE_SIZE, SYS_PAGE_SIZE * BASE_ALLOC_PAGE_COUNT * ((size_of_allocate / 2) + 1));
+    pool = SYS_GET_RAW_MEM(size_of_allocate);
+    ((ChainNode*)pool)->next = nullptr;
+    ((ChainNode*)pool)->prev = nullptr;
+    ((ChainNode*)pool)->cell_used = 0;
+    ((ChainNode*)pool)->end = pool + size_of_allocate;
+    next = Rinegine::Kernel::low_level::align_ptr_to_cache_line(pool + sizeof(ChainNode));
+  }
+  BYTE* Allocator::allocate(size_t in) {
+    in = Rinegine::Kernel::low_level::align_to_cache_line(in);
+    if (next + in >= ((ChainNode*)pool)->end) {
+      size_of_allocate = rg_max(rg_min(MAX_ALLOC_PAGE_SIZE, SYS_PAGE_SIZE * BASE_ALLOC_PAGE_COUNT * ((size_of_allocate / 2) + 1)), Rinegine::Kernel::low_level::align_to_cache_line(in) + low_level::CACHE_LINE_SIZE);
+      BYTE* next_pool = SYS_GET_RAW_MEM(size_of_allocate);
+      ((ChainNode*)pool)->next = next_pool;
+      ((ChainNode*)next_pool)->next = nullptr;
+      ((ChainNode*)next_pool)->prev = pool;
+      ((ChainNode*)next_pool)->cell_used = 0;
+      ((ChainNode*)next_pool)->end = next_pool + size_of_allocate;
+      pool = next_pool;
+      next = Rinegine::Kernel::low_level::align_ptr_to_cache_line(pool + sizeof(ChainNode));
+    }
+    ((ChainNode*)pool)->cell_used++;
+    BYTE* out = next;
+    next += in;
     return out;
   }
-  void* Kernel::Lock::s_fast_new(const size_t& size) {
-    MemUsed += size + sizeof(DATA_OUT);
-    DATA_OUT* out = (DATA_OUT*)malloc(size + sizeof(DATA_OUT));
-    out->magnum[0] = 'R';
-    out->magnum[1] = 'G';
-    out->size = size;
-    return (void*)(out + 1);
-  }
-  //*GETSIZE
-  size_t Kernel::Lock::s_get_size(const void* in) {
-    return (((DATA_OUT*)in) - 1)->size;
-  }
-  //*MEMTEST
-  int Kernel::Lock::s_memtest(const void* in) {
-    if (in == nullptr) return -1;
-    in = ((DATA_OUT*)in) - 1;
-    return ((DATA_OUT*)in)->magnum[0] == 'R' && ((DATA_OUT*)in)->magnum[1] == 'G';
-  }
-  //*DELETE
-  uint Kernel::Lock::s_delete(void* in) {
-    switch (s_memtest(in)) {
-    case -1: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is nullptr");return 0;break;
-    case 0: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type (0x" + Rinegine::Kernel::itos((long long)in, 16) + ")");return 0;break;
-    default: break;
-    }
-    // if (!s_memtest(in)) { RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");return 0; }
-    static size_t size = s_get_size(in);
-    MemUsed -= size;
-    RG_LOG_LOCK_MEM("Dealloc: '" + std::to_string(size) + "' bytes");
-    free(((DATA_OUT*)in) - 1);
-    return 0;
-    // MemUsed -= ;
-    // free
-  }
-  inline uint s_raw_delete(DATA_OUT* in) {
-    // switch (s_memtest(in)) {
-    // case -1: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is nullptr");return 0;break;
-    // case 0: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type (0x" + Rinegine::Kernel::itos((long)in, 16) + ")");return 0;break;
-    // default: break;
-    // }
-    // if (!s_memtest(in)) { RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");return 0; }
-    // static size_t size = s_get_size(in);
-    if(in!=nullptr){
-      MemUsed -= in->size;
-      RG_LOG_LOCK_MEM("Dealloc: '" + std::to_string(in->size) + "' bytes");
-      free(in);
-    }
-    return 0;
-    // MemUsed -= ;
-    // free
-  }
-  void Kernel::Lock::s_fast_delete(void* in) {
-    // if (!s_memtest(in)) { RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type");return; }
-    switch (s_memtest(in)) {
-    case -1: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is nullptr");return;break;
-    case 0: RG_LOG_LOCK_ERROR("Memory Deallocation is failed, array is not RG type (0x" + Rinegine::Kernel::itos((long long)in, 16) + ")");return;break;
-    default: break;
-    }
-    static size_t size = s_get_size(in);
-    MemUsed -= size;
-    free(((DATA_OUT*)in) - 1);
-    return;
-  }
-  //*RESIZE
-  inline void s_raw_resize(DATA_OUT*& inout, const size_t& size) { // [STUB]
-    if (size <= 0) { s_raw_delete(inout);return; }
-    else {
-      RG_LOG_LOCK_MEM("Realloc: '"+std::to_string(inout->size)+"' -> '" + std::to_string(size) + "' bytes");
-      inout = (DATA_OUT*)realloc(inout, size + sizeof(DATA_OUT));
-      if (!inout) {
-        RG_LOG_LOCK_CRITICAL("Memory Reallocation is failed");
+  void Allocator::deallocate(void* ptr, size_t) {
+    if (ptr == nullptr)return;
+    BYTE* head = pool;
+    while (!(ptr > head && ptr < ((ChainNode*)head)->end)) {
+      head = ((ChainNode*)head)->prev;
+      if (head == nullptr) [[unlikely]] {
+        RG_LOG_LOCK_WARN(std::format("deallocate get a ptr, but this allocator hasn't this"));
+        return;
       }
-      MemUsed += (long)size - (long)inout->size;
-      inout->size = size;
     }
-    // return out;
+    ((ChainNode*)head)->cell_used--;
+    if (((ChainNode*)head)->cell_used == 0) [[unlikely]] {
+      if (head != pool) [[unlikely]] {
+        if (((ChainNode*)head)->prev)
+          ((ChainNode*)(((ChainNode*)head)->prev))->next = ((ChainNode*)head)->next;
+        if (((ChainNode*)head)->next)
+          ((ChainNode*)(((ChainNode*)head)->next))->prev = ((ChainNode*)head)->prev;
+        Rinegine::Kernel::SYS_DEL_RAW_MEM(head);
+      }
+      else {
+        next = Rinegine::Kernel::low_level::align_ptr_to_cache_line(pool + sizeof(ChainNode));
+      }
+    }
+
+
   }
+  Allocator::~Allocator() {
+    allocator_count--;
+    if (allocator_count == 0) [[unlikely]] {
+      while (pool != nullptr) {
+        BYTE* head = ((ChainNode*)pool)->prev;
+        Rinegine::Kernel::SYS_DEL_RAW_MEM(pool);
+        pool = head;
+      }
+    }
+  }
+  // };
+
 }

@@ -14,3 +14,4 @@
 #include "array/set.h"
 #include "map/set.h"
 #include "files/set.h"
+#include "earlyinit.hpp"

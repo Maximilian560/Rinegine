@@ -8,6 +8,8 @@
 
 namespace Rinegine {
   namespace Kernel {
+    extern uint8_t RG_D_W_L;
+
     class Debug {             // [done]
       struct DebugVars;       // [done]
       // static DebugVars _vars; // [done]

@@ -23,7 +23,7 @@ namespace Rinegine::Kernel::Util {
 #  undef __has_trivial_destructor
 #  define __has_trivial_destructor(T) __is_trivially_destructible(T)
 #endif
-  // Тривиальный конструктор
+
   template<typename T, typename... Args>
   struct is_trivially_constructible {
     static constexpr bool value = __is_trivially_constructible(T, Args...);
@@ -31,7 +31,7 @@ namespace Rinegine::Kernel::Util {
   template<typename T, typename... Args>
   inline constexpr bool is_trivially_constructible_v = is_trivially_constructible<T, Args...>::value;
 
-  // Тривиальный тип (POD — memcpy безопасен)
+
   template<typename T>
   struct is_trivial {
     static constexpr bool value = __is_trivial(T);
@@ -39,7 +39,7 @@ namespace Rinegine::Kernel::Util {
   template<typename T>
   inline constexpr bool is_trivial_v = is_trivial<T>::value;
 
-  // Тривиальный деструктор (без ~T())
+
   template<typename T>
   struct has_trivial_destructor {
     static constexpr bool value = __has_trivial_destructor(T);
@@ -60,6 +60,61 @@ namespace Rinegine::Kernel::Util {
   inline _GLIBCXX17_CONSTEXPR _Tp*
     addressof(_Tp& __r) noexcept
   {
-    return __addressof(__r);
+    return Util::__addressof(__r);
   }
+
+  template<typename _Tp>
+  struct remove_reference
+  {
+    using type = _Tp;
+  };
+
+  template<typename _Tp>
+  struct remove_reference<_Tp&>
+  {
+    using type = _Tp;
+  };
+
+  template<typename _Tp>
+  struct remove_reference<_Tp&&>
+  {
+    using type = _Tp;
+  };
+
+  template<typename _Tp>
+  using remove_reference_t = typename remove_reference<_Tp>::type;
+
+
+  template<typename _Tp>
+  [[__nodiscard__, __gnu__::__always_inline__]]
+  inline constexpr _Tp&&
+    forward(remove_reference_t<_Tp>& __t) noexcept
+  {
+    return static_cast<_Tp&&>(__t);
+  }
+
+  template<typename T>
+  struct is_lvalue_reference {
+    static constexpr bool value = false;
+  };
+
+  template<typename T>
+  struct is_lvalue_reference<T&> {
+    static constexpr bool value = true;
+  };
+
+  template<typename T>
+  inline constexpr bool is_lvalue_reference_v = is_lvalue_reference<T>::value;
+
+
+  template<typename _Tp>
+  [[__nodiscard__, __gnu__::__always_inline__]]
+  inline constexpr _Tp&&
+    forward(remove_reference_t<_Tp>&& __t) noexcept
+  {
+    static_assert(!is_lvalue_reference_v<_Tp>,
+      "template argument substituting _Tp is an lvalue reference type");
+    return static_cast<_Tp&&>(__t);
+  }
+
 }

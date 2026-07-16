@@ -61,17 +61,12 @@ namespace RG {
     }
   };
 }         
-void RG_nop(...) {
-  __asm__ __volatile__("nop");
-}
-void RG_nop() {
-  __asm__ __volatile__("nop");
-}
+
 // bool TEST_INIT = false;
 namespace RG{
   namespace Graphic{
     
-int Start(const RG::Guis& funcs, void(&RG_Prepare)() = RG_nop, RG_SYS_WINDOWSdow_Settings set = RG_MainSettingWindow) {
+int Start(const RG::Guis& funcs, void(&RG_Prepare)() = Rinegine::nop, RG_SYS_WINDOWSdow_Settings set = RG_MainSettingWindow) {
 
   // Rinegine::init();
 

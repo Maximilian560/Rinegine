@@ -3,10 +3,14 @@
 #define RG_HERE_FILE_NAME "kernel/kernel"
 namespace Rinegine {
   namespace Kernel {
-    // [Flags namespace for work with flags]
-    
 
-    //
+    // [Arrays with main arguments]
+    extern Array<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
+    extern Array<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
+
+    // [Flags namespace for work with flags]
+
+
     template <class type1, class type2> struct MapData;
     //* types
     template <class type> class Matrix;

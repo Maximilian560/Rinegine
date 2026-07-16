@@ -203,7 +203,7 @@ namespace Rinegine {
 
     std::wstring tolowwstr(std::wstring str);
     //! tolowstr
-     struct ConfigRunProgram {
+    struct ConfigRunProgram {
       std::string path = "err";
       bool assinhrone = true;
       bool InItFol = false;
@@ -212,4 +212,5 @@ namespace Rinegine {
     int RunProgram(ConfigRunProgram conf);
 
   }
+
 }// namespace Rinegine

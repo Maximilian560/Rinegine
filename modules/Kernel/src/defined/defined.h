@@ -5,6 +5,7 @@ namespace Rinegine {
   int Kernel::RG_CMD(std::string command, bool print) {
     RG_LOG_LOCK_INFO("Command run: \"" + rg_to_string(command) + "\"", print);
     return system(command.c_str());
+    (void)print;
   }
   // TRY CATCH ERRORS
   bool RINEGINE_IS_INIT = true;
@@ -92,8 +93,8 @@ namespace Rinegine {
     }
   }
 
-  std::vector<std::string> Kernel::AMainArguments;  //TODO remove vector, set RG::Array!
-  std::vector<std::wstring> Kernel::WMainArguments; //TODO remove vector, set RG::Array!
+  Kernel::Array<std::string> Kernel::AMainArguments;  //TODO remove vector, set RG::Array!
+  Kernel::Array<std::wstring> Kernel::WMainArguments; //TODO remove vector, set RG::Array!
   // #ifdef RG_UTF
   //   std::vector<std::wstring>& MainArguments =
   //     WMainArguments; //TODO remove vector, set RG::Array!
@@ -116,7 +117,7 @@ namespace Rinegine {
         (void)argv;
 
         #ifdef RG_SYS_WINDOWS
-        AMainArguments.resize(argc + 1);
+        AMainArguments.resize((size_t)argc + 1);
         for (int i = 1; i <= argc; i++) {
           AMainArguments[i] = argv[i - 1];
         }
@@ -124,9 +125,9 @@ namespace Rinegine {
         GetModuleFileNameA(NULL, onearg, MAX_PATH);
         AMainArguments[0] = onearg;
         #else
-        AMainArguments.resize(argc);
+        AMainArguments.resize((size_t)argc);
         for (int i = 0; i < argc; i++) {
-          AMainArguments[i] = argv[i];
+          AMainArguments[(size_t)i] = argv[i];
         }
 
         #endif
@@ -165,13 +166,13 @@ namespace Rinegine {
         }
         #else
         if (argc >= 1) {
-          WMainArguments.resize(argc);
+          WMainArguments.resize((size_t)argc);
           for (int i = 0; i < argc; i++) {
-            WMainArguments[i] = argv[i];
+            WMainArguments[(size_t)i] = argv[i];
           }
-          AMainArguments.resize(argc);
+          AMainArguments.resize((size_t)argc);
           for (int i = 0; i < argc; i++) {
-            AMainArguments[i] = utf8_encode(argv[i]);
+            AMainArguments[(size_t)i] = utf8_encode(argv[i]);
           }
         }
         #endif
@@ -242,7 +243,7 @@ namespace Rinegine {
 
     iconv_close(cd);
 
-    size_t wchar_count = (out_ptr - out_buf) / sizeof(wchar_t);
+    size_t wchar_count = ((size_t)out_ptr - (size_t)out_buf) / sizeof(wchar_t);
     std::wstring result;
     result.assign((wchar_t*)out_buf, wchar_count);
 
@@ -287,7 +288,7 @@ namespace Rinegine {
 
     iconv_close(cd);
 
-    size_t result_size = out_ptr - out_buf;
+    size_t result_size = (size_t)out_ptr - (size_t)out_buf;
     std::string result(out_buf, result_size);
 
     free(out_buf);
@@ -807,7 +808,7 @@ namespace Rinegine {
 
   bool Kernel::isSubstringAt(const std::string& a, const std::wstring& b) {
     return (b.size() >= a.size() &&
-      std::wstring(b.begin(), b.begin() + a.size()) ==
+      std::wstring(b.begin(), (b.begin() + (long)a.size())) ==
       std::wstring(a.begin(), a.end()));
   }
 #endif // TODO!!!

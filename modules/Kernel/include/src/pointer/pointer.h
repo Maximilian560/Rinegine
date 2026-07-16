@@ -2,7 +2,7 @@
 
 namespace Rinegine {
   namespace Kernel {
-    class Raw_Pointer;struct Raw_Pointer { // [exp]
+    struct Raw_Pointer { // [exp]
       void* ptr = nullptr;
       size_t typesize = 0;
       size_t arrsize = 0;

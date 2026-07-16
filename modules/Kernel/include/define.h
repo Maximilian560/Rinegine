@@ -62,3 +62,14 @@
 #if defined(RG_GLFW_NATIVE_WIN32) && defined(RG_SYS_WINDOWSos)
 #define GLFW_EXPOSE_NATIVE_WIN32
 #endif
+
+
+namespace Rinegine{
+
+  inline void nop(...) {
+    __asm__ __volatile__("nop");
+  }
+  inline void nop() {
+    __asm__ __volatile__("nop");
+  }
+}

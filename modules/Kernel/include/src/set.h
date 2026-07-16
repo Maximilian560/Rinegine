@@ -6,11 +6,12 @@
 #define RG_DEBUG
 #endif
 
+#include "include.h"        //[done]
 #include "defined/set.h"    //[done]
 #include "debug/set.h"      //[done]
 #include "impl.hpp"         //[done]
-#include "util.hpp"          //[done]
-#include "allocator/set.h"  //[todo]
+#include "util.hpp"         //[done]
+#include "allocator/set.h"  //[done]
 #include "types/set.hpp"    //[done]
 #include "convert/set.h"    //[done]
 #include "pointer/set.h"    //[todo]
