@@ -92,36 +92,36 @@ namespace Rinegine {
 
     };
     //[operators for correct work flags]
-    // constexpr MEM_FLAG operator|(MEM_FLAG a, MEM_FLAG b) {//[done]
-    //   return static_cast<MEM_FLAG>(
-    //     static_cast<std::underlying_type_t<MEM_FLAG>>(a) |
-    //     static_cast<std::underlying_type_t<MEM_FLAG>>(b)
-    //     );
-    // }
+    constexpr MEM_FLAG operator|(MEM_FLAG a, MEM_FLAG b) {//[done]
+      return static_cast<MEM_FLAG>(
+        static_cast<std::underlying_type_t<MEM_FLAG>>(a) |
+        static_cast<std::underlying_type_t<MEM_FLAG>>(b)
+        );
+    }
 
-    // constexpr MEM_FLAG operator&(MEM_FLAG a, MEM_FLAG b) {//[done]
-    //   return static_cast<MEM_FLAG>(
-    //     static_cast<std::underlying_type_t<MEM_FLAG>>(a) &
-    //     static_cast<std::underlying_type_t<MEM_FLAG>>(b)
-    //     );
-    // }
+    constexpr MEM_FLAG operator&(MEM_FLAG a, MEM_FLAG b) {//[done]
+      return static_cast<MEM_FLAG>(
+        static_cast<std::underlying_type_t<MEM_FLAG>>(a) &
+        static_cast<std::underlying_type_t<MEM_FLAG>>(b)
+        );
+    }
 
-    // constexpr MEM_FLAG operator~(MEM_FLAG a) {//[done]
-    //   return static_cast<MEM_FLAG>(
-    //     ~static_cast<std::underlying_type_t<MEM_FLAG>>(a)
-    //     );
-    // }
+    constexpr MEM_FLAG operator~(MEM_FLAG a) {//[done]
+      return static_cast<MEM_FLAG>(
+        ~static_cast<std::underlying_type_t<MEM_FLAG>>(a)
+        );
+    }
 
-    // // Для += и -= (set/clear):
-    // inline MEM_FLAG& operator|=(MEM_FLAG& a, MEM_FLAG b) {//[done]
-    //   a = a | b;
-    //   return a;
-    // }
+    // Для += и -= (set/clear):
+    inline MEM_FLAG& operator|=(MEM_FLAG& a, MEM_FLAG b) {//[done]
+      a = a | b;
+      return a;
+    }
 
-    // inline MEM_FLAG& operator&=(MEM_FLAG& a, MEM_FLAG b) {//[done]
-    //   a = a & b;
-    //   return a;
-    // }
+    inline MEM_FLAG& operator&=(MEM_FLAG& a, MEM_FLAG b) {//[done]
+      a = a & b;
+      return a;
+    }
 
     //[mag num for check mem]
     constexpr uint32_t RG_MAG_NUM = ('R' << 0) | ('G' << 8) | ('M' << 16) | ('G' << 24);//[done]

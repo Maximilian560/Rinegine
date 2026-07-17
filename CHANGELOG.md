@@ -2,6 +2,10 @@
 
 ## FIX
 
+> hot fix, list and vec update
+
+- Исправлен файл аллокатора, из-за которого была ошибка компиляции
+
 > Array, Allocator and Early init update
 
 - Последний аддон был отключён
@@ -45,6 +49,12 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> hot fix, list and vec update
+
+- Были реализованы vec2,vec3 и vec4 - прямые аналоги из glsl (Rinegine::*vec* полный аналог, Rinegine::Kernel::vec* шаблонный аналог)
+
+- Добавлен файл set.hpp в types который включает структуру List и vec  
 
 > Array, Allocator and Early init update
 
