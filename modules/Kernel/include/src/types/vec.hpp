@@ -46,8 +46,8 @@ namespace Rinegine {
       vec2(type _x, type _y) : x(_x), y(_y) {}
       vec2(type scalar) : x(scalar), y(scalar) {}
 
-      vec2(const vec3<type>& v) : x(v.x), y(v.y) {}
-      vec2(const vec4<type>& v) : x(v.x), y(v.y) {}
+      vec2(const vec3<type>& v);
+      vec2(const vec4<type>& v);
 
     };
     template <class type>
@@ -87,8 +87,8 @@ namespace Rinegine {
       vec3(type _x, type _y, type _z) : x(_x), y(_y), z(_z) {}
       vec3(type scalar) : x(scalar), y(scalar), z(scalar) {}
 
-      vec3(const vec2<type>& v) : x(v.x), y(v.y), z(0) {}
-      vec3(const vec4<type>& v) : x(v.x), y(v.y), z(v.z) {}
+      vec3(const vec2<type>& v);
+      vec3(const vec4<type>& v);
     };
     template <class type>
     struct vec4 {
@@ -112,10 +112,10 @@ namespace Rinegine {
       inline vec4 operator*(type scalar) const { return { x * scalar, y * scalar, z * scalar, w * scalar }; }
       inline vec4 operator/(type scalar) const { return { x / scalar, y / scalar, z / scalar, w / scalar }; }
 
-      inline vec4& operator+=(const vec4& v) { x += v.x; y += v.y, z += v.z, w += v.w; return *this; }
-      inline vec4& operator-=(const vec4& v) { x -= v.x; y -= v.y, z -= v.z, w -= v.w; return *this; }
-      inline vec4& operator*=(const vec4& v) { x *= v.x; y *= v.y, z *= v.z, w *= v.w; return *this; }
-      inline vec4& operator/=(const vec4& v) { x /= v.x; y /= v.y, z /= v.z, w /= v.w; return *this; }
+      inline vec4& operator+=(const vec4& v) { x += v.x; y += v.y; z += v.z; w += v.w; return *this; }
+      inline vec4& operator-=(const vec4& v) { x -= v.x; y -= v.y; z -= v.z; w -= v.w; return *this; }
+      inline vec4& operator*=(const vec4& v) { x *= v.x; y *= v.y; z *= v.z; w *= v.w; return *this; }
+      inline vec4& operator/=(const vec4& v) { x /= v.x; y /= v.y; z /= v.z; w /= v.w; return *this; }
 
       inline bool operator==(const vec4& v) const {
         return (x == v.x && y == v.y && z == v.z && w == v.w);
@@ -127,9 +127,17 @@ namespace Rinegine {
       vec4(type _x, type _y, type _z, type _w) : x(_x), y(_y), z(_z), w(_w) {}
       vec4(type scalar) : x(scalar), y(scalar), z(scalar), w(scalar) {}
 
-      vec4(const vec2<type>& v) : x(v.x), y(v.y), z(0), w(0) {}
-      vec4(const vec3<type>& v) : x(v.x), y(v.y), z(v.z), w(0) {}
+      vec4(const vec2<type>& v);
+      vec4(const vec3<type>& v);
     };
+    template <class type> inline vec2<type>::vec2(const vec3<type>& v) : x(v.x), y(v.y) {}
+    template <class type> inline vec2<type>::vec2(const vec4<type>& v) : x(v.x), y(v.y) {}
+
+    template <class type> inline vec3<type>::vec3(const vec2<type>& v) : x(v.x), y(v.y), z(0) {}
+    template <class type> inline vec3<type>::vec3(const vec4<type>& v) : x(v.x), y(v.y), z(v.z) {}
+
+    template <class type> inline vec4<type>::vec4(const vec2<type>& v) : x(v.x), y(v.y), z(0), w(0) {}
+    template <class type> inline vec4<type>::vec4(const vec3<type>& v) : x(v.x), y(v.y), z(v.z), w(0) {}
 
 
   }
