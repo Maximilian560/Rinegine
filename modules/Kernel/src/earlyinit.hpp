@@ -1,5 +1,8 @@
 #pragma once
-
+#if defined(__clang__)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wglobal-constructors"
+#endif
 namespace Rinegine::Kernel {
   // Объявляем слабую функцию. Компилятор Clang разрешает такое в .a либе.
   __attribute__((weak)) void EarlyInit(); 
@@ -13,3 +16,6 @@ namespace Rinegine::Kernel {
     }
   }
 }
+#if defined(__clang__)
+  #pragma clang diagnostic pop
+#endif

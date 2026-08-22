@@ -124,14 +124,14 @@ namespace Rinegine::Kernel {
 #ifdef RG_SYS_WINDOWS
 	// class Kernel::FileFinder {
 	// 	HANDLE hFindFile;
-	// 	WIN32_FIND_DATA findFileData; // Используем объект, а не указатель
+	// 	FileFindType findFileData; // Используем объект, а не указатель
 	// 	bool _init = false;
 	// 	bool _eof = false;
 
 	// public:
 	bool FileFinder::eof() { return _eof; }
 
-	WIN32_FIND_DATA* FileFinder::init(const rg_string& path) {
+	FileFindType* FileFinder::init(const rg_string& path) {
 		if (!_init) {
 			hFindFile = FindFirstFile(path.c_str(), &findFileData);
 			if (hFindFile == INVALID_HANDLE_VALUE) {
@@ -147,7 +147,7 @@ namespace Rinegine::Kernel {
 		return &findFileData;
 	}
 
-	WIN32_FIND_DATA* FileFinder::next() {
+	FileFindType* FileFinder::next() {
 		if (!_init) {
 			RG_LOG_LOCK_ERROR("FileFinder is not initialized");
 			return nullptr;
@@ -173,14 +173,14 @@ namespace Rinegine::Kernel {
 	// };
 	// class Kernel::FileFinderA {
 	// 	HANDLE hFindFile;
-	// 	WIN32_FIND_DATAA findFileData; // Используем объект, а не указатель
+	// 	FileFindTypeA findFileData; // Используем объект, а не указатель
 	// 	bool _init = false;
 	// 	bool _eof = false;
 
 	// public:
 	bool FileFinderA::eof() { return _eof; }
 
-	WIN32_FIND_DATAA* FileFinderA::init(const std::string& path) {
+	FileFindTypeA* FileFinderA::init(const std::string& path) {
 		if (!_init) {
 			hFindFile = FindFirstFileA(path.c_str(), &findFileData);
 			if (hFindFile == INVALID_HANDLE_VALUE) {
@@ -196,7 +196,7 @@ namespace Rinegine::Kernel {
 		return &findFileData;
 	}
 
-	WIN32_FIND_DATAA* FileFinderA::next() {
+	FileFindTypeA* FileFinderA::next() {
 		if (!_init) {
 			RG_LOG_LOCK_ERROR("FileFinder is not initialized");
 			return nullptr;
@@ -223,14 +223,14 @@ namespace Rinegine::Kernel {
 
 	// class Kernel::FileFinderW {
 		// HANDLE hFindFile;
-		// WIN32_FIND_DATAW findFileData; // Используем объект, а не указатель
+		// FileFindTypeW findFileData; // Используем объект, а не указатель
 		// bool _init = false;
 		// bool _eof = false;
 
 	// public:
 	bool FileFinderW::eof() { return _eof; }
 
-	WIN32_FIND_DATAW* FileFinderW::init(const std::wstring& path) {
+	FileFindTypeW* FileFinderW::init(const std::wstring& path) {
 		if (!_init) {
 			hFindFile = FindFirstFileW(path.c_str(), &findFileData);
 			if (hFindFile == INVALID_HANDLE_VALUE) {
@@ -246,7 +246,7 @@ namespace Rinegine::Kernel {
 		return &findFileData;
 	}
 
-	WIN32_FIND_DATAW* FileFinderW::next() {
+	FileFindTypeW* FileFinderW::next() {
 		if (!_init) {
 			RG_LOG_LOCK_ERROR("FileFinder is not initialized");
 			return nullptr;
@@ -271,6 +271,189 @@ namespace Rinegine::Kernel {
 	}
 	// };
 
+#elif defined(RG_SYS_LINUX)
+
+	// class Kernel::FileFinder {
+	// 	DIR* dir = nullptr;
+	// 	FileFindType* ent = nullptr;
+	// 	bool _init = false;
+	// 	bool _eof = false;
+	//
+	// public:
+	bool FileFinder::eof() { return _eof; }
+
+	FileFindType* FileFinder::init(const rg_string& path) {
+		if (!_init) {
+			dir = opendir(std::filesystem::path(path).string().c_str());
+			if (!dir) {
+				_eof = true;
+				return nullptr;
+			}
+			_init = true;
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) {
+				_eof = true;
+				return nullptr;
+			}
+			return ent;
+		}
+		else {
+			RG_LOG_LOCK_ERROR("FileFinder is already initialized");
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) _eof = true;
+			return ent;
+		}
+	}
+
+	FileFindType* FileFinder::next() {
+		if (!_init) {
+			RG_LOG_LOCK_ERROR("FileFinder is not initialized");
+			return nullptr;
+		}
+		ent = static_cast<FileFindType*>(readdir(dir));
+		if (!ent) {
+			_eof = true;
+			return nullptr;
+		}
+		return ent;
+	}
+
+	void FileFinder::close() {
+		if (_init) {
+			closedir(dir);
+			dir = nullptr;
+			ent = nullptr;
+			_init = false;
+			_eof = false;
+		}
+	}
+
+	FileFinder::~FileFinder() {
+		close();
+	}
+	// };
+
+	// class Kernel::FileFinderA {
+	// 	DIR* dir = nullptr;
+	// 	FileFindType* ent = nullptr;
+	// 	bool _init = false;
+	// 	bool _eof = false;
+	//
+	// public:
+	bool FileFinderA::eof() { return _eof; }
+
+	FileFindType* FileFinderA::init(const std::string& path) {
+		if (!_init) {
+			dir = opendir(path.c_str());
+			if (!dir) {
+				_eof = true;
+				return nullptr;
+			}
+			_init = true;
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) {
+				_eof = true;
+				return nullptr;
+			}
+			return ent;
+		}
+		else {
+			RG_LOG_LOCK_ERROR("FileFinderA is already initialized");
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) _eof = true;
+			return ent;
+		}
+	}
+
+	FileFindType* FileFinderA::next() {
+		if (!_init) {
+			RG_LOG_LOCK_ERROR("FileFinderA is not initialized");
+			return nullptr;
+		}
+		ent = static_cast<FileFindType*>(readdir(dir));
+		if (!ent) {
+			_eof = true;
+			return nullptr;
+		}
+		return ent;
+	}
+
+	void FileFinderA::close() {
+		if (_init) {
+			closedir(dir);
+			dir = nullptr;
+			ent = nullptr;
+			_init = false;
+			_eof = false;
+		}
+	}
+
+	FileFinderA::~FileFinderA() {
+		close();
+	}
+	// };
+
+	// class Kernel::FileFinderW {
+	// 	DIR* dir = nullptr;
+	// 	FileFindType* ent = nullptr;
+	// 	bool _init = false;
+	// 	bool _eof = false;
+	//
+	// public:
+	bool FileFinderW::eof() { return _eof; }
+
+	FileFindType* FileFinderW::init(const std::wstring& path) {
+		if (!_init) {
+			// В Linux нет прямой поддержки wchar_t в opendir, конвертируем wstring в UTF-8 string
+			std::string utf8_path = std::filesystem::path(path).string();
+			dir = opendir(utf8_path.c_str());
+			if (!dir) {
+				_eof = true;
+				return nullptr;
+			}
+			_init = true;
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) {
+				_eof = true;
+				return nullptr;
+			}
+			return ent;
+		}
+		else {
+			RG_LOG_LOCK_ERROR("FileFinderW is already initialized");
+			ent = static_cast<FileFindType*>(readdir(dir));
+			if (!ent) _eof = true;
+			return ent;
+		}
+	}
+
+	FileFindType* FileFinderW::next() {
+		if (!_init) {
+			RG_LOG_LOCK_ERROR("FileFinderW is not initialized");
+			return nullptr;
+		}
+		ent = static_cast<FileFindType*>(readdir(dir));
+		if (!ent) {
+			_eof = true;
+			return nullptr;
+		}
+		return ent;
+	}
+
+	void FileFinderW::close() {
+		if (_init) {
+			closedir(dir);
+			dir = nullptr;
+			ent = nullptr;
+			_init = false;
+			_eof = false;
+		}
+	}
+
+	FileFinderW::~FileFinderW() {
+		close();
+	}
+	// };
 #endif
 	// }
 

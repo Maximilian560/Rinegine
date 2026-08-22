@@ -81,157 +81,163 @@ typedef unsigned int uint;
      * @return Minimum of `num1` and `num2`.
      * @ingroup config
      */
-#define rg_min(num1, num2) (num1 < num2 ? num1 : num2)
+template <typename T>
+[[nodiscard]] inline constexpr const T& rg_min(const T& num1, const T& num2) noexcept {
+  return (num1 < num2) ? num1 : num2;
+}
+
+/**
+ * @def rg_max(num1, num2)
+ * @brief Returns the larger of two values.
+ * @param num1 First value.
+ * @param num2 Second value.
+ * @return Maximum of `num1` and `num2`.
+ * @ingroup config
+ */
+template <typename T>
+[[nodiscard]] inline constexpr const T& rg_max(const T& num1, const T& num2) noexcept {
+  return (num1 > num2) ? num1 : num2;
+}
+
+/**
+ * @def RG_FOR_CYCLEi(count)
+ * @brief Loops from `i = 0` to `i < count`.
+ * @param count Loop boundary (exclusive).
+ * @ingroup loops
+ */
+#define RG_FOR_CYCLEi(count) for (size_t i = 0; i < count; i++)
+
+ /**
+  * @def RG_FOR_CYCLEj(count)
+  * @brief Loops from `j = 0` to `j < count`.
+  * @param count Loop boundary (exclusive).
+  * @ingroup loops
+  */
+#define RG_FOR_CYCLEj(count) for (size_t j = 0; j < count; j++)
+
+  /**
+   * @def RG_FOR_CYCLEk(count)
+   * @brief Loops from `k = 0` to `k < count`.
+   * @param count Loop boundary (exclusive).
+   * @ingroup loops
+   */
+#define RG_FOR_CYCLEk(count) for (size_t k = 0; k < count; k++)
+
+   /**
+    * @def RG_FOR_CYCLEx(count)
+    * @brief Loops from `x = 0` to `x < count`.
+    * @param count Loop boundary (exclusive).
+    * @ingroup loops
+    */
+#define RG_FOR_CYCLEx(count) for (size_t x = 0; x < count; x++)
+
+    /**
+     * @def RG_FOR_CYCLEy(count)
+     * @brief Loops from `y = 0` to `y < count`.
+     * @param count Loop boundary (exclusive).
+     * @ingroup loops
+     */
+#define RG_FOR_CYCLEy(count) for (size_t y = 0; y < count; y++)
 
      /**
-      * @def rg_max(num1, num2)
-      * @brief Returns the larger of two values.
-      * @param num1 First value.
-      * @param num2 Second value.
-      * @return Maximum of `num1` and `num2`.
-      * @ingroup config
+      * @def RG_FOR_CYCLEz(count)
+      * @brief Loops from `z = 0` to `z < count`.
+      * @param count Loop boundary (exclusive).
+      * @ingroup loops
       */
-#define rg_max(num1, num2) (num1 > num2 ? num1 : num2)
+#define RG_FOR_CYCLEz(count) for (size_t z = 0; z < count; z++)
 
       /**
-       * @def RG_FOR_CYCLEi(count)
-       * @brief Loops from `i = 0` to `i < count`.
+       * @def RG_FOR_CYCLEty(type, name, count)
+       * @brief Generic forward loop with custom type and variable name.
+       * @param type Type of the loop variable (e.g., `size_t`, `int`).
+       * @param name Name of the loop variable.
        * @param count Loop boundary (exclusive).
        * @ingroup loops
        */
-#define RG_FOR_CYCLEi(count) for (int i = 0; i < count; i++)
-
-       /**
-        * @def RG_FOR_CYCLEj(count)
-        * @brief Loops from `j = 0` to `j < count`.
-        * @param count Loop boundary (exclusive).
-        * @ingroup loops
-        */
-#define RG_FOR_CYCLEj(count) for (int j = 0; j < count; j++)
-
-        /**
-         * @def RG_FOR_CYCLEk(count)
-         * @brief Loops from `k = 0` to `k < count`.
-         * @param count Loop boundary (exclusive).
-         * @ingroup loops
-         */
-#define RG_FOR_CYCLEk(count) for (int k = 0; k < count; k++)
-
-         /**
-          * @def RG_FOR_CYCLEx(count)
-          * @brief Loops from `x = 0` to `x < count`.
-          * @param count Loop boundary (exclusive).
-          * @ingroup loops
-          */
-#define RG_FOR_CYCLEx(count) for (int x = 0; x < count; x++)
-
-          /**
-           * @def RG_FOR_CYCLEy(count)
-           * @brief Loops from `y = 0` to `y < count`.
-           * @param count Loop boundary (exclusive).
-           * @ingroup loops
-           */
-#define RG_FOR_CYCLEy(count) for (int y = 0; y < count; y++)
-
-           /**
-            * @def RG_FOR_CYCLEz(count)
-            * @brief Loops from `z = 0` to `z < count`.
-            * @param count Loop boundary (exclusive).
-            * @ingroup loops
-            */
-#define RG_FOR_CYCLEz(count) for (int z = 0; z < count; z++)
-
-            /**
-             * @def RG_FOR_CYCLEty(type, name, count)
-             * @brief Generic forward loop with custom type and variable name.
-             * @param type Type of the loop variable (e.g., `size_t`, `int`).
-             * @param name Name of the loop variable.
-             * @param count Loop boundary (exclusive).
-             * @ingroup loops
-             */
 #define RG_FOR_CYCLEty(type, name, count)                                      \
   for (type name = 0; name < count; name++)
 
+       /**
+        * @def RG_FOR_CYCLE(name, count)
+        * @brief Forward loop with custom variable name (size_t).
+        * @param name Variable name (e.g., `idx`).
+        * @param count Loop boundary (exclusive).
+        * @ingroup loops
+        */
+#define RG_FOR_CYCLE(name, count) for (size_t name = 0; name < count; name++)
+
+        /**
+         * @def RG_FOR_CYCLErev(name, count)
+         * @brief Reverse loop from `name = count` down to `0` (inclusive).
+         * @param name Variable name.
+         * @param count Starting value (inclusive).
+         * @warning Includes `0` in iteration.
+         * @ingroup loops
+         */
+#define RG_FOR_CYCLErev(name, count) for (size_t name = count; name-- > 0;)
+
+         /**
+          * @def RG_RevFOR_CYCLEi(count)
+          * @brief Reverse loop with `i` from `count` to `0`.
+          * @param count Starting index.
+          * @ingroup loops
+          */
+#define RG_RevFOR_CYCLEi(count) for (size_t i = count; i-- > 0;)
+
+          /**
+           * @def RG_RevFOR_CYCLEj(count)
+           * @brief Reverse loop with `j` from `count` to `0`.
+           * @param count Starting index.
+           * @ingroup loops
+           */
+#define RG_RevFOR_CYCLEj(count) for (size_t j = count; j-- > 0;)
+
+           /**
+            * @def RG_RevFOR_CYCLEk(count)
+            * @brief Reverse loop with `k` from `count` to `0`.
+            * @param count Starting index.
+            * @ingroup loops
+            */
+#define RG_RevFOR_CYCLEk(count) for (size_t k = count; k-- > 0;)
+
+            /**
+             * @def RG_RevFOR_CYCLEx(count)
+             * @brief Reverse loop with `x` from `count` to `0`.
+             * @param count Starting index.
+             * @ingroup loops
+             */
+#define RG_RevFOR_CYCLEx(count) for (size_t x = count; x-- > 0;)
+
              /**
-              * @def RG_FOR_CYCLE(name, count)
-              * @brief Forward loop with custom variable name (int).
-              * @param name Variable name (e.g., `idx`).
-              * @param count Loop boundary (exclusive).
+              * @def RG_RevFOR_CYCLEy(count)
+              * @brief Reverse loop with `y` from `count` to `0`.
+              * @param count Starting index.
               * @ingroup loops
               */
-#define RG_FOR_CYCLE(name, count) for (int name = 0; name < count; name++)
+#define RG_RevFOR_CYCLEy(count) for (size_t y = count; y-- > 0;)
 
               /**
-               * @def RG_FOR_CYCLErev(name, count)
-               * @brief Reverse loop from `name = count` down to `0` (inclusive).
-               * @param name Variable name.
-               * @param count Starting value (inclusive).
-               * @warning Includes `0` in iteration.
+               * @def RG_RevFOR_CYCLEz(count)
+               * @brief Reverse loop with `z` from `count` to `0`.
+               * @param count Starting index.
                * @ingroup loops
                */
-#define RG_FOR_CYCLErev(name, count) for (int name = count; name >= 0; name--)
+#define RG_RevFOR_CYCLEz(count) for (size_t z = count; z-- > 0;)
 
                /**
-                * @def RG_RevFOR_CYCLEi(count)
-                * @brief Reverse loop with `i` from `count` to `0`.
-                * @param count Starting index.
+                * @def RG_RevFOR_CYCLE(type, name, count)
+                * @brief Generic reverse loop with custom type and name.
+                * @param type Type of the variable.
+                * @param name Variable name.
+                * @param count Starting value (inclusive).
                 * @ingroup loops
                 */
-#define RG_RevFOR_CYCLEi(count) for (int i = count; i >= 0; i--)
-
-                /**
-                 * @def RG_RevFOR_CYCLEj(count)
-                 * @brief Reverse loop with `j` from `count` to `0`.
-                 * @param count Starting index.
-                 * @ingroup loops
-                 */
-#define RG_RevFOR_CYCLEj(count) for (int j = count; j >= 0; j--)
-
-                 /**
-                  * @def RG_RevFOR_CYCLEk(count)
-                  * @brief Reverse loop with `k` from `count` to `0`.
-                  * @param count Starting index.
-                  * @ingroup loops
-                  */
-#define RG_RevFOR_CYCLEk(count) for (int k = count; k >= 0; k--)
-
-                  /**
-                   * @def RG_RevFOR_CYCLEx(count)
-                   * @brief Reverse loop with `x` from `count` to `0`.
-                   * @param count Starting index.
-                   * @ingroup loops
-                   */
-#define RG_RevFOR_CYCLEx(count) for (int x = count; x >= 0; x--)
-
-                   /**
-                    * @def RG_RevFOR_CYCLEy(count)
-                    * @brief Reverse loop with `y` from `count` to `0`.
-                    * @param count Starting index.
-                    * @ingroup loops
-                    */
-#define RG_RevFOR_CYCLEy(count) for (int y = count; y >= 0; y--)
-
-                    /**
-                     * @def RG_RevFOR_CYCLEz(count)
-                     * @brief Reverse loop with `z` from `count` to `0`.
-                     * @param count Starting index.
-                     * @ingroup loops
-                     */
-#define RG_RevFOR_CYCLEz(count) for (int z = count; z >= 0; z--)
-
-                     /**
-                      * @def RG_RevFOR_CYCLE(type, name, count)
-                      * @brief Generic reverse loop with custom type and name.
-                      * @param type Type of the variable.
-                      * @param name Variable name.
-                      * @param count Starting value (inclusive).
-                      * @ingroup loops
-                      */
 #define RG_RevFOR_CYCLE(type, name, count)                                     \
-  for (type name = count; name >= 0; name--)
+  for (type name = count; name-- > 0;)
 
-                      //todo
-                      // ==================== STRING & STREAM TYPE SWITCHING ====================
+                //todo
+                // ==================== STRING & STREAM TYPE SWITCHING ====================
 #ifdef RG_UTF
     /**
      * @def rg_cout
@@ -280,6 +286,7 @@ typedef unsigned int uint;
            * @ingroup unicode
            */
 #define RG_L L""
+#define RG_Lc L''
 #else
 
     /**
@@ -332,6 +339,7 @@ typedef unsigned int uint;
            * @ingroup config
            */
 #define RG_L
+#define RG_Lc
 #endif
 
            // ==================== DEBUG & TRACE MACROS ====================
@@ -348,41 +356,41 @@ typedef unsigned int uint;
 #define to_rrvalue(type) const type  // todo
 
 
-//             /**
-//              * @def RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
-//              * @brief Default reserve size for dynamic arrays (e.g., in vector growth).
-//              * @value 16
-//              * @ingroup config
-//              */
-// #ifndef RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
-// #define RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER 16
-// #endif
+            //             /**
+            //              * @def RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
+            //              * @brief Default reserve size for dynamic arrays (e.g., in vector growth).
+            //              * @value 16
+            //              * @ingroup config
+            //              */
+            // #ifndef RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER
+            // #define RG_GLOBAL_ARRAY_PUSH_RESERVE_PREDER 16
+            // #endif
 
-             /**
-              * @def RG_ERROR_STRING
-              * @brief Default error std::string placeholder.
-              * @ingroup config
-              */
+                         /**
+                          * @def RG_ERROR_STRING
+                          * @brief Default error std::string placeholder.
+                          * @ingroup config
+                          */
 #define RG_ERROR_STRING "E6filenofound"
 
-              /**
-               * @def RG_ERROR_WSTRING
-               * @brief Default wide error std::string placeholder.
-               * @ingroup unicode
-               */
+                          /**
+                           * @def RG_ERROR_WSTRING
+                           * @brief Default wide error std::string placeholder.
+                           * @ingroup unicode
+                           */
 #define RG_ERROR_WSTRING L"E6filenofound"
 
-               // other
+                           // other
 
-               // #ifndef RinegineLib
+                           // #ifndef RinegineLib
 
-               // --- Temporary counters for debugging ---
-               /**
-                * @var rg_count_temp
-                * @brief Global counter for use with `rg_count` macro.
-                * @note Intended for temporary debugging only.
-                * @ingroup debug
-                */
+                           // --- Temporary counters for debugging ---
+                           /**
+                            * @var rg_count_temp
+                            * @brief Global counter for use with `rg_count` macro.
+                            * @note Intended for temporary debugging only.
+                            * @ingroup debug
+                            */
 [[maybe_unused]] static uint rg_count_temp = 0;
 
 

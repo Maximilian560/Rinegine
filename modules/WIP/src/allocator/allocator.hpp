@@ -343,12 +343,12 @@ struct MEM_CELL {//[done or maybe it useless code idk]
 static thread_local uint32_t SYS_MEM_ID = 0;
 static thread_local uint32_t SYS_POOL_ID = 0;
 //[const by sys page size]
-inline const size_t SYS_PAGE_SIZE = low_level::get_page_size();
+inline const size_t Allocator::page_size() = low_level::get_page_size();
 inline const size_t BASE_ALLOC_PAGE_COUNT = 512;
 size_t ALLOC_PAGE_COUNT = BASE_ALLOC_PAGE_COUNT;
 //[get system mem, return system page with ready mem head]
 inline MEM_HEAD* SYS_GET_MEM(size_t bytes) {//[done it all]
-  size_t align = low_level::align_to_page(bytes, SYS_PAGE_SIZE);
+  size_t align = low_level::align_to_page(bytes, Allocator::page_size());
 #ifdef RG_SYS_WINDOWS
   MEM_HEAD* ptr = (MEM_HEAD*)VirtualAlloc(nullptr, align, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 #elif defined(RG_SYS_LINUX)
@@ -427,7 +427,7 @@ struct MEM_POOL {
   void init() {
     if (pool)return;
     RG_LOG_DEBUG("Create new pool");
-    pool = SYS_GET_MEM(SYS_PAGE_SIZE);
+    pool = SYS_GET_MEM(Allocator::page_size());
     pool->pool_id = SYS_POOL_ID++;
   }
   void destruct() {
@@ -503,7 +503,7 @@ public:
   }
   inline void* get_pool_base(void* cell_ptr) {
     // ~(PAGE_SIZE - 1) создаёт маску 0x...FFFFF000
-    return (void*)((uintptr_t)cell_ptr & ~(SYS_PAGE_SIZE - 1));
+    return (void*)((uintptr_t)cell_ptr & ~(Allocator::page_size() - 1));
   }
   //[allocate]
   void* allocate(size_t bytes) {
@@ -604,7 +604,7 @@ public:
       }
       else { // {if now_pool == nullptr}
         //[if pool isn't init, should it init -> then mem get page from size]
-        pool_array[i] = SYS_GET_MEM(std::max(bytes + sizeof(MEM_HEAD) * 2 + sizeof(MEM_TAIL) * 2 + sizeof(PoolCache), SYS_PAGE_SIZE * ALLOC_PAGE_COUNT * (i + 1)));
+        pool_array[i] = SYS_GET_MEM(std::max(bytes + sizeof(MEM_HEAD) * 2 + sizeof(MEM_TAIL) * 2 + sizeof(PoolCache), Allocator::page_size() * ALLOC_PAGE_COUNT * (i + 1)));
         pool_array[i]->pool_id = SYS_POOL_ID++;
         //[new pool it temp for return from this func. Should returned a point to some cell from pool]
         now_pool = pool_array[i];
@@ -691,14 +691,14 @@ public:
 };
 
 
-Allocator GlobalAllocator;
+Allocator Kernel::Allocator::GetDefault();
 
 //[Allocator tests]
 void Allocator_tests() {
   RG_LOG_INFO("Start Allocator tests");
   RG_LOG_INFO("Try init Allocator");
 
-  Allocator& test = GlobalAllocator;
+  Allocator& test = Kernel::Allocator::GetDefault();
   RG_LOG_INFO("Done");
   RG_LOG_INFO("Try init 20 bytes");
   char* temp = (char*)test.allocate(20);

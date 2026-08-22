@@ -2,4 +2,5 @@
 
 #include "version.h"
 #include "include.h"
+#include "main.hpp"
 #include "kernel.h"

@@ -1,4 +1,48 @@
 #pragma once
+#undef RG_HERE_FILE_NAME
+#define RG_HERE_FILE_NAME "kernel/setup"
+
+#define RG_V_MAJOR 0
+#define RG_V_MINOR 3
+#define RG_V_PATCH 0
+#define RG_V_WIP 1
+
+
+
+#ifndef UINT_MAX
+#define UINT_MAX 4294967295
+#endif
+
+// #define rg_min(num1, num2) (num1 < num2 ? num1 : num2)
+// #define rg_max(num1, num2) (num1 > num2 ? num1 : num2)
+
+#ifdef RG_UTF
+
+#define rg_cout std::wcout
+#define rg_ostrem std::wostream
+
+#define rg_cin std::wcin
+#define rg_string std::wstring
+#define rg_char wchar_t
+#define rg_to_string_(in) to_wstring(in)
+#define RG_L L""
+#else
+
+#define rg_cout std::cout
+#define rg_ostrem std::ostream
+
+#define rg_cin std::cin
+#define rg_string std::string
+#define rg_char char
+#define RG_L
+#endif
+
+
+
+#define elif else if
+
+#define to_rvalue(type) const type & //todo 
+#define to_rrvalue(type) const type //todo 
 
 
 
@@ -65,11 +109,15 @@
 
 
 namespace Rinegine{
+  void GetVersion(int& major, int& minor, int& patch, int& wip);
+  void GetVersion(int& major, int& minor, int& patch);
+  constexpr const char* VERSION = "0.3.0";
+  constexpr const char* EDITION = "Beginning";
 
-  inline void nop(...) {
+  inline void nop(...){
     __asm__ __volatile__("nop");
   }
-  inline void nop() {
+  inline void nop(){
     __asm__ __volatile__("nop");
   }
 }

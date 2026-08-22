@@ -74,6 +74,57 @@ namespace Rinegine {
           );
       }
     }
+    class Allocator {
+      struct ChainNode;
+      size_t size_of_allocate;
+      static size_t allocator_count;
+      // BYTE* current_end;
+      BYTE* next;
+      // struct {
+      BYTE* current_pool;
+      BYTE* current_end = nullptr;
+      // size_t cell_used = 0;
+    // } current;
+
+    //[sys mem id for id all of mem head]
+    public:
+      inline static thread_local uint32_t sys_mem_id = 0;
+      //[const by sys page size]
+      inline static constexpr size_t max_alloc_page_size = 1024 * 1024 * 1024;
+      // static const std::size_t cache_line_size;
+      inline static constexpr size_t base_alloc_page_count = 4096;
+      inline static size_t alloc_page_count = base_alloc_page_count;
+
+
+      // static Allocator& instance() {
+      //   alignas(Allocator) static char storage[sizeof(Allocator)];
+      //   static Allocator* actual_allocator = new (storage) Allocator();
+      //   return *actual_allocator;
+      // }
+      // inline static const size_t page_size = low_level::get_page_size();
+      static size_t page_size() {
+        static const size_t size = low_level::get_page_size(); // Инициализация при первом вызове
+        return size;
+      }
+      // static Allocator Default;
+      static Allocator& GetDefault() {
+        // Создается один раз при первом вызове. Варнинг гарантированно исчезнет.
+        static Allocator instance;
+        return instance;
+      }
+      // static Allocator& Default;
+      using value_type = BYTE;
+      template <typename U>
+      struct rebind {
+        using other = Allocator;
+      };
+      bool operator==(const Allocator&) const noexcept = default;
+      Allocator();
+      void init();
+      BYTE* allocate(size_t in);
+      void deallocate(void* ptr, size_t n = 0);
+      ~Allocator();
+    };
 
     //[mem flags]
     enum class MEM_FLAG :uint32_t {//[todo more]
@@ -133,19 +184,12 @@ namespace Rinegine {
       size_t pool_id;
       size_t id;
     };
-    //[sys mem id for id all of mem head]
-    static thread_local uint32_t SYS_MEM_ID = 0;
-    //[const by sys page size]
-    inline const size_t SYS_PAGE_SIZE = low_level::get_page_size();
-    constexpr size_t MAX_ALLOC_PAGE_SIZE = 1024 * 1024 * 1024;
-    extern const std::size_t CACHE_LINE_SIZE;
-    inline constexpr size_t BASE_ALLOC_PAGE_COUNT = 4096;
-    inline size_t ALLOC_PAGE_COUNT = BASE_ALLOC_PAGE_COUNT;
+
     // extern size_t ALLOC_PAGE_COUNT;
     //[get system mem, return system page with ready mem head]
     inline MEM_HEAD* SYS_GET_MEM(size_t bytes) {//[done it all]
 
-      size_t align = low_level::align_to_page(bytes, SYS_PAGE_SIZE);
+      size_t align = low_level::align_to_page(bytes, Allocator::page_size());
 #ifdef RG_SYS_WINDOWS
       MEM_HEAD* ptr = (MEM_HEAD*)VirtualAlloc(nullptr, align, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 #elif defined(RG_SYS_LINUX)
@@ -155,14 +199,15 @@ namespace Rinegine {
 #endif
       if (ptr == nullptr) {
         RG_LOG_LOCK_CRITICAL("Allocator: fault alloc new page");
+        // Rinegine::Kernel::Debug::addl(Rinegine::Log::CRITICAL, "Allocator: fault alloc new page", true, RG_HERE_FILE_NAME, -1);
       }
       else {
         RG_LOG_LOCK_DEBUG(std::format("ptr of pool: {:#x}", (long long)ptr));
-        RG_LOG_LOCK_MEM(std::string("ID ") + std::to_string(SYS_MEM_ID) + "; " + std::to_string(align) + " bytes of memory allocated (" + std::to_string(bytes) + " bytes were requested)");
-        RG_LOG_LOCK_MEM(std::format("ID {:d}| {:d} bytes of memory allocated ({:d} bytes were requested)", SYS_MEM_ID, align, bytes));
+        RG_LOG_LOCK_MEM(std::string("ID ") + std::to_string(Allocator::sys_mem_id) + "; " + std::to_string(align) + " bytes of memory allocated (" + std::to_string(bytes) + " bytes were requested)");
+        RG_LOG_LOCK_MEM(std::format("ID {:d}| {:d} bytes of memory allocated ({:d} bytes were requested)", Allocator::sys_mem_id, align, bytes));
         ptr->size = align;
         ptr->magic = RG_MAG_NUM;
-        ptr->id = SYS_MEM_ID++;
+        ptr->id = Allocator::sys_mem_id++;
         ptr->pool_id = 0;
         ptr->flags = static_cast<uint32_t>(MEM_FLAG::IS_USED | MEM_FLAG::IS_POOL);//[todo | i think it should changing in time some time on time or on always (sor)]
       }
@@ -171,7 +216,7 @@ namespace Rinegine {
 
     inline BYTE* SYS_GET_RAW_MEM(size_t bytes) {//[done it all]
       if (bytes == 0) [[unlikely]] return nullptr;
-      size_t align = low_level::align_to_page(bytes, SYS_PAGE_SIZE);
+      size_t align = low_level::align_to_page(bytes, Allocator::page_size());
 #ifdef RG_SYS_WINDOWS
       BYTE* ptr = (BYTE*)VirtualAlloc(nullptr, align, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 #elif defined(RG_SYS_LINUX)
@@ -180,9 +225,9 @@ namespace Rinegine {
       BYTE* ptr = nullptr;
 #endif
       if (ptr == nullptr || ptr == MAP_FAILED) {
-        RG_LOG_LOCK_CRITICAL("Allocator: fault alloc new page");
+        RG_LOG_LOCK_CRITICAL(std::format("Allocator: fault alloc new page. An attempt was made to allocate {:d} ({:d} bytes were requested", align, bytes));
       }
-      RG_LOG_LOCK_MEM(std::format("ID {:d}| {:d} bytes of memory allocated ({:d} bytes were requested)", SYS_MEM_ID, align, bytes));
+      RG_LOG_LOCK_MEM(std::format("ID {:d}| {:d} bytes of memory allocated ({:d} bytes were requested)", Allocator::sys_mem_id++, align, bytes));
       return ptr;
     }
 
@@ -276,26 +321,7 @@ namespace Rinegine {
       return (((MEM_HEAD*)ptr) - 1)->size;
     }
 
-    class Allocator {
-      struct ChainNode;
-      static BYTE* pool;
-      static BYTE* next;
-      static size_t size_of_allocate;
-      static size_t allocator_count;
-    public:
-      using value_type = BYTE;
-      template <typename U>
-      struct rebind {
-        using other = Allocator;
-      };
-      bool operator==(const Allocator&) const noexcept = default;
-      Allocator();
-      void init();
-      BYTE* allocate(size_t in);
-      void deallocate(void* ptr, size_t n = 0);
-      ~Allocator();
-    };
 
-    inline Allocator GlobalAllocator; //[TODO]
+
   }
 }

@@ -5,8 +5,8 @@ namespace Rinegine {
   namespace Kernel {
 
     // [Arrays with main arguments]
-    extern Array<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
-    extern Array<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
+    // extern Array<std::string> AMainArguments;  //TODO remove vector, set RG::Array!
+    // extern Array<std::wstring> WMainArguments; //TODO remove vector, set RG::Array!
 
     // [Flags namespace for work with flags]
 
@@ -16,9 +16,9 @@ namespace Rinegine {
     template <class type> class Matrix;
     template <class type> class Array;
     //* vars
-    extern std::string AMainFolder;
-    extern std::wstring WMainFolder;
-    extern rg_string MainFolder;
+    // inline std::string Main::AFolder;  //[TODO] remove for remove a global vars and constructors
+    // inline std::wstring Main::WFolder; //[TODO] remove for remove a global vars and constructors
+    // inline rg_string Main::Folder;     //[TODO] remove for remove a global vars and constructors
     extern uint8_t RG_D_W_L;
     // typedef void_func  void(*)(void)
 #ifndef RinegineLib

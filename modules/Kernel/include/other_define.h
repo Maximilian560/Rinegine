@@ -18,9 +18,9 @@ namespace Rinegine {
 #ifndef RinegineLib
 namespace Rinegine {
 #ifdef RG_UTF
-  Kernel::Array<std::wstring>& MainArguments = Kernel::WMainArguments; //TODO remove vector, set RG::Array!
+  Kernel::Array<std::wstring>& MainArguments = Kernel::Main::WArguments; //TODO remove vector, set RG::Array!
 #else
-  Kernel::Array<std::string>& MainArguments = Kernel::AMainArguments; //TODO remove vector, set RG::Array!
+  Kernel::Array<std::string>& MainArguments = Kernel::Main::AArguments; //TODO remove vector, set RG::Array!
 #endif
 }
 #endif

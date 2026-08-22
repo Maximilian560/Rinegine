@@ -30,13 +30,13 @@ namespace Rinegine {
     std::wstring utf8_decode(const std::string& str);
     std::string utf8_encode(const std::wstring& wstr);
 #endif //! DECODE ENCODE UNICODE
-    namespace Lock {
-      void addl(Log::Types type, std::string text, bool print,
-        std::string file, int line);
+    namespace Lock {}
+    //   void addl(Log::Types type, std::string text, bool print,
+    //     std::string file, int line);
 
-      void addl(Log::Types type, std::wstring text, bool print,
-        std::wstring file, int line); //! Lock::addl
-    }
+    //   void addl(Log::Types type, std::wstring text, bool print,
+    //     std::wstring file, int line); //! Lock::addl
+    // }
     // rg_to_string
     std::wstring to_stringw(const std::string& str);
     std::string to_stringa(const std::wstring& str);
@@ -53,83 +53,7 @@ namespace Rinegine {
 
     // POINTs
     // 2D
-    //!!! ↓outdate soon↓ !!!
-    template <class type> struct POINT2D { // [done]
-      type x = type(), y = type();
-      POINT2D() {}
-      POINT2D(type x_, type y_) : x(x_), y(y_) {}
-      POINT2D<type> operator+(POINT2D<type> p) {
-        return Kernel::POINT2D<type>(x + p.x, y + p.y);
-      } // [done]
-      POINT2D<type> operator-(POINT2D<type> p) {
-        return Kernel::POINT2D<type>(x + -p.x, y - p.y);
-      } // [done]
-      POINT2D<type>& operator+=(POINT2D<type> p) {
-        x += p.x;
-        y += p.y;
-        return *this;
-      } // [done]
-      POINT2D<type>& operator-=(POINT2D<type> p) {
-        x -= p.x;
-        y -= p.y;
-        return *this;
-      } // [done]
-      bool operator==(POINT2D<type> p) {
-        if (x == p.x && y == p.y)
-          return true;
-        return false;
-      }
-      bool operator>=(POINT2D<type> p) {
-        if (x >= p.x && y >= p.y)
-          return true;
-        return false;
-      }
-      bool operator<=(POINT2D<type> p) {
-        if (x <= p.x && y <= p.y)
-          return true;
-        return false;
-      }
-      bool operator>(POINT2D<type> p) {
-        if (x > p.x && y > p.y)
-          return true;
-        return false;
-      }
-      bool operator<(POINT2D<type> p) {
-        if (x < p.x && y < p.y)
-          return true;
-        return false;
-      }
-      type& operator[](uint i) { return (&x)[i % 2]; }
-    };
-
-    template <class type> struct POINT3D { // [todo]
-      type x = type(), y = type(), z = type();
-      bool operator==(POINT3D<type>);
-      bool operator>=(POINT3D<type>);
-      bool operator<=(POINT3D<type>);
-      bool operator>(POINT3D<type>);
-      bool operator<(POINT3D<type>);
-      type& operator=(POINT2D<type>);
-      type& operator[](uint);
-    };
-    template <class type> struct COLOR3D { // [todo]
-      type r = type(), g = type(), b = type();
-      bool operator==(COLOR3D<type>);
-      bool operator>=(COLOR3D<type>);
-      bool operator<=(COLOR3D<type>);
-      bool operator>(COLOR3D<type>);
-      bool operator<(COLOR3D<type>);
-      type& operator=(POINT2D<type>);
-      type& operator[](uint);
-    };
-    template <typename type> struct COLOR4D { // [todo]
-      type r = type(), g = type(), b = type(), a = type();
-      bool operator==(const COLOR4D<type>&);
-      bool operator!=(const COLOR4D<type>&);
-    };
-    //!!! ↑outdate soon↑ !!!
-    //!!! use vec types instead!!!
-    //!!! as example vec3<int> instead POINT3<int> and COLOR3<int>!!!
+    
     // Keys
 
     int KeyIs(int in, bool sticky);
@@ -182,7 +106,7 @@ namespace Rinegine {
     // SetColorCMD
 
     void SetColorConsole(WORD col);
-    void SetTrueColorConsole(COLOR3D<uint8_t>,
+    void SetTrueColorConsole(Kernel::vec3<uint8_t>,
       Rinegine::CONSOLE_COLOR = Rinegine::CONSOLE_COLOR::C_TEXT);      // [done,exp]
     //! SetColorCMD
     // Substring//TODO!!!!
@@ -210,7 +134,7 @@ namespace Rinegine {
       bool otherCMD = false;
     };
     int RunProgram(ConfigRunProgram conf);
-
+    
   }
 
 }// namespace Rinegine

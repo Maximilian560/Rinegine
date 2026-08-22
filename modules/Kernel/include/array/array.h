@@ -29,15 +29,24 @@ namespace Rinegine {
 
       void push_back(BYTE value);
       BYTE pop_back();
+
+      bool empty() const;
       ~RawArray();
     };
 
 
     template<class type>
-    class Array : private RawArray {
+    class Array : protected RawArray {
     public:
       //[CONSTRUCT]
       Array() = default;
+
+      Array(size_t nsize, type in) {
+        resize(nsize);
+        for (size_t i = 0; i < size(); ++i) {
+          new (Rinegine::Kernel::Util::addressof(data()[i])) type(in);
+        }
+      }
 
       Array(const Array& other) {
         resize(other.size());
@@ -67,6 +76,9 @@ namespace Rinegine {
             new (Rinegine::Kernel::Util::addressof(data()[i++])) type(item);
           }
         }
+      }
+      explicit Array(size_t capacity) {
+        resize(capacity);
       }
       //[operators]
       Array& operator=(const Array& other) {
@@ -108,7 +120,7 @@ namespace Rinegine {
         }
         return *this;
       }
-
+      inline constexpr bool empty()const { return RawArray::empty(); }
       //[main ptr]
       type* data() noexcept {
         return reinterpret_cast<type*>(RawArray::data);
@@ -137,11 +149,15 @@ namespace Rinegine {
       }
 
       //[useful ptr]
-      type* begin() noexcept { return data(); }
-      const type* begin() const noexcept { return data(); }
+      type* begin() noexcept { return reinterpret_cast<type*>(RawArray::data); }
+      const type* begin() const noexcept { return reinterpret_cast<const type*>(RawArray::data); }
 
-      type* end() noexcept { return data() + size(); }
-      const type* end() const noexcept { return data() + size(); }
+      type* end() noexcept { return reinterpret_cast<type*>(RawArray::data) + RawArray::size; }
+      const type* end() const noexcept { return reinterpret_cast<const type*>(RawArray::data) + RawArray::size; }
+
+      type& back() noexcept { return *(RawArray::data + RawArray::size - 1); }
+      const type& back() const noexcept { return *(RawArray::data + RawArray::size - 1); }
+
 
       //[resize]
       void reserve(size_t n_elements) {
@@ -152,7 +168,7 @@ namespace Rinegine {
           RawArray::reserve(n_elements * sizeof(type));
         }
         else {
-          BYTE* ndata = GlobalAllocator.allocate(nreal_size);
+          BYTE* ndata = Kernel::Allocator::GetDefault().allocate(nreal_size);
           type* new_objects = reinterpret_cast<type*>(ndata);
           size_t current_size = size();
 
@@ -161,7 +177,7 @@ namespace Rinegine {
               new (Rinegine::Kernel::Util::addressof(new_objects[i])) type(std::move(data()[i]));
               data()[i].~type();
             }
-            GlobalAllocator.deallocate(RawArray::data);
+            Kernel::Allocator::GetDefault().deallocate(RawArray::data);
           }
           RawArray::data = ndata;
           RawArray::real_size = nreal_size;
@@ -189,8 +205,43 @@ namespace Rinegine {
           }
         }
       }
+      void resize(size_t n_elements, const type& in) {
+        size_t prevsize = size();
+        size_t nsize = n_elements;
 
+        if (nsize < prevsize) {
+          if constexpr (!Rinegine::Kernel::Util::has_trivial_destructor_v<type>) {
+            for (size_t i = nsize; i < prevsize; ++i) {
+              data()[i].~type();
+            }
+          }
+          RawArray::resize(nsize * sizeof(type));
+        }
+        else if (nsize > prevsize) {
+          reserve(nsize);
+          RawArray::resize(nsize * sizeof(type));
+          type* begin = reinterpret_cast<type*>(RawArray::data) + prevsize;
+          type* end = reinterpret_cast<type*>(RawArray::data) + nsize;
+
+          if constexpr (Rinegine::Kernel::Util::has_trivial_destructor_v<type>) {
+            std::fill(begin, end, in);
+          }
+          else {
+            std::uninitialized_fill(begin, end, in);
+          }
+        }
+      }
       //[som back]
+      void push_back() {
+        size_t current_size = size();
+
+        if (current_size >= capacity()) {
+          reserve(current_size == 0 ? 1 : current_size * 2);
+        }
+        new (static_cast<void*>(Rinegine::Kernel::Util::addressof(data()[current_size]))) type(std::move(type()));
+        RawArray::size += sizeof(type);
+      }
+
       void push_back(type value) {
         size_t current_size = size();
 
@@ -214,11 +265,12 @@ namespace Rinegine {
       }
 
 
-      void pop_back() {
+      type pop_back() {
         size_t current_size = size();
+        type out = data()[current_size - 1];
         if (current_size == 0) [[unlikely]] {
           RG_LOG_CRITICAL("RG::K::Array pop_back error: array is empty");
-          return;
+          return ((type*)(RawArray::data))[0];
         }
 
         if constexpr (!Rinegine::Kernel::Util::has_trivial_destructor_v<type>) {
@@ -226,6 +278,7 @@ namespace Rinegine {
         }
 
         RawArray::size -= sizeof(type);
+        return out;
       }
 
 

@@ -10,40 +10,41 @@ namespace Rinegine {
   // TRY CATCH ERRORS
   bool RINEGINE_IS_INIT = true;
   int RG_ERROR_PROGRAM = 0;
-  const rg_string ErrorCode[]{
-      RG_L "NULL",                                             //-1
-      RG_L "Error creating window.",                           // 0
-      RG_L "Font loading error.",                              // 1
-      RG_L "Font not found.",                                  // 2
-      RG_L "Out of RAM memory.",                               // 3
-      RG_L "Symbol not found.",                                // 4
-      RG_L "GLFW initialization error.",                       // 5
-      RG_L "File not found.",                                  // 6
-      RG_L "RG_Array access error, RG_Array size = 0.",        // 7
-      RG_L "RG_Array access error, RG_Array size < [i].",      // 8
-      RG_L "RG_Array access error, RG_Array size - i > size.", // 9
-      RG_L "The loaded texture has fewer color channels supported (less than "
-           "4).",                                              // 10
-      RG_L "Incorrect use of the material creation function.", // 11
-      RG_L "RG_Matrix access error, RG_Matrix size = 0 or width < "
-           "getPoint(width).", // 12
-      RG_L "RG_LoadTexture(string path) - the wrong path was passed to the "
-           "function.",                                        // 13
-      RG_L "RG_FindPlanet(string) could not find the planet.", // 14
-      RG_L "RG_GetBlockType could not find the block.",        // 15
-      RG_L "RG_GetTexture could not find the texture.",        // 16
-  };
+
+  // const rg_string ErrorCode[]{
+  //     RG_L "NULL",                                             //-1
+  //     RG_L "Error creating window.",                           // 0
+  //     RG_L "Font loading error.",                              // 1
+  //     RG_L "Font not found.",                                  // 2
+  //     RG_L "Out of RAM memory.",                               // 3
+  //     RG_L "Symbol not found.",                                // 4
+  //     RG_L "GLFW initialization error.",                       // 5
+  //     RG_L "File not found.",                                  // 6
+  //     RG_L "RG_Array access error, RG_Array size = 0.",        // 7
+  //     RG_L "RG_Array access error, RG_Array size < [i].",      // 8
+  //     RG_L "RG_Array access error, RG_Array size - i > size.", // 9
+  //     RG_L "The loaded texture has fewer color channels supported (less than "
+  //          "4).",                                              // 10
+  //     RG_L "Incorrect use of the material creation function.", // 11
+  //     RG_L "RG_Matrix access error, RG_Matrix size = 0 or width < "
+  //          "getPoint(width).", // 12
+  //     RG_L "RG_LoadTexture(string path) - the wrong path was passed to the "
+  //          "function.",                                        // 13
+  //     RG_L "RG_FindPlanet(string) could not find the planet.", // 14
+  //     RG_L "RG_GetBlockType could not find the block.",        // 15
+  //     RG_L "RG_GetTexture could not find the texture.",        // 16
+  // };
   int TryCatch(std::function<void()> func) {
     try {
       func();
       return 0;
     }
-    catch (ErrorRinegine error) {
+    catch (Rinegine::Error error) {
       RG_ERROR_PROGRAM = error;
-      if (error != RG_OWN_ERROR) {
+      if (error != Error::RG_OWN_ERROR) {
         Kernel::Debug::no_close();
         RG_LOG_LOCK_CRITICAL(RG_L "Code = " + rg_to_string_(int(error)) +
-          RG_L ". " + ErrorCode[error]);
+          RG_L ". " + Error::Code[error]);
         RG_LOG_LOCK_INFO(RG_L "Open: " + (Kernel::Debug::log_path()));
         Kernel::Debug::update();
         Kernel::RG_CMD(Kernel::Debug::log_path().c_str());
@@ -93,44 +94,47 @@ namespace Rinegine {
     }
   }
 
-  Kernel::Array<std::string> Kernel::AMainArguments;  //TODO remove vector, set RG::Array!
-  Kernel::Array<std::wstring> Kernel::WMainArguments; //TODO remove vector, set RG::Array!
+
   // #ifdef RG_UTF
   //   std::vector<std::wstring>& MainArguments =
-  //     WMainArguments; //TODO remove vector, set RG::Array!
+  //     Main::WArguments; 
   // #else
   //   std::vector<std::string>& MainArguments =
-  //     AMainArguments; //TODO remove vector, set RG::Array!
+  //     Main::AArguments; 
   // #endif
     // INTERPOINT
   namespace Kernel {
-
+    // Kernel::Array<std::string> Main::AArguments;
+    // Kernel::Array<std::wstring> Main::WArguments;
     int InterPoint(int argc, char** argv, int (*own_main)()) {
 #if defined(RG_SYS_WINDOWS) && defined(RG_UTF)
       _setmode(_fileno(stdout), _O_U16TEXT);
       _setmode(_fileno(stdin), _O_U16TEXT);
       _setmode(_fileno(stderr), _O_U16TEXT);
 #endif
+      Rinegine::Kernel::Allocator::GetDefault().init();
       int exit_code = 0;
       RG_CATCH_ERROR{
         (void)argc;
         (void)argv;
 
         #ifdef RG_SYS_WINDOWS
-        AMainArguments.resize((size_t)argc + 1);
+        Main::AArguments.resize((size_t)argc + 1);
         for (int i = 1; i <= argc; i++) {
-          AMainArguments[i] = argv[i - 1];
+          Main::AArguments[i] = argv[i - 1];
         }
         char onearg[MAX_PATH];
         GetModuleFileNameA(NULL, onearg, MAX_PATH);
-        AMainArguments[0] = onearg;
+        Main::AArguments[0] = onearg;
         #else
-        AMainArguments.resize((size_t)argc);
+        Main::AArguments.resize((size_t)argc);
         for (int i = 0; i < argc; i++) {
-          AMainArguments[(size_t)i] = argv[i];
+          Main::AArguments[(size_t)i] = argv[i];
         }
 
         #endif
+        if(Main::AArguments.size()>0)
+          Main::InitFolder(Main::AArguments[0]);
         exit_code = own_main();
       }
       RG_ERROR_LOG;
@@ -147,32 +151,32 @@ namespace Rinegine {
       RG_CATCH_ERROR{
         #ifdef RG_SYS_WINDOWS
         if (argc >= 1) {
-          WMainArguments.resize(argc + 1);
+          Main::WArguments.resize(argc + 1);
           for (int i = 1; i <= argc; i++) {
-            WMainArguments[i] = argv[i - 1];
+            Main::WArguments[i] = argv[i - 1];
           }
-          AMainArguments.resize(argc + 1);
+          Main::AArguments.resize(argc + 1);
           for (int i = 1; i <= argc; i++) {
-            AMainArguments[i] = utf8_encode(argv[i - 1]);
+            Main::AArguments[i] = utf8_encode(argv[i - 1]);
           }
           WCHAR wonearg[MAX_PATH];
 
           GetModuleFileNameW(NULL, wonearg, MAX_PATH);
-          WMainArguments[0] = wonearg;
+          Main::WArguments[0] = wonearg;
 
           CHAR onearg[MAX_PATH];
           GetModuleFileNameA(NULL, onearg, MAX_PATH);
-          AMainArguments[0] = onearg;
+          Main::AArguments[0] = onearg;
         }
         #else
         if (argc >= 1) {
-          WMainArguments.resize((size_t)argc);
+          Main::WArguments.resize((size_t)argc);
           for (int i = 0; i < argc; i++) {
-            WMainArguments[(size_t)i] = argv[i];
+            Main::WArguments[(size_t)i] = argv[i];
           }
-          AMainArguments.resize((size_t)argc);
+          Main::AArguments.resize((size_t)argc);
           for (int i = 0; i < argc; i++) {
-            AMainArguments[(size_t)i] = utf8_encode(argv[i]);
+            Main::AArguments[(size_t)i] = utf8_encode(argv[i]);
           }
         }
         #endif
@@ -205,7 +209,7 @@ namespace Rinegine {
       size_needed, NULL, NULL);
     return strTo;
   }
-  
+
 #else
   std::wstring Kernel::utf8_decode(const std::string& str) {
     if (str.empty())
@@ -297,44 +301,6 @@ namespace Rinegine {
   }
 
 #endif //! DECODE ENCODE UNICODE
-// Lock::addl
-  namespace Kernel::Lock {
-
-    struct LogVars {
-      std::string TempError;
-      int _logs = 0;
-    }_vars;
-  }
-  // Kernel::Lock::LogVars Kernel::Lock::;
-
-  void Kernel::Lock::addl(Log::Types type, std::string text, bool print,
-    std::string file, int line) {
-    _vars.TempError += char(type);
-    _vars.TempError += bool(print);
-    _vars.TempError += (char(line >> 8 * 0));
-    _vars.TempError += (char(line >> 8 * 1));
-    _vars.TempError += (char(line >> 8 * 2));
-    _vars.TempError += (char(line >> 8 * 3));
-    _vars.TempError += text;
-    _vars.TempError += char(3);
-    _vars.TempError += file;
-    _vars.TempError += char(4);
-    _vars._logs++;
-  }
-  void Kernel::Lock::addl(Log::Types type, std::wstring text, bool print,
-    std::wstring file, int line) {
-    _vars.TempError += char(type);
-    _vars.TempError += bool(print);
-    _vars.TempError += (char(line >> 8 * 0));
-    _vars.TempError += (char(line >> 8 * 1));
-    _vars.TempError += (char(line >> 8 * 2));
-    _vars.TempError += (char(line >> 8 * 3));
-    _vars.TempError += utf8_encode(text);
-    _vars.TempError += char(3);
-    _vars.TempError += utf8_encode(file);
-    _vars.TempError += char(4);
-    _vars._logs++;
-  } //! Lock::addl
   // rg_to_string
   std::wstring Kernel::to_stringw(const std::string& str) { // std::string to std::wstring
     return Kernel::utf8_decode(str);
@@ -364,127 +330,6 @@ namespace Rinegine {
   }
 #endif
   //! rg_to_string
-
-  // POINTs
-  // 2D
-  // template <class type> bool Kernel::POINT2D<type>::operator==(POINT2D<type> p) {
-  //   if (x == p.x && y == p.y)
-  //     return true;
-  //   return false;
-  // }
-  // template <class type> bool Kernel::POINT2D<type>::operator>=(POINT2D<type> p) {
-  //   if (x >= p.x && y >= p.y)
-  //     return true;
-  //   return false;
-  // }
-  // template <class type> bool Kernel::POINT2D<type>::operator<=(POINT2D<type> p) {
-  //   if (x <= p.x && y <= p.y)
-  //     return true;
-  //   return false;
-  // }
-  // template <class type> bool Kernel::POINT2D<type>::operator>(POINT2D<type> p) {
-  //   if (x > p.x && y > p.y)
-  //     return true;
-  //   return false;
-  // }
-  // template <class type> bool Kernel::POINT2D<type>::operator<(POINT2D<type> p) {
-  //   if (x < p.x && y < p.y)
-  //     return true;
-  //   return false;
-  // }
-  // template <class type> type &Kernel::POINT2D<type>::operator[](uint i) {
-  //   return (&x)[i % 2];
-  // }
-  //! 2D
-  // 3D
-  template <class type> bool Kernel::POINT3D<type>::operator==(POINT3D<type> p) {
-    if (x == p.x && y == p.y && z == p.z)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::POINT3D<type>::operator>=(POINT3D<type> p) {
-    if (x >= p.x && y >= p.y && z >= p.z)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::POINT3D<type>::operator<=(POINT3D<type> p) {
-    if (x <= p.x && y <= p.y && z <= p.z)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::POINT3D<type>::operator>(POINT3D<type> p) {
-    if (x > p.x && y > p.y && z > p.z)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::POINT3D<type>::operator<(POINT3D<type> p) {
-    if (x < p.x && y < p.y && z < p.z)
-      return true;
-    return false;
-  }
-  template <class type> type& Kernel::POINT3D<type>::operator=(POINT2D<type> p) {
-    x = p.x;
-    y = p.y;
-    return *this;
-  }
-  template <class type> type& Kernel::POINT3D<type>::operator[](uint i) {
-    return (&x)[i % 3];
-  }
-  //! 3D
-  // !POINTs
-  // COLORs
-  // 3D
-  template <class type> bool Kernel::COLOR3D<type>::operator==(COLOR3D<type> c) {
-    if (r == c.r && g == c.g && b == c.b)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::COLOR3D<type>::operator>=(COLOR3D<type> c) {
-    if (r >= c.r && g >= c.g && b >= c.b)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::COLOR3D<type>::operator<=(COLOR3D<type> c) {
-    if (r <= c.r && g <= c.g && b <= c.b)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::COLOR3D<type>::operator>(COLOR3D<type> c) {
-    if (r > c.r && g > c.g && b > c.b)
-      return true;
-    return false;
-  }
-  template <class type> bool Kernel::COLOR3D<type>::operator<(COLOR3D<type> c) {
-    if (r < c.r && g < c.g && b < c.b)
-      return true;
-    return false;
-  }
-  template <class type> type& Kernel::COLOR3D<type>::operator=(POINT2D<type> p) {
-    r = p.x;
-    g = p.y;
-    return *this;
-  }
-  template <class type> type& Kernel::COLOR3D<type>::operator[](uint i) {
-    return (&r)[i % 3];
-  }
-  //! 3D
-  // 4D
-  template <class type>
-  bool Kernel::COLOR4D<type>::operator==(const COLOR4D<type>& c) {
-    if (r == c.r && g == c.g && b == c.b && a == c.a)
-      return true;
-    else
-      return false;
-  }
-  template <class type>
-  bool Kernel::COLOR4D<type>::operator!=(const COLOR4D<type>& c) {
-    if (r != c.r || g != c.g || b != c.b || a != c.a)
-      return true;
-    else
-      return false;
-  }
-  //! 4D
-  //! COLORs
   // Keys
   int RG_KEYS[350];
   int RG_KEYS_TEST[350];
@@ -520,7 +365,9 @@ namespace Rinegine {
     SYSTEMTIME SystemTime;
   };
   Kernel::SysTime::SysTimeVar Kernel::SysTime::_vars;
-  void Kernel::SysTime::update() { GetLocalTime(&_vars.SystemTime); }
+  void Kernel::SysTime::update() {
+    GetLocalTime(&_vars.SystemTime);
+  }
   // W
   std::wstring Kernel::SysTime::YearW() {
     return std::to_wstring(_vars.SystemTime.wYear);
@@ -712,25 +559,53 @@ namespace Rinegine {
 #endif
 
 #ifdef RG_UTF
-  rg_string Kernel::SysTime::Year() { return Kernel::SysTime::YearW(); }
-  rg_string Kernel::SysTime::Month() { return Kernel::SysTime::MonthW(); }
-  rg_string Kernel::SysTime::DayOfWeek() { return Kernel::SysTime::DayOfWeekW(); }
-  rg_string Kernel::SysTime::Day() { return Kernel::SysTime::DayW(); }
-  rg_string Kernel::SysTime::Hour() { return Kernel::SysTime::HourW(); }
-  rg_string Kernel::SysTime::Minute() { return Kernel::SysTime::MinuteW(); }
-  rg_string Kernel::SysTime::Second() { return Kernel::SysTime::SecondW(); }
+  rg_string Kernel::SysTime::Year() {
+    return Kernel::SysTime::YearW();
+  }
+  rg_string Kernel::SysTime::Month() {
+    return Kernel::SysTime::MonthW();
+  }
+  rg_string Kernel::SysTime::DayOfWeek() {
+    return Kernel::SysTime::DayOfWeekW();
+  }
+  rg_string Kernel::SysTime::Day() {
+    return Kernel::SysTime::DayW();
+  }
+  rg_string Kernel::SysTime::Hour() {
+    return Kernel::SysTime::HourW();
+  }
+  rg_string Kernel::SysTime::Minute() {
+    return Kernel::SysTime::MinuteW();
+  }
+  rg_string Kernel::SysTime::Second() {
+    return Kernel::SysTime::SecondW();
+  }
   rg_string Kernel::SysTime::Milliseconds() {
     return Kernel::SysTime::MillisecondsW();
   }
 #else
 
-  rg_string Kernel::SysTime::Year() { return Kernel::SysTime::YearA(); }
-  rg_string Kernel::SysTime::Month() { return Kernel::SysTime::MonthA(); }
-  rg_string Kernel::SysTime::DayOfWeek() { return Kernel::SysTime::DayOfWeekA(); }
-  rg_string Kernel::SysTime::Day() { return Kernel::SysTime::DayA(); }
-  rg_string Kernel::SysTime::Hour() { return Kernel::SysTime::HourA(); }
-  rg_string Kernel::SysTime::Minute() { return Kernel::SysTime::MinuteA(); }
-  rg_string Kernel::SysTime::Second() { return Kernel::SysTime::SecondA(); }
+  rg_string Kernel::SysTime::Year() {
+    return Kernel::SysTime::YearA();
+  }
+  rg_string Kernel::SysTime::Month() {
+    return Kernel::SysTime::MonthA();
+  }
+  rg_string Kernel::SysTime::DayOfWeek() {
+    return Kernel::SysTime::DayOfWeekA();
+  }
+  rg_string Kernel::SysTime::Day() {
+    return Kernel::SysTime::DayA();
+  }
+  rg_string Kernel::SysTime::Hour() {
+    return Kernel::SysTime::HourA();
+  }
+  rg_string Kernel::SysTime::Minute() {
+    return Kernel::SysTime::MinuteA();
+  }
+  rg_string Kernel::SysTime::Second() {
+    return Kernel::SysTime::SecondA();
+  }
   rg_string Kernel::SysTime::Milliseconds() {
     return Kernel::SysTime::MillisecondsA();
   }
@@ -741,7 +616,7 @@ namespace Rinegine {
   void Kernel::SetColorConsole(WORD col) {
     rg_cout << "\x1b[" + std::to_string(col) + "m";
   }
-  void Kernel::SetTrueColorConsole(Kernel::COLOR3D<uint8_t> in,
+  void Kernel::SetTrueColorConsole(Kernel::vec3<uint8_t> in,
     Rinegine::CONSOLE_COLOR type) {
     if (type == Rinegine::CONSOLE_COLOR::C_BACKGROUND)
       rg_cout << "\x1b[48;2;" << std::to_string(in.r) << ";"

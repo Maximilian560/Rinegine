@@ -26,6 +26,24 @@ namespace Rinegine::Kernel {
 
 
 #ifdef RG_SYS_WINDOWS
+	// typedef WIN32_FIND_DATA FileFindType;
+	// typedef WIN32_FIND_DATAA FileFindTypeA;
+	// typedef WIN32_FIND_DATAW FileFindTypeW;
+	struct FileFindType : public WIN32_FIND_DATA {
+		rg_string get_name() {
+			return this->cFileName;
+		}
+	};
+	struct FileFindTypeA : public WIN32_FIND_DATAA {
+		std::string get_name() {
+			return this->cFileName;
+		}
+	};
+	struct FileFindTypeW : public WIN32_FIND_DATAW {
+		std::wstring get_name() {
+			return this->cFileName;
+		}
+	};
 	// class Kernel::FileFinder {
 	// 	HANDLE hFindFile;
 	// 	WIN32_FIND_DATA findFileData; // Используем объект, а не указатель
@@ -44,15 +62,15 @@ namespace Rinegine::Kernel {
 	};
 	class FileFinderA {
 		// HANDLE hFindFile;
-	// 	WIN32_FIND_DATAA findFileData; // Используем объект, а не указатель
+	// 	FileFindType findFileData; // Используем объект, а не указатель
 	// 	bool _init = false;
 	// 	bool _eof = false;
 
 	// public:
 		bool eof();
 
-		WIN32_FIND_DATAA* init(const std::string& path);
-		WIN32_FIND_DATAA* next();
+		FileFindType* init(const std::string& path);
+		FileFindType* next();
 
 		void close();
 
@@ -67,17 +85,63 @@ namespace Rinegine::Kernel {
 	class FileFinderW {
 		// public:
 		bool eof();
-
 		WIN32_FIND_DATAW* init(const std::wstring& path);
 		WIN32_FIND_DATAW* next();
-
 		void close();
-
 		~FileFinderW();
 	};
 
 
 	// };
 
+#elif defined(RG_SYS_LINUX)
+	struct FileFindType : public dirent {
+		std::string get_name() {
+			return this->d_name;
+		}
+	};
+	// typedef dirent FileFindType;
+
+	class FileFinder {
+		DIR* dir;
+		// FileFindType entsat;
+		FileFindType* ent;
+		bool _init;
+		bool _eof;
+	public:
+		FileFinder() : dir(nullptr), _init(false), _eof(false) {}
+		bool eof();
+		FileFindType* init(const rg_string& path);
+		FileFindType* next();
+		void close();
+		~FileFinder();
+	};
+
+	class FileFinderA {
+		DIR* dir = nullptr;
+		FileFindType* ent = nullptr;
+		bool _init = false;
+		bool _eof = false;
+
+	public:
+		bool eof();
+		FileFindType* init(const std::string& path);
+		FileFindType* next();
+		void close();
+		~FileFinderA();
+	};
+
+	class FileFinderW {
+		DIR* dir = nullptr;
+		FileFindType* ent = nullptr;
+		bool _init = false;
+		bool _eof = false;
+	public:
+		bool eof();
+		FileFindType* init(const std::wstring& path);
+		FileFindType* next();
+		void close();
+		~FileFinderW();
+	};
 #endif
 }

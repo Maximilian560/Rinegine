@@ -3,9 +3,9 @@ set{
     name = example, //Имя выходного файла. На windows автоматически добавляется .exe 
     bit = 64, //Разрядность выходной программы, 32,64,all
     source = "main.cpp",//Файл с исходным кодом
-    include = "-I../Rinegine/ -I../Rinegine/include/ -I../Rinegine/vendor/include/",//Путь до заголовков
-    link = "-lrg-kernel -lrg-wip", //Аргументы линковки
-    libs = "-L../Rinegine/",//Путь до библиотек
+    include = "-I/usr/local/Rinegine -I/usr/local/Rinegine/include -I/usr/local/Rinegine/vendor/include -I/usr/local/Rinegine/vendor/include/freetype2 -I/usr/local/Rinegine/vendor/include/glad/4_6/",//Путь до заголовков
+    link = "-lrg-kernel -lrg-wip ", //Аргументы линковки
+    libs = "-L/usr/local/Rinegine -L/usr/local/Rinegine/vendor/x86_64/linux/lib/glad4_6 ",//Путь до библиотек
     flags = "-g -std=c++23", //Дополнительные флаги
     //Больше переменных в подсказках из расширения RG_Extens
   },

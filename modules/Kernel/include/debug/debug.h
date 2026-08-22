@@ -8,13 +8,13 @@
 
 namespace Rinegine {
   namespace Kernel {
-    extern uint8_t RG_D_W_L;
 
     class Debug {             // [done]
       struct DebugVars;       // [done]
       // static DebugVars _vars; // [done]
 
     public:
+      static uint8_t Log_Level;
       Debug();                                // [done]
       Debug(rg_string);                       // [done]
       static void init();                     // [done]
@@ -38,10 +38,35 @@ namespace Rinegine {
         bool = true, rg_string = rg_to_string(RG_HERE_FILE_NAME),
         int = -1); // [done]
       //*other add/addl
-      template <class string1, class string2>
-      static void addl(Log::Types = Log::DEBUG, string1 = string1(), bool = true,
-        string2 = string2(), int = -1); // [done]
-      rg_string GetLastErrorString(DWORD errorCode);
+      // template <class string1, class string2>
+      // static void addl(Log::Types = Log::DEBUG, string1 = string1(), bool = true,
+      //   string2 = string2(), int = -1); // [done]
+      // rg_string GetLastErrorString(DWORD errorCode);
+      template <typename T>
+      static void addl(Log::Types type, const T& text, bool print, rg_string file, int line) {
+        if constexpr (std::is_same_v<rg_string, std::string>) {
+          // Если системная строка обычная (char), а нам передали широкую (wchar_t)
+          if constexpr (std::is_same_v<T, std::wstring> || std::is_same_v<T, const wchar_t*>) {
+            std::wstring ws(text);
+            std::string s(ws.begin(), ws.end()); // Простая конвертация wstring -> string
+            addl(type, s, print, file, line);
+          }
+          else {
+            addl(type, rg_string(text), print, file, line);
+          }
+        }
+        else {
+          // Если системная строка широкая (wchar_t), а нам передали обычную (char)
+          if constexpr (std::is_same_v<T, std::string> || std::is_same_v<T, const char*>) {
+            std::string s(text);
+            std::wstring ws(s.begin(), s.end()); // Простая конвертация string -> wstring
+            addl(type, ws, print, file, line);
+          }
+          else {
+            addl(type, rg_string(text), print, file, line);
+          }
+        }
+      }
     }; // [done]
   }
 } // namespace Rinegine

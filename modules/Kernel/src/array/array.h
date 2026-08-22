@@ -6,9 +6,9 @@ namespace Rinegine {
     // BYTE* RawArray::data = nullptr;
     // size_t RawArray::real_size = 0;
     // size_t RawArray::size = 0;
-    RawArray::RawArray() :data(nullptr), real_size(0), size(0){};
+    RawArray::RawArray() :data(nullptr), real_size(0), size(0) {};
 
-    RawArray::RawArray(const RawArray& other):data(nullptr), real_size(0), size(0) {
+    RawArray::RawArray(const RawArray& other) :data(nullptr), real_size(0), size(0) {
       resize(other.size);
       if (size > 0) [[likely]] {
         std::memcpy(data, other.data, size);
@@ -38,7 +38,8 @@ namespace Rinegine {
     }
     RawArray& RawArray::operator=(RawArray&& other) noexcept {
       if (this == &other) [[unlikely]] return *this;
-      GlobalAllocator.deallocate(data);
+      RG_LOG_LOCK_MEM(std::format("RawArray operator=: {:d} size deallocate", RawArray::size));
+      Kernel::Allocator::GetDefault().deallocate(data);
       data = other.data;
       real_size = other.real_size;
       size = other.size;
@@ -53,10 +54,12 @@ namespace Rinegine {
         size = nsize;
       }
       else {
-        BYTE* ndata = GlobalAllocator.allocate(nreal_size);
+        RG_LOG_LOCK_MEM(std::format("RawArray resize: {:d} size allocate", RawArray::size));
+        BYTE* ndata = Kernel::Allocator::GetDefault().allocate(nreal_size);
         if (data != nullptr)
           memcpy(ndata, data, size);
-        GlobalAllocator.deallocate(data);
+        RG_LOG_LOCK_MEM(std::format("RawArray resize: {:d} size deallocate", RawArray::size));
+        Kernel::Allocator::GetDefault().deallocate(data);
         real_size = nreal_size;
         size = nsize;
         data = ndata;
@@ -65,10 +68,12 @@ namespace Rinegine {
     void RawArray::reserve(size_t nsize) {
       size_t nreal_size = low_level::align_to_cache_line(nsize);
       if (real_size < nreal_size) {
-        BYTE* ndata = GlobalAllocator.allocate(nreal_size);
+        RG_LOG_LOCK_MEM(std::format("RawArray resize: {:d} size allocate", RawArray::size));
+        BYTE* ndata = Kernel::Allocator::GetDefault().allocate(nreal_size);
         if (data != nullptr)
           memcpy(ndata, data, size);
-        GlobalAllocator.deallocate(data);
+        RG_LOG_LOCK_MEM(std::format("RawArray reserve: {:d} size deallocate", RawArray::size));
+        Kernel::Allocator::GetDefault().deallocate(data);
         real_size = nreal_size;
         data = ndata;
       }
@@ -104,6 +109,10 @@ namespace Rinegine {
     BYTE& RawArray::back() noexcept { return data[size - 1]; }
     const BYTE& RawArray::back() const noexcept { return data[size - 1]; }
 
+    bool RawArray::empty() const {
+      return !RawArray::size;
+    }
+
     void RawArray::push_back(BYTE value) {
       resize(size + 1);
       data[size - 1] = value;
@@ -115,7 +124,8 @@ namespace Rinegine {
     }
     RawArray::~RawArray() {
       if (data != nullptr) {
-        GlobalAllocator.deallocate(data);
+        RG_LOG_LOCK_MEM(std::format("RawArray delete: {:d} size deallocate", RawArray::size));
+        Kernel::Allocator::GetDefault().deallocate(data);
       }
     }
     // };

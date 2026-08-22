@@ -6,21 +6,21 @@
 #define RGLOCK_DEBUG_INLINE RG_HERE_FILE_NAME, -1
 #endif
 
-constexpr rg_string RG_TYPE_DEBUG_STRING[]{ RG_L "Critical Error", RG_L "Error",
+constexpr const rg_char* const RG_TYPE_DEBUG_STRING[]{ RG_L "Critical Error", RG_L "Error",
                                        RG_L "Warning",        RG_L "Info",
                                        RG_L "Debug",          RG_L "Memory" };
 
 namespace Rinegine::Kernel {
-#ifdef RG_SYS_WINDOWS
-  std::wstring WMainFolder = L""; // TODO
-  std::string AMainFolder = "";   // TODO
-  rg_string MainFolder = RG_L ""; // TODO
-#elif defined(RG_SYS_LINUX)
-  std::wstring WMainFolder = L""; // TODO
-  std::string AMainFolder = "";   // TODO
-  rg_string MainFolder = RG_L ""; // TODO
-#endif
-  uint8_t RG_D_W_L = 4;
+// #ifdef RG_SYS_WINDOWS
+//   std::wstring Main::WFolder = L""; // TODO
+//   std::string Main::AFolder = "";   // TODO
+//   rg_string Main::Folder = RG_L ""; // TODO
+// #elif defined(RG_SYS_LINUX)
+  // std::wstring Main::WFolder = L""; // TODO
+  // std::string Main::AFolder = "";   // TODO
+  // rg_string Main::Folder = RG_L ""; // TODO
+// #endif
+  uint8_t Debug::Log_Level = 4;
   struct Debug::DebugVars {
     std::ofstream debug;
     rg_string path;
@@ -49,7 +49,7 @@ namespace Rinegine::Kernel {
     if (DebugVars_safe_get().INIT)
       return;
     DebugVars_safe_get().INIT = true;
-    rg_string pathFol = MainFolder + pat;
+    rg_string pathFol = Main::Folder + pat;
     if (!CreateFolder(pathFol)) {
       addl(Log::WARNING, RG_L "Log folder missing, folder creation error");
       pathFol.clear();
@@ -107,7 +107,7 @@ namespace Rinegine::Kernel {
     }
     else
       update();
-    throw(RG_OWN_ERROR);
+    throw(Error::RG_OWN_ERROR);
     __builtin_unreachable();
   }
   // set up to not close program after critical error
@@ -126,10 +126,10 @@ namespace Rinegine::Kernel {
   void Debug::add(rg_string tex, Log::Types type, bool print,
     rg_string file, int line) {
     if (!RINEGINE_IS_INIT) {
-      Lock::addl(type, tex, print, file, line);
-      return;
+      // Lock::addl(type, tex, print, file, line);
+      throw "Rinegine isn't init\n";
     }
-    if (type > RG_D_W_L)
+    if (type > Log_Level)
       return;
     rg_string text;
     if (DebugVars_safe_get().oldType != type)
@@ -201,11 +201,11 @@ namespace Rinegine::Kernel {
   }
   // other
   /// overloaded to add to error buffer
-  template <class string1, class string2>
-  void Debug::add(string1 tex, Log::Types type, bool print, string2 file,
-    int line) {
-    add(rg_to_string(tex), type, print, rg_to_string(file), line);
-  }
+  // template <class string1, class string2>
+  // void Debug::add(string1 tex, Log::Types type, bool print, string2 file,
+  //   int line) {
+  //   add(rg_to_string(tex), type, print, rg_to_string(file), line);
+  // }
   // ADDL
   // special
   /// main addl to error buffer
@@ -215,11 +215,11 @@ namespace Rinegine::Kernel {
   }
   // other
   /// overloaded addl to error buffer
-  template <class string1, class string2>
-  void Debug::addl(Log::Types type, string1 text, bool print,
-    string2 file, int line) {
-    addl(type, rg_to_string(text), print, rg_to_string(file), line);
-  }
+  // template <class string1, class string2>
+  // void Debug::addl(Log::Types type, string1 text, bool print,
+  //   string2 file, int line) {
+  //   addl(type, rg_to_string(text), print, rg_to_string(file), line);
+  // }
   /*
     //------------------------------------------------\\
                   |GetLastErrorString|

@@ -12,7 +12,7 @@ namespace Rinegine {
       virtual void init(size_t nsize) {
         if (data) { RG_LOG_ERROR(std::format("RawArray error: mem already init"));return; }
         else {
-          data = GlobalAllocator.allocate(nsize);
+          data = Kernel::Allocator::GetDefault().allocate(nsize);
           if (MEM_CELL_TEST(data)) {
             RG_LOG_CRITICAL("RawArray error: init failed");
           }
@@ -25,11 +25,11 @@ namespace Rinegine {
           if (!data)init(nsize);
           else {
           }
-          GlobalAllocator.reallocate(data, nsize);
+          Kernel::Allocator::GetDefault().reallocate(data, nsize);
         }
       }
       inline void clear() {
-        GlobalAllocator.deallocate(data);
+        Kernel::Allocator::GetDefault().deallocate(data);
         _size = 0;
       }
       virtual ~RawArray() {

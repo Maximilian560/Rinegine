@@ -23,3 +23,5 @@ vendor/include/*
 !vendor/src/glfw
 vendor/.venv/
 modules/Kernel/include/kernel old.h
+*.o
+*.obj
