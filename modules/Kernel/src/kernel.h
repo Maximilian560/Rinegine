@@ -2,9 +2,9 @@
 #undef RG_HERE_FILE_NAME
 #define RG_HERE_FILE_NAME "kernel/kernel"
 
-#ifndef RG_DEBUG
-#define RG_DEBUG
-#endif
+// #ifndef RG_DEBUG
+// #define RG_DEBUG
+// #endif
 
 #include "defined/set.h"
 #include "convert/set.h"

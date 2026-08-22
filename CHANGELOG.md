@@ -2,6 +2,22 @@
 
 ## FIX
 
+> Fixed a critical error causing debug mode to be forcibly enabled
+
+- Отключен принудительный режим отладки
+
+> Significant speedup of the allocator and the classes/structures that use it. Improvement of the RG::K::LIST class
+
+- Ускорен аллокатор путём удаления лишнего логирования
+
+- Убраны предупреждения из earlyinit (были с флагом -Wglobal-constructors)
+
+- Исправлена вложенность include/src которая могла путать
+
+- Исправлено множество ошибок с неправильным порядком инициализации и деинициализации  
+
+- Слегка изменён rg_max и rg_min (может сломать код [WIP])  
+
 > hot fix, list and vec update
 
 - Исправлен файл аллокатора, из-за которого была ошибка компиляции
@@ -49,6 +65,14 @@
 - Немного подправлен файл WIP.h в модуле WIP  
 
 ## ADD
+
+> Significant speedup of the allocator and the classes/structures that use it. Improvement of the RG::K::LIST class
+
+- Добавлен класс Iterator для класса RG::K::LIST. Нужен для range-based цикла.
+
+- Добавлено логирование в RawArray при аллокациях. (Временное решение. Вскоре, вероятно, уберу)
+
+- Добавлена логика поиска папок для линукса (RG::K::FileFinder [WIP])  
 
 > hot fix, list and vec update
 
@@ -131,6 +155,12 @@ RG::K::Flags::has(var_flag,flag) - проверяет есть ли флаг fla
 - Были веременно отключены src реализации в WIP модуле
 
 ## CHANGED
+
+> Significant speedup of the allocator and the classes/structures that use it. Improvement of the RG::K::LIST class  
+
+- Переделана архитектура логировщика. Вместа глоабльной RG_D_W_L теперь статическая RG::K::Debug::Log_Level
+
+- Переделана архитектура аллокаторы. Многие глоабльные переменные теперь являются статическими у класса RG::K::Allocator
 
 > Array, Allocator and Early init update
 
