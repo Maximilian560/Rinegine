@@ -2,6 +2,10 @@
 
 ## FIX
 
+> List fix  
+
+- Исправлена очистка Rinegine::Kernel::List::clear()
+
 > Fixed a critical error causing debug mode to be forcibly enabled
 
 - Отключен принудительный режим отладки

@@ -61,17 +61,15 @@ namespace Rinegine::Kernel {
     }
     template <typename U = T>
     int clear() requires Util::has_trivial_destructor_v<U> {
-      NODE<T>* tmp = head;
+      NODE<T>* tmp = head; //начать с головы
       while (tmp != nullptr) {
         NODE<T>* next = tmp->next;
-        tmp = next;
         Rinegine::Kernel::Allocator::GetDefault().deallocate(tmp);
+        tmp = next;
       }
-      Rinegine::Kernel::Allocator::GetDefault().deallocate(head);
       head = nullptr;
       _end = nullptr;
       count = 0;
-      // Rinegine::Kernel::Allocator::GetDefault().clear();//[todo] Before creating a normal allocator
       return 0;
     }
     template <typename U = T>
@@ -80,14 +78,12 @@ namespace Rinegine::Kernel {
       while (tmp != nullptr) {
         NODE<T>* next = tmp->next;
         tmp->data.~T();
-        tmp = next;
         Rinegine::Kernel::Allocator::GetDefault().deallocate(tmp);
+        tmp = next;
       }
-      Rinegine::Kernel::Allocator::GetDefault().deallocate(head);
       head = nullptr;
       _end = nullptr;
       count = 0;
-      // Rinegine::Kernel::Allocator::GetDefault().clear();//[todo] Before creating a normal allocator
       return 0;
     }
     //[PUSH]
