@@ -1,0 +1,3 @@
+#pragma once
+#define RINEGINE_ADDONS
+#include "../modules/Addons/include/set.h"

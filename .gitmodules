@@ -1,0 +1,10 @@
+[submodule "vendor/include/stb"]
+	path = vendor/include/stb
+	url = https://github.com/nothings/stb.git
+[submodule "vendor/src/glfw"]
+	path = vendor/src/glfw
+	url = https://github.com/glfw/glfw.git
+	branch = latest
+[submodule "vendor/src/freetype"]
+	path = vendor/src/freetype
+	url = https://github.com/freetype/freetype.git

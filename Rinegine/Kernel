@@ -1,0 +1,3 @@
+#pragma once
+#define RINEGINE_KERNEL
+#include "../modules/Kernel/include/set.h"

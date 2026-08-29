@@ -1,0 +1,3 @@
+#pragma once
+#define RINEGINE_GRAPHICS
+#include "../modules/Graphics/include/set.hpp"
